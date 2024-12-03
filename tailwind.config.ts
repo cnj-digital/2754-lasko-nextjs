@@ -11,6 +11,12 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        green: {
+          500: "#55A03E",
+        },
+      },
+      fontFamily: {
+        raleway: ["var(--font-raleway)", "sans-serif"],
       },
     },
   },
