@@ -1,20 +1,7 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 import { Raleway } from "next/font/google";
 import Menu from "@/components/Menu";
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
 
 const raleway = Raleway({
   subsets: ["latin"],
@@ -35,7 +22,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${raleway.variable} antialiased`}
+        className={` ${raleway.variable} antialiased bg-white `}
+        style={{
+          backgroundImage: 'url("bg.jpg")',
+          backgroundSize: "1920px 912px",
+        }}
       >
         <Menu />
         {children}

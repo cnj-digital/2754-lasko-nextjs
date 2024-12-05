@@ -1,16 +1,23 @@
 import React from "react";
 import ButtonSolid from "./Buttons/Solid";
+import { LuChevronRight } from "react-icons/lu";
 
 type HeroProps = {
   title: string;
   cta?: string;
   backgroundUrl: string;
   isVideo?: boolean;
+  banner?: {
+    title: string;
+    cta: string;
+    image: string;
+    background: string;
+  };
 };
 
 const Hero = ({ title, cta, backgroundUrl, isVideo = false }: HeroProps) => {
   return (
-    <section className="relative h-screen w-full overflow-hidden max-w-[1512px] rounded-b-3xl ">
+    <section className="relative w-full overflow-hidden max-w-8xl rounded-b-3xl aspect-[1.74] ">
       {isVideo ? (
         <video
           autoPlay
@@ -36,7 +43,18 @@ const Hero = ({ title, cta, backgroundUrl, isVideo = false }: HeroProps) => {
           {title}
         </h1>
 
-        {cta && <ButtonSolid title={cta} url="/explore" />}
+        {cta && (
+          <ButtonSolid
+            title={cta}
+            url="/explore"
+            icon={
+              <LuChevronRight
+                className="text-white group-hover:translate-x-2 transition-transform "
+                size={24}
+              />
+            }
+          />
+        )}
       </div>
     </section>
   );
