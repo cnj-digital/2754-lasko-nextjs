@@ -3,7 +3,7 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import cx from "classnames";
 import { isExternalLink } from "@/helpers/general";
-import { LuArrowUpRight, LuChevronDown } from "react-icons/lu";
+import Chevron from "./Icons/Chevron";
 
 const Menu = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -21,7 +21,7 @@ const Menu = () => {
     },
     {
       title: "Podpiramo",
-      url: "#",
+      url: "/podpiramo",
     },
     {
       title: "Spletna trgovina",
@@ -71,7 +71,9 @@ const Menu = () => {
                 )}
               >
                 <span>{item.title}</span>
-                {isExternalLink(item.url) && <LuArrowUpRight size={24} />}
+                {isExternalLink(item.url) && (
+                  <Chevron className="text-white group-hover:translate-x-2 transition-transform size-8 " />
+                )}
               </Link>
             ))}
           </div>
@@ -83,10 +85,7 @@ const Menu = () => {
           >
             <button className="text-white hover:text-gray-300 px-6 py-2 flex items-center justify-between gap-2 font-medium ">
               <span className="flex-shrink-0 text-xl min-w-8">SI</span>
-              <LuChevronDown
-                size={18}
-                className={cx("transition", langMenu ? "rotate-180" : "")}
-              />
+              <Chevron className="text-white group-hover:translate-x-2 transition-transform size-6 rotate-90" />
             </button>
             <div className="">
               {langMenu && (

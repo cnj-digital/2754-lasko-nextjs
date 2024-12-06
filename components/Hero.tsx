@@ -1,6 +1,6 @@
 import React from "react";
 import ButtonSolid from "./Buttons/Solid";
-import { LuChevronRight } from "react-icons/lu";
+import Chevron from "./Icons/Chevron";
 
 type HeroProps = {
   title: string;
@@ -39,7 +39,7 @@ const Hero = ({ title, cta, backgroundUrl, isVideo = false }: HeroProps) => {
       <div className="absolute inset-0 bg-black/30" />
 
       <div className="relative h-full max-w-7xl mx-auto px-4 flex flex-col justify-end pb-32 items-start">
-        <h1 className="text-4xl md:text-6xl font-bold text-white max-w-2xl mb-10">
+        <h1 className="text-4xl md:text-6xl font-bold text-white max-w-3xl font-neutraface mb-10">
           {title}
         </h1>
 
@@ -48,10 +48,7 @@ const Hero = ({ title, cta, backgroundUrl, isVideo = false }: HeroProps) => {
             title={cta}
             url="/explore"
             icon={
-              <LuChevronRight
-                className="text-white group-hover:translate-x-2 transition-transform "
-                size={24}
-              />
+              <Chevron className="text-white group-hover:translate-x-2 transition-transform size-6 " />
             }
           />
         )}

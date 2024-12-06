@@ -2,6 +2,14 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Raleway } from "next/font/google";
 import Menu from "@/components/Menu";
+import localFont from "next/font/local";
+import Footer from "@/components/Footer";
+
+const neutrafaceDisplay = localFont({
+  src: "./fonts/Neutraface_Display-Titling.woff2",
+  variable: "--font-Neutraface-Display",
+  weight: "100 900",
+});
 
 const raleway = Raleway({
   subsets: ["latin"],
@@ -22,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={` ${raleway.variable} antialiased bg-white `}
+        className={` ${raleway.variable} ${neutrafaceDisplay.variable} antialiased bg-white `}
         style={{
           backgroundImage: 'url("bg.jpg")',
           backgroundSize: "1920px 912px",
@@ -30,6 +38,7 @@ export default function RootLayout({
       >
         <Menu />
         {children}
+        <Footer />
       </body>
     </html>
   );

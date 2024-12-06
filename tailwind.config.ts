@@ -14,7 +14,13 @@ export default {
         green: {
           400: "#55A03E",
           500: "#449935",
+          700: "#1B5F0A",
+          800: "#044A16",
         },
+        gray: { 600: "#484848" },
+      },
+      borderRadius: {
+        "4xl": "2rem",
       },
       maxWidth: {
         "7xl": "1108px",
@@ -26,6 +32,7 @@ export default {
       },
       fontFamily: {
         raleway: ["var(--font-raleway)", "sans-serif"],
+        neutraface: ["var(--font-Neutraface-Display)", "sans-serif"],
       },
     },
   },

@@ -1,3 +1,4 @@
+import CardsCta from "@/components/CardsCta";
 import ExternalLinks from "@/components/ExternalLinks";
 import Hero from "@/components/Hero";
 import NewsSection from "@/components/NewsSection";
@@ -46,10 +47,56 @@ export default function Home() {
             tagline: "dogajanje",
             image: "/placeholders/news.png",
           },
+          {
+            title: "title",
+            tagline: "dogajanje",
+            image: "/placeholders/news.png",
+          },
+          {
+            title: "title",
+            tagline: "dogajanje",
+            image: "/placeholders/news.png",
+          },
+          {
+            title: "title",
+            tagline: "dogajanje",
+            image: "/placeholders/news.png",
+          },
+          {
+            title: "title",
+            tagline: "dogajanje",
+            image: "/placeholders/news.png",
+          },
+          {
+            title: "title",
+            tagline: "dogajanje",
+            image: "/placeholders/news.png",
+          },
+          {
+            title: "title",
+            tagline: "dogajanje",
+            image: "/placeholders/news.png",
+          },
         ]}
       />
-      {/* /filler */}
-      <div className="max-w-7xl mx-auto px-4 py-8 h-[1200px]" />
+      <CardsCta
+        cards={[
+          {
+            title: "Spoznaj naše pivo",
+            copy: "Nabor piv, polnjenih v Laškem.",
+            cta: "Razišči",
+            url: "url",
+            image: "/placeholders/beer.png",
+          },
+          {
+            title: "Spoznaj naše pivo",
+            copy: "Nabor piv, polnjenih v Laškem.",
+            cta: "Razišči",
+            url: "url",
+            image: "/placeholders/beer.png",
+          },
+        ]}
+      />
     </div>
   );
 }

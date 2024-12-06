@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LuChevronRight } from "react-icons/lu";
+import Chevron from "../Icons/Chevron";
 
 type CardGreenHorizontalProps = {
   url: string;
@@ -27,7 +27,7 @@ export default function CardGreenHorizontal({
         className="object-contain w-2/6 absolute left-20 mix-blend-luminosity group-hover:scale-110 transition-transform"
       />
       <span className="text-2xl text-white font-black mr-8">{title}</span>
-      <LuChevronRight size={32} />
+      <Chevron className="text-white group-hover:translate-x-2 transition-transform size-10 " />
     </Link>
   );
 }
