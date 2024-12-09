@@ -1,5 +1,6 @@
 import CardGreenHorizontal from "./Cards/GreenHorizontal";
 import CardMedium from "./Cards/Medium";
+import Container from "./Container";
 
 type ExternalLinksProps = {
   title?: string;
@@ -22,7 +23,7 @@ export default function ExternalLinks({
   pageLinks,
 }: ExternalLinksProps) {
   return (
-    <section className=" max-w-7xl mx-auto py-20">
+    <Container className=" py-20">
       {title && (
         <h2 className="text-5xl font-neutraface font-black  leading-tight text-green-800">
           {title}
@@ -32,7 +33,7 @@ export default function ExternalLinks({
         <p className=" text-black mt-3 mb-10  font-semibold text-xl">{copy}</p>
       )}
       {pageLinks && pageLinks.length > 0 && (
-        <div className="grid lg:grid-cols-2 gap-10 mb-10 ">
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-10 mb-10 ">
           {pageLinks.map((link, i) => (
             <CardGreenHorizontal
               key={i}
@@ -48,6 +49,6 @@ export default function ExternalLinks({
           <CardMedium key={i} image={link.image} url={link.url} />
         ))}
       </div>
-    </section>
+    </Container>
   );
 }

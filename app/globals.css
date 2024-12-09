@@ -19,3 +19,8 @@ body {
   background: var(--background);
   font-family: var(--font-raleway), Arial, Helvetica, sans-serif;
 }
+
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
+}

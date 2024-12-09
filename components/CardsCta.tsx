@@ -1,4 +1,5 @@
 import CardCta from "./Cards/Cta";
+import Container from "./Container";
 
 type CardsCtaProps = {
   cards: {
@@ -12,7 +13,7 @@ type CardsCtaProps = {
 
 export default function CardsCta({ cards }: CardsCtaProps) {
   return (
-    <section className="pt-36 pb-32 flex max-w-7xl mx-auto gap-10 w-full">
+    <Container className="pt-36 pb-32 grid lg:grid-cols-2 gap-10 w-full">
       {cards.map((card, i) => (
         <CardCta
           key={i}
@@ -23,6 +24,6 @@ export default function CardsCta({ cards }: CardsCtaProps) {
           image={card.image}
         />
       ))}
-    </section>
+    </Container>
   );
 }

@@ -1,9 +1,8 @@
 import Link from "next/link";
-import FacebookIcon from "./Icons/Facebook";
-import InstagramIcon from "./Icons/Instagram";
-import XIcon from "./Icons/X";
-import YouTubeIcon from "./Icons/Youtube";
+
 import { isExternalLink } from "@/helpers/general";
+import Socials from "./Socials";
+import Container from "./Container";
 
 export default function Footer() {
   const navigationLinks = {
@@ -81,21 +80,6 @@ export default function Footer() {
     },
   ];
 
-  const getSocialIcon = (title: string) => {
-    switch (title) {
-      case "Facebook":
-        return <FacebookIcon />;
-      case "Instagram":
-        return <InstagramIcon />;
-      case "Twitter":
-        return <XIcon />;
-      case "Youtube":
-        return <YouTubeIcon />;
-      default:
-        return null;
-    }
-  };
-
   return (
     <footer className="relative pt-40">
       <img
@@ -103,49 +87,53 @@ export default function Footer() {
         className="absolute h-[205px] top-6 left-0 right-0 mx-auto z-10"
       />
       <div
-        className="relative max-w-8xl w-full mx-auto pb-32 pt-40 bg-bottom rounded-t-3xl h-[560px]"
+        className="relative max-w-8xl w-full mx-auto pb-32 pt-40 bg-bottom rounded-t-3xl lg:h-[560px]"
         style={{
           backgroundImage: 'url("footer.jpg")',
           backgroundSize: "1512px",
         }}
       >
-        <div className=" rounded-3xl px-8 pt-6 pb-10 bg-black bg-opacity-55 backdrop-blur-sm max-w-7xl mx-auto">
-          <div className="grid grid-cols-4 gap-10">
-            {Object.keys(navigationLinks).map((column, index) => (
-              <div key={index} className="flex flex-col gap-2">
-                {navigationLinks[column as keyof typeof navigationLinks].map(
-                  (link, linkIndex) => (
-                    <Link
-                      key={linkIndex}
-                      href={link.url}
-                      target={isExternalLink(link.url) ? "_blank" : "_self"}
-                      rel={
-                        isExternalLink(link.url) ? "noopener noreferrer" : ""
-                      }
-                      className="text-white"
-                    >
-                      {link.title}
-                    </Link>
-                  )
-                )}
-              </div>
-            ))}
-          </div>
-          <div className="mt-20 grid grid-cols-3 items-end">
-            <p className="text-xs max-w-48">{copyright}</p>
-            <div className=" justify-center items-center flex flex-col">
-              <p className="text-sm font-semibold mx-auto">{socialsTitle}</p>
-              <div className="flex gap-3 mt-3">
-                {socials.map((social, index) => (
-                  <Link key={index} href={social.url} target="_blank">
-                    {getSocialIcon(social.title)}
-                  </Link>
-                ))}
-              </div>
+        <Container className="">
+          <div className=" rounded-3xl px-8 pt-6 pb-10 bg-black bg-opacity-55 backdrop-blur-sm ">
+            <Socials
+              socialsTitle={socialsTitle}
+              socials={socials}
+              className="flex lg:hidden mb-10"
+            />
+            <div className="grid lg:grid-cols-4 gap-10">
+              {Object.keys(navigationLinks).map((column, index) => (
+                <div key={index} className="flex flex-col gap-2 justify-center">
+                  {navigationLinks[column as keyof typeof navigationLinks].map(
+                    (link, linkIndex) => (
+                      <Link
+                        key={linkIndex}
+                        href={link.url}
+                        target={isExternalLink(link.url) ? "_blank" : "_self"}
+                        rel={
+                          isExternalLink(link.url) ? "noopener noreferrer" : ""
+                        }
+                        className="text-white text-center"
+                      >
+                        {link.title}
+                      </Link>
+                    )
+                  )}
+                </div>
+              ))}
             </div>
-            <CNJLink />
+            <div className="mt-10 lg:mt-20 grid lg:grid-cols-3 items-end">
+              <p className="text-xs text-center lg:text-left text-balance  lg:max-w-48">
+                {copyright}
+              </p>
+              <Socials
+                socialsTitle={socialsTitle}
+                socials={socials}
+                className="hidden lg:flex"
+              />
+              <CNJLink />
+            </div>
           </div>
-        </div>
+        </Container>
       </div>
     </footer>
   );
@@ -153,7 +141,10 @@ export default function Footer() {
 
 function CNJLink() {
   return (
-    <Link href="https://www.cnj.si/" className="ml-auto">
+    <Link
+      href="https://www.cnj.si/"
+      className="mr-auto lg:mr-0 mt-6 lg:mt-0 ml-auto"
+    >
       <svg
         width="107"
         height="25"

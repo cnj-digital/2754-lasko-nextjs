@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={` ${raleway.variable} ${neutrafaceDisplay.variable} antialiased bg-white `}
+        className={` ${raleway.variable} ${neutrafaceDisplay.variable} antialiased bg-white min-h-screen `}
         style={{
           backgroundImage: 'url("bg.jpg")',
           backgroundSize: "1920px 912px",

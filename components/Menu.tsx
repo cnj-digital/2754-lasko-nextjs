@@ -3,13 +3,15 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import cx from "classnames";
 import { isExternalLink } from "@/helpers/general";
-import Chevron from "./Icons/Chevron";
 import ArrowIcon from "./Icons/Arrow";
+import LangMenu from "./Menu/LangMenu";
+import Container from "./Container";
+import MenuIcon from "./Icons/Menu";
+import MobileMenu from "./Menu/MobileMenu";
 
 const Menu = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [langMenu, setLangMenu] = useState(false);
 
   const items = [
     {
@@ -30,6 +32,44 @@ const Menu = () => {
     },
   ];
 
+  const externalLinks = [
+    {
+      image: "/placeholders/pivocvetje.png",
+      title: "Pivo in cvetje",
+      url: "https://www.pivoincvetje.si/",
+    },
+    {
+      image: "/placeholders/gremo.png",
+      title: "Gremo v hribe",
+      url: "https://www.gremo.org/",
+    },
+    {
+      image: "/placeholders/pohor.png",
+      title: "Pohorski smuk",
+      url: "https://www.pohorje.org/",
+    },
+  ];
+
+  const socialsTitle = "Sledite nam";
+  const socials = [
+    {
+      title: "Facebook",
+      url: "https://www.facebook.com/",
+    },
+    {
+      title: "Instagram",
+      url: "https://www.instagram.com/",
+    },
+    {
+      title: "Twitter",
+      url: "https://twitter.com/",
+    },
+    {
+      title: "Youtube",
+      url: "https://www.youtube.com/",
+    },
+  ];
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -45,21 +85,20 @@ const Menu = () => {
       }`}
     >
       <div className="absolute z-0 w-full h-full bg-gradient-to-b from-black/60 to-transparent" />
-      <div className="relative max-w-7xl mx-auto px-4">
-        <nav className="flex items-center py-2.5 ">
-          {/* Logo */}
-          <Link href="/" className=" w-[140px]">
+      <Container className="w-full">
+        <nav className="flex justify-center lg:justify-start items-center py-2.5 ">
+          <Link href="/" className=" w-24 lg:w-[140px] order-2 lg:order-1">
             <img
               src="logo.png"
               alt="Logo"
-              className={`transition-all duration-300  ${
-                isScrolled ? "h-[80px]" : "h-[120px]"
-              }`}
+              className={cx(
+                "transition-all duration-300",
+                isScrolled ? " h-[60px] lg:h-[80px] " : "h-[120px]"
+              )}
             />
           </Link>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-6  ml-20">
+          <div className="hidden md:flex items-center space-x-6 relative  ml-20 order-2">
             {items.map((item, i) => (
               <Link
                 key={i}
@@ -78,58 +117,25 @@ const Menu = () => {
             ))}
           </div>
 
-          {/* Language Selector */}
-          <div
-            className="hidden md:block ml-auto  bg-black bg-opacity-30 hover:bg-opacity-50 rounded-xl relative "
-            onClick={() => setLangMenu(!langMenu)}
-          >
-            <button className="text-white hover:text-gray-300 px-6 py-2 flex items-center justify-between gap-2 font-medium ">
-              <span className="flex-shrink-0 text-xl min-w-8">SI</span>
-              <Chevron className="text-white group-hover:translate-x-2 transition-transform size-6 rotate-90" />
-            </button>
-            <div className="">
-              {langMenu && (
-                <div className="absolute mt-2 overflow-hidden rounded-xl text-xl right-0 divide-y-1 w-[142px]">
-                  <button className="block text-white px-4 py-2 border-b bg-black bg-opacity-30 hover:bg-opacity-50 border-b-white border-opacity-50 w-full text-left font-medium">
-                    SI
-                  </button>
-                  <button className="block text-white px-4 py-2 bg-black bg-opacity-30 hover:bg-opacity-50 border-b-white border-opacity-50 w-full text-left font-medium">
-                    EN
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
+          <LangMenu className="order-1 lg:order-3 mr-auto lg:mr-0 lg:ml-auto" />
 
-          {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-white"
+            className="md:hidden text-white order-3 ml-auto relative "
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            {/* <Menu size={24} /> */}
-            menu
+            <MenuIcon className="size-8" />
           </button>
         </nav>
 
-        {/* Mobile Menu Modal */}
-        {isMenuOpen && (
-          <div className="fixed inset-0 bg-black/95 z-50 md:hidden">
-            <div className="flex flex-col items-center justify-center h-full space-y-8">
-              {items.map((item, i) => (
-                <Link key={i} href={item.url}>
-                  {item.title}
-                </Link>
-              ))}
-              <button
-                className="absolute top-4 right-4 text-white"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                ✕
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
+        <MobileMenu
+          isOpen={isMenuOpen}
+          onClose={() => setIsMenuOpen(false)}
+          items={items}
+          externalLinks={externalLinks}
+          socialsTitle={socialsTitle}
+          socials={socials}
+        />
+      </Container>
     </header>
   );
 };

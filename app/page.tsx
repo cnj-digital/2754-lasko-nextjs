@@ -1,12 +1,12 @@
 import CardsCta from "@/components/CardsCta";
 import ExternalLinks from "@/components/ExternalLinks";
-import Hero from "@/components/Hero";
+import HeroLanding from "@/components/HeroLanding";
 import NewsSection from "@/components/NewsSection";
 
 export default function Home() {
   return (
     <div className="flex flex-col items-center">
-      <Hero
+      <HeroLanding
         backgroundUrl="/placeholders/hero-lasko.mp4"
         title="Laško music: Živi ritem zelenega srca!"
         cta="Razišči"

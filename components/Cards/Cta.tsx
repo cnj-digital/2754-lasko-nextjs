@@ -19,9 +19,9 @@ export default function CardCta({
   return (
     <Link
       href={url}
-      className="relative bg-white rounded-3xl shadow-card w-2/5 first:w-3/5 flex-shrink hover:w-3/5 transition-all group h-[400px]"
+      className="relative bg-white rounded-3xl overflow-hidden lg:overflow-visible shadow-card lg:w-2/5 lg:first:w-3/5 flex-shrink hover:w-3/5 transition-all group h-[460px] lg:h-[400px]"
     >
-      <div className="p-8 h-full flex flex-col max-w-sm items-start">
+      <div className="p-8 lg:h-full flex flex-col max-w-sm items-start">
         <h3 className=" font-neutraface text-[40px] text-green-800 leading-tight">
           {title}
         </h3>
@@ -29,7 +29,7 @@ export default function CardCta({
           {copy}
         </p>
 
-        <button className="relative mt-auto flex rounded-xl pl-6 pr-2 py-2 items-center overflow-hidden border-2 group-hover:border-transparent transition text-gray-600 group-hover:text-white  border-gray-600 text-left">
+        <button className="hidden relative mt-auto lg:flex rounded-xl pl-6 pr-2 py-2 items-center overflow-hidden border-2 group-hover:border-transparent transition text-gray-600 group-hover:text-white  border-gray-600 text-left">
           <div
             className="h-full w-full absolute inset-0 text-2xl opacity-0 transition-opacity group-hover:opacity-100"
             style={{
@@ -47,7 +47,7 @@ export default function CardCta({
       <img
         src={image}
         alt={title}
-        className="absolute right-0 bottom-0 scale-80 transition  origin-bottom group-hover:scale-100 h-full"
+        className="relative lg:absolute lg:right-0 lg:bottom-0 lg:scale-80 transition  origin-bottom group-hover:scale-100 lg:h-full"
       />
     </Link>
   );

@@ -1,6 +1,7 @@
 import React from "react";
 import ButtonSolid from "./Buttons/Solid";
 import Chevron from "./Icons/Chevron";
+import Container from "./Container";
 
 type HeroProps = {
   title: string;
@@ -15,9 +16,14 @@ type HeroProps = {
   };
 };
 
-const Hero = ({ title, cta, backgroundUrl, isVideo = false }: HeroProps) => {
+export default function HeroLanding({
+  title,
+  cta,
+  backgroundUrl,
+  isVideo = false,
+}: HeroProps) {
   return (
-    <section className="relative w-full overflow-hidden max-w-8xl rounded-b-3xl aspect-[1.74] ">
+    <section className="relative w-full overflow-hidden max-w-8xl rounded-b-3xl aspect-[0.56] lg:aspect-[1.74] ">
       {isVideo ? (
         <video
           autoPlay
@@ -38,8 +44,8 @@ const Hero = ({ title, cta, backgroundUrl, isVideo = false }: HeroProps) => {
 
       <div className="absolute inset-0 bg-black/30" />
 
-      <div className="relative h-full max-w-7xl mx-auto px-4 flex flex-col justify-end pb-32 items-start">
-        <h1 className="text-4xl md:text-6xl font-bold text-white max-w-3xl font-neutraface mb-10">
+      <Container className="relative h-full w-full flex flex-col justify-end pb-16 lg:pb-32 items-start">
+        <h1 className="text-[40px] leading-tight md:text-6xl font-bold text-white max-w-3xl font-neutraface mb-4 lg:mb-10 text-balance">
           {title}
         </h1>
 
@@ -52,9 +58,7 @@ const Hero = ({ title, cta, backgroundUrl, isVideo = false }: HeroProps) => {
             }
           />
         )}
-      </div>
+      </Container>
     </section>
   );
-};
-
-export default Hero;
+}
