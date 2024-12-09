@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import cx from "classnames";
 import { isExternalLink } from "@/helpers/general";
 import Chevron from "./Icons/Chevron";
+import ArrowIcon from "./Icons/Arrow";
 
 const Menu = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -13,11 +14,11 @@ const Menu = () => {
   const items = [
     {
       title: "Naše pivo",
-      url: "#",
+      url: "/pivo",
     },
     {
       title: "Zgodba",
-      url: "#",
+      url: "/zgodba",
     },
     {
       title: "Podpiramo",
@@ -39,16 +40,15 @@ const Menu = () => {
 
   return (
     <header
-      className={`fixed w-full transition-all duration-300 z-10   ${
-        isScrolled
-          ? "bg-black/30 backdrop-blur-lg  bg-gradient-to-b from-black/80 to-black/0 "
-          : "bg-transparent"
+      className={`fixed w-full transition-all duration-300 z-50  ${
+        isScrolled ? "backdrop-blur-lg  " : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="absolute z-0 w-full h-full bg-gradient-to-b from-black/60 to-transparent" />
+      <div className="relative max-w-7xl mx-auto px-4">
         <nav className="flex items-center py-2.5 ">
           {/* Logo */}
-          <div className=" w-[140px]">
+          <Link href="/" className=" w-[140px]">
             <img
               src="logo.png"
               alt="Logo"
@@ -56,7 +56,7 @@ const Menu = () => {
                 isScrolled ? "h-[80px]" : "h-[120px]"
               }`}
             />
-          </div>
+          </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-6  ml-20">
@@ -72,7 +72,7 @@ const Menu = () => {
               >
                 <span>{item.title}</span>
                 {isExternalLink(item.url) && (
-                  <Chevron className="text-white group-hover:translate-x-2 transition-transform size-8 " />
+                  <ArrowIcon className="text-white group-hover:translate-x-2 transition-transform size-5 " />
                 )}
               </Link>
             ))}

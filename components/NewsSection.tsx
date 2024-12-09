@@ -18,8 +18,8 @@ export default function NewsSection({ news }: NewsSectionProps) {
 
   return (
     <section
-      className="max-w-8xl py-20 w-full mx-auto flex flex-col items-center bg-green-700 rounded-4xl"
-      style={{ backgroundImage: "url('/bg-news.png')" }}
+      className="max-w-8xl py-20 w-full mx-auto flex flex-col items-center bg-green-700 rounded-4xl bg-blend-color-burn"
+      style={{ backgroundImage: "url('/bg-green.png')" }}
     >
       <div className="grid lg:grid-cols-3 gap-8 max-w-7xl">
         {news.slice(0, itemsShown).map((news, i) => (

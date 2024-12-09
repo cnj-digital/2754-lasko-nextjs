@@ -22,9 +22,15 @@ export default function ExternalLinks({
   pageLinks,
 }: ExternalLinksProps) {
   return (
-    <section className=" max-w-7xl py-20">
-      {title && <h2 className="text-2xl font-bold">{title}</h2>}
-      {copy && <p>{copy}</p>}
+    <section className=" max-w-7xl mx-auto py-20">
+      {title && (
+        <h2 className="text-5xl font-neutraface font-black  leading-tight text-green-800">
+          {title}
+        </h2>
+      )}
+      {copy && (
+        <p className=" text-black mt-3 mb-10  font-semibold text-xl">{copy}</p>
+      )}
       {pageLinks && pageLinks.length > 0 && (
         <div className="grid lg:grid-cols-2 gap-10 mb-10 ">
           {pageLinks.map((link, i) => (
