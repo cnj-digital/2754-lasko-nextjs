@@ -5,6 +5,7 @@ import {
 } from "@headlessui/react";
 import CardNews from "./Cards/News";
 import Chevron from "./Icons/Chevron";
+import Container from "./Container";
 
 export default function DisclousureCards() {
   const years = [
@@ -61,7 +62,7 @@ export default function DisclousureCards() {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto py-10 space-y-16">
+    <Container className=" py-10 space-y-16">
       {years.map((year, i) => (
         <Disclosure defaultOpen={i === 0} key={i}>
           <DisclosureButton className="flex group gap-6 items-center">
@@ -70,7 +71,7 @@ export default function DisclousureCards() {
             </h2>
             <Chevron className="text-green-800 size-10 rotate-90 group-data-[open]:-rotate-90 transition " />
           </DisclosureButton>
-          <DisclosurePanel className="grid grid-cols-3 gap-x-8 gap-y-6 mt-6">
+          <DisclosurePanel className="grid lg:grid-cols-3 gap-x-8 gap-y-6 mt-6">
             {year.cards.map((card, i) => (
               <CardNews
                 key={i}
@@ -82,6 +83,6 @@ export default function DisclousureCards() {
           </DisclosurePanel>
         </Disclosure>
       ))}
-    </div>
+    </Container>
   );
 }

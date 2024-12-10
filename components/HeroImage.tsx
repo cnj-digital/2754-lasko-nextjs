@@ -1,5 +1,6 @@
 import React from "react";
 import ButtonSolid from "./Buttons/Solid";
+import Container from "./Container";
 
 interface HeroImageProps {
   title: string;
@@ -22,27 +23,22 @@ export default function HeroImage({
       className="relative w-full overflow-hidden bg-green-700 bg-blend-color-burn rounded-b-3xl"
       style={{ backgroundImage: "url('/bg-green.png')" }}
     >
-      <div className="max-w-6xl mx-auto px-4 lg:pt-44">
+      <Container className="lg:pt-44">
         <div className="flex flex-col md:flex-row items-center justify-between">
-          {/* Text Content */}
           <div className="w-full md:w-1/2 text-white z-10 lg:pb-16">
             <h1 className="text-3xl md:text-[52px] leading-tight  font-neutraface  font-bold mb-6">
               {title}
             </h1>
 
-            {/* Social Proof Section */}
             {copy && (
-              <div className="space-y-4 mb-8">
-                <div
-                  dangerouslySetInnerHTML={{ __html: copy }}
-                  className="font-semibold"
-                ></div>
-              </div>
+              <div
+                dangerouslySetInnerHTML={{ __html: copy }}
+                className="font-semibold"
+              ></div>
             )}
 
-            {/* Buttons */}
             {buttons && (
-              <div className="flex flex-wrap gap-4 mb-16">
+              <div className="flex flex-wrap gap-4 mb-16 mt-10">
                 {buttons.map((button, i) => (
                   <ButtonSolid url={button.url} title={button.title} key={i} />
                 ))}
@@ -50,16 +46,13 @@ export default function HeroImage({
             )}
           </div>
 
-          {/* Image */}
           {image && (
             <div className="w-full md:w-1/2 mt-8 md:mt-0">
-              <div className="relative">
-                <img src={image} className="w-full object-cover " />
-              </div>
+              <img src={image} className="w-full object-cover " />
             </div>
           )}
         </div>
-      </div>
+      </Container>
     </div>
   );
 }

@@ -86,19 +86,22 @@ const Menu = () => {
     >
       <div className="absolute z-0 w-full h-full bg-gradient-to-b from-black/60 to-transparent" />
       <Container className="w-full">
-        <nav className="flex justify-center lg:justify-start items-center py-2.5 ">
-          <Link href="/" className=" w-24 lg:w-[140px] order-2 lg:order-1">
+        <nav className="grid grid-cols-3 lg:flex justify-center lg:justify-start items-center py-2.5 w-full ">
+          <Link
+            href="/"
+            className=" mx-auto lg:mx-0 w-24 xl:w-[140px] order-2 lg:order-1 self-center"
+          >
             <img
               src="logo.png"
               alt="Logo"
               className={cx(
-                "transition-all duration-300",
+                "transition-all duration-300 w-full object-contain object-center",
                 isScrolled ? " h-[60px] lg:h-[80px] " : "h-[120px]"
               )}
             />
           </Link>
 
-          <div className="hidden md:flex items-center space-x-6 relative  ml-20 order-2">
+          <div className="hidden lg:flex items-center space-x-4  xl:space-x-6 relative  ml-8 xl:ml-10 order-2">
             {items.map((item, i) => (
               <Link
                 key={i}
@@ -120,7 +123,7 @@ const Menu = () => {
           <LangMenu className="order-1 lg:order-3 mr-auto lg:mr-0 lg:ml-auto" />
 
           <button
-            className="md:hidden text-white order-3 ml-auto relative "
+            className="lg:hidden text-white order-3 ml-auto relative "
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <MenuIcon className="size-8" />

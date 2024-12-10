@@ -54,6 +54,7 @@ export default function MobileMenu({
                     href={link.url}
                     key={i}
                     className="pr-4 pl-3   py-3 rounded-2xl shadow-small-card bg-green-500 flex gap-4 font-lg font-semibold items-center w-full"
+                    onClick={onClose}
                   >
                     <div className="bg-white rounded-lg size-14 mr-1">
                       <img
@@ -78,6 +79,8 @@ export default function MobileMenu({
                   key={i}
                   className="px-4 py-3 rounded-2xl bg-white shadow-small-card  text-green-800 flex justify-between font-xl font-semibold items-center w-full"
                   style={{ backgroundImage: 'url("/bg.jpg")' }}
+                  target={isExternalLink(item.url) ? "_blank" : "_self"}
+                  onClick={onClose}
                 >
                   <span>{item.title} </span>
                   {isExternalLink(item.url) ? (

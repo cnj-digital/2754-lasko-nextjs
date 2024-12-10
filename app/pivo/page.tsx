@@ -11,15 +11,15 @@ export default function Pivo() {
             title: "Spoznaj naše pivo",
             copy: "Nabor piv, polnjenih v Laškem.",
             cta: "Razišči",
-            url: "url",
+            url: "/pivo",
             image: "/placeholders/beer.png",
           },
           {
-            title: "Spoznaj naše pivo",
-            copy: "Nabor piv, polnjenih v Laškem.",
+            title: "Podpiramo invračamo družbi",
+            copy: "Podpiramo športna društva in kulturne inštitucije.",
             cta: "Razišči",
-            url: "url",
-            image: "/placeholders/beer.png",
+            url: "/podpiramo",
+            image: "/placeholders/podpiramo.png",
           },
         ]}
       />

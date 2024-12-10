@@ -1,4 +1,5 @@
 import CardHorizontal from "./Cards/Horizontal";
+import Container from "./Container";
 
 type HorizontalCardGridProps = {
   title?: string;
@@ -16,7 +17,7 @@ export default function HorizontalCardGrid({
   cards,
 }: HorizontalCardGridProps) {
   return (
-    <div className="max-w-7xl mx-auto py-20">
+    <Container className="py-20">
       {title && (
         <h2 className="text-5xl font-neutraface font-black  leading-tight text-green-800">
           {title}
@@ -34,6 +35,6 @@ export default function HorizontalCardGrid({
           />
         ))}
       </div>
-    </div>
+    </Container>
   );
 }

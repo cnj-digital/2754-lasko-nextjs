@@ -1,5 +1,9 @@
+"use client";
+
+import { useState } from "react";
 import CardCta from "./Cards/Cta";
 import Container from "./Container";
+import cx from "classnames";
 
 type CardsCtaProps = {
   cards: {
@@ -12,8 +16,10 @@ type CardsCtaProps = {
 };
 
 export default function CardsCta({ cards }: CardsCtaProps) {
+  const [isHovered, setIsHovered] = useState(0);
+
   return (
-    <Container className="pt-36 pb-32 grid lg:grid-cols-2 gap-10 w-full">
+    <Container className="pt-36 pb-32 grid lg:flex gap-10 w-full">
       {cards.map((card, i) => (
         <CardCta
           key={i}
@@ -22,6 +28,9 @@ export default function CardsCta({ cards }: CardsCtaProps) {
           cta={card.cta}
           url={card.url}
           image={card.image}
+          className="w-full h-full"
+          isHovered={isHovered === i}
+          setIsHovered={() => setIsHovered(i)}
         />
       ))}
     </Container>

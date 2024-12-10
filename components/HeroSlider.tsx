@@ -88,11 +88,9 @@ const beers = [
 ];
 
 export default function HeroSlider({ slides }: HeroSliderProps) {
-  // Create refs for each beer
   const beerRefs = beers.map(() => useRef(null));
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // Create inView states for each beer
   const isInView = beerRefs.map((ref) =>
     useInView(ref, {
       amount: 0.8, // 50% of element must be in view
@@ -112,8 +110,8 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
     <div className="relative max-w-8xl mx-auto" style={{}}>
       <div className="sticky flex flex-col justify-center items-center top-0 h-screen">
         <div
-          className="h-screen absolute top-0 left-0 w-full rounded-b-4xl"
-          style={{ backgroundImage: 'url("beers/zlatorog_bg.png")' }}
+          className="h-screen absolute top-0 left-0 w-full rounded-b-4xl transition-all"
+          style={{ backgroundImage: `url("beers/bg_${activeIndex + 1}.jpg")` }}
         />
         <Container className="absolute flex justify-between w-full">
           <div className=" rounded-4xl shadow-card backdrop-blur-sm space-y-6 p-4 bg-white/20 bg-gradient-to-b from-transparent via-transparent to-black/20">
@@ -163,7 +161,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
             key={i}
             id={`${beer.title}`}
             ref={beerRefs[i]}
-            className="h-screen flex relative z-10 items-start snap-start"
+            className="h-screen flex relative z-10 items-center snap-start"
           >
             <img
               src={`/beers/beer=beer${i + 1}.png`}
