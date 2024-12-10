@@ -71,10 +71,6 @@ export default function Footer() {
       url: "https://www.instagram.com/",
     },
     {
-      title: "Twitter",
-      url: "https://twitter.com/",
-    },
-    {
       title: "Youtube",
       url: "https://www.youtube.com/",
     },

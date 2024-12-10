@@ -1,7 +1,6 @@
 import Link from "next/link";
 import FacebookIcon from "./Icons/Facebook";
 import InstagramIcon from "./Icons/Instagram";
-import XIcon from "./Icons/X";
 import YouTubeIcon from "./Icons/Youtube";
 import cx from "classnames";
 
@@ -22,8 +21,6 @@ export default function Socials({
         return <FacebookIcon />;
       case "Instagram":
         return <InstagramIcon />;
-      case "Twitter":
-        return <XIcon />;
       case "Youtube":
         return <YouTubeIcon />;
       default:

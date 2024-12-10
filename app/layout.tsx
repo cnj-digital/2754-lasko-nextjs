@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 const neutrafaceDisplay = localFont({
   src: "./fonts/Neutraface_Display-Titling.woff2",
   variable: "--font-Neutraface-Display",
-  weight: "100 900",
+  weight: "400 500 600 700 900",
 });
 
 const raleway = Raleway({

@@ -64,11 +64,7 @@ export default function MobileMenu({
                       />
                     </div>
                     <span className="mr-auto">{link.title}</span>
-                    <ArrowIcon
-                      className="size-8"
-                      size={32}
-                      color="currentColor"
-                    />
+                    <ArrowIcon className="size-8" />
                   </Link>
                 ))}
             </div>
@@ -84,11 +80,7 @@ export default function MobileMenu({
                 >
                   <span>{item.title} </span>
                   {isExternalLink(item.url) ? (
-                    <ArrowIcon
-                      className="size-8"
-                      size={32}
-                      color="currentColor"
-                    />
+                    <ArrowIcon className="size-8" />
                   ) : (
                     <Chevron className="size-8" />
                   )}
