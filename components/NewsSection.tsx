@@ -9,7 +9,6 @@ import Container from "./Container";
 type NewsSectionProps = {
   news: {
     title: string;
-    tagline: string;
     image: string;
   }[];
 };
@@ -27,9 +26,8 @@ export default function NewsSection({ news }: NewsSectionProps) {
           <CardNews
             key={i}
             title={news.title}
-            tagline={news.tagline}
             image={news.image}
-            className={i % 6 === 0 ? "lg:col-span-2" : ""}
+            className={i % 7 === 0 || i % 7 === 6 ? "lg:col-span-2" : ""}
           />
         ))}
       </Container>
@@ -37,7 +35,7 @@ export default function NewsSection({ news }: NewsSectionProps) {
       <ButtonSolid
         title="Naloži naslednjih 7"
         icon={<Chevron className="text-white  rotate-90  size-6 " />}
-        onClick={() => setItemsShown(itemsShown + 3)}
+        onClick={() => setItemsShown(itemsShown + 7)}
         className="mt-16"
       />
     </section>

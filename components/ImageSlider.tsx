@@ -5,7 +5,6 @@ import "keen-slider/keen-slider.min.css";
 import { KeenSliderOptions, useKeenSlider } from "keen-slider/react";
 import { motion } from "motion/react";
 import cx from "classnames";
-import ArrowIcon from "./Icons/Arrow";
 import Chevron from "./Icons/Chevron";
 
 type ImageSliderProps = {

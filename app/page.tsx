@@ -44,37 +44,92 @@ export default function Home() {
         news={[
           {
             title: "title",
-            tagline: "dogajanje",
+
             image: "/placeholders/news.png",
           },
           {
             title: "title",
-            tagline: "dogajanje",
+
             image: "/placeholders/news.png",
           },
           {
             title: "title",
-            tagline: "dogajanje",
+
             image: "/placeholders/news.png",
           },
           {
             title: "title",
-            tagline: "dogajanje",
+
             image: "/placeholders/news.png",
           },
           {
             title: "title",
-            tagline: "dogajanje",
+
             image: "/placeholders/news.png",
           },
           {
             title: "title",
-            tagline: "dogajanje",
+
             image: "/placeholders/news.png",
           },
           {
             title: "title",
-            tagline: "dogajanje",
+
+            image: "/placeholders/news.png",
+          },
+          {
+            title: "title",
+
+            image: "/placeholders/news.png",
+          },
+          {
+            title: "title",
+
+            image: "/placeholders/news.png",
+          },
+          {
+            title: "title",
+
+            image: "/placeholders/news.png",
+          },
+          {
+            title: "title",
+
+            image: "/placeholders/news.png",
+          },
+          {
+            title: "title",
+
+            image: "/placeholders/news.png",
+          },
+          {
+            title: "title",
+
+            image: "/placeholders/news.png",
+          },
+          {
+            title: "title",
+
+            image: "/placeholders/news.png",
+          },
+          {
+            title: "title",
+
+            image: "/placeholders/news.png",
+          },
+          {
+            title: "title",
+
+            image: "/placeholders/news.png",
+          },
+          {
+            title: "title",
+
+            image: "/placeholders/news.png",
+          },
+          {
+            title: "title",
+
             image: "/placeholders/news.png",
           },
         ]}

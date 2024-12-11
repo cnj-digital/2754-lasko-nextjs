@@ -3,7 +3,6 @@
 import { useState } from "react";
 import CardCta from "./Cards/Cta";
 import Container from "./Container";
-import cx from "classnames";
 
 type CardsCtaProps = {
   cards: {

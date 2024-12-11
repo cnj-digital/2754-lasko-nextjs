@@ -73,12 +73,7 @@ export default function DisclousureCards() {
           </DisclosureButton>
           <DisclosurePanel className="grid lg:grid-cols-3 gap-x-8 gap-y-6 mt-6">
             {year.cards.map((card, i) => (
-              <CardNews
-                key={i}
-                title={card.title}
-                tagline={card.tagline}
-                image={card.image}
-              />
+              <CardNews key={i} title={card.title} image={card.image} />
             ))}
           </DisclosurePanel>
         </Disclosure>

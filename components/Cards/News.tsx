@@ -3,17 +3,11 @@ import cx from "classnames";
 
 type CardNewsProps = {
   title: string;
-  tagline: string;
   image: string;
   className?: string;
 };
 
-export default function CardNews({
-  title,
-  tagline,
-  image,
-  className,
-}: CardNewsProps) {
+export default function CardNews({ title, image, className }: CardNewsProps) {
   return (
     <div
       className={cx(

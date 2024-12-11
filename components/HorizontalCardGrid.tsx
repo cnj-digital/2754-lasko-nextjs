@@ -29,6 +29,7 @@ export default function HorizontalCardGrid({
       <div className="grid grid-cols-3 gap-8">
         {cards.map((card, i) => (
           <CardHorizontal
+            key={i}
             title={card.title}
             url={card.url}
             image={card.image}

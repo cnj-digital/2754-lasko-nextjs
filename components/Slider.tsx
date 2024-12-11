@@ -12,7 +12,7 @@ type SliderProps = {
 };
 
 export default function Slider({ children, options, className }: SliderProps) {
-  const [sliderRef, instanceRef] = useKeenSlider(options);
+  const [sliderRef] = useKeenSlider(options);
 
   return (
     <div

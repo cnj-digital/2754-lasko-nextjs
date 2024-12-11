@@ -20,7 +20,7 @@ export default function HeroImage({
 }: HeroImageProps) {
   return (
     <div
-      className="relative w-full overflow-hidden bg-green-700 bg-blend-color-burn rounded-b-3xl"
+      className="relative w-full max-w-8xl mx-auto overflow-hidden bg-green-700 bg-blend-color-burn rounded-b-3xl"
       style={{ backgroundImage: "url('/bg-green.png')" }}
     >
       <Container className="lg:pt-44">

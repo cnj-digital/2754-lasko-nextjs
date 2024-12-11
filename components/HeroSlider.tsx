@@ -5,123 +5,48 @@ import { useEffect, useRef, useState } from "react";
 import { useInView } from "motion/react";
 import Link from "next/link";
 
-type HeroSliderProps = {
-  slides: {
-    title: string;
-    copy: string;
-    cta: string;
-    url: string;
-  }[];
+type Specs = {
+  alcohol: string | null;
+  temperature: string | null;
+  taste: string | null;
 };
 
-const beers = [
-  {
-    title: "LAŠKO ZLATOROG",
-    type: "Regular",
-    description:
-      "Svetlo pivo, ki že vrsto let predstavlja osrednjo znamko trženjskega portfolia.",
-    additionalInfo:
-      "Znamenje svetlega gospodovskega okusa. Bogata pena in značilno izražene grenčice.",
-    specs: {
-      alcohol: "4.9%",
-      temperature: "5 do 8°C",
-      taste: "Povezujoča izvirna fermenta nota",
-    },
-  },
-  {
-    title: "LAŠKO ZLATOROG TEMNO",
-    type: "Dark",
-    description: "Druga zbirka legendardnega zlatorogovega piva.",
-    additionalInfo:
-      "Laško Zlatorog temno pivo ponuja posebno doživetje piva s polnim okusom, značilno barvo in bogato peno.",
-    specs: {
-      alcohol: "4.9%",
-      temperature: "6 do 8°C",
-      taste: "Decentno temno pivo",
-    },
-  },
-  {
-    title: "LAŠKO ZLATOROG 0.0",
-    type: "Non-alcoholic",
-    description:
-      "Prespominje, da še Zlatorog skozi stoletja, ne alkohol, je del njegove dni nasvetu kompletno.",
-    additionalInfo: "Je točno tista Laško pivo ki ga sjutre pom...",
-    specs: {
-      alcohol: "0.0%",
-      temperature: null,
-      taste: null,
-    },
-  },
-  {
-    title: "LAŠKO MALT",
-    type: "Malt",
-    description:
-      "V Ljubljani smo koalicijo in jubilezni en decentno tisoč osem in osemeset. Največo slovensko pivo.",
-    additionalInfo: "Laško Malt je vlade meni brezelkoholnimi.",
-    specs: {
-      alcohol: null,
-      temperature: null,
-      taste: null,
-    },
-  },
-  {
-    title: "LAŠKO BURIN",
-    type: "Special",
-    description:
-      "Laško Burin je nefilško drugačno pivo. Je tok zvrst, ki ima naj različna in močneje izražene lastnosti kot Laško pivo. Dodata sta mu koriandar kot pri oznan Laško pivo. Ostani sta sure del naše strosti za posebne priložnosti.",
-    specs: {
-      alcohol: null,
-      temperature: null,
-      taste: null,
-    },
-  },
-  {
-    title: "LAŠKO GOLDING",
-    description:
-      "Lahnotno ležanje, ki vrnjo prve votke naš hog narednica ne vse delovnje. Tekmovanci za golding Slovnskge Laško, ima pa polega slovenske države in posebej našo pivo skodelovanje.",
-    specs: {
-      alcohol: "5.1%",
-      temperature: null,
-      taste: null,
-    },
-  },
-];
+type Slide = {
+  title: string;
+  description: string;
+  additionalInfo?: string;
+  specs: Specs;
+};
+
+type HeroSliderProps = {
+  slides: Slide[];
+};
 
 export default function HeroSlider({ slides }: HeroSliderProps) {
-  const beerRefs = beers.map(() => useRef(null));
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const isInView = beerRefs.map((ref) =>
-    useInView(ref, {
-      amount: 0.8, // 50% of element must be in view
-      once: false,
-    })
-  );
-
-  // Update active index when an element comes into view
-  useEffect(() => {
-    const activeIdx = isInView.findIndex((inView) => inView);
-    if (activeIdx !== -1) {
-      setActiveIndex(activeIdx);
-    }
-  }, [isInView]);
+  function handleInView(i: number) {
+    setActiveIndex(i);
+  }
 
   return (
     <div className="relative max-w-8xl mx-auto" style={{}}>
-      <div className="sticky flex flex-col justify-center items-center top-0 h-screen">
+      <div className="sticky flex flex-col justify-center items-center top-0 h-screen z-10">
         <div
-          className="h-screen absolute top-0 left-0 w-full rounded-b-4xl transition-all"
+          className="h-screen absolute z-0 top-0 left-0 w-full rounded-b-4xl transition-all bg-cover"
           style={{ backgroundImage: `url("beers/bg_${activeIndex + 1}.jpg")` }}
         />
-        <Container className="absolute flex justify-between w-full">
+        <Container className="absolute flex justify-between w-full z-20">
           <div className=" rounded-4xl shadow-card backdrop-blur-sm space-y-6 p-4 bg-white/20 bg-gradient-to-b from-transparent via-transparent to-black/20">
-            {beers.map((beer, i) => (
+            {slides.map((beer, i) => (
               <Link
                 href={`#${beer.title}`}
                 key={i}
                 className={cx(
-                  " flex relative z-10 items-end justify-center rounded-2xl size-20 bg-black bg-opacity-20 hover:bg-opacity-100 transition duration-300 hover:bg-[#EDEDED]",
-                  activeIndex === i && "bg-[#EDEDED] bg-opacity-100"
+                  " flex relative z-10 items-end justify-center rounded-2xl size-20  transition duration-300",
+                  activeIndex === i
+                    ? "bg-[#EDEDED] bg-opacity-100"
+                    : " bg-black bg-opacity-20 hover:bg-opacity-100 hover:bg-[#EDEDED]"
                 )}
               >
                 <img
@@ -134,7 +59,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
           </div>
 
           <div className="relative max-w-lg flex items-center w-full">
-            {beers.map((beer, i) => (
+            {slides.map((beer, i) => (
               <div
                 key={i}
                 className={cx(
@@ -155,22 +80,52 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
           </div>
         </Container>
       </div>
-      <Container className="lg:pl-40 -mt-[90vh]">
-        {beers.map((beer, i) => (
-          <div
+      <Container className="lg:pl-64 relative z-10 pointer-events-none -mt-[90vh]">
+        {slides.map((beer, i) => (
+          <BeerContainer
             key={i}
-            id={`${beer.title}`}
-            ref={beerRefs[i]}
-            className="h-screen flex relative z-10 items-center snap-start"
-          >
-            <img
-              src={`/beers/beer=beer${i + 1}.png`}
-              alt="beer"
-              className="h-[80%]"
-            />
-          </div>
+            beer={beer}
+            i={i}
+            onVisibilityChange={(i) => handleInView(i)}
+          />
         ))}
       </Container>
+    </div>
+  );
+}
+
+function BeerContainer({
+  beer,
+  i,
+  onVisibilityChange,
+}: {
+  beer: Slide;
+  i: number;
+  onVisibilityChange: (i: number) => void;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, {
+    amount: 0.8,
+    once: false,
+  });
+
+  useEffect(() => {
+    if (isInView) {
+      onVisibilityChange(i);
+    }
+  }, [isInView]);
+
+  return (
+    <div
+      id={`${beer.title}`}
+      ref={ref}
+      className="h-screen flex relative z-10 items-center snap-start"
+    >
+      <img
+        src={`/beers/beer=beer${i + 1}.png`}
+        alt="beer"
+        className="h-[80%]"
+      />
     </div>
   );
 }
