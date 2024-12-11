@@ -30,7 +30,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
   }
 
   return (
-    <div className="relative max-w-8xl mx-auto" style={{}}>
+    <div className="relative w-full" style={{}}>
       <div className="sticky flex flex-col justify-center items-center top-0 h-screen z-10">
         <div
           className="h-screen absolute z-0 top-0 left-0 w-full rounded-b-4xl transition-all bg-cover"

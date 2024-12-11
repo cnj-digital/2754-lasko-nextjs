@@ -23,4 +23,5 @@ body {
 html {
   scroll-behavior: smooth;
   scroll-snap-type: y proximity;
+  font-smooth: antialiased;
 }
