@@ -21,7 +21,7 @@ export default function HistoryTimeline({ timeline }: HistoryTimelineProps) {
   );
 
   return (
-    <Container className="overflow-auto">
+    <Container className="overflow-auto ">
       <div
         className="grid gap-x-6   py-5 px-6"
         style={{
