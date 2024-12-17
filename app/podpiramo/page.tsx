@@ -21,6 +21,25 @@ export default function Podpiramo() {
         ]}
         image="/placeholders/podpiramo.png"
       />
+
+      <ExternalLinks
+        links={[
+          {
+            image: "/placeholders/pivocvetje.png",
+            url: "https://www.pivoincvetje.si/",
+          },
+          {
+            image: "/placeholders/gremo.png",
+            url: "https://www.gremo.org/",
+          },
+          {
+            image: "/placeholders/pohor.png",
+            url: "https://www.pohorje.org/",
+          },
+        ]}
+        title="Naši projekti"
+        copy="Z dejanji vračamo družbi. Ponosni smo na naš prispevek k pozitivnim spremembam."
+      />
       <HorizontalCardGrid
         title={"Podpiramo"}
         copy={
@@ -48,24 +67,6 @@ export default function Podpiramo() {
             image: "/placeholders/club.png",
           },
         ]}
-      />
-      <ExternalLinks
-        links={[
-          {
-            image: "/placeholders/pivocvetje.png",
-            url: "https://www.pivoincvetje.si/",
-          },
-          {
-            image: "/placeholders/gremo.png",
-            url: "https://www.gremo.org/",
-          },
-          {
-            image: "/placeholders/pohor.png",
-            url: "https://www.pohorje.org/",
-          },
-        ]}
-        title="Naši projekti"
-        copy="Z dejanji vračamo družbi. Ponosni smo na naš prispevek k pozitivnim spremembam."
       />
       <CardsCta
         cards={[

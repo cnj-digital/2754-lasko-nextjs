@@ -41,65 +41,12 @@ export default function DisclousureCards({ articles }: DisclousureCardsProps) {
       }),
     }));
 
-  // const years = [
-  //   {
-  //     year: 2020,
-  //     cards: [
-  //       {
-  //         title: "title",
-  //         tagline: "dogajanje",
-  //         image: "/placeholders/news.png",
-  //       },
-  //       {
-  //         title: "title",
-  //         tagline: "dogajanje",
-  //         image: "/placeholders/news.png",
-  //       },
-  //       {
-  //         title: "title",
-  //         tagline: "dogajanje",
-  //         image: "/placeholders/news.png",
-  //       },
-  //       {
-  //         title: "title",
-  //         tagline: "dogajanje",
-  //         image: "/placeholders/news.png",
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     year: 2021,
-  //     cards: [
-  //       {
-  //         title: "title",
-  //         tagline: "dogajanje",
-  //         image: "/placeholders/news.png",
-  //       },
-  //       {
-  //         title: "title",
-  //         tagline: "dogajanje",
-  //         image: "/placeholders/news.png",
-  //       },
-  //       {
-  //         title: "title",
-  //         tagline: "dogajanje",
-  //         image: "/placeholders/news.png",
-  //       },
-  //       {
-  //         title: "title",
-  //         tagline: "dogajanje",
-  //         image: "/placeholders/news.png",
-  //       },
-  //     ],
-  //   },
-  // ];
-
   return (
     <Container className=" py-10 space-y-16">
       {years.map((year, i) => (
         <Disclosure defaultOpen={i === 0} key={i}>
-          <DisclosureButton className="flex group gap-6 items-center">
-            <h2 className="text-green-800 text-[52px] font-neutraface font-bold">
+          <DisclosureButton className="flex group gap-6 items-center w-full justify-between lg:w-auto">
+            <h2 className="text-green-800 text-[40px] lg:text-[52px] font-neutraface font-bold">
               {year.year}
             </h2>
             <Chevron className="text-green-800 size-10 rotate-90 group-data-[open]:-rotate-90 transition " />

@@ -18,11 +18,11 @@ export default function Socials({
   const getSocialIcon = (title: string) => {
     switch (title) {
       case "Facebook":
-        return <FacebookIcon />;
+        return <FacebookIcon className="size-8 text-white" />;
       case "Instagram":
-        return <InstagramIcon />;
+        return <InstagramIcon className="size-8 text-white" />;
       case "Youtube":
-        return <YouTubeIcon />;
+        return <YouTubeIcon className="size-8 text-white" />;
       default:
         return null;
     }
