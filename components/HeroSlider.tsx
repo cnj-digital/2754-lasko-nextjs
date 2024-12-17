@@ -4,18 +4,17 @@ import Container from "./Container";
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "motion/react";
 import Link from "next/link";
+import DocumentIcon from "./Icons/Document";
 
 type Specs = {
-  alcohol: string | null;
-  temperature: string | null;
-  taste: string | null;
+  key: string;
+  value: string;
 };
 
 type Slide = {
   title: string;
   description: string;
-  additionalInfo?: string;
-  specs: Specs;
+  specs: Specs[];
 };
 
 type HeroSliderProps = {
@@ -71,10 +70,34 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
                   {beer.title}
                 </h2>
                 <div
-                  className=""
+                  className="font-medium text-white"
                   dangerouslySetInnerHTML={{ __html: beer.description }}
                 ></div>
-                <p>{beer.additionalInfo}</p>
+                {beer.specs && beer.specs.length > 0 && (
+                  <div className="grid auto-cols-auto grid-flow-col border border-white rounded-2xl mt-8">
+                    <div className=" divide-y divide-white border-r">
+                      {beer.specs.map((spec, i) => (
+                        <p key={i} className=" text-xl px-4 py-2 font-semibold">
+                          {spec.key}
+                        </p>
+                      ))}
+                    </div>
+                    <div className="divide-y divide-white">
+                      {beer.specs.map((spec, i) => (
+                        <p key={i} className=" text-xl px-4 py-2 font-semibold">
+                          {spec.value}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                <button
+                  className=" backdrop-blur-sm flex items-center text-xl font-semibold bg-white/10 mt-8 py-4 px-4 rounded-2xl"
+                  style={{ boxShadow: "0px 4px 20px 0px rgba(0, 0, 0, 0.25)" }}
+                >
+                  Hranilne vrednosti
+                  <DocumentIcon className="size-6 ml-4" />
+                </button>
               </div>
             ))}
           </div>

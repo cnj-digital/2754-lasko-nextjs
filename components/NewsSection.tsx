@@ -9,6 +9,7 @@ import Container from "./Container";
 type NewsSectionProps = {
   news: {
     title: string;
+    slug: string;
     image: string;
   }[];
 };
@@ -26,6 +27,7 @@ export default function NewsSection({ news }: NewsSectionProps) {
           <CardNews
             key={i}
             title={news.title}
+            slug={news.slug}
             image={news.image}
             className={i % 7 === 0 || i % 7 === 6 ? "lg:col-span-2" : ""}
           />

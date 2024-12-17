@@ -1,12 +1,14 @@
+import { fetchArticles } from "@/api/fetch";
 import CardsCta from "@/components/CardsCta";
 import DisclousureCards from "@/components/DisclosureCards";
 import HeroImage from "@/components/HeroImage";
 
-export default function Arhiv() {
+export default async function Arhiv() {
+  const articles = await fetchArticles();
   return (
     <div>
       <HeroImage title="Arhiv objav" />
-      <DisclousureCards />
+      <DisclousureCards articles={articles} />
       <CardsCta
         cards={[
           {

@@ -16,13 +16,13 @@ export default function ContentGrid({
   items,
 }: ContentGridProps) {
   return (
-    <Container className="py-20">
-      <h2 className="text-green-800 font-neutraface text-[52px] leading-tight">
+    <Container className="py-16 lg:py-20">
+      <h2 className="text-green-800 font-neutraface text-[40px] lg:text-[52px] leading-tight">
         {title}
       </h2>
 
-      <div className="mt-16">
-        <h3 className=" text-[40px] leading-tight font-neutraface font-black text-green-800">
+      <div className="mt-10 lg:mt-16">
+        <h3 className="text-[32px] lg:text-[40px] leading-tight font-neutraface font-black text-green-800">
           {sectionTitle}
         </h3>
         <div className=" lg:grid grid-cols-2 mt-10 gap-6 lg:gap-10 -mx-8 lg:mx-0 px-8 lg:px-0 overflow-auto flex snap-mandatory snap-x scroll-p-8">
@@ -37,10 +37,12 @@ export default function ContentGrid({
                 className=" lg:w-1/2 aspect-square rounded-2xl object-contain"
               />
               <div className="text-black">
-                <h4 className=" text-[32px] leading-tight font-bold">
+                <h4 className="text-2xl lg:text-[32px] leading-tight font-bold">
                   {item.title}
                 </h4>
-                <p className="text-xl font-medium mt-4">{item.copy}</p>
+                <p className="text-base lg:text-xl font-medium mt-4">
+                  {item.copy}
+                </p>
               </div>
             </div>
           ))}

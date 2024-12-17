@@ -7,59 +7,92 @@ import CardNews from "./Cards/News";
 import Chevron from "./Icons/Chevron";
 import Container from "./Container";
 
-export default function DisclousureCards() {
-  const years = [
-    {
-      year: 2020,
-      cards: [
-        {
-          title: "title",
-          tagline: "dogajanje",
-          image: "/placeholders/news.png",
-        },
-        {
-          title: "title",
-          tagline: "dogajanje",
-          image: "/placeholders/news.png",
-        },
-        {
-          title: "title",
-          tagline: "dogajanje",
-          image: "/placeholders/news.png",
-        },
-        {
-          title: "title",
-          tagline: "dogajanje",
-          image: "/placeholders/news.png",
-        },
-      ],
-    },
-    {
-      year: 2021,
-      cards: [
-        {
-          title: "title",
-          tagline: "dogajanje",
-          image: "/placeholders/news.png",
-        },
-        {
-          title: "title",
-          tagline: "dogajanje",
-          image: "/placeholders/news.png",
-        },
-        {
-          title: "title",
-          tagline: "dogajanje",
-          image: "/placeholders/news.png",
-        },
-        {
-          title: "title",
-          tagline: "dogajanje",
-          image: "/placeholders/news.png",
-        },
-      ],
-    },
-  ];
+type DisclousureCardsProps = {
+  articles: {
+    title: string;
+    date: string;
+    tagline: string;
+    image: string;
+    slug: string;
+  }[];
+};
+
+export default function DisclousureCards({ articles }: DisclousureCardsProps) {
+  console.log(articles);
+  const years = Array.from(
+    new Set(
+      articles.map((article) => {
+        const date = new Date(article.date);
+        if (isNaN(date.getTime())) {
+          console.error("Invalid date:", article.date);
+          return 0; // or some default year
+        }
+        return date.getFullYear();
+      })
+    )
+  )
+    .filter((year) => year !== 0) // Remove invalid dates
+    .sort((a, b) => b - a)
+    .map((year) => ({
+      year,
+      cards: articles.filter((article) => {
+        const date = new Date(article.date);
+        return !isNaN(date.getTime()) && date.getFullYear() === year;
+      }),
+    }));
+
+  // const years = [
+  //   {
+  //     year: 2020,
+  //     cards: [
+  //       {
+  //         title: "title",
+  //         tagline: "dogajanje",
+  //         image: "/placeholders/news.png",
+  //       },
+  //       {
+  //         title: "title",
+  //         tagline: "dogajanje",
+  //         image: "/placeholders/news.png",
+  //       },
+  //       {
+  //         title: "title",
+  //         tagline: "dogajanje",
+  //         image: "/placeholders/news.png",
+  //       },
+  //       {
+  //         title: "title",
+  //         tagline: "dogajanje",
+  //         image: "/placeholders/news.png",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     year: 2021,
+  //     cards: [
+  //       {
+  //         title: "title",
+  //         tagline: "dogajanje",
+  //         image: "/placeholders/news.png",
+  //       },
+  //       {
+  //         title: "title",
+  //         tagline: "dogajanje",
+  //         image: "/placeholders/news.png",
+  //       },
+  //       {
+  //         title: "title",
+  //         tagline: "dogajanje",
+  //         image: "/placeholders/news.png",
+  //       },
+  //       {
+  //         title: "title",
+  //         tagline: "dogajanje",
+  //         image: "/placeholders/news.png",
+  //       },
+  //     ],
+  //   },
+  // ];
 
   return (
     <Container className=" py-10 space-y-16">
@@ -73,7 +106,12 @@ export default function DisclousureCards() {
           </DisclosureButton>
           <DisclosurePanel className="grid lg:grid-cols-3 gap-x-8 gap-y-6 mt-6">
             {year.cards.map((card, i) => (
-              <CardNews key={i} title={card.title} image={card.image} />
+              <CardNews
+                slug={card.slug}
+                key={i}
+                title={card.title}
+                image={card.image}
+              />
             ))}
           </DisclosurePanel>
         </Disclosure>

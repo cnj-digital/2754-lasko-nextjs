@@ -1,20 +1,28 @@
+import Link from "next/link";
 import Chevron from "../Icons/Chevron";
 import cx from "classnames";
 
 type CardNewsProps = {
   title: string;
+  slug: string;
   image: string;
   className?: string;
 };
 
-export default function CardNews({ title, image, className }: CardNewsProps) {
+export default function CardNews({
+  title,
+  slug,
+  image,
+  className,
+}: CardNewsProps) {
   return (
-    <div
+    <Link
+      href={`/clanek/${slug}`}
       className={cx(
         "group rounded-3xl shadow-card overflow-hidden w-full",
         className
       )}
-      style={{ backgroundImage: "url('bg.jpg')" }}
+      style={{ backgroundImage: "url('/bg.jpg')" }}
     >
       <div className="group grayscale group-hover:grayscale-0 transition-all w-full h-[260px] overflow-hidden">
         <img
@@ -28,6 +36,6 @@ export default function CardNews({ title, image, className }: CardNewsProps) {
         </h3>
         <Chevron className=" text-black size-10 " />
       </div>
-    </div>
+    </Link>
   );
 }

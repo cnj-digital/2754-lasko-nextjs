@@ -8,12 +8,14 @@ type ButtonProps = {
   icon?: React.ReactNode;
   className?: string;
   onClick?: () => void;
+  size?: "small" | "large";
 };
 
 export default function ButtonSolid({
   title,
   url,
   icon,
+  size = "large",
   onClick,
   className,
 }: ButtonProps) {
@@ -22,7 +24,8 @@ export default function ButtonSolid({
     <Tag
       className={cx(
         "px-6 py-4 rounded-xl font-semibold text-white group transition-all duration-300 flex items-center gap-2 shadow-button",
-        className
+        className,
+        size === "small" ? "text-lg" : "text-2xl"
       )}
       href={url ?? ""}
       target={url && isExternalLink(url) ? "_blank" : ""}

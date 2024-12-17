@@ -29,7 +29,7 @@ export default function ImageSlider({ title, images }: ImageSliderProps) {
   return (
     <div className="max-w-8xl mx-auto overflow-hidden">
       <Container>
-        <h2 className="text-4xl font-black text-green-800 font-neutraface">
+        <h2 className="text-[32px] lg:text-[52px]  font-black text-green-800 font-neutraface">
           {title}
         </h2>
       </Container>
@@ -72,12 +72,12 @@ export default function ImageSlider({ title, images }: ImageSliderProps) {
         ))}
       </div>
 
-      <Container className="mt-16 flex justify-center items-start">
+      <Container className="mt-16 flex flex-wrap gap-4 lg:flex-nowrap justify-center items-start">
         <motion.p
           key={currentSlide}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="text-center text-gray-600 max-w-md ml-auto pl-28"
+          className="lg:text-center text-gray-600 max-w-md ml-auto lg:pl-28"
         >
           {images[currentSlide].description}
         </motion.p>

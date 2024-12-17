@@ -4,6 +4,7 @@ import { Raleway } from "next/font/google";
 import Menu from "@/components/Menu";
 import localFont from "next/font/local";
 import Footer from "@/components/Footer";
+import AgeVerificationCheck from "@/components/AgeVerificationCheck";
 
 const neutrafaceDisplay = localFont({
   src: "./fonts/Neutraface_Display-Titling.woff2",
@@ -32,13 +33,15 @@ export default function RootLayout({
       <body
         className={` ${raleway.variable} ${neutrafaceDisplay.variable} antialiased bg-white min-h-screen `}
         style={{
-          backgroundImage: 'url("bg.jpg")',
+          backgroundImage: 'url("/bg.jpg")',
           backgroundSize: "1920px 912px",
         }}
       >
-        <Menu />
-        {children}
-        <Footer />
+        <AgeVerificationCheck>
+          <Menu />
+          {children}
+          <Footer />
+        </AgeVerificationCheck>
       </body>
     </html>
   );

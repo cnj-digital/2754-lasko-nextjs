@@ -1,9 +1,11 @@
+import CardsCta from "@/components/CardsCta";
 import ContentGrid from "@/components/ContentGrid";
 import ContentGridBackground from "@/components/ContentGridBackground";
 import HeroImage from "@/components/HeroImage";
 import HistoryTimeline from "@/components/HistoryTimeline";
 import ImageSlider from "@/components/ImageSlider";
 import InfoBanner from "@/components/InfoBanner";
+import InfoSlider from "@/components/InfoSlider";
 import VideoGrid from "@/components/VideoGrid";
 
 export default function Zgodba() {
@@ -64,12 +66,12 @@ export default function Zgodba() {
               {
                 title: "Odprtje prve pivovarne",
                 description: "",
-                image: "barrel-icon",
+                image: "/placeholders/news.png",
               },
               {
                 title: "Odprtje prve pivovarne",
                 description: "",
-                image: "barrel-icon",
+                image: "/placeholders/news.png",
               },
             ],
           },
@@ -79,18 +81,18 @@ export default function Zgodba() {
               {
                 title: "Novi lastnik ponese pivo v tuje kraje",
                 description: "",
-                image: "export-icon",
+                image: "/placeholders/news.png",
               },
               {
                 title: "Primer z večimi vnosi",
                 description:
                   "Višina celotnega modula se prilagodi letu z največ vnosi",
-                image: "document-icon",
+                image: "/placeholders/news.png",
               },
               {
                 title: "Tako poskrbimo da se ob premikanju med letnica",
                 description: "stran ne razteguje in krči",
-                image: "hourglass-icon",
+                image: "/placeholders/news.png",
               },
             ],
           },
@@ -100,7 +102,7 @@ export default function Zgodba() {
               {
                 title: "Prenova pivovarne",
                 description: "null",
-                image: "brewery-icon",
+                image: "/placeholders/news.png",
               },
             ],
           },
@@ -110,7 +112,7 @@ export default function Zgodba() {
               {
                 title: "Simon Kukec, oče Laškega piva",
                 description: "null",
-                image: "beer-mug-icon",
+                image: "/placeholders/news.png",
               },
             ],
           },
@@ -120,7 +122,7 @@ export default function Zgodba() {
               {
                 title: "Začetek industrijskega",
                 description: "Prehod na industrijsko proizvodnjo",
-                image: "factory-icon",
+                image: "/placeholders/news.png",
               },
             ],
           },
@@ -130,7 +132,7 @@ export default function Zgodba() {
               {
                 title: "Posodobitev Proizvodnje",
                 description: "Modernizacija proizvodnih procesov",
-                image: "modern-factory-icon",
+                image: "/placeholders/news.png",
               },
             ],
           },
@@ -175,43 +177,110 @@ export default function Zgodba() {
         videos={[
           {
             title: "Laško Pivo",
-            videoUrl: "https://www.youtube.com/watch?v=9bZkp7q19f0",
+            videoUrl:
+              "https://www.youtube.com/watch?v=j8Vusneryxs&ab_channel=La%C5%A1ko",
           },
           {
             title: "Laško Pivo",
-            videoUrl: "https://www.youtube.com/watch?v=9bZkp7q19f0",
+            videoUrl:
+              "https://www.youtube.com/watch?v=j8Vusneryxs&ab_channel=La%C5%A1ko",
           },
           {
             title: "Laško Pivo",
-            videoUrl: "https://www.youtube.com/watch?v=9bZkp7q19f0",
+            videoUrl:
+              "https://www.youtube.com/watch?v=j8Vusneryxs&ab_channel=La%C5%A1ko",
           },
         ]}
       />
 
       <ContentGridBackground
         title="Kakovost"
-        sectionCopy="Kakovost je od nekdaj na prvem mestu, zato pazljivo izbiramo in uporabljamo le najboljše sestavine. Začne se pri vodi, ki mora biti kakovostna, saj je ključnega pomena za karakter in kakovost piva. Ena od pomembnejših sestavin je tudi slad, ki ga pridobivamo iz skrbno izbranih sort ječmena. Značilno grenčico in aromo pivu dodajo kombinacije različnih sort hmelja, za alkoholno vrenje pa poskrbi pivski kvas."
-        sectionTitle="Vrhunske sestavine in desetletja izkušenj zagotavljajo le najboljše"
-        items={[
+        sections={[
           {
-            image: "/placeholders/trenutek.png",
-            title: "Prva pivovarna",
-            copy: "Pred več kot 180 leti je Franz Geyer postavil prvo pivovarno v Laškem, kjer je varil kameno pivo in tako postal pionir pivovarstva pri nas.",
+            type: "horizontal",
+            title:
+              "Vrhunske sestavine in desetletja izkušenj zagotavljajo le najboljše pivo",
+            copy: "Kakovost je od nekdaj na prvem mestu, zato pazljivo izbiramo in uporabljamo le najboljše sestavine. Začne se pri vodi, ki mora biti kakovostna, saj je ključnega pomena za karakter in kakovost piva. Ena od pomembnejših sestavin je tudi slad, ki ga pridobivamo iz skrbno izbranih sort ječmena. Značilno grenčico in aromo pivu dodajo kombinacije različnih sort hmelja, za alkoholno vrenje pa poskrbi pivski kvas.",
+            items: [
+              {
+                image: "/placeholders/trenutek.png",
+                title: "Prva pivovarna",
+                copy: "Pred več kot 180 leti je Franz Geyer postavil prvo pivovarno v Laškem, kjer je varil kameno pivo in tako postal pionir pivovarstva pri nas.",
+              },
+              {
+                image: "/placeholders/trenutek.png",
+                title: "Prva pivovarna",
+                copy: "Pred več kot 180 leti je Franz Geyer postavil prvo pivovarno v Laškem, kjer je varil kameno pivo in tako postal pionir pivovarstva pri nas.",
+              },
+              {
+                image: "/placeholders/trenutek.png",
+                title: "Prva pivovarna",
+                copy: "Pred več kot 180 leti je Franz Geyer postavil prvo pivovarno v Laškem, kjer je varil kameno pivo in tako postal pionir pivovarstva pri nas.",
+              },
+              {
+                image: "/placeholders/trenutek.png",
+                title: "Prva pivovarna",
+                copy: "Pred več kot 180 leti je Franz Geyer postavil prvo pivovarno v Laškem, kjer je varil kameno pivo in tako postal pionir pivovarstva pri nas.",
+              },
+            ],
           },
           {
-            image: "/placeholders/trenutek.png",
-            title: "Prva pivovarna",
-            copy: "Pred več kot 180 leti je Franz Geyer postavil prvo pivovarno v Laškem, kjer je varil kameno pivo in tako postal pionir pivovarstva pri nas.",
+            type: "vertical",
+            title: "Pivovarska zaveza",
+            copy: "Časi se sicer spreminjajo, vse hitreje in vse bolj. A pivovarstvo, tisto, ki spoštuje primarno znanje, tisto, ki pivo časti kot naravno živilo, se pravi tisto žlahtno pivovarstvo, ki ga goji Pivovarna Laško, ob vsem upoštevanju napredka prisega na starodavno izročilo mojstrov pivovarjev:",
+            items: [
+              {
+                title: "Tehnologija je biblija",
+                copy: "Rojstni list - vsako pivo ima do potankosti predpisano celotno pot od varjenja, prek alkoholnega vrenja, zorenja do polnjenja. Laški postopek zagotavlja zdaj že pregovorno kakovost. Tradicionalna receptura - ič hitenja in pospeševanja, nič skrajševanja postopkov varjenja, alkoholnega vretja in zorenja. Laško pivo zori najmanj 3 do 4 tedne.",
+                image: "/placeholders/trenutek.png",
+              },
+            ],
+          },
+        ]}
+      />
+
+      <InfoSlider
+        title="Varjenje piva"
+        copy="Proces nastanka piva od trenutka vnosa sestavin, do pakiranja končnega izdelka."
+        slides={[
+          {
+            title: "1. Korak",
+            copy: "Voda je osnovna sestavina piva, zato je ključnega pomena, da je kakovostna. Voda iz lastnega vodnega vira je osnova za vse vrste piva, ki jih varimo.",
+            numbers: [1, 2, 4, 5],
           },
           {
-            image: "/placeholders/trenutek.png",
-            title: "Prva pivovarna",
-            copy: "Pred več kot 180 leti je Franz Geyer postavil prvo pivovarno v Laškem, kjer je varil kameno pivo in tako postal pionir pivovarstva pri nas.",
+            title: "2. Korak",
+            copy: "Slad je druga najpomembnejša sestavina piva. Slad pridobivamo iz ječmena, ki ga namakamo, kalimo, sušimo in pražimo.",
+            numbers: [6, 7, 8, 9],
           },
           {
-            image: "/placeholders/trenutek.png",
-            title: "Prva pivovarna",
-            copy: "Pred več kot 180 leti je Franz Geyer postavil prvo pivovarno v Laškem, kjer je varil kameno pivo in tako postal pionir pivovarstva pri nas.",
+            title: "3. Korak",
+            copy: "Hmelj je tretja najpomembnejša sestavina piva. Hmelj dodajamo za aromo in grenčico, ki pivo naredita posebno.",
+            numbers: [10, 11, 12],
+          },
+          {
+            title: "4. Korak",
+            copy: "Kvas je zadnja sestavina piva. Kvas je mikroorganizem, ki med alkoholnim vrenjem pretvarja sladkorje v alkohol in ogljikov dioksid.",
+            numbers: [13, 14, 15, 16],
+          },
+        ]}
+      />
+
+      <CardsCta
+        cards={[
+          {
+            title: "Spoznaj naše pivo",
+            copy: "Nabor piv, polnjenih v Laškem.",
+            cta: "Razišči",
+            url: "url",
+            image: "/placeholders/beer.png",
+          },
+          {
+            title: "Spoznaj naše pivo",
+            copy: "Nabor piv, polnjenih v Laškem.",
+            cta: "Razišči",
+            url: "url",
+            image: "/placeholders/beer.png",
           },
         ]}
       />

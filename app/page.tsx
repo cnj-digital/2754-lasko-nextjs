@@ -3,7 +3,14 @@ import ExternalLinks from "@/components/ExternalLinks";
 import HeroLanding from "@/components/HeroLanding";
 import NewsSection from "@/components/NewsSection";
 
-export default function Home() {
+import { fetchHomepage } from "@/api/fetch";
+
+export const revalidate = 3600;
+
+export default async function Home() {
+  const content = await fetchHomepage();
+
+  console.log("articles", content.articles);
   return (
     <div className="flex flex-col items-center">
       <HeroLanding
@@ -40,100 +47,7 @@ export default function Home() {
           },
         ]}
       />
-      <NewsSection
-        news={[
-          {
-            title: "title",
-
-            image: "/placeholders/news.png",
-          },
-          {
-            title: "title",
-
-            image: "/placeholders/news.png",
-          },
-          {
-            title: "title",
-
-            image: "/placeholders/news.png",
-          },
-          {
-            title: "title",
-
-            image: "/placeholders/news.png",
-          },
-          {
-            title: "title",
-
-            image: "/placeholders/news.png",
-          },
-          {
-            title: "title",
-
-            image: "/placeholders/news.png",
-          },
-          {
-            title: "title",
-
-            image: "/placeholders/news.png",
-          },
-          {
-            title: "title",
-
-            image: "/placeholders/news.png",
-          },
-          {
-            title: "title",
-
-            image: "/placeholders/news.png",
-          },
-          {
-            title: "title",
-
-            image: "/placeholders/news.png",
-          },
-          {
-            title: "title",
-
-            image: "/placeholders/news.png",
-          },
-          {
-            title: "title",
-
-            image: "/placeholders/news.png",
-          },
-          {
-            title: "title",
-
-            image: "/placeholders/news.png",
-          },
-          {
-            title: "title",
-
-            image: "/placeholders/news.png",
-          },
-          {
-            title: "title",
-
-            image: "/placeholders/news.png",
-          },
-          {
-            title: "title",
-
-            image: "/placeholders/news.png",
-          },
-          {
-            title: "title",
-
-            image: "/placeholders/news.png",
-          },
-          {
-            title: "title",
-
-            image: "/placeholders/news.png",
-          },
-        ]}
-      />
+      <NewsSection news={content.articles} />
       <CardsCta
         cards={[
           {

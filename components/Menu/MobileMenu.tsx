@@ -4,9 +4,9 @@ import CloseIcon from "../Icons/Close";
 import LangMenu from "./LangMenu";
 import Chevron from "../Icons/Chevron";
 import { isExternalLink } from "@/helpers/general";
-import ArrowIcon from "../Icons/Arrow";
 import Socials from "../Socials";
 import { motion, AnimatePresence } from "motion/react";
+import ArrowDiagonalIcon from "../Icons/ArrowDiagonal";
 
 type MobileMenuProps = {
   isOpen: boolean;
@@ -64,7 +64,7 @@ export default function MobileMenu({
                       />
                     </div>
                     <span className="mr-auto">{link.title}</span>
-                    <ArrowIcon className="size-8" />
+                    <ArrowDiagonalIcon className="size-8" />
                   </Link>
                 ))}
             </div>
@@ -80,7 +80,7 @@ export default function MobileMenu({
                 >
                   <span>{item.title} </span>
                   {isExternalLink(item.url) ? (
-                    <ArrowIcon className="size-8" />
+                    <ArrowDiagonalIcon className="size-8" />
                   ) : (
                     <Chevron className="size-8" />
                   )}

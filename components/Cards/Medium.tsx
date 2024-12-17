@@ -1,5 +1,5 @@
 import Link from "next/link";
-import ArrowIcon from "../Icons/Arrow";
+import ArrowDiagonalIcon from "../Icons/ArrowDiagonal";
 
 type MediumCardProps = {
   image: string;
@@ -14,7 +14,7 @@ export default function CardMedium({ image, url }: MediumCardProps) {
     >
       <img src={image} alt="card" className="object-contain h-48" />
       <div className="absolute rounded-2xl top-4 right-4 bg-white bg-opacity-5 backdrop-blur-sm p-2.5 group-hover:opacity-100 opacity-0">
-        <ArrowIcon className="text-white size-8" />
+        <ArrowDiagonalIcon className="text-white size-8" />
       </div>
     </Link>
   );

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { isExternalLink } from "@/helpers/general";
 import Socials from "./Socials";
 import Container from "./Container";
+import ArrowDiagonalIcon from "./Icons/ArrowDiagonal";
 
 export default function Footer() {
   const navigationLinks = {
@@ -85,7 +86,7 @@ export default function Footer() {
       <div
         className="relative max-w-8xl w-full mx-auto py-20 lg:pb-32 lg:pt-40 bg-bottom rounded-t-3xl lg:h-[560px]"
         style={{
-          backgroundImage: 'url("footer.jpg")',
+          backgroundImage: 'url("/footer.jpg")',
           backgroundSize: "1512px",
         }}
       >
@@ -111,9 +112,12 @@ export default function Footer() {
                         rel={
                           isExternalLink(link.url) ? "noopener noreferrer" : ""
                         }
-                        className="text-white text-center lg:text-left"
+                        className="text-white text-center lg:text-left flex items-center mx-auto lg:mx-0"
                       >
                         {link.title}
+                        {isExternalLink(link.url) && (
+                          <ArrowDiagonalIcon className="size-5 ml-2" />
+                        )}
                       </Link>
                     )
                   )}

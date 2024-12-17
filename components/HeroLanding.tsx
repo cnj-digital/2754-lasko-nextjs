@@ -30,7 +30,7 @@ export default function HeroLanding({
 
   return (
     <section className="relative w-full overflow-hidden max-w-8xl  ">
-      <div className="relative z-10 rounded-b-3xl aspect-[0.56] lg:aspect-[1.74] w-full overflow-hidden ">
+      <div className="relative z-10 rounded-b-3xl bg-black  aspect-[0.56] lg:aspect-[1.74] w-full overflow-hidden ">
         {isVideo ? (
           <video
             autoPlay
@@ -71,7 +71,7 @@ export default function HeroLanding({
         <Link
           href={"/"}
           className="w-full  absolute bottom-0 bg-cover bg-center pb-4 pt-12 rounded-b-3xl flex justify-center items-center  overflow-hidden"
-          style={{ backgroundImage: 'url("bg-200.jpeg")' }}
+          style={{ backgroundImage: 'url("/bg-200.jpeg")' }}
         >
           <div className="bg-gradient-to-b from-transparent rounded-b-3xl from-[32.27%] to-black/30 to-[85.96%] absolute inset-0 h-full w-full" />
           <p className="relative text-[32px] leading-tight font-bold text-white">

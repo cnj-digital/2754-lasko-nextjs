@@ -3,11 +3,11 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import cx from "classnames";
 import { isExternalLink } from "@/helpers/general";
-import ArrowIcon from "./Icons/Arrow";
 import LangMenu from "./Menu/LangMenu";
 import Container from "./Container";
 import MenuIcon from "./Icons/Menu";
 import MobileMenu from "./Menu/MobileMenu";
+import ArrowDiagonalIcon from "./Icons/ArrowDiagonal";
 
 const Menu = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -88,7 +88,7 @@ const Menu = () => {
             className=" mx-auto lg:mx-0 w-24 xl:w-[140px] order-2 lg:order-1 self-center relative"
           >
             <img
-              src="logo.png"
+              src="/logo.png"
               alt="Logo"
               className={cx(
                 "transition-all duration-300 w-full object-contain object-center",
@@ -103,14 +103,14 @@ const Menu = () => {
                 key={i}
                 href={item.url}
                 className={cx(
-                  " text-[21px] font-semibold px-4 py-2 flex items-center space-x-2.5 hover:bg-black hover:bg-opacity-30 rounded-xl transition-all duration-300",
+                  "text-white  text-[21px] font-semibold px-4 py-2 flex items-center space-x-2.5 hover:bg-black hover:bg-opacity-30 rounded-xl transition-all duration-300",
                   isExternalLink(item.url) &&
                     "bg-black bg-opacity-30 rounded-xl"
                 )}
               >
                 <span>{item.title}</span>
                 {isExternalLink(item.url) && (
-                  <ArrowIcon className="text-white group-hover:translate-x-2 transition-transform size-5 " />
+                  <ArrowDiagonalIcon className="text-white group-hover:translate-x-2 transition-transform size-6 " />
                 )}
               </Link>
             ))}
