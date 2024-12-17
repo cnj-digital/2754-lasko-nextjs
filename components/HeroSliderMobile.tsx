@@ -1,8 +1,7 @@
 "use client";
 import cx from "classnames";
 import Container from "./Container";
-import { useEffect, useRef, useState } from "react";
-import { useInView } from "motion/react";
+import { useState } from "react";
 import Link from "next/link";
 import DocumentIcon from "./Icons/Document";
 
@@ -22,7 +21,7 @@ type HeroSliderProps = {
 };
 
 export default function HeroSliderMobile({ slides }: HeroSliderProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex] = useState(0);
 
   return (
     <div className="relative w-full overflow-hidden" style={{}}>
