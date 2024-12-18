@@ -101,7 +101,7 @@ export default function Footer() {
               {Object.keys(navigationLinks).map((column, index) => (
                 <div
                   key={index}
-                  className="flex flex-col gap-2 justify-center lg:justify-start"
+                  className="flex flex-col gap-2 lg:gap-4 justify-center lg:justify-start"
                 >
                   {navigationLinks[column as keyof typeof navigationLinks].map(
                     (link, linkIndex) => (

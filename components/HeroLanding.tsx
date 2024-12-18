@@ -8,7 +8,10 @@ import { motion, useScroll, useTransform } from "motion/react";
 
 type HeroProps = {
   title: string;
-  cta?: string;
+  cta?: {
+    title: string;
+    link: string;
+  };
   backgroundUrl: string;
   isVideo?: boolean;
   banner?: {
@@ -58,8 +61,8 @@ export default function HeroLanding({
 
           {cta && (
             <ButtonSolid
-              title={cta}
-              url="/explore"
+              title={cta.title}
+              url={cta.link}
               icon={
                 <Chevron className="text-white group-hover:translate-x-2 transition-transform size-6 " />
               }

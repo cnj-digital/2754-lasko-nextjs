@@ -16,19 +16,19 @@ const Menu = () => {
   const items = [
     {
       title: "Naše pivo",
-      url: "/pivo",
+      url: "/si/nase-pivo",
     },
     {
       title: "Zgodba",
-      url: "/zgodba",
+      url: "/si/zgodba",
     },
     {
       title: "Podpiramo",
-      url: "/podpiramo",
+      url: "/si/podpiramo-in-vracamo-druzbi",
     },
     {
       title: "Spletna trgovina",
-      url: "https://www.lasko.eu",
+      url: "https://lasko-trgovina.si/",
     },
   ];
 

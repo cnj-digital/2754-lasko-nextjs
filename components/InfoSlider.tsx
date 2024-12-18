@@ -1,6 +1,7 @@
 "use client";
 import { useKeenSlider } from "keen-slider/react";
 import Container from "./Container";
+import Chevron from "./Icons/Chevron";
 
 type InfoSliderProps = {
   title: string;
@@ -140,7 +141,7 @@ const positions = [
 ];
 
 export default function InfoSlider({ title, copy, slides }: InfoSliderProps) {
-  const [sliderRef] = useKeenSlider<HTMLDivElement>({});
+  const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({});
   return (
     <Container className="py-20">
       <h2 className=" leading-tight text-[40px] text-green-800 lg:text-[52px] font-neutraface">
@@ -212,6 +213,20 @@ export default function InfoSlider({ title, copy, slides }: InfoSliderProps) {
             </p>
           </div>
         ))}
+      </div>
+      <div className="flex gap-4 ml-auto">
+        <button
+          className=" bg-black p-2 bg-opacity-20 rounded-2xl backdrop-blur-sm"
+          onClick={() => instanceRef.current?.prev()}
+        >
+          <Chevron className="size-8 rotate-180 text-white" />
+        </button>
+        <button
+          className=" bg-black p-2 bg-opacity-20 rounded-2xl backdrop-blur-sm"
+          onClick={() => instanceRef.current?.next()}
+        >
+          <Chevron className="size-8 text-white" />
+        </button>
       </div>
     </Container>
   );

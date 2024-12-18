@@ -1,8 +1,8 @@
 import { gql } from "graphql-request";
 
 export const homepageQuery = gql`
-  query HomepageQuery {
-    entry(slug: "home") {
+  query HomepageQuery($uri: String, $site: String) {
+    entry(uri: $uri, site: $site) {
       title
       ... on Entry_Pages_Page {
         hero {
@@ -14,6 +14,31 @@ export const homepageQuery = gql`
           background {
             is_video
             permalink
+          }
+        }
+        promos_items {
+          ... on Entry_Promos_Promo {
+            description
+            title
+            cta {
+              link
+              title
+            }
+            asset {
+              permalink
+            }
+          }
+        }
+        external_links_items {
+          ... on Set_ExternalLinksItems_Cta {
+            type
+            cta {
+              asset {
+                permalink
+              }
+              link
+              title
+            }
           }
         }
       }

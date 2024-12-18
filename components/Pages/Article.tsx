@@ -1,4 +1,3 @@
-import { fetchArticles, fetchSingleArticle } from "@/api/fetch";
 import BuilderComponent from "@/components/Article/Builder";
 import ArticleHero from "@/components/Article/Hero";
 import Container from "@/components/Container";
@@ -12,25 +11,7 @@ function formatDate(date: string) {
   });
 }
 
-export async function generateStaticParams() {
-  try {
-    const articles = await fetchArticles();
-
-    return articles.map((article: any) => ({
-      slug: article.slug,
-    }));
-  } catch (error) {
-    console.error("Error generating static params:", error);
-    return [];
-  }
-}
-
-export default async function Article({ params }: any) {
-  const { slug } = await params;
-  const article = await fetchSingleArticle(slug);
-
-  console.log("article", article);
-
+export default async function Article({ article }: any) {
   return (
     <div className="">
       <ArticleHero
@@ -46,5 +27,3 @@ export default async function Article({ params }: any) {
     </div>
   );
 }
-
-export const dynamicParams = false;

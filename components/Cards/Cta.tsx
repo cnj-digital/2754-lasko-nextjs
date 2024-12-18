@@ -33,7 +33,7 @@ export default function CardCta({
       )}
       onMouseEnter={() => setIsHovered()}
     >
-      <div className="p-8 lg:h-full flex flex-col max-w-xs items-start">
+      <div className="p-8 lg:h-full flex flex-col max-w-xs items-start ">
         <h3 className=" font-neutraface text-[40px] text-green-800 leading-tight text-balance">
           {title}
         </h3>
@@ -66,14 +66,16 @@ export default function CardCta({
         </button>
       </div>
 
-      <img
-        src={image}
-        alt={title}
-        className={cx(
-          "relative lg:absolute lg:right-0 lg:bottom-0 lg:transition origin-bottom-right lg:h-full",
-          isHovered ? "lg:scale-110 " : "lg:scale-75 "
-        )}
-      />
+      <div className="overflow-x-hidden w-full h-full absolute inset-0">
+        <img
+          src={image}
+          alt={title}
+          className={cx(
+            "relative lg:absolute lg:left-1/2 lg:bottom-0 lg:transition origin-bottom-right lg:h-full",
+            isHovered ? "lg:scale-110 " : "lg:scale-75 "
+          )}
+        />
+      </div>
     </Link>
   );
 }

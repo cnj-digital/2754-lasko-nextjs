@@ -11,9 +11,14 @@ type Specs = {
   value: string;
 };
 
-type Slide = {
+export type Slide = {
   title: string;
   description: string;
+  background: string;
+  cta?: {
+    title: string;
+    link: string;
+  };
   specs: Specs[];
 };
 
@@ -33,7 +38,9 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
       <div className="sticky flex flex-col justify-center items-center top-0 h-screen z-10">
         <div
           className="h-screen absolute z-0 top-0 left-0 w-full rounded-b-4xl transition-all bg-cover"
-          style={{ backgroundImage: `url("beers/bg_${activeIndex + 1}.jpg")` }}
+          style={{
+            backgroundImage: `url("${slides[activeIndex].background}")`,
+          }}
         />
         <Container className="absolute flex justify-between w-full z-20">
           <div className=" rounded-4xl shadow-card backdrop-blur-sm space-y-6 p-4 bg-white/20 bg-gradient-to-b from-transparent via-transparent to-black/20">
@@ -66,11 +73,11 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
                   i === activeIndex ? "opacity-100" : " opacity-0"
                 )}
               >
-                <h2 className="text-[52px] font-neutraface font-black leading-tight">
+                <h2 className="text-[52px] font-neutraface font-black lg:leading-tight">
                   {beer.title}
                 </h2>
                 <div
-                  className="font-medium text-white"
+                  className="font-medium text-white [&>p+p]:mt-4 mt-4"
                   dangerouslySetInnerHTML={{ __html: beer.description }}
                 ></div>
                 {beer.specs && beer.specs.length > 0 && (
@@ -91,13 +98,18 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
                     </div>
                   </div>
                 )}
-                <button
-                  className=" backdrop-blur-sm flex items-center text-xl font-semibold bg-white/10 mt-8 py-4 px-4 rounded-2xl"
-                  style={{ boxShadow: "0px 4px 20px 0px rgba(0, 0, 0, 0.25)" }}
-                >
-                  Hranilne vrednosti
-                  <DocumentIcon className="size-6 ml-4" />
-                </button>
+                {beer.cta && (
+                  <Link
+                    href={beer.cta.link}
+                    className=" backdrop-blur-sm inline-flex items-center text-xl font-semibold bg-white/10 mt-8 py-4 px-4 rounded-2xl"
+                    style={{
+                      boxShadow: "0px 4px 20px 0px rgba(0, 0, 0, 0.25)",
+                    }}
+                  >
+                    {beer.cta.title}
+                    <DocumentIcon className="size-6 ml-4" />
+                  </Link>
+                )}
               </div>
             ))}
           </div>

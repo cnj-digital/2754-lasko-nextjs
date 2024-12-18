@@ -3,22 +3,17 @@ import ExternalLinks from "@/components/ExternalLinks";
 import HeroImage from "@/components/HeroImage";
 import HorizontalCardGrid from "@/components/HorizontalCardGrid";
 
-export default function Podpiramo() {
+export default function Support({ hero_support }: any) {
+  console.log("hero_support", hero_support);
   return (
     <div>
       <HeroImage
-        title="PODPIRAMO IN VRAČAMO DRUŽBI"
-        copy="S srcem podpiramo športna društva, kulturne inštitucije ter skrbimo za okolje, saj trdno verjamemo, da lahko le skupaj tkemo boljšo prihodnost. Naše poslanstvo je prispevati k pozitivnim spremembam in opolnomočiti skupnost, kateri zvesto služimo."
-        buttons={[
-          {
-            title: "Podpiramo",
-            url: "#podpiramo",
-          },
-          {
-            title: "Naši projekti",
-            url: "#projekti",
-          },
-        ]}
+        title={hero_support.title}
+        copy={hero_support.support_hero_content}
+        buttons={hero_support.support_hero_ctas.map((cta: any) => ({
+          title: cta.title,
+          url: cta.url,
+        }))}
         image="/placeholders/podpiramo.png"
       />
 

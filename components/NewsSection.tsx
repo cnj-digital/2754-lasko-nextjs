@@ -19,8 +19,11 @@ export default function NewsSection({ news }: NewsSectionProps) {
 
   return (
     <section
-      className="max-w-8xl py-20 w-full mx-auto flex flex-col items-center bg-green-700 rounded-4xl bg-blend-color-burn"
-      style={{ backgroundImage: "url('/bg-green.png')" }}
+      className="max-w-8xl py-20 w-full mx-auto flex flex-col items-center  rounded-4xl "
+      style={{
+        backgroundImage: "url('/bg-green.jpg')",
+        backgroundSize: "100% auto",
+      }}
     >
       <Container className="grid lg:grid-cols-3 gap-8 ">
         {news.slice(0, itemsShown).map((news, i) => (
@@ -34,12 +37,14 @@ export default function NewsSection({ news }: NewsSectionProps) {
         ))}
       </Container>
 
-      <ButtonSolid
-        title="Naloži naslednjih 7"
-        icon={<Chevron className="text-white  rotate-90  size-6 " />}
-        onClick={() => setItemsShown(itemsShown + 7)}
-        className="mt-16"
-      />
+      {itemsShown < news.length && (
+        <ButtonSolid
+          title="Naloži naslednjih 7"
+          icon={<Chevron className="text-white  rotate-90  size-6 " />}
+          onClick={() => setItemsShown(itemsShown + 7)}
+          className="mt-16"
+        />
+      )}
     </section>
   );
 }

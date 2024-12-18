@@ -59,7 +59,7 @@ export const articleQuery = gql`
 
 export const articlesQuery = gql`
   query ArticlesQuery {
-    entries(collection: "article") {
+    entries(collection: "article", sort: "date desc") {
       data {
         title
         slug

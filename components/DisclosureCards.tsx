@@ -18,7 +18,6 @@ type DisclousureCardsProps = {
 };
 
 export default function DisclousureCards({ articles }: DisclousureCardsProps) {
-  console.log(articles);
   const years = Array.from(
     new Set(
       articles.map((article) => {

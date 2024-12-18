@@ -8,7 +8,7 @@ import InfoBanner from "@/components/InfoBanner";
 import InfoSlider from "@/components/InfoSlider";
 import VideoGrid from "@/components/VideoGrid";
 
-export default function Zgodba() {
+export default function History() {
   return (
     <div>
       <HeroImage

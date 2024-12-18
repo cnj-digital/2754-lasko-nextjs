@@ -24,11 +24,12 @@ export default {
       },
       maxWidth: {
         "7xl": "1268px",
-        "8xl": "1512px",
+        "8xl": "1920px",
       },
       boxShadow: {
         button: "0px 4px 12px 0px rgba(0, 0, 0, 0.25)",
         card: "0px 4px 32px 0px rgba(0, 0, 0, 0.25)",
+
         "small-card": "box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.32)",
       },
       fontFamily: {

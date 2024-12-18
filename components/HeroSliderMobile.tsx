@@ -4,17 +4,7 @@ import Container from "./Container";
 import { useState } from "react";
 import Link from "next/link";
 import DocumentIcon from "./Icons/Document";
-
-type Specs = {
-  key: string;
-  value: string;
-};
-
-type Slide = {
-  title: string;
-  description: string;
-  specs: Specs[];
-};
+import { Slide } from "./HeroSlider";
 
 type HeroSliderProps = {
   slides: Slide[];
@@ -28,7 +18,9 @@ export default function HeroSliderMobile({ slides }: HeroSliderProps) {
       <div className="sticky flex flex-col justify-center items-center top-0 z-10">
         <div
           className=" absolute h-full z-0 top-0 left-0 w-full rounded-b-4xl transition-all bg-cover"
-          style={{ backgroundImage: `url("beers/bg_${activeIndex + 1}.jpg")` }}
+          style={{
+            backgroundImage: `url("${slides[activeIndex].background}")`,
+          }}
         />
 
         <Container className="relative pt-60 w-full">
@@ -91,13 +83,18 @@ export default function HeroSliderMobile({ slides }: HeroSliderProps) {
                     </div>
                   </div>
                 )}
-                <button
-                  className=" backdrop-blur-sm flex items-center text-xl font-semibold bg-white/10 mt-8 py-4 px-4 rounded-2xl"
-                  style={{ boxShadow: "0px 4px 20px 0px rgba(0, 0, 0, 0.25)" }}
-                >
-                  Hranilne vrednosti
-                  <DocumentIcon className="size-6 ml-4" />
-                </button>
+                {beer.cta && (
+                  <Link
+                    href={beer.cta.link}
+                    className=" backdrop-blur-sm flex items-center text-xl font-semibold bg-white/10 mt-8 py-4 px-4 rounded-2xl"
+                    style={{
+                      boxShadow: "0px 4px 20px 0px rgba(0, 0, 0, 0.25)",
+                    }}
+                  >
+                    {beer.cta.title}
+                    <DocumentIcon className="size-6 ml-4" />
+                  </Link>
+                )}
               </div>
             ))}
           </div>

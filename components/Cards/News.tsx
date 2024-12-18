@@ -34,7 +34,7 @@ export default function CardNews({
         <h3 className="mt-1 text-2xl text-black font-bold line-clamp-2">
           {title}
         </h3>
-        <Chevron className=" text-black size-10 " />
+        <Chevron className=" text-black size-10 flex-shrink-0 " />
       </div>
     </Link>
   );
