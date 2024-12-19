@@ -2,7 +2,7 @@ import Container from "../Container";
 
 type ArticleHeroProps = {
   title: string;
-  date: string;
+  date?: string;
   backgroundUrl: string;
 };
 
@@ -26,7 +26,9 @@ export default function ArticleHero({
           <h1 className="text-[40px] leading-tight md:text-[52px] font-bold text-white max-w-3xl font-neutraface text-balance">
             {title}
           </h1>
-          <p className="text-white text-2xl mt-3 font-semibold">{date}</p>
+          {date && (
+            <p className="text-white text-2xl mt-3 font-semibold">{date}</p>
+          )}
         </Container>
       </div>
     </section>

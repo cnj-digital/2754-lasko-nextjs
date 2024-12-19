@@ -13,7 +13,7 @@ type DisclousureCardsProps = {
     date: string;
     tagline: string;
     image: string;
-    slug: string;
+    url: string;
   }[];
 };
 
@@ -53,7 +53,7 @@ export default function DisclousureCards({ articles }: DisclousureCardsProps) {
           <DisclosurePanel className="grid lg:grid-cols-3 gap-x-8 gap-y-6 mt-6">
             {year.cards.map((card, i) => (
               <CardNews
-                slug={card.slug}
+                url={card.url}
                 key={i}
                 title={card.title}
                 image={card.image}

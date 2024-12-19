@@ -2,28 +2,19 @@ import CardsCta from "@/components/CardsCta";
 import DisclousureCards from "@/components/DisclosureCards";
 import HeroImage from "@/components/HeroImage";
 
-export default async function Archive({ articles }: any) {
+export default async function Archive({ articles, title, promos_items }: any) {
   return (
     <div>
-      <HeroImage title="Arhiv objav" />
+      <HeroImage title={title} />
       <DisclousureCards articles={articles} />
       <CardsCta
-        cards={[
-          {
-            title: "Spoznaj naše pivo",
-            copy: "Nabor piv, polnjenih v Laškem.",
-            cta: "Razišči",
-            url: "url",
-            image: "/placeholders/beer.png",
-          },
-          {
-            title: "Spoznaj naše pivo",
-            copy: "Nabor piv, polnjenih v Laškem.",
-            cta: "Razišči",
-            url: "url",
-            image: "/placeholders/beer.png",
-          },
-        ]}
+        cards={promos_items.map((promo: any) => ({
+          title: promo.title,
+          copy: promo.description,
+          cta: promo.cta.title,
+          url: promo.cta.link,
+          image: promo.asset.permalink,
+        }))}
       />
     </div>
   );

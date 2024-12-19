@@ -12,6 +12,7 @@ import { historyQuery } from "./queries/history";
 import { supportQuery } from "./queries/support";
 import { archiveQuery } from "./queries/archive";
 import { builderQuery } from "./queries/builder";
+import { footerQuery, navigationQuery } from "./queries/navigation";
 
 const apiUrl = process.env.API_URL ?? "";
 
@@ -20,20 +21,24 @@ export async function fetchSingleArticle(slug: string) {
   return mapArticle(res.entry);
 }
 
-export async function fetchArticles() {
-  const res: any = await request(apiUrl, articlesQuery);
+export async function fetchArticles(site?: string) {
+  const res: any = await request(apiUrl, articlesQuery, { site });
   return mapArticles(res.entries.data);
 }
 
-export async function fetchHomepage() {
-  const res: any = await request(apiUrl, homepageQuery);
-  const articles: any = await request(apiUrl, articlesQuery);
+export async function fetchNavigation(site: string) {
+  const res: any = await request(apiUrl, navigationQuery, { site });
+  return res.nav.tree;
+}
 
-  return { data: res.entry.data, articles: mapArticles(articles.entries.data) };
+export async function fetchFooter(site: string) {
+  const res: any = await request(apiUrl, footerQuery, { site });
+  return res.nav.tree;
 }
 
 export async function fetchPageBlueprint(uri: string, site: string) {
   const res: any = await request(apiUrl, pageQuery, { uri, site });
+  console.log("res", res);
   return res.entry.blueprint;
 }
 
@@ -45,6 +50,7 @@ export async function fetchPage(uri: string, site: string, blueprint: "page") {
     support: supportQuery,
     archive: archiveQuery,
     builder: builderQuery,
+    article: articleQuery,
   };
 
   const res: any = await request(apiUrl, query[blueprint], {

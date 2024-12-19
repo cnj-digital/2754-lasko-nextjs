@@ -58,8 +58,8 @@ export const articleQuery = gql`
 `;
 
 export const articlesQuery = gql`
-  query ArticlesQuery {
-    entries(collection: "article", sort: "date desc") {
+  query ArticlesQuery($site: String) {
+    entries(collection: "article", sort: "date desc", site: $site) {
       data {
         title
         slug
@@ -71,6 +71,7 @@ export const articlesQuery = gql`
           card_image {
             permalink
           }
+          url
         }
       }
     }
@@ -91,6 +92,7 @@ export function mapArticles(data: any) {
     return {
       title: article.title,
       slug: article.slug,
+      url: article.url,
       date: article.date,
       image: article.card_image
         ? article.card_image.permalink

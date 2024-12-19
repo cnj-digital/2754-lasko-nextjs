@@ -9,7 +9,6 @@ export default async function Home({
   external_links_items,
   promos_items,
 }: any) {
-  console.log(promos_items);
   return (
     <div className="flex flex-col items-center">
       <HeroLanding

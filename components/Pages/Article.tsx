@@ -11,16 +11,21 @@ function formatDate(date: string) {
   });
 }
 
-export default async function Article({ article }: any) {
+export default async function Article({
+  title,
+  date,
+  featured_image,
+  builder_items,
+}: any) {
   return (
     <div className="">
       <ArticleHero
-        title={article.title}
-        backgroundUrl={article.image}
-        date={formatDate(article.date)}
+        title={title}
+        backgroundUrl={featured_image?.permalink}
+        date={formatDate(date)}
       />
       <Container className=" mx-auto">
-        {article.items.map((content: any, i: number) => (
+        {builder_items.map((content: any, i: number) => (
           <BuilderComponent key={i} type={content.type} data={content} />
         ))}
       </Container>

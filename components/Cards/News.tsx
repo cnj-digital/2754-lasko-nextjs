@@ -4,20 +4,20 @@ import cx from "classnames";
 
 type CardNewsProps = {
   title: string;
-  slug: string;
   image: string;
+  url: string;
   className?: string;
 };
 
 export default function CardNews({
   title,
-  slug,
   image,
   className,
+  url,
 }: CardNewsProps) {
   return (
     <Link
-      href={`/clanek/${slug}`}
+      href={url}
       className={cx(
         "group rounded-3xl shadow-card overflow-hidden w-full",
         className

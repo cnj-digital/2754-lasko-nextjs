@@ -9,28 +9,16 @@ import MenuIcon from "./Icons/Menu";
 import MobileMenu from "./Menu/MobileMenu";
 import ArrowDiagonalIcon from "./Icons/ArrowDiagonal";
 
-const Menu = () => {
+type MenuProps = {
+  nav: {
+    title: string;
+    url: string;
+  }[];
+};
+
+const Menu = ({ nav }: MenuProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const items = [
-    {
-      title: "Naše pivo",
-      url: "/si/nase-pivo",
-    },
-    {
-      title: "Zgodba",
-      url: "/si/zgodba",
-    },
-    {
-      title: "Podpiramo",
-      url: "/si/podpiramo-in-vracamo-druzbi",
-    },
-    {
-      title: "Spletna trgovina",
-      url: "https://lasko-trgovina.si/",
-    },
-  ];
 
   const externalLinks = [
     {
@@ -98,7 +86,7 @@ const Menu = () => {
           </Link>
 
           <div className="hidden lg:flex items-center space-x-4  xl:space-x-6 relative  ml-8 xl:ml-10 order-2">
-            {items.map((item, i) => (
+            {nav.map((item, i) => (
               <Link
                 key={i}
                 href={item.url}
@@ -129,7 +117,7 @@ const Menu = () => {
         <MobileMenu
           isOpen={isMenuOpen}
           onClose={() => setIsMenuOpen(false)}
-          items={items}
+          items={nav}
           externalLinks={externalLinks}
           socialsTitle={socialsTitle}
           socials={socials}

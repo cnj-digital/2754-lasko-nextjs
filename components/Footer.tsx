@@ -5,60 +5,20 @@ import Socials from "./Socials";
 import Container from "./Container";
 import ArrowDiagonalIcon from "./Icons/ArrowDiagonal";
 
-export default function Footer() {
-  const navigationLinks = {
-    column1: [
+type FooterProps = {
+  nav: {
+    children: [
       {
-        title: "Naše Pivo",
-        url: "/pivo",
-      },
-      {
-        title: "Zgodba",
-        url: "/zgodba",
-      },
-      {
-        title: "Podpiramo in vračamo družbi",
-        url: "/podpiramo",
-      },
-    ],
-    column2: [
-      {
-        title: "Spletna trgovina",
-        url: "https://example.com/trgovina",
-        isExternal: true,
-      },
-      {
-        title: "Kontakti",
-        url: "https://example.com/kontakti",
-        isExternal: true,
-      },
-    ],
-    column3: [
-      {
-        title: "Arhiv objav",
-        url: "/arhiv",
-      },
-      {
-        title: "Hranilne vrednosti",
-        url: "",
-      },
-      {
-        title: "Alkohol in zdravje",
-        url: "",
-      },
-    ],
-    column4: [
-      {
-        title: "Politika piškotkov",
-        url: "",
-      },
-      {
-        title: "Splošni pogoji uporabe spletnega mesta",
-        url: "",
-      },
-    ],
-  };
+        page: {
+          title: string;
+          url: string;
+        };
+      }
+    ];
+  }[];
+};
 
+export default function Footer({ nav }: FooterProps) {
   const copyright = "©2024 Pivovarna Laško Union d.o.o. Vse pravice pridržane.";
 
   const socialsTitle = "Sledite nam";
@@ -98,29 +58,27 @@ export default function Footer() {
               className="flex lg:hidden mb-10"
             />
             <div className="grid lg:grid-cols-4 gap-10">
-              {Object.keys(navigationLinks).map((column, index) => (
+              {nav.map((column, index) => (
                 <div
                   key={index}
                   className="flex flex-col gap-2 lg:gap-4 justify-center lg:justify-start"
                 >
-                  {navigationLinks[column as keyof typeof navigationLinks].map(
-                    (link, linkIndex) => (
-                      <Link
-                        key={linkIndex}
-                        href={link.url}
-                        target={isExternalLink(link.url) ? "_blank" : "_self"}
-                        rel={
-                          isExternalLink(link.url) ? "noopener noreferrer" : ""
-                        }
-                        className="text-white text-center lg:text-left flex items-center mx-auto lg:mx-0"
-                      >
-                        {link.title}
-                        {isExternalLink(link.url) && (
-                          <ArrowDiagonalIcon className="size-5 ml-2" />
-                        )}
-                      </Link>
-                    )
-                  )}
+                  {column.children.map(({ page: link }, linkIndex) => (
+                    <Link
+                      key={linkIndex}
+                      href={link.url}
+                      target={isExternalLink(link.url) ? "_blank" : "_self"}
+                      rel={
+                        isExternalLink(link.url) ? "noopener noreferrer" : ""
+                      }
+                      className="text-white text-center lg:text-left flex items-center mx-auto lg:mx-0"
+                    >
+                      {link.title}
+                      {isExternalLink(link.url) && (
+                        <ArrowDiagonalIcon className="size-5 ml-2" />
+                      )}
+                    </Link>
+                  ))}
                 </div>
               ))}
             </div>
