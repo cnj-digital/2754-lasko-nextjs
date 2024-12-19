@@ -1,8 +1,8 @@
 import { gql } from "graphql-request";
 
 export const articleQuery = gql`
-  query ArticleQuery($slug: String) {
-    entry(collection: "article", slug: $slug) {
+  query ArticleQuery($uri: String) {
+    entry(collection: "article", uri: $uri) {
       title
       ... on Entry_Article_Article {
         builder_items {

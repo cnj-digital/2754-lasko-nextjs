@@ -21,7 +21,7 @@ export async function generateStaticParams() {
       const routes = await fetchRoutes(lang);
       // Transform routes to include language
       return routes.map((route: any) => ({
-        slug: route.url.replace(/^\//, "").split("/"), // Remove leading slash
+        slug: route?.url?.replace(/^\//, "").split("/") ?? ["si"], // Remove leading slash
       }));
     });
 
@@ -38,7 +38,7 @@ export async function generateStaticParams() {
 
     const allRoutesAndArticles = [...flattenedRoutes, ...articles];
 
-    console.log("allRoutesAndArticles", flattenedRoutes, allRoutesAndArticles);
+    // console.log("allRoutesAndArticles", flattenedRoutes, allRoutesAndArticles);
 
     return allRoutesAndArticles;
   } catch (error) {
@@ -69,7 +69,7 @@ export default async function Page({ params }: any) {
 
   const data = await fetchPage(uri, lang, blueprint);
 
-  console.log("data", data, blueprint);
+  // console.log("data", data, blueprint);
 
   const blueprints = {
     page: Home,

@@ -31,6 +31,7 @@ export default async function RootLayout({
 }>) {
   const navigation = await fetchNavigation("si");
   const footer = await fetchFooter("si");
+
   return (
     <html lang="en">
       <body
