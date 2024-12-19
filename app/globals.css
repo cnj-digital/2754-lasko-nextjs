@@ -26,6 +26,12 @@ html {
   font-smooth: antialiased;
 }
 
+h2,
+h3,
+h4 {
+  @apply scroll-mt-24 md:scroll-mt-28;
+}
+
 .content {
   @apply text-black;
   p {

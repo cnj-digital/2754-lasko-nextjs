@@ -18,7 +18,7 @@ export default function HorizontalCardGrid({
   cards,
 }: HorizontalCardGridProps) {
   return (
-    <Container className="py-20">
+    <Container className="py-12 md:py-20">
       {title && (
         <h2
           id={generateAnchorLink(title)}
@@ -30,7 +30,7 @@ export default function HorizontalCardGrid({
       {copy && (
         <p className=" text-black mt-3 mb-10  font-semibold text-xl">{copy}</p>
       )}
-      <div className="grid grid-cols-3 gap-8">
+      <div className="grid lg:grid-cols-3 gap-3 md:gap-8">
         {cards.map((card, i) => (
           <CardHorizontal
             key={i}
