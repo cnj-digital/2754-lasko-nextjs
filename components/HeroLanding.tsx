@@ -54,7 +54,7 @@ export default function HeroLanding({
 
         <div className="absolute inset-0 bg-black/30" />
 
-        <Container className="relative h-full w-full flex flex-col justify-end pb-16 lg:pb-32 items-start">
+        <Container className="relative h-full w-full flex flex-col justify-end pb-16 px-8 lg:pb-32 items-start">
           <h1 className="text-[40px] leading-tight md:text-6xl font-bold text-white max-w-3xl font-neutraface mb-4 lg:mb-10 text-balance">
             {title}
           </h1>

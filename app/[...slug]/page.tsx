@@ -38,8 +38,6 @@ export async function generateStaticParams() {
 
     const allRoutesAndArticles = [...flattenedRoutes, ...articles];
 
-    // console.log("allRoutesAndArticles", flattenedRoutes, allRoutesAndArticles);
-
     return allRoutesAndArticles;
   } catch (error) {
     console.error("Error generating static params:", error);

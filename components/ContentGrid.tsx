@@ -32,7 +32,7 @@ export default function ContentGrid({
         >
           {sectionTitle}
         </h3>
-        <div className=" lg:grid grid-cols-2 mt-10 gap-6 lg:gap-10 -mx-8 lg:mx-0 px-8 lg:px-0 overflow-auto flex snap-mandatory snap-x scroll-p-8">
+        <div className=" lg:grid grid-cols-2 mt-10 gap-6 lg:gap-10 -mx-6 lg:mx-0 px-6 lg:px-0 overflow-auto flex snap-mandatory snap-x scroll-p-8">
           {items.map((item, i) => (
             <div
               key={i}
@@ -50,7 +50,7 @@ export default function ContentGrid({
                 >
                   {item.title}
                 </h4>
-                <p className="text-base lg:text-xl font-medium mt-4">
+                <p className="text-base lg:text-lg font-medium mt-4">
                   {item.copy}
                 </p>
               </div>

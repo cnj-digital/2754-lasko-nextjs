@@ -35,7 +35,7 @@ export default function History({
           title: cta.cta.title,
           url: cta.cta.link,
         }))}
-        image="/placeholders/zgodba.png"
+        image="/zgodba.png"
       />
       <ContentGrid
         title={story_history_title}

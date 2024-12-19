@@ -110,11 +110,11 @@ export default function VideoGrid({ title, videos }: VideoGridProps) {
         </h2>
       )}
 
-      <div className="flex overflow-auto md:grid  md:grid-cols-2 lg:grid-cols-3 gap-6 relative mt-10 -mx-8 px-8 lg:px-0 lg:mx-0">
+      <div className="flex overflow-auto md:grid  md:grid-cols-2 lg:grid-cols-3 gap-6 relative mt-10 -mx-6 px-6 lg:px-0 lg:mx-0">
         {videos.map((video, i) => (
           <div key={i} className=" relative w-4/5 lg:w-full flex-shrink-0">
             <div
-              className="aspect-square lg:aspect-[1.3] bg-gray-200 rounded-3xl overflow-hidden relative group cursor-pointer"
+              className="aspect-square lg:aspect-[1.78]  bg-gray-200 rounded-3xl overflow-hidden relative group cursor-pointer"
               onClick={() => setSelectedVideo(video)}
             >
               {renderThumbnail(video, i)}
@@ -122,7 +122,7 @@ export default function VideoGrid({ title, videos }: VideoGridProps) {
               <div className="absolute inset-0 flex items-center justify-center">
                 <PlayIcon className="w-16 h-16 text-white group-hover:scale-110 transform transition-transform" />
               </div>
-              <div className="absolute z-10 top-4 right-4  bg-black/20 backdrop-blur-sm rounded-3xl">
+              <div className="absolute z-10 top-4 right-4  bg-black/20 backdrop-blur-sm rounded-2xl p-2">
                 <ExpandIcon className="w-8 h-8 text-white" />
               </div>
             </div>

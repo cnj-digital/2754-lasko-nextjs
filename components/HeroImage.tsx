@@ -39,7 +39,7 @@ export default function HeroImage({
             )}
 
             {buttons && (
-              <div className="flex lg:w-full -mx-8 px-8 lg:mx-0 lg:px-0 overflow-auto items-center gap-4 mb-16 mt-10">
+              <div className="flex lg:w-full -mx-6 px-6 lg:mx-0 lg:px-0 overflow-auto items-center gap-4 mb-16 mt-10">
                 {buttons.map((button, i) => (
                   <ButtonSolid
                     size="small"

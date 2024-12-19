@@ -25,7 +25,7 @@ export default function HeroSliderMobile({ slides }: HeroSliderProps) {
         />
 
         <Container className="relative pt-60 w-full">
-          <div className="absolute top-32 w-full z-20 flex gap-4 items-start p-4 overflow-auto -mx-8 px-8">
+          <div className="absolute top-32 w-full z-20 flex gap-4 items-start p-4 overflow-auto -mx-6 px-6">
             {slides.map((beer, i) => (
               <Link
                 href={`#${beer.title}`}

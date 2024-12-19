@@ -19,6 +19,7 @@ export default function CardGreenHorizontal({
       style={{
         background:
           " linear-gradient(90deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.20) 99.91%), #449935",
+        backgroundSize: "auto 100%",
       }}
     >
       <img
@@ -26,7 +27,9 @@ export default function CardGreenHorizontal({
         alt="card"
         className="object-contain w-2/6 absolute left-0 lg:left-20 mix-blend-luminosity group-hover:scale-110 transition-transform"
       />
-      <span className="text-2xl text-white font-black lg:mr-8">{title}</span>
+      <span className="text-2xl text-white font-black font-neutraface lg:mr-8">
+        {title}
+      </span>
       <Chevron className="text-white group-hover:translate-x-2 transition-transform size-10 " />
     </Link>
   );

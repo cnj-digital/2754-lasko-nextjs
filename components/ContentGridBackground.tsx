@@ -48,7 +48,7 @@ export default function ContentGridBackground({
               ></div>
               <div
                 className={cx(
-                  "lg:grid  mt-16 gap-6 lg:gap-10 -mx-8 lg:mx-0 px-8 lg:px-0 overflow-auto flex snap-mandatory snap-x scroll-p-8",
+                  "lg:grid  mt-16 gap-6 lg:gap-10 -mx-6 lg:mx-0 px-6 lg:px-0 overflow-auto flex snap-mandatory snap-x scroll-p-8",
                   section.type === "horizontal" ? "grid-cols-2" : "grid-cols-3"
                 )}
               >
@@ -77,7 +77,7 @@ export default function ContentGridBackground({
                       >
                         {item.title}
                       </h4>
-                      <p className="text-base lg:text-xl font-medium mt-4">
+                      <p className="text-base lg:text-lg font-medium mt-4">
                         {item.copy}
                       </p>
                     </div>
