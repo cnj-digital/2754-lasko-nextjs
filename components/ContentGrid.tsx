@@ -34,7 +34,7 @@ export default function ContentGrid({
               <img
                 src={item.image}
                 alt={item.title}
-                className=" lg:w-1/2 aspect-square rounded-2xl object-contain"
+                className=" lg:w-1/2 aspect-square rounded-2xl object-cover"
               />
               <div className="text-black">
                 <h4 className="text-2xl lg:text-[32px] leading-tight font-bold">

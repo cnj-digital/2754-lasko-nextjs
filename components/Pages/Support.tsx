@@ -3,8 +3,15 @@ import ExternalLinks from "@/components/ExternalLinks";
 import HeroImage from "@/components/HeroImage";
 import HorizontalCardGrid from "@/components/HorizontalCardGrid";
 
-export default function Support({ hero_support }: any) {
-  console.log("hero_support", hero_support);
+export default function Support({
+  hero_support,
+  support_external_links_copy,
+  support_external_links_title,
+  support_support_title,
+  support_support_copy,
+  support_support_items,
+  promos_items,
+}: any) {
   return (
     <div>
       <HeroImage
@@ -14,72 +21,44 @@ export default function Support({ hero_support }: any) {
           title: cta.title,
           url: cta.url,
         }))}
-        image="/placeholders/podpiramo.png"
+        image="/podpiramo.png"
       />
 
       <ExternalLinks
         links={[
           {
-            image: "/placeholders/pivocvetje.png",
+            image: "/pivocvetje.png",
             url: "https://www.pivoincvetje.si/",
           },
           {
-            image: "/placeholders/gremo.png",
+            image: "/gremovhribe.png",
             url: "https://www.gremo.org/",
           },
           {
-            image: "/placeholders/pohor.png",
+            image: "/pohorskismuk.png",
             url: "https://www.pohorje.org/",
           },
         ]}
-        title="Naši projekti"
-        copy="Z dejanji vračamo družbi. Ponosni smo na naš prispevek k pozitivnim spremembam."
+        title={support_external_links_title}
+        copy={support_external_links_copy}
       />
       <HorizontalCardGrid
-        title={"Podpiramo"}
-        copy={
-          "Društva in inštitucije, ki jih s ponosom podpiramo. Skupaj gradimo močnejšo skupnost."
-        }
-        cards={[
-          {
-            title: "NK Maribor",
-            url: "",
-            image: "/placeholders/club.png",
-          },
-          {
-            title: "NK Maribor",
-            url: "",
-            image: "/placeholders/club.png",
-          },
-          {
-            title: "NK Maribor",
-            url: "",
-            image: "/placeholders/club.png",
-          },
-          {
-            title: "NK Maribor",
-            url: "",
-            image: "/placeholders/club.png",
-          },
-        ]}
+        title={support_support_title}
+        copy={support_support_copy}
+        cards={support_support_items.map((item: any) => ({
+          title: item.cta.title,
+          url: item.cta.link,
+          image: item.cta.asset.permalink,
+        }))}
       />
       <CardsCta
-        cards={[
-          {
-            title: "Spoznaj naše pivo",
-            copy: "Nabor piv, polnjenih v Laškem.",
-            cta: "Razišči",
-            url: "url",
-            image: "/placeholders/beer.png",
-          },
-          {
-            title: "Spoznaj naše pivo",
-            copy: "Nabor piv, polnjenih v Laškem.",
-            cta: "Razišči",
-            url: "url",
-            image: "/placeholders/beer.png",
-          },
-        ]}
+        cards={promos_items.map((promo: any) => ({
+          title: promo.title,
+          copy: promo.description,
+          cta: promo.cta.title,
+          url: promo.cta.link,
+          image: promo.asset.permalink,
+        }))}
       />
     </div>
   );

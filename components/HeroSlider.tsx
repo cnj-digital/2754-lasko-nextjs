@@ -15,6 +15,7 @@ export type Slide = {
   title: string;
   description: string;
   background: string;
+  image: string;
   cta?: {
     title: string;
     link: string;
@@ -56,7 +57,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
                 )}
               >
                 <img
-                  src={`/beers/beer=beer${i + 1}.png`}
+                  src={beer.image}
                   alt="beer"
                   className="h-[120%] object-contain"
                 />
@@ -156,11 +157,7 @@ function BeerContainer({
       ref={ref}
       className="h-screen flex relative z-10 items-center snap-start"
     >
-      <img
-        src={`/beers/beer=beer${i + 1}.png`}
-        alt="beer"
-        className="h-[80%]"
-      />
+      <img src={beer.image} alt="beer" className="h-[80%]" />
     </div>
   );
 }

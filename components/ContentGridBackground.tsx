@@ -25,7 +25,7 @@ export default function ContentGridBackground({
       style={{ backgroundImage: "url('/bg-green.jpg')" }}
     >
       <Container className="w-full">
-        <h2 className="text-white font-neutraface text-[40px] lg:text-[52px] leading-tight">
+        <h2 className="text-white font-neutraface text-[40px] lg:text-[52px] leading-tightt">
           {title}
         </h2>
 
@@ -35,7 +35,10 @@ export default function ContentGridBackground({
               <h3 className="text-[21px] lg:text-[32px] leading-[1.4] font-black text-white">
                 {section.title}
               </h3>
-              <p className="mt-10 font-medium text-xl">{section.copy}</p>
+              <div
+                className="mt-10 font-medium text-xl"
+                dangerouslySetInnerHTML={{ __html: section.copy }}
+              ></div>
               <div
                 className={cx(
                   "lg:grid  mt-16 gap-6 lg:gap-10 -mx-8 lg:mx-0 px-8 lg:px-0 overflow-auto flex snap-mandatory snap-x scroll-p-8",
@@ -54,8 +57,10 @@ export default function ContentGridBackground({
                       src={item.image}
                       alt={item.title}
                       className={cx(
-                        " aspect-square rounded-2xl object-contain",
-                        section.type === "horizontal" ? " lg:w-1/2" : "w-full"
+                        " rounded-2xl object-cover",
+                        section.type === "horizontal"
+                          ? " lg:w-1/2  aspect-square"
+                          : "w-full aspect-[1.3]"
                       )}
                     />
                     <div className="text-white">

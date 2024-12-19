@@ -60,14 +60,13 @@ export default function HistoryTimeline({ timeline }: HistoryTimelineProps) {
                 maxLengthEventEven + maxLengthEventOdd + 1
               }, auto)`,
               overflow: "visible",
-              // width: "calc(100% - (1020px / 2))",
               width: "min-content",
             }}
           >
             <div
-              className="bg-green-700 h-20 -mx-6 px-6 py-2 rounded-full col-span-full relative z-10"
+              className="h-20 -mx-6 px-6 py-2 rounded-full col-span-full relative z-10"
               style={{
-                backgroundImage: 'url("bg-green.png")',
+                backgroundImage: 'url("/bg-green.jpg")',
                 gridRowStart: maxLengthEventEven + 1,
                 gridColumnStart: 1,
               }}
@@ -121,7 +120,7 @@ export default function HistoryTimeline({ timeline }: HistoryTimelineProps) {
                       )}
                     />
                     <button
-                      className="bg-white hover:bg-green-700 text-green-800 transition hover:text-white px-4 py-3 mx-6 rounded-2xl shadow-card w-full flex items-center justify-between"
+                      className="bg-white hover:bg-green-700 text-green-800 transition hover:text-white px-4 py-3 mx-6 rounded-2xl shadow-card w-full flex items-center text-left justify-between"
                       onClick={() => setSelected(event)}
                     >
                       <h3 className="text-lg leading-[1.4] font-semibold ">
@@ -170,14 +169,14 @@ function ItemModal({
     >
       <div
         className={cx(
-          "absolute inset-0 transition bg-black bg-opacity-50",
+          "absolute inset-0 transition bg-black bg-opacity-50 ",
           item ? "opacity-100" : "opacity-0"
         )}
         onClick={() => onClose()}
       />
       <div
         className={cx(
-          "relative rounded-t-3xl transition-all duration-200 lg:rounded-3xl lg:p-8 lg:pb-10 p-6 pb-12 text-white",
+          "relative rounded-t-3xl transition-all duration-200 lg:rounded-3xl lg:p-8 lg:pb-10 p-6 pb-12 text-white max-w-3xl",
           item
             ? "translate-y-0 lg:opacity-100 "
             : "translate-y-full lg:translate-y-0 lg:opacity-0"
@@ -201,10 +200,15 @@ function ItemModal({
           <img
             src={item?.image}
             alt="event"
-            className="w-full h-full object-cover rounded-2xl mt-6 "
+            className="w-full aspect-video object-cover rounded-2xl mt-6 "
           />
         )}
-        <p className="text-lg leading-[1.4] mt-6">{item?.description}</p>
+        {item && (
+          <div
+            className="text-lg leading-[1.4] mt-6"
+            dangerouslySetInnerHTML={{ __html: item.description }}
+          ></div>
+        )}
       </div>
     </Dialog>
   );

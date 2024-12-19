@@ -11,6 +11,7 @@ import { productQuery } from "./queries/product";
 import { historyQuery } from "./queries/history";
 import { supportQuery } from "./queries/support";
 import { archiveQuery } from "./queries/archive";
+import { builderQuery } from "./queries/builder";
 
 const apiUrl = process.env.API_URL ?? "";
 
@@ -43,6 +44,7 @@ export async function fetchPage(uri: string, site: string, blueprint: "page") {
     history: historyQuery,
     support: supportQuery,
     archive: archiveQuery,
+    builder: builderQuery,
   };
 
   const res: any = await request(apiUrl, query[blueprint], {

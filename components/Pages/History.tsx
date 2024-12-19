@@ -8,281 +8,110 @@ import InfoBanner from "@/components/InfoBanner";
 import InfoSlider from "@/components/InfoSlider";
 import VideoGrid from "@/components/VideoGrid";
 
-export default function History() {
+export default function History({
+  story_hero,
+  story_history_title,
+  story_history_sections,
+  story_quote,
+  story_timeline_items,
+  story_quote_bottom,
+  story_slider_title,
+  story_slider_items,
+  story_video_grid_title,
+  story_video_grid_items,
+  story_quality_title,
+  story_quality_sections,
+  story_how_title,
+  story_how_copy,
+  story_how_slides,
+  promos_items,
+}: any) {
   return (
     <div>
       <HeroImage
-        title="Leto 1825"
-        copy="Charles Darwin se vpiše na študij medicine, Hans Orsted kot prvi proizvede aluminij, predsednik ZDA postane John Quincy Adams, v Laškem pa se prične zgodba o pivu, ki ga danes pozna sleherni Slovenec, svoje mesto pa je našel tudi med ljubitelji piva po vsem svetu."
-        buttons={[
-          {
-            title: "Zgodovina",
-            url: "#zgodovina",
-          },
-          {
-            title: "Kakovost",
-            url: "#kakovost",
-          },
-          {
-            title: "Varjenje piva",
-            url: "#varjenje",
-          },
-        ]}
+        title={story_hero.title}
+        copy={story_hero.story_hero_content}
+        buttons={story_hero.story_hero_ctas.map((cta: any) => ({
+          title: cta.cta.title,
+          url: cta.cta.link,
+        }))}
         image="/placeholders/zgodba.png"
       />
       <ContentGrid
-        title="Zgodovina"
-        sectionTitle="Ključni trenutki"
-        items={[
-          {
-            image: "/placeholders/trenutek.png",
-            title: "Prva pivovarna",
-            copy: "Pred več kot 180 leti je Franz Geyer postavil prvo pivovarno v Laškem, kjer je varil kameno pivo in tako postal pionir pivovarstva pri nas.",
-          },
-          {
-            image: "/placeholders/trenutek.png",
-            title: "Prva pivovarna",
-            copy: "Pred več kot 180 leti je Franz Geyer postavil prvo pivovarno v Laškem, kjer je varil kameno pivo in tako postal pionir pivovarstva pri nas.",
-          },
-          {
-            image: "/placeholders/trenutek.png",
-            title: "Prva pivovarna",
-            copy: "Pred več kot 180 leti je Franz Geyer postavil prvo pivovarno v Laškem, kjer je varil kameno pivo in tako postal pionir pivovarstva pri nas.",
-          },
-          {
-            image: "/placeholders/trenutek.png",
-            title: "Prva pivovarna",
-            copy: "Pred več kot 180 leti je Franz Geyer postavil prvo pivovarno v Laškem, kjer je varil kameno pivo in tako postal pionir pivovarstva pri nas.",
-          },
-        ]}
+        title={story_history_title}
+        sectionTitle={story_history_sections[0].title}
+        items={story_history_sections[0].items.map((item: any) => ({
+          title: item.title,
+          copy: item.copy,
+          image: item.image.permalink,
+        }))}
       />
-      <InfoBanner copy=" Pot od majhne obrtne pivovarne do današnjega milijona pretočenih hektolitrov letno je bila polna izzivov, vzponov, padcev in ne moremo mimo dejstva, da bi bila usoda pivovarne brez zavzetosti Laščanov ter mesta Laško precej drugačna." />
+      <InfoBanner copy={story_quote} />
 
       <HistoryTimeline
-        timeline={[
-          {
-            year: 1825,
-            events: [
-              {
-                title: "Odprtje prve pivovarne",
-                description: "",
-                image: "/placeholders/news.png",
-              },
-              {
-                title: "Odprtje prve pivovarne",
-                description: "",
-                image: "/placeholders/news.png",
-              },
-            ],
-          },
-          {
-            year: 1835,
-            events: [
-              {
-                title: "Novi lastnik ponese pivo v tuje kraje",
-                description: "",
-                image: "/placeholders/news.png",
-              },
-              {
-                title: "Primer z večimi vnosi",
-                description:
-                  "Višina celotnega modula se prilagodi letu z največ vnosi",
-                image: "/placeholders/news.png",
-              },
-              {
-                title: "Tako poskrbimo da se ob premikanju med letnica",
-                description: "stran ne razteguje in krči",
-                image: "/placeholders/news.png",
-              },
-            ],
-          },
-          {
-            year: 1867,
-            events: [
-              {
-                title: "Prenova pivovarne",
-                description: "null",
-                image: "/placeholders/news.png",
-              },
-            ],
-          },
-          {
-            year: 1889,
-            events: [
-              {
-                title: "Simon Kukec, oče Laškega piva",
-                description: "null",
-                image: "/placeholders/news.png",
-              },
-            ],
-          },
-          {
-            year: 1900,
-            events: [
-              {
-                title: "Začetek industrijskega",
-                description: "Prehod na industrijsko proizvodnjo",
-                image: "/placeholders/news.png",
-              },
-            ],
-          },
-          {
-            year: 1964,
-            events: [
-              {
-                title: "Posodobitev Proizvodnje",
-                description: "Modernizacija proizvodnih procesov",
-                image: "/placeholders/news.png",
-              },
-            ],
-          },
-        ]}
+        timeline={story_timeline_items.map((item: any) => ({
+          year: item.year,
+          events: item.events.map((event: any) => ({
+            title: event.title,
+            description: event.description,
+            image: event.image?.permalink,
+            cta: event.cta,
+          })),
+        }))}
       />
 
-      <InfoBanner copy="Kljub številnim spremembam je pivo iz Pivovarne Laško ohranilo svoje prvotno sporočilo, v vsakem požirku piva, ki steče po grlu, pa so ujeta desetletja izkušenj, truda in ponosa." />
+      <InfoBanner copy={story_quote_bottom} />
 
-      <ImageSlider
-        title="Desetletja ikoničnih oglasov"
-        images={[
-          {
-            description:
-              "LAŠKO PIVO, 1963, lahko svetlo pivo s stopnjo alkohola 3 % in 10 % ekstraktom. Polnili smo ga le tri mesece.",
-            url: "/placeholders/label.png",
-          },
-          {
-            description:
-              "LAŠKO PIVO, 1963, lahko svetlo pivo s stopnjo alkohola 3 % in 10 % ekstraktom. Polnili smo ga le tri mesece.",
-            url: "/placeholders/label.png",
-          },
-          {
-            description:
-              "LAŠKO PIVO, 1963, lahko svetlo pivo s stopnjo alkohola 3 % in 10 % ekstraktom. Polnili smo ga le tri mesece.",
-            url: "/placeholders/label.png",
-          },
-          {
-            description:
-              "LAŠKO PIVO, 1963, lahko svetlo pivo s stopnjo alkohola 3 % in 10 % ekstraktom. Polnili smo ga le tri mesece.",
-            url: "/placeholders/label.png",
-          },
-          {
-            description:
-              "LAŠKO PIVO, 1963, lahko svetlo pivo s stopnjo alkohola 3 % in 10 % ekstraktom. Polnili smo ga le tri mesece.",
-            url: "/placeholders/label.png",
-          },
-        ]}
-      />
+      {story_slider_items && (
+        <ImageSlider
+          title={story_slider_title}
+          images={story_slider_items.map((item: any) => ({
+            description: item.description,
+            url: item.image.permalink,
+          }))}
+        />
+      )}
 
       <VideoGrid
-        title="Desetletja ikoničnih oglasov "
-        videos={[
-          {
-            title: "Laško Pivo",
-            videoUrl:
-              "https://www.youtube.com/watch?v=j8Vusneryxs&ab_channel=La%C5%A1ko",
-          },
-          {
-            title: "Laško Pivo",
-            videoUrl:
-              "https://www.youtube.com/watch?v=j8Vusneryxs&ab_channel=La%C5%A1ko",
-          },
-          {
-            title: "Laško Pivo",
-            videoUrl:
-              "https://www.youtube.com/watch?v=j8Vusneryxs&ab_channel=La%C5%A1ko",
-          },
-        ]}
+        title={story_video_grid_title}
+        videos={story_video_grid_items.map((item: any) => ({
+          title: item.title,
+          videoUrl: item.video,
+        }))}
       />
 
       <ContentGridBackground
-        title="Kakovost"
-        sections={[
-          {
-            type: "horizontal",
-            title:
-              "Vrhunske sestavine in desetletja izkušenj zagotavljajo le najboljše pivo",
-            copy: "Kakovost je od nekdaj na prvem mestu, zato pazljivo izbiramo in uporabljamo le najboljše sestavine. Začne se pri vodi, ki mora biti kakovostna, saj je ključnega pomena za karakter in kakovost piva. Ena od pomembnejših sestavin je tudi slad, ki ga pridobivamo iz skrbno izbranih sort ječmena. Značilno grenčico in aromo pivu dodajo kombinacije različnih sort hmelja, za alkoholno vrenje pa poskrbi pivski kvas.",
-            items: [
-              {
-                image: "/placeholders/trenutek.png",
-                title: "Prva pivovarna",
-                copy: "Pred več kot 180 leti je Franz Geyer postavil prvo pivovarno v Laškem, kjer je varil kameno pivo in tako postal pionir pivovarstva pri nas.",
-              },
-              {
-                image: "/placeholders/trenutek.png",
-                title: "Prva pivovarna",
-                copy: "Pred več kot 180 leti je Franz Geyer postavil prvo pivovarno v Laškem, kjer je varil kameno pivo in tako postal pionir pivovarstva pri nas.",
-              },
-              {
-                image: "/placeholders/trenutek.png",
-                title: "Prva pivovarna",
-                copy: "Pred več kot 180 leti je Franz Geyer postavil prvo pivovarno v Laškem, kjer je varil kameno pivo in tako postal pionir pivovarstva pri nas.",
-              },
-              {
-                image: "/placeholders/trenutek.png",
-                title: "Prva pivovarna",
-                copy: "Pred več kot 180 leti je Franz Geyer postavil prvo pivovarno v Laškem, kjer je varil kameno pivo in tako postal pionir pivovarstva pri nas.",
-              },
-            ],
-          },
-          {
-            type: "vertical",
-            title: "Pivovarska zaveza",
-            copy: "Časi se sicer spreminjajo, vse hitreje in vse bolj. A pivovarstvo, tisto, ki spoštuje primarno znanje, tisto, ki pivo časti kot naravno živilo, se pravi tisto žlahtno pivovarstvo, ki ga goji Pivovarna Laško, ob vsem upoštevanju napredka prisega na starodavno izročilo mojstrov pivovarjev:",
-            items: [
-              {
-                title: "Tehnologija je biblija",
-                copy: "Rojstni list - vsako pivo ima do potankosti predpisano celotno pot od varjenja, prek alkoholnega vrenja, zorenja do polnjenja. Laški postopek zagotavlja zdaj že pregovorno kakovost. Tradicionalna receptura - ič hitenja in pospeševanja, nič skrajševanja postopkov varjenja, alkoholnega vretja in zorenja. Laško pivo zori najmanj 3 do 4 tedne.",
-                image: "/placeholders/trenutek.png",
-              },
-            ],
-          },
-        ]}
+        title={story_quality_title}
+        sections={story_quality_sections.map((section: any) => ({
+          title: section.title,
+          copy: section.copy,
+          items: section.items.map((item: any) => ({
+            title: item.title,
+            copy: item.copy,
+            image: item.image.permalink,
+          })),
+          type: section.orientation.value,
+        }))}
       />
 
       <InfoSlider
-        title="Varjenje piva"
-        copy="Proces nastanka piva od trenutka vnosa sestavin, do pakiranja končnega izdelka."
-        slides={[
-          {
-            title: "1. Korak",
-            copy: "Voda je osnovna sestavina piva, zato je ključnega pomena, da je kakovostna. Voda iz lastnega vodnega vira je osnova za vse vrste piva, ki jih varimo.",
-            numbers: [1, 2, 4, 5],
-          },
-          {
-            title: "2. Korak",
-            copy: "Slad je druga najpomembnejša sestavina piva. Slad pridobivamo iz ječmena, ki ga namakamo, kalimo, sušimo in pražimo.",
-            numbers: [6, 7, 8, 9],
-          },
-          {
-            title: "3. Korak",
-            copy: "Hmelj je tretja najpomembnejša sestavina piva. Hmelj dodajamo za aromo in grenčico, ki pivo naredita posebno.",
-            numbers: [10, 11, 12],
-          },
-          {
-            title: "4. Korak",
-            copy: "Kvas je zadnja sestavina piva. Kvas je mikroorganizem, ki med alkoholnim vrenjem pretvarja sladkorje v alkohol in ogljikov dioksid.",
-            numbers: [13, 14, 15, 16],
-          },
-        ]}
+        title={story_how_title}
+        copy={story_how_copy}
+        slides={story_how_slides.map((item: any) => ({
+          title: item.title,
+          copy: item.copy,
+          numbers: item.numbers,
+        }))}
       />
 
       <CardsCta
-        cards={[
-          {
-            title: "Spoznaj naše pivo",
-            copy: "Nabor piv, polnjenih v Laškem.",
-            cta: "Razišči",
-            url: "url",
-            image: "/placeholders/beer.png",
-          },
-          {
-            title: "Spoznaj naše pivo",
-            copy: "Nabor piv, polnjenih v Laškem.",
-            cta: "Razišči",
-            url: "url",
-            image: "/placeholders/beer.png",
-          },
-        ]}
+        cards={promos_items.map((promo: any) => ({
+          title: promo.title,
+          copy: promo.description,
+          cta: promo.cta.title,
+          url: promo.cta.link,
+          image: promo.asset.permalink,
+        }))}
       />
     </div>
   );

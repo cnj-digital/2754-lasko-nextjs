@@ -1,8 +1,8 @@
 import { gql } from "graphql-request";
 
 export const historyQuery = gql`
-  query HomepageQuery {
-    entry(uri: "/zgodovina") {
+  query historyQuery($uri: String, $site: String) {
+    entry(uri: $uri, site: $site) {
       title
       ... on Entry_Pages_History {
         story_history_title

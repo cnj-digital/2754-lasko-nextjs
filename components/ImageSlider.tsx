@@ -77,7 +77,7 @@ export default function ImageSlider({ title, images }: ImageSliderProps) {
           key={currentSlide}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="lg:text-center text-gray-600 max-w-md ml-auto lg:pl-28"
+          className="font-medium text-gray-600 max-w-md ml-auto lg:pl-28"
         >
           {images[currentSlide].description}
         </motion.p>

@@ -195,15 +195,16 @@ export default function InfoSlider({ title, copy, slides }: InfoSliderProps) {
         {slides.map((slide, i) => (
           <div key={i} className="keen-slider__slide">
             <ul className="flex gap-2 ">
-              {slide.numbers.map((number, i) => (
-                <li
-                  key={i}
-                  className="bg-white size-10 rounded-full text-green-800 text-xl lg:text-[22px] items-center flex font-bold justify-center"
-                  style={{ boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.20)" }}
-                >
-                  <span>{number}</span>
-                </li>
-              ))}
+              {slide.numbers &&
+                slide.numbers.map((number, i) => (
+                  <li
+                    key={i}
+                    className="bg-white size-10 rounded-full text-green-800 text-xl lg:text-[22px] items-center flex font-bold justify-center"
+                    style={{ boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.20)" }}
+                  >
+                    <span>{number}</span>
+                  </li>
+                ))}
             </ul>
             <h3 className="text-green-800 mt-4 text-2xl lg:text-[32px] font-bold">
               {slide.title}
