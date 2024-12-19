@@ -2,11 +2,11 @@ import CardsCta from "@/components/CardsCta";
 import DisclousureCards from "@/components/DisclosureCards";
 import HeroImage from "@/components/HeroImage";
 
-export default async function Archive({ content }: any) {
+export default async function Archive({ articles }: any) {
   return (
     <div>
       <HeroImage title="Arhiv objav" />
-      <DisclousureCards articles={content.articles} />
+      <DisclousureCards articles={articles} />
       <CardsCta
         cards={[
           {
