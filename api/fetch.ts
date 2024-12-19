@@ -38,7 +38,7 @@ export async function fetchFooter(site: string) {
 
 export async function fetchPageBlueprint(uri: string, site: string) {
   const res: any = await request(apiUrl, pageQuery, { uri, site });
-  console.log("res", res);
+  // console.log("res", res);
   return res.entry.blueprint;
 }
 

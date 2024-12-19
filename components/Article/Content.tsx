@@ -33,12 +33,14 @@ export default function Content({
   return (
     <div className={cx("grid py-20 gap-10", asset ? "grid-cols-2" : "")}>
       <div className={cx("px-6", variant?.value === "left" ? "order-2" : "")}>
-        <h2
-          id={generateAnchorLink(title)}
-          className="text-green-800 font-black font-neutraface"
-        >
-          {title}
-        </h2>
+        {title && (
+          <h2
+            id={generateAnchorLink(title)}
+            className="text-green-800 font-black font-neutraface"
+          >
+            {title}
+          </h2>
+        )}
         <div className="mt-4">
           {content_field.map((item, i) => {
             if (item.type === "text") {
