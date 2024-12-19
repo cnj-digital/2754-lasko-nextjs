@@ -83,7 +83,7 @@ export default function Footer({ nav }: FooterProps) {
               ))}
             </div>
             <div className="mt-10 lg:mt-20 grid lg:grid-cols-3 items-end">
-              <p className="text-xs text-center lg:text-left text-balance  lg:max-w-48">
+              <p className="text-xs text-center text-white lg:text-left text-balance  lg:max-w-48">
                 {copyright}
               </p>
               <Socials

@@ -37,12 +37,18 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
   return (
     <div className="relative w-full" style={{}}>
       <div className="sticky flex flex-col justify-center items-center top-0 h-screen z-10">
-        <div
-          className="h-screen absolute z-0 top-0 left-0 w-full rounded-b-4xl transition-all bg-cover"
-          style={{
-            backgroundImage: `url("${slides[activeIndex].background}")`,
-          }}
-        />
+        {slides.map((beer, i) => (
+          <div
+            key={i}
+            className={cx(
+              "h-screen absolute z-0 top-0 left-0 w-full rounded-b-4xl transition-all bg-cover",
+              activeIndex === i ? "opacity-100" : "opacity-0"
+            )}
+            style={{
+              backgroundImage: `url("${beer.background}")`,
+            }}
+          />
+        ))}
         <Container className="absolute flex justify-between w-full z-20">
           <div className=" rounded-4xl shadow-card backdrop-blur-sm space-y-6 p-4 bg-white/20 bg-gradient-to-b from-transparent via-transparent to-black/20">
             {slides.map((beer, i) => (
@@ -74,7 +80,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
                   i === activeIndex ? "opacity-100" : " opacity-0"
                 )}
               >
-                <h2 className="text-[52px] font-neutraface font-black lg:leading-tight">
+                <h2 className="text-[52px] font-neutraface text-white font-black lg:leading-tight">
                   {beer.title}
                 </h2>
                 <div
@@ -82,7 +88,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
                   dangerouslySetInnerHTML={{ __html: beer.description }}
                 ></div>
                 {beer.specs && beer.specs.length > 0 && (
-                  <div className="grid auto-cols-auto grid-flow-col border border-white rounded-2xl mt-8">
+                  <div className="grid auto-cols-auto grid-flow-col border text-white border-white rounded-2xl mt-8">
                     <div className=" divide-y divide-white border-r">
                       {beer.specs.map((spec, i) => (
                         <p key={i} className=" text-xl px-4 py-2 font-semibold">

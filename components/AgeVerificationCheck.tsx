@@ -12,19 +12,32 @@ export default function AgeVerificationCheck({
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const isVerified = sessionStorage.getItem("age-verified");
+    const verifiedTimestamp = localStorage.getItem("age-verified");
+    const isVerified = verifiedTimestamp
+      ? new Date().getTime() - parseInt(verifiedTimestamp) <
+        // one month to show again
+        30 * 24 * 60 * 60 * 1000
+      : false;
+
+    if (!isVerified) {
+      localStorage.setItem("age-verified", new Date().getTime().toString());
+    }
     if (!isVerified) {
       setIsOpen(true);
     }
   }, []);
 
   const handleVerify = () => {
-    sessionStorage.setItem("age-verified", "true");
+    localStorage.setItem("age-verified", new Date().getTime().toString());
     setIsOpen(false);
   };
 
   const handleDeny = () => {
-    window.history.back();
+    try {
+      window.history.back();
+    } catch {
+      window.close();
+    }
   };
 
   return (
@@ -46,7 +59,7 @@ export default function AgeVerificationCheck({
               className="fixed inset-0 bg-black/50"
             />
 
-            <div
+            <motion.div
               className="fixed inset-0 overflow-y-auto bg-cover"
               style={{ backgroundImage: 'url("/bg-green.jpg")' }}
             >
@@ -89,7 +102,7 @@ export default function AgeVerificationCheck({
                   </div>
                 </DialogPanel>
               </div>
-            </div>
+            </motion.div>
           </Dialog>
         )}
       </AnimatePresence>

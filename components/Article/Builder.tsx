@@ -1,5 +1,7 @@
 import Content, { ContentProps } from "./Content";
+import Quote from "./Quote";
 import Share from "./Share";
+import VideoPlayer from "./Video";
 
 type BuilderComponentProps = {
   type: string;
@@ -13,6 +15,8 @@ export default function BuilderComponent({
   const components: { [key: string]: React.ComponentType<any> } = {
     content_set: Content,
     share: Share,
+    quote: Quote,
+    video: VideoPlayer,
   };
   const Component = components[type] ? components[type] : NotFound;
 

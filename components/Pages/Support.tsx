@@ -2,6 +2,7 @@ import CardsCta from "@/components/CardsCta";
 import ExternalLinks from "@/components/ExternalLinks";
 import HeroImage from "@/components/HeroImage";
 import HorizontalCardGrid from "@/components/HorizontalCardGrid";
+import { external_links } from "@/data/general";
 
 export default function Support({
   hero_support,
@@ -25,20 +26,7 @@ export default function Support({
       />
 
       <ExternalLinks
-        links={[
-          {
-            image: "/pivocvetje.png",
-            url: "https://www.pivoincvetje.si/",
-          },
-          {
-            image: "/gremovhribe.png",
-            url: "https://www.gremo.org/",
-          },
-          {
-            image: "/pohorskismuk.png",
-            url: "https://www.pohorje.org/",
-          },
-        ]}
+        links={external_links}
         title={support_external_links_title}
         copy={support_external_links_copy}
       />

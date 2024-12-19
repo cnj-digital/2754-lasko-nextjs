@@ -31,6 +31,10 @@ html {
   p {
     @apply text-lg font-semibold leading-[1.4];
   }
+
+  strong {
+    @apply font-black;
+  }
   p + p {
     margin-top: 1.5rem;
   }

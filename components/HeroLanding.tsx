@@ -74,7 +74,7 @@ export default function HeroLanding({
         <Link
           href={"/"}
           className="w-full  absolute bottom-0 bg-cover bg-center pb-4 pt-12 rounded-b-3xl flex justify-center items-center  overflow-hidden"
-          style={{ backgroundImage: 'url("/bg-200.jpeg")' }}
+          style={{ backgroundImage: 'url("/bg-200.svg")' }}
         >
           <div className="bg-gradient-to-b from-transparent rounded-b-3xl from-[32.27%] to-black/30 to-[85.96%] absolute inset-0 h-full w-full" />
           <p className="relative text-[32px] leading-tight font-bold text-white">

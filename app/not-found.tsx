@@ -11,7 +11,7 @@ export default function NotFound() {
       <ButtonSolid
         url="/"
         title="Naše pivo"
-        className="mt-6 lg:mt-10 mx-auto "
+        className="mt-6 lg:mt-10 mx-auto inline-flex "
       />
     </Container>
   );

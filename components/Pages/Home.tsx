@@ -2,6 +2,7 @@ import CardsCta from "@/components/CardsCta";
 import ExternalLinks from "@/components/ExternalLinks";
 import HeroLanding from "@/components/HeroLanding";
 import NewsSection from "@/components/NewsSection";
+import { external_links } from "@/data/general";
 
 export default async function Home({
   articles,
@@ -19,20 +20,7 @@ export default async function Home({
       />
       {external_links_items && (
         <ExternalLinks
-          links={[
-            {
-              image: "/pivocvetje.png",
-              url: "https://www.pivoincvetje.si/",
-            },
-            {
-              image: "/gremovhribe.png",
-              url: "https://www.gremo.org/",
-            },
-            {
-              image: "/pohorskismuk.png",
-              url: "https://www.pohorje.org/",
-            },
-          ]}
+          links={external_links}
           pageLinks={
             external_links_items
               ? external_links_items.map((link: any) => ({

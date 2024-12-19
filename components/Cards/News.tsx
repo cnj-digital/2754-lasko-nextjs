@@ -27,7 +27,7 @@ export default function CardNews({
       <div className="group grayscale group-hover:grayscale-0 transition-all w-full h-[260px] overflow-hidden">
         <img
           src={image}
-          className=" group-hover:scale-105 transition-all w-full h-full object-cover"
+          className=" group-hover:scale-105 transition-all w-full h-full object-cover object-center"
         />
       </div>
       <div className="flex items-center pl-8 pr-4 pb-8 pt-6 justify-between">

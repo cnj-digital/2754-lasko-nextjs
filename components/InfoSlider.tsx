@@ -191,43 +191,47 @@ export default function InfoSlider({ title, copy, slides }: InfoSliderProps) {
           })}
         </div>
       </div>
-      <div ref={sliderRef} className="keen-slider mt-4 lg:mt-10">
-        {slides.map((slide, i) => (
-          <div key={i} className="keen-slider__slide">
-            <ul className="flex gap-2 ">
-              {slide.numbers &&
-                slide.numbers.map((number, i) => (
-                  <li
-                    key={i}
-                    className="bg-white size-10 rounded-full text-green-800 text-xl lg:text-[22px] items-center flex font-bold justify-center"
-                    style={{ boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.20)" }}
-                  >
-                    <span>{number}</span>
-                  </li>
-                ))}
-            </ul>
-            <h3 className="text-green-800 mt-4 text-2xl lg:text-[32px] font-bold">
-              {slide.title}
-            </h3>
-            <p className="text-black mt-4 text-base lg:text-xl font-medium leading-tight">
-              {slide.copy}
-            </p>
-          </div>
-        ))}
-      </div>
-      <div className="flex gap-4 ml-auto">
-        <button
-          className=" bg-black p-2 bg-opacity-20 rounded-2xl backdrop-blur-sm"
-          onClick={() => instanceRef.current?.prev()}
-        >
-          <Chevron className="size-8 rotate-180 text-white" />
-        </button>
-        <button
-          className=" bg-black p-2 bg-opacity-20 rounded-2xl backdrop-blur-sm"
-          onClick={() => instanceRef.current?.next()}
-        >
-          <Chevron className="size-8 text-white" />
-        </button>
+      <div className="flex items-center justify-between mt-4 lg:mt-10 gap-10">
+        <div ref={sliderRef} className="keen-slider ">
+          {slides.map((slide, i) => (
+            <div key={i} className="keen-slider__slide">
+              <ul className="flex gap-2 ">
+                {slide.numbers &&
+                  slide.numbers.map((number, i) => (
+                    <li
+                      key={i}
+                      className="bg-white size-10 rounded-full text-green-800 text-xl lg:text-[22px] items-center flex font-bold justify-center"
+                      style={{
+                        boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.20)",
+                      }}
+                    >
+                      <span>{number}</span>
+                    </li>
+                  ))}
+              </ul>
+              <h3 className="text-green-800 mt-4 text-2xl lg:text-[32px] font-bold">
+                {slide.title}
+              </h3>
+              <p className="text-black mt-4 text-base lg:text-xl font-medium leading-tight">
+                {slide.copy}
+              </p>
+            </div>
+          ))}
+        </div>
+        <div className="flex gap-4 ml-auto">
+          <button
+            className=" bg-black p-2 bg-opacity-20 rounded-2xl backdrop-blur-sm"
+            onClick={() => instanceRef.current?.prev()}
+          >
+            <Chevron className="size-8 rotate-180 text-white" />
+          </button>
+          <button
+            className=" bg-black p-2 bg-opacity-20 rounded-2xl backdrop-blur-sm"
+            onClick={() => instanceRef.current?.next()}
+          >
+            <Chevron className="size-8 text-white" />
+          </button>
+        </div>
       </div>
     </Container>
   );

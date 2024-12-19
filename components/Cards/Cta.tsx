@@ -66,7 +66,7 @@ export default function CardCta({
         </button>
       </div>
 
-      <div className="overflow-x-hidden w-full h-full absolute inset-0">
+      <div className="lg:overflow-x-hidden w-full h-full absolute inset-0">
         <img
           src={image}
           alt={title}

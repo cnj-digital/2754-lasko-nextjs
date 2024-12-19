@@ -8,6 +8,7 @@ import Container from "./Container";
 import MenuIcon from "./Icons/Menu";
 import MobileMenu from "./Menu/MobileMenu";
 import ArrowDiagonalIcon from "./Icons/ArrowDiagonal";
+import { external_links } from "@/data/general";
 
 type MenuProps = {
   nav: {
@@ -19,24 +20,6 @@ type MenuProps = {
 const Menu = ({ nav }: MenuProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const externalLinks = [
-    {
-      image: "/placeholders/pivocvetje.png",
-      title: "Pivo in cvetje",
-      url: "https://www.pivoincvetje.si/",
-    },
-    {
-      image: "/placeholders/gremo.png",
-      title: "Gremo v hribe",
-      url: "https://www.gremo.org/",
-    },
-    {
-      image: "/placeholders/pohor.png",
-      title: "Pohorski smuk",
-      url: "https://www.pohorje.org/",
-    },
-  ];
 
   const socialsTitle = "Sledite nam";
   const socials = [
@@ -118,7 +101,7 @@ const Menu = ({ nav }: MenuProps) => {
           isOpen={isMenuOpen}
           onClose={() => setIsMenuOpen(false)}
           items={nav}
-          externalLinks={externalLinks}
+          externalLinks={external_links}
           socialsTitle={socialsTitle}
           socials={socials}
         />

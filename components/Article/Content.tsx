@@ -1,5 +1,7 @@
+import { isExternalLink } from "@/helpers/general";
 import cx from "classnames";
 import Link from "next/link";
+import ArrowDiagonalIcon from "../Icons/ArrowDiagonal";
 
 export type ContentProps = {
   title: string | null;
@@ -43,9 +45,23 @@ export default function Content({
                 ></div>
               );
             } else if (item.type === "cta") {
-              <Link href={item.link} className="">
-                {item.asset && <img src={item.asset.permalink} alt="content" />}
-                {item.title}
+              <Link
+                href={item.link}
+                className="inline-flex py-3 px-4 gap-4 shadow-small-card"
+              >
+                {item.asset && (
+                  <img
+                    src={item.asset.permalink}
+                    alt="content"
+                    className="size-10 object-contain rounded-lg overflow-clip"
+                  />
+                )}
+                <span className="text-xl font-semibold leading-[1.4] text-black">
+                  {item.title}
+                </span>
+                {isExternalLink(item.link) && (
+                  <ArrowDiagonalIcon className="size-6 text-black" />
+                )}
               </Link>;
             }
           })}

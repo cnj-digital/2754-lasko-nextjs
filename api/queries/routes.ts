@@ -7,6 +7,7 @@ export const routesQuery = gql`
         uri
         url
         blueprint
+        id
       }
     }
   }

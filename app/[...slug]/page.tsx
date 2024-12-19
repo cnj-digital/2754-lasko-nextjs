@@ -30,7 +30,7 @@ export async function generateStaticParams() {
 
     // Fetch and transform articles
     const articlesRes = await fetchArticles();
-    const articles = languages.flatMap((lang) =>
+    const articles = languages.flatMap(() =>
       articlesRes.map((article: any) => ({
         slug: article.url.replace(/^\//, "").split("/"), // Include 'articles' in the path
       }))

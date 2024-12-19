@@ -36,7 +36,7 @@ export default function ContentGridBackground({
                 {section.title}
               </h3>
               <div
-                className="mt-10 font-medium text-xl"
+                className="mt-10 font-medium text-xl text-white"
                 dangerouslySetInnerHTML={{ __html: section.copy }}
               ></div>
               <div

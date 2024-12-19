@@ -32,7 +32,7 @@ export default function Socials({
     <div
       className={cx(" justify-center items-center flex flex-col", className)}
     >
-      <p className="text-sm font-semibold mx-auto">{socialsTitle}</p>
+      <p className="text-sm font-semibold mx-auto text-white">{socialsTitle}</p>
       <div className="flex gap-3 mt-3">
         {socials.map((social, index) => (
           <Link key={index} href={social.url} target="_blank">
