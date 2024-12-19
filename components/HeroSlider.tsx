@@ -41,8 +41,8 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
           <div
             key={i}
             className={cx(
-              "h-screen absolute z-0 top-0 left-0 w-full rounded-b-4xl transition-all bg-cover",
-              activeIndex === i ? "opacity-100" : "opacity-0"
+              "h-screen absolute z-0 top-0 left-0 w-full rounded-b-4xl transition-all bg-cover duration-500",
+              activeIndex === i ? "opacity-100" : "opacity-0 delay-150"
             )}
             style={{
               backgroundImage: `url("${beer.background}")`,
@@ -108,7 +108,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
                 {beer.cta && (
                   <Link
                     href={beer.cta.link}
-                    className=" backdrop-blur-sm inline-flex items-center text-xl font-semibold bg-white/10 mt-8 py-4 px-4 rounded-2xl"
+                    className="backdrop-blur-sm inline-flex items-center text-xl font-semibold bg-white/10 mt-8 py-4 px-4 rounded-2xl text-white"
                     style={{
                       boxShadow: "0px 4px 20px 0px rgba(0, 0, 0, 0.25)",
                     }}

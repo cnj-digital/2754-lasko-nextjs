@@ -19,8 +19,8 @@ export default function Support({
         title={hero_support.title}
         copy={hero_support.support_hero_content}
         buttons={hero_support.support_hero_ctas.map((cta: any) => ({
-          title: cta.title,
-          url: cta.url,
+          title: cta.cta.title,
+          url: cta.cta.link,
         }))}
         image="/podpiramo.png"
       />
