@@ -5,6 +5,7 @@ import { useState } from "react";
 import Link from "next/link";
 import DocumentIcon from "./Icons/Document";
 import { Slide } from "./HeroSlider";
+import { generateAnchorLink } from "@/helpers/general";
 
 type HeroSliderProps = {
   slides: Slide[];
@@ -53,7 +54,10 @@ export default function HeroSliderMobile({ slides }: HeroSliderProps) {
                   i === activeIndex ? "opacity-100" : " opacity-0"
                 )}
               >
-                <h2 className="absolute w-full text-center mix-blend-overlay text-[#F2F2F2] text-[60px] font-neutraface font-black leading-tight">
+                <h2
+                  id={generateAnchorLink(beer.title)}
+                  className="absolute w-full text-center mix-blend-overlay text-[#F2F2F2] text-[60px] font-neutraface font-black leading-tight"
+                >
                   {beer.title}
                 </h2>
                 <img

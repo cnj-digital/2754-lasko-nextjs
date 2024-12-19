@@ -1,3 +1,4 @@
+import { generateAnchorLink } from "@/helpers/general";
 import CardHorizontal from "./Cards/Horizontal";
 import Container from "./Container";
 
@@ -19,7 +20,10 @@ export default function HorizontalCardGrid({
   return (
     <Container className="py-20">
       {title && (
-        <h2 className="text-5xl font-neutraface font-black  leading-tight text-green-800">
+        <h2
+          id={generateAnchorLink(title)}
+          className="text-5xl font-neutraface font-black  leading-tight text-green-800"
+        >
           {title}
         </h2>
       )}

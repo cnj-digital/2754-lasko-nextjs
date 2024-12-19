@@ -6,6 +6,7 @@ import {
 import CardNews from "./Cards/News";
 import Chevron from "./Icons/Chevron";
 import Container from "./Container";
+import { generateAnchorLink } from "@/helpers/general";
 
 type DisclousureCardsProps = {
   articles: {
@@ -45,7 +46,10 @@ export default function DisclousureCards({ articles }: DisclousureCardsProps) {
       {years.map((year, i) => (
         <Disclosure defaultOpen={i === 0} key={i}>
           <DisclosureButton className="flex group gap-6 items-center w-full justify-between lg:w-auto">
-            <h2 className="text-green-800 text-[40px] lg:text-[52px] font-neutraface font-bold">
+            <h2
+              id={generateAnchorLink(year.year.toString())}
+              className="text-green-800 text-[40px] lg:text-[52px] font-neutraface font-bold"
+            >
               {year.year}
             </h2>
             <Chevron className="text-green-800 size-10 rotate-90 group-data-[open]:-rotate-90 transition " />

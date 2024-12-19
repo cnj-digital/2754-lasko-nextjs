@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Chevron from "../Icons/Chevron";
 import cx from "classnames";
+import { generateAnchorLink } from "@/helpers/general";
 
 type CardNewsProps = {
   title: string;
@@ -31,7 +32,10 @@ export default function CardNews({
         />
       </div>
       <div className="flex items-center pl-8 pr-4 pb-8 pt-6 justify-between">
-        <h3 className="mt-1 text-2xl text-black font-bold line-clamp-2">
+        <h3
+          id={generateAnchorLink(title)}
+          className="mt-1 text-2xl text-black font-bold line-clamp-2"
+        >
           {title}
         </h3>
         <Chevron className=" text-black size-10 flex-shrink-0 " />

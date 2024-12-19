@@ -2,6 +2,7 @@
 import { useKeenSlider } from "keen-slider/react";
 import Container from "./Container";
 import Chevron from "./Icons/Chevron";
+import { generateAnchorLink } from "@/helpers/general";
 
 type InfoSliderProps = {
   title: string;
@@ -144,7 +145,10 @@ export default function InfoSlider({ title, copy, slides }: InfoSliderProps) {
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({});
   return (
     <Container className="py-20">
-      <h2 className=" leading-tight text-[40px] text-green-800 lg:text-[52px] font-neutraface">
+      <h2
+        id={generateAnchorLink(title)}
+        className="leading-tight text-[40px] text-green-800 lg:text-[52px] font-neutraface"
+      >
         {title}
       </h2>
       <p className="text-[21px] mt-6 lg:mt-10 text-black lg:text-[32px] leading-[1.4]">
@@ -209,7 +213,10 @@ export default function InfoSlider({ title, copy, slides }: InfoSliderProps) {
                     </li>
                   ))}
               </ul>
-              <h3 className="text-green-800 mt-4 text-2xl lg:text-[32px] font-bold">
+              <h3
+                id={generateAnchorLink(slide.title)}
+                className="text-green-800 mt-4 text-2xl lg:text-[32px] font-bold"
+              >
                 {slide.title}
               </h3>
               <p className="text-black mt-4 text-base lg:text-xl font-medium leading-tight">

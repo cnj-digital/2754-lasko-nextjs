@@ -6,6 +6,7 @@ import { KeenSliderOptions, useKeenSlider } from "keen-slider/react";
 import { motion } from "motion/react";
 import cx from "classnames";
 import Chevron from "./Icons/Chevron";
+import { generateAnchorLink } from "@/helpers/general";
 
 type ImageSliderProps = {
   title: string;
@@ -29,7 +30,10 @@ export default function ImageSlider({ title, images }: ImageSliderProps) {
   return (
     <div className="max-w-8xl mx-auto overflow-hidden">
       <Container>
-        <h2 className="text-[32px] lg:text-[52px]  font-black text-green-800 font-neutraface">
+        <h2
+          id={generateAnchorLink(title)}
+          className="text-[32px] lg:text-[52px]  font-black text-green-800 font-neutraface"
+        >
           {title}
         </h2>
       </Container>

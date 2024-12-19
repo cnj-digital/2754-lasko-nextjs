@@ -6,6 +6,7 @@ import CloseIcon from "./Icons/Close";
 import Container from "./Container";
 import PlayIcon from "./Icons/Play";
 import ExpandIcon from "./Icons/Expand";
+import { generateAnchorLink } from "@/helpers/general";
 
 type Video = {
   title: string;
@@ -101,7 +102,10 @@ export default function VideoGrid({ title, videos }: VideoGridProps) {
   return (
     <Container className="w-full py-20">
       {title && (
-        <h2 className="text-[32px] lg:text-[52px] font-black text-green-800 font-neutraface">
+        <h2
+          id={generateAnchorLink(title)}
+          className="text-[32px] lg:text-[52px] font-black text-green-800 font-neutraface"
+        >
           {title}
         </h2>
       )}

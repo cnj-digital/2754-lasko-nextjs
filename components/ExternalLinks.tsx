@@ -1,6 +1,7 @@
 import CardGreenHorizontal from "./Cards/GreenHorizontal";
 import CardMedium from "./Cards/Medium";
 import Container from "./Container";
+import { generateAnchorLink } from "../helpers/general";
 
 type ExternalLinksProps = {
   title?: string;
@@ -25,7 +26,10 @@ export default function ExternalLinks({
   return (
     <Container className=" py-20">
       {title && (
-        <h2 className="text-5xl font-neutraface font-black  leading-tight text-green-800">
+        <h2
+          id={generateAnchorLink(title)}
+          className="text-5xl font-neutraface font-black  leading-tight text-green-800"
+        >
           {title}
         </h2>
       )}

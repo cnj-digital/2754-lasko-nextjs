@@ -1,3 +1,4 @@
+import { generateAnchorLink } from "@/helpers/general";
 import Container from "./Container";
 import cx from "classnames";
 
@@ -25,14 +26,20 @@ export default function ContentGridBackground({
       style={{ backgroundImage: "url('/bg-green.jpg')" }}
     >
       <Container className="w-full">
-        <h2 className="text-white font-neutraface text-[40px] lg:text-[52px] leading-tightt">
+        <h2
+          id={generateAnchorLink(title)}
+          className="text-white font-neutraface text-[40px] lg:text-[52px] leading-tightt"
+        >
           {title}
         </h2>
 
         <div className="mt-16 space-y-32">
           {sections.map((section, i) => (
             <div key={i} className="w-full">
-              <h3 className="text-[21px] lg:text-[32px] leading-[1.4] font-black text-white">
+              <h3
+                id={generateAnchorLink(section.title)}
+                className="text-[21px] lg:text-[32px] leading-[1.4] font-black text-white"
+              >
                 {section.title}
               </h3>
               <div
@@ -64,7 +71,10 @@ export default function ContentGridBackground({
                       )}
                     />
                     <div className="text-white">
-                      <h4 className="text-2xl lg:text-[32px] leading-tight font-bold">
+                      <h4
+                        id={generateAnchorLink(item.title)}
+                        className="text-2xl lg:text-[32px] leading-tight font-bold"
+                      >
                         {item.title}
                       </h4>
                       <p className="text-base lg:text-xl font-medium mt-4">

@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { useInView } from "motion/react";
 import Link from "next/link";
 import DocumentIcon from "./Icons/Document";
+import { generateAnchorLink } from "@/helpers/general";
 
 type Specs = {
   key: string;
@@ -80,7 +81,10 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
                   i === activeIndex ? "opacity-100" : " opacity-0"
                 )}
               >
-                <h2 className="text-[52px] font-neutraface text-white font-black lg:leading-tight">
+                <h2
+                  id={generateAnchorLink(beer.title)}
+                  className="text-[52px] font-neutraface text-white font-black lg:leading-tight"
+                >
                   {beer.title}
                 </h2>
                 <div

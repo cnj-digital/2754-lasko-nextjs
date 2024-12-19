@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Chevron from "../Icons/Chevron";
 import cx from "classnames";
+import { generateAnchorLink } from "@/helpers/general";
 
 type CardCtaProps = {
   title: string;
@@ -34,7 +35,10 @@ export default function CardCta({
       onMouseEnter={() => setIsHovered()}
     >
       <div className="p-8 lg:h-full flex flex-col max-w-xs items-start ">
-        <h3 className=" font-neutraface text-[40px] text-green-800 leading-tight text-balance">
+        <h3
+          id={generateAnchorLink(title)}
+          className=" font-neutraface text-[40px] text-green-800 leading-tight text-balance"
+        >
           {title}
         </h3>
         <p className=" text-gray-600 text-xl font-semibold leading-[1.4]">
