@@ -24,5 +24,5 @@ export default function BuilderComponent({
 }
 
 function NotFound() {
-  return <div className="text-black">Component not Found</div>;
+  return <div></div>;
 }

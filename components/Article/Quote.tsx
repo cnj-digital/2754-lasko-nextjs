@@ -1,9 +1,9 @@
 import InfoBanner from "../InfoBanner";
 
 type QuoteProps = {
-  copy: string;
+  quote_content_field: string;
 };
 
-export default function Quote({ copy }: QuoteProps) {
-  return <InfoBanner copy={copy} />;
+export default function Quote({ quote_content_field }: QuoteProps) {
+  return <InfoBanner copy={quote_content_field} />;
 }

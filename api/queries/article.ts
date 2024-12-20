@@ -16,8 +16,9 @@ export const articleQuery = gql`
               permalink
             }
             content_field {
-              ... on Set_BuilderItems_ContentField_Cta {
+              ... on Set_BuilderItems_ContentField_CtaSet {
                 id
+                type
                 cta {
                   asset {
                     permalink
@@ -43,6 +44,7 @@ export const articleQuery = gql`
           }
           ... on Set_BuilderItems_Quote {
             type
+            quote_content_field
           }
         }
         featured_image {
