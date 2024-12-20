@@ -10,7 +10,8 @@ export default async function Layout({
   children: React.ReactNode;
   params: any;
 }>) {
-  const lang = await params.slug[0];
+  const { slug } = await params;
+  const lang = slug[0];
 
   const navigation = await fetchNavigation(lang);
   const footer = await fetchFooter(lang);

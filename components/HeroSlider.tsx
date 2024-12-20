@@ -93,34 +93,38 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
                 key={i}
                 className={cx(
                   "absolute transition-all duration-500 ",
-                  i === activeIndex ? "opacity-100" : " opacity-0"
+                  i === activeIndex ? "opacity-100" : " opacity-0",
+                  i === 3 ? "text-black" : "text-white"
                 )}
               >
                 <h2
                   id={generateAnchorLink(beer.title)}
-                  className="text-[52px] font-neutraface text-white font-black lg:leading-tight"
+                  className="text-[52px] font-neutraface color-inherit  font-black lg:leading-tight"
                 >
                   {beer.title}
                 </h2>
                 <div
-                  className="font-medium text-white [&>p+p]:mt-4 mt-4"
+                  className="font-medium [&>p+p]:mt-4 mt-4 text-inherit"
                   dangerouslySetInnerHTML={{ __html: beer.description }}
                 ></div>
 
                 {beer.specs && beer.specs.length > 0 && (
-                  <div className=" border border-white rounded-2xl mt-8">
-                    <table className=" text-white w-full">
-                      <tbody className="divide-y divide-white w-full">
-                        {beer.specs.map((spec, i) => (
-                          <tr key={i} className="divide-x divide-white w-full">
+                  <div className=" border  border-inherit rounded-2xl mt-8">
+                    <table className=" w-full">
+                      <tbody className="divide-y divide-inherit w-full">
+                        {beer.specs.map((spec, j) => (
+                          <tr
+                            key={j}
+                            className="divide-x divide-inherit w-full"
+                          >
                             <th
-                              key={`key-${i}`}
+                              key={`key-${j}`}
                               className="text-xl px-4 py-2 font-semibold text-left w-1/4"
                             >
                               {spec.key}
                             </th>
                             <td
-                              key={`value-${i}`}
+                              key={`value-${j}`}
                               className="text-xl px-4 py-2 font-semibold text-left w-3/4"
                             >
                               {spec.value}
@@ -134,7 +138,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
                 {beer.cta && (
                   <Link
                     href={beer.cta.link}
-                    className="backdrop-blur-sm inline-flex items-center text-xl font-semibold bg-white/10 mt-8 py-4 px-4 rounded-2xl text-white"
+                    className="backdrop-blur-sm inline-flex items-center text-xl font-semibold bg-white/10 mt-8 py-4 px-4 rounded-2xl text-inherit"
                     style={{
                       boxShadow: "0px 4px 20px 0px rgba(0, 0, 0, 0.25)",
                     }}
