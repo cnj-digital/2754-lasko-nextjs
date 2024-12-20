@@ -1,6 +1,7 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import Chevron from "../Icons/Chevron";
 import cx from "classnames";
+import Link from "next/link";
 
 export default function LangMenu({ className }: { className?: string }) {
   return (
@@ -22,14 +23,20 @@ export default function LangMenu({ className }: { className?: string }) {
         className="absolute mt-2 overflow-hidden rounded-xl text-xl -left-3 lg:right-0 divide-y-1 w-[100px] lg:w-[142px]"
       >
         <MenuItem>
-          <button className="block text-white px-4 py-2 border-b bg-black bg-opacity-50 lg:bg-opacity-30 text-2xl lg:text-xl hover:bg-opacity-50 border-b-white border-opacity-50 w-full text-left font-medium">
+          <Link
+            href="/si"
+            className="block text-white px-4 py-2 border-b bg-black bg-opacity-50 lg:bg-opacity-30 text-2xl lg:text-xl hover:bg-opacity-50 border-b-white border-opacity-50 w-full text-left font-medium"
+          >
             SI
-          </button>
+          </Link>
         </MenuItem>
         <MenuItem>
-          <button className="block text-white px-4 py-2 bg-black bg-opacity-50 lg:bg-opacity-30 text-2xl lg:text-xl hover:bg-opacity-50 border-b-white border-opacity-50 w-full text-left font-medium">
+          <Link
+            href="/en"
+            className="block text-white px-4 py-2 bg-black bg-opacity-50 lg:bg-opacity-30 text-2xl lg:text-xl hover:bg-opacity-50 border-b-white border-opacity-50 w-full text-left font-medium"
+          >
             EN
-          </button>
+          </Link>
         </MenuItem>
       </MenuItems>
     </Menu>
