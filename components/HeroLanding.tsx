@@ -5,6 +5,8 @@ import Chevron from "./Icons/Chevron";
 import Container from "./Container";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "motion/react";
+import { strings } from "@/data/general";
+import { usePathname } from "next/navigation";
 
 type HeroProps = {
   title: string;
@@ -30,6 +32,10 @@ export default function HeroLanding({
 }: HeroProps) {
   const { scrollY } = useScroll();
   const height = useTransform(scrollY, [0, 500], [0, 162]);
+  const pathname = usePathname();
+  const currentLang = pathname?.split("/")[1];
+  const lang =
+    currentLang === "en" || currentLang === "si" ? currentLang : "si";
 
   return (
     <section className="relative w-full overflow-hidden max-w-8xl  ">
@@ -78,7 +84,7 @@ export default function HeroLanding({
         >
           <div className="bg-gradient-to-b from-transparent rounded-b-3xl from-[32.27%] to-black/30 to-[85.96%] absolute inset-0 h-full w-full" />
           <p className="relative hidden lg:block text-[32px] leading-tight font-bold text-white">
-            Slavimo tretje stoletje,
+            {strings[lang].landing.herotext}
           </p>
           <img
             src="logo-200.png"
@@ -86,14 +92,16 @@ export default function HeroLanding({
             className="relative object-contain h-28 lg:h-32 mx-6 lg:mx-40"
           />
           <p className="relative  lg:flex text-[32px] leading-tight font-bold text-white hidden items-center">
-            Laško praznuje 200!
+            {strings[lang].landing.herotext2}
             <Chevron className="text-white  size-10" />
           </p>
-          <p className="relative  lg:hidden text-[21px] leading-tight font-bold text-white flex items-center justify-start">
-            <span>
-              Laško jih ima 200! <br /> Praznujmo skupaj
-            </span>
-            <Chevron className="text-white  size-8 ml-2" />
+          <p className="relative  lg:hidden text-[21px] leading-tight font-bold pr-8 text-white flex items-center justify-start">
+            <span
+              dangerouslySetInnerHTML={{
+                __html: strings[lang].landing.herotextMobile,
+              }}
+            ></span>
+            <Chevron className="text-white  size-8 ml-2 flex-shrink-0" />
           </p>
         </Link>
       </motion.div>

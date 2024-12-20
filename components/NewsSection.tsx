@@ -5,6 +5,8 @@ import CardNews from "./Cards/News";
 import ButtonSolid from "./Buttons/Solid";
 import Chevron from "./Icons/Chevron";
 import Container from "./Container";
+import { strings } from "@/data/general";
+import { usePathname } from "next/navigation";
 
 type NewsSectionProps = {
   news: {
@@ -16,6 +18,10 @@ type NewsSectionProps = {
 
 export default function NewsSection({ news }: NewsSectionProps) {
   const [itemsShown, setItemsShown] = useState(7);
+  const pathname = usePathname();
+  const currentLang = pathname?.split("/")[1];
+  const lang =
+    currentLang === "en" || currentLang === "si" ? currentLang : "si";
 
   return (
     <section
@@ -39,7 +45,7 @@ export default function NewsSection({ news }: NewsSectionProps) {
 
       {itemsShown < news.length && (
         <ButtonSolid
-          title="Naloži naslednjih 7"
+          title={strings[lang].landing.newsLoadMore}
           icon={<Chevron className="text-white  rotate-90  size-6 " />}
           onClick={() => setItemsShown(itemsShown + 7)}
           className="mt-16"

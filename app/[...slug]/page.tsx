@@ -5,6 +5,8 @@ import {
   fetchPageBlueprint,
   fetchRoutes,
   fetchSeo,
+  fetchFooter,
+  fetchNavigation,
 } from "@/api/fetch";
 import Archive from "@/components/Pages/Archive";
 import Article from "@/components/Pages/Article";
@@ -13,6 +15,9 @@ import History from "@/components/Pages/History";
 import Home from "@/components/Pages/Home";
 import Product from "@/components/Pages/Product";
 import Support from "@/components/Pages/Support";
+import { languages } from "@/data/general";
+import Menu from "@/components/Menu";
+import Footer from "@/components/Footer";
 
 type Props = {
   params: Promise<{ slug: string[] }>;
@@ -53,8 +58,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export async function generateStaticParams() {
   try {
-    const languages = ["si", "en"];
-
     // Fetch routes for each language
     const routePromises = languages.map(async (lang) => {
       const routes = await fetchRoutes(lang);
@@ -99,6 +102,9 @@ export default async function Page({ params }: Props) {
   const blueprint = await getPageData(lang, uri);
   let articles = [];
 
+  const navigation = await fetchNavigation(lang);
+  const footer = await fetchFooter(lang);
+
   if (blueprint === "archive" || blueprint === "page") {
     const articlesRes = await fetchArticles(lang);
     articles = articlesRes;
@@ -121,7 +127,11 @@ export default async function Page({ params }: Props) {
   if (Component)
     return (
       <div>
-        <Component {...data} articles={articles} />
+        <Menu nav={navigation.map((item: any) => item.page)} />
+        <main>
+          <Component {...data} articles={articles} />
+        </main>
+        <Footer nav={footer} />
       </div>
     );
   else return <div>Not found</div>;

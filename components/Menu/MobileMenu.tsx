@@ -44,7 +44,7 @@ export default function MobileMenu({
               </Link>
               <LangMenu />
               <button className="" onClick={() => onClose()}>
-                <CloseIcon className="size-8" />
+                <CloseIcon className="size-8 text-white" />
               </button>
             </div>
             <div className="relative px-8 mt-8 space-y-4">
@@ -63,7 +63,7 @@ export default function MobileMenu({
                         className="w-full h-full object-contain px-2"
                       />
                     </div>
-                    <span className="mr-auto">{link.title}</span>
+                    <span className="mr-auto text-white">{link.title}</span>
                     <ArrowDiagonalIcon className="size-8" />
                   </Link>
                 ))}

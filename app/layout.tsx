@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Raleway } from "next/font/google";
-import Menu from "@/components/Menu";
 import localFont from "next/font/local";
-import Footer from "@/components/Footer";
 import AgeVerificationCheck from "@/components/AgeVerificationCheck";
-import { fetchFooter, fetchNavigation } from "@/api/fetch";
 import Head from "next/head";
 
 const neutrafaceDisplay = localFont({
@@ -30,9 +27,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const navigation = await fetchNavigation("si");
-  const footer = await fetchFooter("si");
-
   return (
     <html lang="en">
       <Head>
@@ -49,11 +43,7 @@ export default async function RootLayout({
           backgroundSize: "1920px 912px",
         }}
       >
-        <AgeVerificationCheck>
-          <Menu nav={navigation.map((item: any) => item.page)} />
-          {children}
-          <Footer nav={footer} />
-        </AgeVerificationCheck>
+        <AgeVerificationCheck>{children}</AgeVerificationCheck>
       </body>
     </html>
   );

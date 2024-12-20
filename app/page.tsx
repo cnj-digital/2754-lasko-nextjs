@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import {
   fetchArticles,
+  fetchFooter,
+  fetchNavigation,
   fetchPage,
   fetchPageBlueprint,
   fetchRoutes,
@@ -13,6 +15,8 @@ import History from "@/components/Pages/History";
 import Home from "@/components/Pages/Home";
 import Product from "@/components/Pages/Product";
 import Support from "@/components/Pages/Support";
+import Menu from "@/components/Menu";
+import Footer from "@/components/Footer";
 
 export async function generateMetadata(): Promise<Metadata> {
   // read route params
@@ -96,6 +100,9 @@ export default async function Page() {
 
   const data = await fetchPage("/", "si", blueprint);
 
+  const navigation = await fetchNavigation("si");
+  const footer = await fetchFooter("si");
+
   const blueprints = {
     page: Home,
     product: Product,
@@ -110,9 +117,13 @@ export default async function Page() {
 
   if (Component)
     return (
-      <div>
-        <Component {...data} articles={articles} />
-      </div>
+      <>
+        <Menu nav={navigation.map((item: any) => item.page)} />
+        <main>
+          <Component {...data} articles={articles} />
+        </main>
+        <Footer nav={footer} />
+      </>
     );
   else return <div>Not found</div>;
 }

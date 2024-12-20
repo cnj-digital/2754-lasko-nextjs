@@ -1,9 +1,12 @@
+"use client";
 import Link from "next/link";
 
 import { isExternalLink } from "@/helpers/general";
 import Socials from "./Socials";
 import Container from "./Container";
 import ArrowDiagonalIcon from "./Icons/ArrowDiagonal";
+import { usePathname } from "next/navigation";
+import { strings } from "@/data/general";
 
 type FooterProps = {
   nav: {
@@ -19,9 +22,10 @@ type FooterProps = {
 };
 
 export default function Footer({ nav }: FooterProps) {
-  const copyright = "©2024 Pivovarna Laško Union d.o.o. Vse pravice pridržane.";
-
-  const socialsTitle = "Sledite nam";
+  const pathname = usePathname();
+  const currentLang = pathname?.split("/")[1];
+  const lang =
+    currentLang === "en" || currentLang === "si" ? currentLang : "si";
   const socials = [
     {
       title: "Facebook",
@@ -53,7 +57,7 @@ export default function Footer({ nav }: FooterProps) {
         <Container className="">
           <div className=" rounded-3xl px-8 pt-6 pb-10 bg-black bg-opacity-55 backdrop-blur-sm ">
             <Socials
-              socialsTitle={socialsTitle}
+              socialsTitle={strings[lang].footer.followUs}
               socials={socials}
               className="flex lg:hidden mb-10"
             />
@@ -84,10 +88,10 @@ export default function Footer({ nav }: FooterProps) {
             </div>
             <div className="mt-10 lg:mt-20 grid lg:grid-cols-3 items-end">
               <p className="text-xs text-center text-white lg:text-left text-balance  lg:max-w-48">
-                {copyright}
+                {strings[lang].footer.copyright}
               </p>
               <Socials
-                socialsTitle={socialsTitle}
+                socialsTitle={strings[lang].footer.followUs}
                 socials={socials}
                 className="hidden lg:flex"
               />
