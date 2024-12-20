@@ -20,7 +20,7 @@ export default function Share() {
       <span className="text-2xl text-white font-neutraface">
         {strings[lang].share.title}
       </span>
-      <div className="flex flex-wrap gap-4 mt-6 items-center">
+      <div className="flex flex-wrap gap-4 mt-6 items-center justify-center">
         <Link
           href={`https://www.instagram.com/share?url=${encodeURIComponent(
             `https://www.lasko.eu/${pathname}`

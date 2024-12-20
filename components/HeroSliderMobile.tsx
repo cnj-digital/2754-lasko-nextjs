@@ -70,20 +70,37 @@ export default function HeroSliderMobile({ slides }: HeroSliderProps) {
               </button>
             ))}
           </div>
+          <div className="absolute top-72 w-full left-0 right-0">
+            {slides.map((beer, i) => (
+              <h2
+                id={generateAnchorLink(beer.title)}
+                className={cx(
+                  "absolute top-0  px-4 w-full text-center mix-blend-overlay text-[#F2F2F2] text-[60px] font-neutraface font-black leading-[1.2]",
+                  activeIndex === i ? "opacity-100" : "opacity-0"
+                )}
+              >
+                {beer.title}
+              </h2>
+            ))}
+          </div>
           <div className="relative">
             <div className=" absolute w-full justify-between top-64 z-10 flex gap-4 ml-auto">
-              <button
-                className=" bg-black p-2 bg-opacity-20 rounded-2xl backdrop-blur-sm"
-                onClick={() => emblaApi?.scrollPrev()}
-              >
-                <Chevron className="size-8 rotate-180 text-white" />
-              </button>
-              <button
-                className=" bg-black p-2 bg-opacity-20 rounded-2xl backdrop-blur-sm"
-                onClick={() => emblaApi?.scrollNext()}
-              >
-                <Chevron className="size-8 text-white" />
-              </button>
+              {activeIndex > 0 && (
+                <button
+                  className=" bg-black p-2 bg-opacity-20 rounded-2xl backdrop-blur-sm mr-auto"
+                  onClick={() => emblaApi?.scrollPrev()}
+                >
+                  <Chevron className="size-8 rotate-180 text-white" />
+                </button>
+              )}
+              {activeIndex < slides.length - 1 && (
+                <button
+                  className=" bg-black p-2 bg-opacity-20 rounded-2xl backdrop-blur-sm ml-auto"
+                  onClick={() => emblaApi?.scrollNext()}
+                >
+                  <Chevron className="size-8 text-white" />
+                </button>
+              )}
             </div>
             <div ref={emblaRef} className="relative -mx-6 embla">
               <div className="embla__container flex items-start w-full">
@@ -95,12 +112,12 @@ export default function HeroSliderMobile({ slides }: HeroSliderProps) {
                       i === 3 ? "text-black" : "text-white"
                     )}
                   >
-                    <h2
+                    {/* <h2
                       id={generateAnchorLink(beer.title)}
                       className="absolute left-0 right-0 px-4 text-center mix-blend-overlay text-[#F2F2F2] text-[60px] font-neutraface font-black leading-[1.2]"
                     >
                       {beer.title}
-                    </h2>
+                    </h2> */}
                     <img
                       src={beer.image}
                       alt="beer"
