@@ -13,6 +13,7 @@ import { supportQuery } from "./queries/support";
 import { archiveQuery } from "./queries/archive";
 import { builderQuery } from "./queries/builder";
 import { footerQuery, navigationQuery } from "./queries/navigation";
+import { seoQuery } from "./queries/seo";
 
 const apiUrl = process.env.API_URL ?? "";
 
@@ -64,4 +65,9 @@ export async function fetchPage(uri: string, site: string, blueprint: "page") {
 export async function fetchRoutes(site: string) {
   const res: any = await request(apiUrl, routesQuery, { site });
   return res.entries.data;
+}
+
+export async function fetchSeo(uri: string, site: string) {
+  const res: any = await request(apiUrl, seoQuery, { uri, site });
+  return res.entry;
 }

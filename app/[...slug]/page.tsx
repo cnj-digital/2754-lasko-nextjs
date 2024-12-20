@@ -1,8 +1,10 @@
+import type { Metadata, ResolvingMetadata } from "next";
 import {
   fetchArticles,
   fetchPage,
   fetchPageBlueprint,
   fetchRoutes,
+  fetchSeo,
 } from "@/api/fetch";
 import Archive from "@/components/Pages/Archive";
 import Article from "@/components/Pages/Article";
@@ -11,6 +13,45 @@ import History from "@/components/Pages/History";
 import Home from "@/components/Pages/Home";
 import Product from "@/components/Pages/Product";
 import Support from "@/components/Pages/Support";
+
+type Props = {
+  params: Promise<{ id: string; slug: string[] }>;
+  slug: string[];
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  // read route params
+  const slug = (await params).slug;
+
+  const lang = slug[0];
+  const uri = slug.slice(1).length ? `/${slug.slice(1).join("/")}` : "/";
+
+  const data = await fetchSeo(uri, lang);
+
+  return {
+    title: data.seotamic_meta.title ?? "Pivovarna Laško",
+    description: data.seotamic_meta.description ?? "",
+    robots: data.seotamic_meta.robots ?? "",
+    alternates: {
+      canonical: data.seotamic_meta.canonical ?? "",
+    },
+    openGraph: {
+      type: "website",
+      siteName: data.seotamic_social.site_name ?? "Pivovarna Laško",
+      images: [data.seotamic_social.image ?? ""],
+      title: data.seotamic_social.title ?? "Pivovarna Laško",
+      description: data.seotamic_social.description ?? "",
+    },
+    twitter: {
+      card: "summary_large_image",
+      site: data.seotamic_social.site_name ?? "Pivovarna Laško",
+      title: data.seotamic_social.title ?? "Pivovarna Laško",
+      description: data.seotamic_social.description ?? "",
+      images: [data.seotamic_social.image ?? ""],
+    },
+  };
+}
 
 export async function generateStaticParams() {
   try {
@@ -51,7 +92,7 @@ async function getPageData(lang: string, uri: string) {
   return blueprint;
 }
 
-export default async function Page({ params }: any) {
+export default async function Page({ params }: Props) {
   const { slug } = await params;
 
   const lang = slug[0];
