@@ -6,6 +6,7 @@ import localFont from "next/font/local";
 import Footer from "@/components/Footer";
 import AgeVerificationCheck from "@/components/AgeVerificationCheck";
 import { fetchFooter, fetchNavigation } from "@/api/fetch";
+import Head from "next/head";
 
 const neutrafaceDisplay = localFont({
   src: "./fonts/Neutraface_Display-Titling.woff2",
@@ -34,6 +35,13 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <Head>
+        <script
+          defer
+          data-domain="lasko.eu"
+          src="https://plausible.cnj.digital/js/script.js"
+        ></script>
+      </Head>
       <body
         className={` ${raleway.variable} ${neutrafaceDisplay.variable} antialiased bg-white min-h-screen `}
         style={{
