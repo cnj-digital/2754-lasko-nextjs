@@ -58,7 +58,7 @@ export default function HeroSliderMobile({ slides }: HeroSliderProps) {
                   " flex relative z-10 items-end flex-shrink-0 justify-center rounded-2xl size-20  transition duration-300",
                   activeIndex === i
                     ? "bg-[#EDEDED] bg-opacity-100"
-                    : " bg-black bg-opacity-20 hover:bg-opacity-100 hover:bg-[#EDEDED]"
+                    : " bg-white bg-opacity-20 hover:bg-opacity-100 hover:bg-[#EDEDED]"
                 )}
                 onClick={() => emblaApi?.scrollTo(i)}
               >
@@ -91,7 +91,8 @@ export default function HeroSliderMobile({ slides }: HeroSliderProps) {
                   <div
                     key={i}
                     className={cx(
-                      " transition-all relative duration-500 pb-32 embla__slide flex-shrink-0 w-full px-6  "
+                      " transition-all relative duration-500 pb-32 embla__slide flex-shrink-0 w-full px-6  ",
+                      i === 3 ? "text-black" : "text-white"
                     )}
                   >
                     <h2
@@ -103,16 +104,16 @@ export default function HeroSliderMobile({ slides }: HeroSliderProps) {
                     <img
                       src={beer.image}
                       alt="beer"
-                      className="w-full h-auto z-10 relative max-h-[600px] object-contain "
+                      className="w-full h-auto z-10 relative  max-h-[600px] object-contain "
                     />
                     {beer.specs && beer.specs.length > 0 && (
-                      <div className=" border border-white rounded-2xl mb-8  max-w-xl">
-                        <table className=" text-white">
-                          <tbody className="divide-y divide-white">
+                      <div className=" border border-inherit rounded-2xl mb-8  max-w-xl">
+                        <table className=" text-inherit">
+                          <tbody className="divide-y divide-inherit">
                             {beer.specs.map((spec, i) => (
                               <tr
                                 key={i}
-                                className="divide-x divide-white w-full"
+                                className="divide-x divide-inherit w-full"
                               >
                                 <th
                                   key={`key-${i}`}
@@ -133,14 +134,14 @@ export default function HeroSliderMobile({ slides }: HeroSliderProps) {
                       </div>
                     )}
                     <div
-                      className="font-medium text-white max-w-xl"
+                      className="font-medium text-inherit max-w-xl"
                       dangerouslySetInnerHTML={{ __html: beer.description }}
                     ></div>
 
                     {beer.cta && (
                       <Link
                         href={beer.cta.link}
-                        className=" backdrop-blur-sm inline-flex items-center text-xl font-semibold bg-white/10 mt-8 py-4 px-4 rounded-2xl"
+                        className=" backdrop-blur-sm inline-flex items-center text-xl text-inherit font-semibold bg-white/10 mt-8 py-4 px-4 rounded-2xl"
                         style={{
                           boxShadow: "0px 4px 20px 0px rgba(0, 0, 0, 0.25)",
                         }}

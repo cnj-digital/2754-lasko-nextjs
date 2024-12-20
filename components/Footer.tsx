@@ -47,14 +47,22 @@ export default function Footer({ nav }: FooterProps) {
         src="/logo.png"
         className="absolute h-[205px] top-0 left-0 right-0 mx-auto z-10"
       />
-      <div
-        className="relative max-w-8xl w-full mx-auto py-20 lg:pb-32 lg:pt-40 bg-bottom rounded-t-3xl lg:h-[560px]"
-        style={{
-          backgroundImage: 'url("/footer.jpg")',
-          backgroundSize: "auto 100% ",
-        }}
-      >
-        <Container className="">
+      <div className="relative max-w-8xl w-full mx-auto py-20 lg:pb-32 lg:pt-40 bg-bottom rounded-t-3xl lg:h-[560px]">
+        <div
+          className="absolute inset-0 h-full bg-bottom w-full hidden md:block"
+          style={{
+            backgroundImage: 'url("/footer.jpg")',
+            backgroundSize: "auto 100% ",
+          }}
+        />
+        <div
+          className="absolute inset-0 h-full bg-bottom w-full block md:hidden"
+          style={{
+            backgroundImage: 'url("/footer-mobile.jpg")',
+            backgroundSize: "auto 100% ",
+          }}
+        />
+        <Container className="relative">
           <div className=" rounded-3xl px-8 pt-6 pb-10 bg-black bg-opacity-55 backdrop-blur-sm ">
             <Socials
               socialsTitle={strings[lang].footer.followUs}

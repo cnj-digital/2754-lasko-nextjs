@@ -48,6 +48,14 @@ h4 {
   h2 {
     @apply text-[32px] text-green-800 font-neutraface mt-6 leading-tight mb-2;
   }
+
+  a {
+    @apply text-green-800 underline;
+  }
+
+  ul {
+    @apply list-disc pl-5;
+  }
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

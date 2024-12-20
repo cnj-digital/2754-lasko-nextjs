@@ -31,7 +31,7 @@ export default function Content({
   content_field,
 }: ContentProps) {
   return (
-    <div className={cx("grid py-20 gap-10", asset ? "grid-cols-2" : "")}>
+    <div className={cx("grid py-20 gap-10", asset ? "lg:grid-cols-2" : "")}>
       <div
         className={cx("lg:px-6", variant?.value === "left" ? "order-2" : "")}
       >

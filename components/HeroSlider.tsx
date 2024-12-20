@@ -39,7 +39,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
 
   return (
     <div className="relative w-full " style={{}}>
-      <Container className="sticky lg:pl-[10%] xl:pl-[12%]  h-0 top-[90vh] z-30">
+      <Container className="sticky lg:pl-[10%] xl:pl-[10%]   h-0 top-[90vh] z-30">
         <Link
           href={`#${[slides[activeIndex + 1]?.title]}`}
           className={cx(
@@ -65,7 +65,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
             }}
           />
         ))}
-        <Container className="absolute flex justify-between w-full z-20">
+        <Container className="absolute flex xl:pl-0 justify-between w-full z-20">
           <div className=" rounded-4xl shadow-card backdrop-blur-sm space-y-6 p-4 bg-white/20 bg-gradient-to-b from-transparent via-transparent to-black/20">
             {slides.map((beer, i) => (
               <Link
@@ -152,7 +152,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
           </div>
         </Container>
       </div>
-      <Container className=" relative lg:pl-[10%] xl:pl-[12%] z-10 pointer-events-none -mt-[90vh]">
+      <Container className=" relative lg:pl-[10%] xl:pl-[10%] z-10 pointer-events-none -mt-[90vh]">
         {slides.map((beer, i) => (
           <BeerContainer
             key={i}

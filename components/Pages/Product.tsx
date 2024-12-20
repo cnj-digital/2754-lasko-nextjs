@@ -3,6 +3,7 @@ import HeroSlider from "@/components/HeroSlider";
 import HeroSliderMobile from "@/components/HeroSliderMobile";
 
 export default function Product({ product_items, promos_items }: any) {
+  console.log(product_items);
   return (
     <div>
       <div className="hidden lg:block">
@@ -28,7 +29,7 @@ export default function Product({ product_items, promos_items }: any) {
             title: item.title,
             description: item.product_content,
             image: item.product_image.permalink,
-            background: item.product_background.permalink,
+            background: item.background_mobile?.permalink,
             cta: item.cta,
             specs: item.product_table
               ? Object.entries(item.product_table).map(([key, value]) => ({

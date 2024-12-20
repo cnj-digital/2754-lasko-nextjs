@@ -28,13 +28,13 @@ export default function CardCta({
     <Link
       href={url}
       className={cx(
-        "relative block bg-white rounded-3xl overflow-hidden lg:overflow-visible shadow-card w-full flex-shrink transition-all group h-[460px] sm:h-[400px]",
+        "relative block bg-white rounded-3xl overflow-hidden lg:overflow-x-hidden  shadow-card w-full flex-shrink transition-all group h-[460px] sm:h-[400px]",
         className,
         isHovered ? "lg:w-3/5" : "lg:w-2/5"
       )}
       onMouseEnter={() => setIsHovered()}
     >
-      <div className="p-8 lg:h-full flex flex-col max-w-xs items-start ">
+      <div className="p-8 lg:h-full flex flex-col max-w-xs items-start relative z-10 ">
         <h3
           id={generateAnchorLink(title)}
           className=" font-neutraface text-[40px] text-green-800 leading-tight text-balance"
@@ -70,13 +70,13 @@ export default function CardCta({
         </button>
       </div>
 
-      <div className="lg:overflow-x-hidden w-full h-full lg:absolute inset-0">
+      <div className="lg:overflow-x-hidden lg:overflow-y-visible rounded-3xl w-full max-w-full h-full lg:absolute inset-0">
         <img
           src={image}
           alt={title}
           className={cx(
-            "relative sm:absolute sm:left-1/2 sm:bottom-0 sm:transition origin-bottom-right lg:h-full",
-            isHovered ? "lg:scale-110 " : "lg:scale-75 "
+            "relative sm:absolute object-contain object-bottom sm:left-1/2 md:left-[calc(100%-380px)]  xl:left-[calc(100%-400px)] rounded-3xl sm:bottom-0 sm:transition origin-bottom-right md:h-full",
+            isHovered ? "lg:scale-105 " : "lg:scale-75 "
           )}
         />
       </div>
