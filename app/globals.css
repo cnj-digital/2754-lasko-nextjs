@@ -46,7 +46,7 @@ h4 {
   }
 
   h2 {
-    @apply text-[32px] text-green-800 font-neutraface mt-6;
+    @apply text-[32px] text-green-800 font-neutraface mt-6 leading-tight mb-2;
   }
 }
 

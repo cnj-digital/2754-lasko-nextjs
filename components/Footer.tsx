@@ -47,7 +47,7 @@ export default function Footer({ nav }: FooterProps) {
         className="relative max-w-8xl w-full mx-auto py-20 lg:pb-32 lg:pt-40 bg-bottom rounded-t-3xl lg:h-[560px]"
         style={{
           backgroundImage: 'url("/footer.jpg")',
-          backgroundSize: "1512px",
+          backgroundSize: "auto 100% ",
         }}
       >
         <Container className="">

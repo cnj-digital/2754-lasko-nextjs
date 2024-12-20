@@ -20,7 +20,7 @@ export default function ArticleHero({
       <div
         className={cx(
           "relative z-10 rounded-b-3xl  w-full overflow-hidden ",
-          backgroundUrl ? "aspect-[0.56] lg:aspect-[2.14]" : " pt-64"
+          backgroundUrl ? "aspect-[0.56] lg:aspect-[2.14]" : " pt-48"
         )}
       >
         {backgroundUrl && (
@@ -33,7 +33,12 @@ export default function ArticleHero({
 
         <div className="absolute inset-0 bg-black/30" />
 
-        <Container className="relative h-full w-full flex flex-col justify-end pb-16 lg:pb-20 items-start">
+        <Container
+          className={cx(
+            "relative h-full w-full flex flex-col justify-end  items-start",
+            backgroundUrl ? "pb-16 lg:pb-20" : "pb-10 lg:pb-16"
+          )}
+        >
           <h1 className="text-[40px] leading-tight md:text-[52px] font-bold text-white max-w-3xl font-neutraface text-balance">
             {title}
           </h1>

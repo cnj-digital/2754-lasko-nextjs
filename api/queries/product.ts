@@ -20,6 +20,9 @@ export const productQuery = gql`
               title
               link
             }
+            background_mobile {
+              permalink
+            }
           }
         }
         promos_items {

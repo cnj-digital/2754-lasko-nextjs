@@ -50,7 +50,7 @@ export default function HeroSliderMobile({ slides }: HeroSliderProps) {
         ))}
 
         <Container className="relative pt-72 w-full">
-          <div className="absolute top-36 w-full z-20 flex gap-4 items-start p-4 overflow-auto -mx-6 px-6">
+          <div className="absolute top-36 w-full z-20 flex gap-4 items-start p-4 overflow-auto -mx-6 px-6 md:justify-center">
             {slides.map((beer, i) => (
               <button
                 key={i}
@@ -85,13 +85,13 @@ export default function HeroSliderMobile({ slides }: HeroSliderProps) {
                 <Chevron className="size-8 text-white" />
               </button>
             </div>
-            <div ref={emblaRef} className="relative max-w-lg  -mx-6 embla">
+            <div ref={emblaRef} className="relative -mx-6 embla">
               <div className="embla__container flex items-start w-full">
                 {slides.map((beer, i) => (
                   <div
                     key={i}
                     className={cx(
-                      " transition-all relative duration-500 pb-32 embla__slide flex-shrink-0 w-full px-6 "
+                      " transition-all relative duration-500 pb-32 embla__slide flex-shrink-0 w-full px-6  "
                     )}
                   >
                     <h2
@@ -103,40 +103,43 @@ export default function HeroSliderMobile({ slides }: HeroSliderProps) {
                     <img
                       src={beer.image}
                       alt="beer"
-                      className="w-full h-auto z-10 relative "
+                      className="w-full h-auto z-10 relative max-h-[600px] object-contain "
                     />
                     <div
-                      className="font-medium text-white"
+                      className="font-medium text-white max-w-xl"
                       dangerouslySetInnerHTML={{ __html: beer.description }}
                     ></div>
                     {beer.specs && beer.specs.length > 0 && (
-                      <div className="grid auto-cols-auto grid-flow-col border border-white rounded-2xl mt-8">
-                        <div className=" divide-y divide-white border-r">
-                          {beer.specs.map((spec, i) => (
-                            <p
-                              key={i}
-                              className=" text-xl px-4 py-2 font-semibold"
-                            >
-                              {spec.key}
-                            </p>
-                          ))}
-                        </div>
-                        <div className="divide-y divide-white">
-                          {beer.specs.map((spec, i) => (
-                            <p
-                              key={i}
-                              className=" text-xl px-4 py-2 font-semibold"
-                            >
-                              {spec.value}
-                            </p>
-                          ))}
-                        </div>
+                      <div className=" border border-white rounded-2xl mt-8  max-w-xl">
+                        <table className=" text-white">
+                          <tbody className="divide-y divide-white">
+                            {beer.specs.map((spec, i) => (
+                              <tr
+                                key={i}
+                                className="divide-x divide-white w-full"
+                              >
+                                <th
+                                  key={`key-${i}`}
+                                  className="text-xl px-4 py-2 font-semibold text-left w-1/4"
+                                >
+                                  {spec.key}
+                                </th>
+                                <td
+                                  key={`value-${i}`}
+                                  className="text-xl px-4 py-2 font-semibold text-left w-3/4"
+                                >
+                                  {spec.value}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
                       </div>
                     )}
                     {beer.cta && (
                       <Link
                         href={beer.cta.link}
-                        className=" backdrop-blur-sm flex items-center text-xl font-semibold bg-white/10 mt-8 py-4 px-4 rounded-2xl"
+                        className=" backdrop-blur-sm inline-flex items-center text-xl font-semibold bg-white/10 mt-8 py-4 px-4 rounded-2xl"
                         style={{
                           boxShadow: "0px 4px 20px 0px rgba(0, 0, 0, 0.25)",
                         }}

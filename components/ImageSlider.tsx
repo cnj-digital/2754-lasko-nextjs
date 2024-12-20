@@ -55,26 +55,26 @@ export default function ImageSlider({ title, images }: ImageSliderProps) {
             <div
               key={idx}
               className={cx(
-                "relative embla__slide flex-shrink-0",
+                "relative embla__slide flex-shrink-0 w-[80%] md:w-auto",
                 currentSlide === idx ? "z-10" : ""
               )}
               style={{ overflow: "visible" }}
             >
               <div
                 className={cx(
-                  "relative  transition-all duration-300 ",
+                  "relative  transition-all duration-300  ",
                   currentSlide - idx === 2
                     ? "origin-right "
                     : currentSlide - idx === -2
                     ? "origin-left "
                     : "origin-center ",
                   currentSlide === idx
-                    ? "scale-125 z-10"
+                    ? "scale-110 lg:scale-125 z-10"
                     : Math.abs(currentSlide - idx) === 1
-                    ? "scale-110 "
+                    ? "scale-95 lg:scale-110 "
                     : Math.abs(currentSlide - idx) === 2
-                    ? "scale-110 "
-                    : "scale-110"
+                    ? "scale-90 lg:scale-110 "
+                    : "scale-90 lg:xscale-110"
                 )}
               >
                 <div className="relative aspect-[2/1]">

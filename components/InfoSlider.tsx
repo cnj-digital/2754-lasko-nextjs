@@ -222,8 +222,8 @@ export default function InfoSlider({ title, copy, slides }: InfoSliderProps) {
           })}
         </div>
       </div>
-      <div className="flex items-center justify-between mt-4 lg:mt-10 gap-10 w-full">
-        <div key={"slider"} className="embla w-4/5" ref={emblaRef}>
+      <div className="flex items-start justify-between mt-4 lg:mt-10 gap-10 w-full">
+        <div key={"slider"} className="embla w-full lg:w-4/5" ref={emblaRef}>
           <div className="embla__container flex w-full">
             {slides.map((slide, i) => (
               <div key={i} className={cx("embla__slide flex-shrink-0 w-full")}>
@@ -241,7 +241,7 @@ export default function InfoSlider({ title, copy, slides }: InfoSliderProps) {
                       </li>
                     ))}
                 </ul>
-                <h3 className="text-green-800 mt-4 text-2xl lg:text-[32px] font-bold">
+                <h3 className="text-green-800 mt-10 lg:mt-4 text-2xl lg:text-[32px] font-bold">
                   {slide.title}
                 </h3>
                 <p className="text-black mt-4 text-base lg:text-xl font-medium leading-tight">
@@ -251,7 +251,7 @@ export default function InfoSlider({ title, copy, slides }: InfoSliderProps) {
             ))}
           </div>
         </div>
-        <div className="flex gap-4 ml-auto">
+        <div className="flex gap-4 right-6 absolute lg:relative ml-auto">
           <button
             className=" bg-black p-2 bg-opacity-20 rounded-2xl backdrop-blur-sm"
             onClick={() => emblaApi?.scrollPrev()}

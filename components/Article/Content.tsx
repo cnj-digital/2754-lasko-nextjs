@@ -32,7 +32,9 @@ export default function Content({
 }: ContentProps) {
   return (
     <div className={cx("grid py-20 gap-10", asset ? "grid-cols-2" : "")}>
-      <div className={cx("px-6", variant?.value === "left" ? "order-2" : "")}>
+      <div
+        className={cx("lg:px-6", variant?.value === "left" ? "order-2" : "")}
+      >
         {title && (
           <h2
             id={generateAnchorLink(title)}

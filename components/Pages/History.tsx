@@ -94,15 +94,17 @@ export default function History({
         }))}
       />
 
-      <InfoSlider
-        title={story_how_title}
-        copy={story_how_copy}
-        slides={story_how_slides.map((item: any) => ({
-          title: item.title,
-          copy: item.copy,
-          numbers: item.numbers,
-        }))}
-      />
+      {story_how_title && story_how_copy && story_how_slides && (
+        <InfoSlider
+          title={story_how_title}
+          copy={story_how_copy}
+          slides={story_how_slides.map((item: any) => ({
+            title: item.title,
+            copy: item.copy,
+            numbers: item.numbers,
+          }))}
+        />
+      )}
 
       <CardsCta
         cards={promos_items.map((promo: any) => ({

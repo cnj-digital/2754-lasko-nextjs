@@ -77,17 +77,23 @@ export default function HeroLanding({
           style={{ backgroundImage: 'url("/bg-200.svg")' }}
         >
           <div className="bg-gradient-to-b from-transparent rounded-b-3xl from-[32.27%] to-black/30 to-[85.96%] absolute inset-0 h-full w-full" />
-          <p className="relative text-[32px] leading-tight font-bold text-white">
+          <p className="relative hidden lg:block text-[32px] leading-tight font-bold text-white">
             Slavimo tretje stoletje,
           </p>
           <img
             src="logo-200.png"
             alt="beer"
-            className="relative object-contain  h-32 mx-40"
+            className="relative object-contain h-28 lg:h-32 mx-6 lg:mx-40"
           />
-          <p className="relative text-[32px] leading-tight font-bold text-white flex items-center">
+          <p className="relative  lg:flex text-[32px] leading-tight font-bold text-white hidden items-center">
             Laško praznuje 200!
             <Chevron className="text-white  size-10" />
+          </p>
+          <p className="relative  lg:hidden text-[21px] leading-tight font-bold text-white flex items-center justify-start">
+            <span>
+              Laško jih ima 200! <br /> Praznujmo skupaj
+            </span>
+            <Chevron className="text-white  size-8 ml-2" />
           </p>
         </Link>
       </motion.div>

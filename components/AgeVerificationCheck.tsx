@@ -20,9 +20,6 @@ export default function AgeVerificationCheck({
       : false;
 
     if (!isVerified) {
-      localStorage.setItem("age-verified", new Date().getTime().toString());
-    }
-    if (!isVerified) {
       setIsOpen(true);
     }
   }, []);

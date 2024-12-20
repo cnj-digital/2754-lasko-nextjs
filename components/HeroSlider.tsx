@@ -6,6 +6,8 @@ import { useInView } from "motion/react";
 import Link from "next/link";
 import DocumentIcon from "./Icons/Document";
 import { generateAnchorLink } from "@/helpers/general";
+import Chevron from "./Icons/Chevron";
+import ArrowIcon from "./Icons/Arrow";
 
 type Specs = {
   key: string;
@@ -36,7 +38,20 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
   }
 
   return (
-    <div className="relative w-full" style={{}}>
+    <div className="relative w-full " style={{}}>
+      <Container className="sticky lg:pl-[10%] xl:pl-[12%]  h-0 top-[90vh] z-30">
+        <Link
+          href={`#${[slides[activeIndex + 1]?.title]}`}
+          className={cx(
+            "inline-flex translate-x-56 z-20 bg-black p-3 bg-opacity-20 rounded-2xl backdrop-blur-sm",
+            activeIndex === slides.length - 1
+              ? "opacity-0 pointer-events-none"
+              : ""
+          )}
+        >
+          <ArrowIcon className="size-6  text-white" />
+        </Link>
+      </Container>
       <div className="sticky flex flex-col justify-center items-center top-0 h-screen z-10">
         {slides.map((beer, i) => (
           <div
@@ -72,12 +87,12 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
             ))}
           </div>
 
-          <div className="relative max-w-lg flex items-center w-full">
+          <div className="relative  max-w-lg flex items-center w-full">
             {slides.map((beer, i) => (
               <div
                 key={i}
                 className={cx(
-                  "absolute transition-all duration-500",
+                  "absolute transition-all duration-500 ",
                   i === activeIndex ? "opacity-100" : " opacity-0"
                 )}
               >
@@ -91,22 +106,29 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
                   className="font-medium text-white [&>p+p]:mt-4 mt-4"
                   dangerouslySetInnerHTML={{ __html: beer.description }}
                 ></div>
+
                 {beer.specs && beer.specs.length > 0 && (
-                  <div className="grid auto-cols-auto grid-flow-col border text-white border-white rounded-2xl mt-8">
-                    <div className=" divide-y divide-white border-r">
-                      {beer.specs.map((spec, i) => (
-                        <p key={i} className=" text-xl px-4 py-2 font-semibold">
-                          {spec.key}
-                        </p>
-                      ))}
-                    </div>
-                    <div className="divide-y divide-white">
-                      {beer.specs.map((spec, i) => (
-                        <p key={i} className=" text-xl px-4 py-2 font-semibold">
-                          {spec.value}
-                        </p>
-                      ))}
-                    </div>
+                  <div className=" border border-white rounded-2xl mt-8">
+                    <table className=" text-white w-full">
+                      <tbody className="divide-y divide-white w-full">
+                        {beer.specs.map((spec, i) => (
+                          <tr key={i} className="divide-x divide-white w-full">
+                            <th
+                              key={`key-${i}`}
+                              className="text-xl px-4 py-2 font-semibold text-left w-1/4"
+                            >
+                              {spec.key}
+                            </th>
+                            <td
+                              key={`value-${i}`}
+                              className="text-xl px-4 py-2 font-semibold text-left w-3/4"
+                            >
+                              {spec.value}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
                 )}
                 {beer.cta && (
@@ -126,7 +148,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
           </div>
         </Container>
       </div>
-      <Container className="lg:pl-64 relative z-10 pointer-events-none -mt-[90vh]">
+      <Container className=" relative lg:pl-[10%] xl:pl-[12%] z-10 pointer-events-none -mt-[90vh]">
         {slides.map((beer, i) => (
           <BeerContainer
             key={i}
@@ -165,9 +187,13 @@ function BeerContainer({
     <div
       id={`${beer.title}`}
       ref={ref}
-      className="h-screen flex relative z-10 items-center snap-start"
+      className="h-screen flex relative z-10 items-center snap-start snap-always"
     >
-      <img src={beer.image} alt="beer" className="h-[80%]" />
+      <img
+        src={beer.image}
+        alt="beer"
+        className="h-[80%] w-[500px] object-contain object-center"
+      />
     </div>
   );
 }

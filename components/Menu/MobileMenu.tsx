@@ -40,7 +40,7 @@ export default function MobileMenu({
             <div className="absolute inset-0 z-0 w-full h-full bg-gradient-to-b from-transparent via-transparent to-black/16" />
             <div className="flex relative items-center px-8 pt-4 gap-4">
               <Link href="/" className="mr-auto" onClick={onClose}>
-                <img src="logo.png" alt="Logo" className=" h-[60px] " />
+                <img src="/logo.png" alt="Logo" className=" h-[60px] " />
               </Link>
               <LangMenu />
               <button className="" onClick={() => onClose()}>

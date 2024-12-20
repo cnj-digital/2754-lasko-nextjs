@@ -28,7 +28,7 @@ export default function CardCta({
     <Link
       href={url}
       className={cx(
-        "relative block bg-white rounded-3xl overflow-hidden lg:overflow-visible shadow-card w-full flex-shrink transition-all group h-[460px] lg:h-[400px]",
+        "relative block bg-white rounded-3xl overflow-hidden lg:overflow-visible shadow-card w-full flex-shrink transition-all group h-[460px] sm:h-[400px]",
         className,
         isHovered ? "lg:w-3/5" : "lg:w-2/5"
       )}
@@ -75,7 +75,7 @@ export default function CardCta({
           src={image}
           alt={title}
           className={cx(
-            "relative lg:absolute lg:left-1/2 lg:bottom-0 lg:transition origin-bottom-right lg:h-full",
+            "relative sm:absolute sm:left-1/2 sm:bottom-0 sm:transition origin-bottom-right lg:h-full",
             isHovered ? "lg:scale-110 " : "lg:scale-75 "
           )}
         />
