@@ -36,7 +36,7 @@ export default function Content({
         {title && (
           <h2
             id={generateAnchorLink(title)}
-            className="text-green-800 font-black font-neutraface"
+            className="text-green-800 font-black text-[40px] leading-tight font-neutraface"
           >
             {title}
           </h2>

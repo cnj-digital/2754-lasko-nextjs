@@ -67,8 +67,6 @@ export default async function Page({ params }: any) {
 
   const data = await fetchPage(uri, lang, blueprint);
 
-  // console.log("data", data, blueprint);
-
   const blueprints = {
     page: Home,
     product: Product,

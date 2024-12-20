@@ -169,7 +169,7 @@ export default function InfoSlider({ title, copy, slides }: InfoSliderProps) {
   }
 
   return (
-    <Container className="py-20">
+    <Container className="py-20 overflow-hidden">
       <h2
         id={generateAnchorLink(title)}
         className=" leading-tight text-[40px] text-green-800 lg:text-[52px] font-neutraface"

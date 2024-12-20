@@ -1,4 +1,5 @@
 import Container from "../Container";
+import cx from "classnames";
 
 type ArticleHeroProps = {
   title: string;
@@ -12,13 +13,23 @@ export default function ArticleHero({
   backgroundUrl,
 }: ArticleHeroProps) {
   return (
-    <section className="relative w-full overflow-hidden max-w-8xl  mx-auto">
-      <div className="relative z-10 rounded-b-3xl aspect-[0.56] lg:aspect-[2.14] w-full overflow-hidden ">
-        <img
-          src={backgroundUrl}
-          alt="Hero background"
-          className="absolute inset-0 w-full h-full object-cover object-top"
-        />
+    <section
+      className="relative w-full overflow-hidden max-w-8xl  mx-auto rounded-b-3xl"
+      style={{ backgroundImage: "url('/bg-green.jpg')" }}
+    >
+      <div
+        className={cx(
+          "relative z-10 rounded-b-3xl  w-full overflow-hidden ",
+          backgroundUrl ? "aspect-[0.56] lg:aspect-[2.14]" : " pt-64"
+        )}
+      >
+        {backgroundUrl && (
+          <img
+            src={backgroundUrl}
+            alt="Hero background"
+            className="absolute inset-0 w-full h-full object-cover object-top"
+          />
+        )}
 
         <div className="absolute inset-0 bg-black/30" />
 

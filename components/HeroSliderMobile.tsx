@@ -38,7 +38,7 @@ export default function HeroSliderMobile({ slides }: HeroSliderProps) {
                 )}
               >
                 <img
-                  src={`/beers/beer=beer${i + 1}.png`}
+                  src={beer.image}
                   alt="beer"
                   className="h-[120%] object-contain"
                 />
@@ -61,7 +61,7 @@ export default function HeroSliderMobile({ slides }: HeroSliderProps) {
                   {beer.title}
                 </h2>
                 <img
-                  src={`/beers/beer=beer${i + 1}.png`}
+                  src={beer.image}
                   alt="beer"
                   className="w-full h-auto z-10 relative "
                 />
