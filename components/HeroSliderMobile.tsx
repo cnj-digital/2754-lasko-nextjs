@@ -5,7 +5,6 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import DocumentIcon from "./Icons/Document";
 import { Slide } from "./HeroSlider";
-import { generateAnchorLink } from "@/helpers/general";
 import useEmblaCarousel from "embla-carousel-react";
 import { EmblaCarouselType } from "embla-carousel";
 import Chevron from "./Icons/Chevron";
@@ -73,7 +72,7 @@ export default function HeroSliderMobile({ slides }: HeroSliderProps) {
           <div className="absolute top-72 w-full left-0 right-0">
             {slides.map((beer, i) => (
               <h2
-                id={generateAnchorLink(beer.title)}
+                key={i}
                 className={cx(
                   "absolute top-0  px-4 w-full text-center mix-blend-overlay text-[#F2F2F2] text-[60px] font-neutraface font-black leading-[1.2]",
                   activeIndex === i ? "opacity-100" : "opacity-0"
