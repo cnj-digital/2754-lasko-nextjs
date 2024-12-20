@@ -7,8 +7,6 @@ export default function BuilderPage({
   featured_image,
   builder_items,
 }: any) {
-
-    console.log(builder_items);
   return (
     <div className="">
       <ArticleHero title={title} backgroundUrl={featured_image?.permalink} />

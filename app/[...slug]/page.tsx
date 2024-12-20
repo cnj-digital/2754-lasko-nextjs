@@ -1,4 +1,4 @@
-import type { Metadata, ResolvingMetadata } from "next";
+import type { Metadata } from "next";
 import {
   fetchArticles,
   fetchPage,
@@ -15,9 +15,7 @@ import Product from "@/components/Pages/Product";
 import Support from "@/components/Pages/Support";
 
 type Props = {
-  params: Promise<{ id: string; slug: string[] }>;
-  slug: string[];
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  params: Promise<{ slug: string[] }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
