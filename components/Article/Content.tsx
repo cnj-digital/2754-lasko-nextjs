@@ -58,6 +58,7 @@ export default function Content({
                 <Link
                   key={i}
                   href={item.link}
+                  target={isExternalLink(item.link) ? "_blank" : "_self"}
                   className="inline-flex py-3 px-4 gap-4 shadow-small-card"
                 >
                   {item.asset && (

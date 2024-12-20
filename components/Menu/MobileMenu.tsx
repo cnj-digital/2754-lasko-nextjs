@@ -15,6 +15,7 @@ type MobileMenuProps = {
   externalLinks?: { image: string; title: string; url: string }[];
   socialsTitle: string;
   socials: { title: string; url: string }[];
+  lang: string;
 };
 
 export default function MobileMenu({
@@ -24,6 +25,7 @@ export default function MobileMenu({
   externalLinks,
   socialsTitle,
   socials,
+  lang,
 }: MobileMenuProps) {
   return (
     <AnimatePresence>
@@ -39,7 +41,7 @@ export default function MobileMenu({
           >
             <div className="absolute inset-0 z-0 w-full h-full bg-gradient-to-b from-transparent via-transparent to-black/16" />
             <div className="flex relative items-center px-8 pt-4 gap-4">
-              <Link href="/" className="mr-auto" onClick={onClose}>
+              <Link href={`/${lang}`} className="mr-auto" onClick={onClose}>
                 <img src="/logo.png" alt="Logo" className=" h-[60px] " />
               </Link>
               <LangMenu />
@@ -52,6 +54,7 @@ export default function MobileMenu({
                 externalLinks.map((link, i) => (
                   <Link
                     href={link.url}
+                    target={isExternalLink(link.url) ? "_blank" : "_self"}
                     key={i}
                     className="pr-4 pl-3   py-3 rounded-2xl shadow-small-card bg-green-500 flex gap-4 font-lg font-semibold items-center w-full"
                     onClick={onClose}

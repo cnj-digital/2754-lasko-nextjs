@@ -3,10 +3,12 @@
 import Container from "./Container";
 import cx from "classnames";
 import InfoIcon from "./Icons/Info";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import CloseIcon from "./Icons/Close";
 import useEmblaCarousel from "embla-carousel-react";
+import Chevron from "./Icons/Chevron";
+import { motion, useMotionValue, useTransform } from "motion/react";
 
 type Event = {
   title: string;
@@ -22,7 +24,7 @@ type HistoryTimelineProps = {
   }[];
 };
 export default function HistoryTimeline({ timeline }: HistoryTimelineProps) {
-  const [emblaRef] = useEmblaCarousel({ dragFree: true });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ dragFree: true });
 
   const [selected, setSelected] = useState<Event | undefined>(undefined);
   const maxLengthEventEven = Math.max(
@@ -32,6 +34,24 @@ export default function HistoryTimeline({ timeline }: HistoryTimelineProps) {
     ...timeline.filter((_, i) => i % 2 === 1).map((year) => year.events.length)
   );
 
+  const progressValue = useMotionValue(0);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    const onScroll = () => {
+      const progress = Math.max(0, Math.min(1, emblaApi.scrollProgress()));
+      progressValue.set(progress);
+    };
+
+    emblaApi.on("scroll", onScroll);
+    onScroll();
+
+    return () => {
+      emblaApi.off("scroll", onScroll);
+    };
+  }, [emblaApi]);
+
   return (
     <div className="w-full max-w-8xl mx-auto overflow-hidden">
       <Container className="">
@@ -40,7 +60,7 @@ export default function HistoryTimeline({ timeline }: HistoryTimelineProps) {
             <div key={"s"} className="embla__slide " style={{ width: 0 }}></div>
             <div
               key={timeline.length}
-              className="grid gap-x-6  py-10 px-6 embla__slide flex-shrink-0"
+              className="relative grid gap-x-6  py-10 px-6 embla__slide flex-shrink-0"
               style={{
                 gridTemplateColumns: `repeat(${timeline.length}, minmax(256px, 1fr))`,
                 gridTemplateRows: `repeat(${
@@ -50,6 +70,7 @@ export default function HistoryTimeline({ timeline }: HistoryTimelineProps) {
                 width: "min-content",
               }}
             >
+              <Background progress={progressValue} />
               <div
                 className="h-20 -mx-6 px-6 py-2 rounded-full col-span-full relative z-10"
                 style={{
@@ -62,7 +83,7 @@ export default function HistoryTimeline({ timeline }: HistoryTimelineProps) {
                 <Fragment key={i}>
                   <h2
                     key={i}
-                    className="text-[40px] font-neutraface font-bold py-2 self-center z-10 relative px-2 text-center   leading-none text-white w-auto "
+                    className="text-[40px] relative font-neutraface font-bold py-2 self-center z-10 px-2 text-center   leading-none text-white w-auto "
                     style={{
                       gridColumnStart: i + 1,
                       gridRowStart: 2,
@@ -72,7 +93,7 @@ export default function HistoryTimeline({ timeline }: HistoryTimelineProps) {
                   </h2>
                   <div
                     className={cx(
-                      "flex flex-col",
+                      "flex flex-col relative",
                       i % 2 === 0 ? "flex-col-reverse" : ""
                     )}
                     style={{
@@ -135,7 +156,81 @@ export default function HistoryTimeline({ timeline }: HistoryTimelineProps) {
             )?.year
           }
         />
+        <div className="  w-full justify-end top-64 z-10 flex gap-4 ml-auto">
+          <button
+            className=" bg-black p-2 bg-opacity-20 rounded-2xl backdrop-blur-sm"
+            onClick={() => emblaApi?.scrollPrev()}
+          >
+            <Chevron className="size-8 rotate-180 text-white" />
+          </button>
+          <button
+            className=" bg-black p-2 bg-opacity-20 rounded-2xl backdrop-blur-sm"
+            onClick={() => emblaApi?.scrollTo(0.1)}
+          >
+            <Chevron className="size-8 text-white" />
+          </button>
+        </div>
       </Container>
+    </div>
+  );
+}
+
+function Background({ progress }: { progress: any }) {
+  const repeat = 10;
+  const rotation = useTransform(progress, [0, 1], [0, 720]);
+
+  return (
+    <div className="absolute inset-0   z-0 w-full h-full flex">
+      {Array.from({ length: repeat }).map((_, i) => (
+        <div
+          key={i}
+          className="relative w-[1700px] flex-shrink-0 pointer-events-none select-none"
+        >
+          <img
+            src={"/placeholders/barrel.png"}
+            alt="barrel"
+            className="absolute top-[60%] left-[10%] z-0 "
+          />
+          <img
+            src={"/placeholders/barrel.png"}
+            alt="barrel"
+            className="absolute top-[30%] rotate-45 left-[40%] z-0 "
+          />
+          <img
+            src={"/placeholders/beer.png"}
+            alt="beer"
+            className="absolute top-[60%] left-[80%] scale-90 z-0 "
+          />
+          {/* <img
+            src={"/placeholders/beer.png"}
+            alt="beer"
+            className="absolute top-[60%] left-[80%] scale-90 z-0 "
+          /> */}
+          <img
+            src={"/placeholders/berries.png"}
+            alt="berries"
+            className="absolute top-[60%] left-[55%] z-0 "
+          />
+          <motion.img
+            src={"/placeholders/hourglass.png"}
+            alt="hourglass"
+            className="absolute top-[25%] left-[65%] z-0 "
+            style={{
+              scale: 0.6,
+              rotate: rotation,
+            }}
+          />
+          <motion.img
+            src={"/placeholders/hourglass.png"}
+            alt="hourglass"
+            className="absolute top-[70%] left-[35%] z-0 "
+            style={{
+              scale: 0.9,
+              rotate: rotation,
+            }}
+          />
+        </div>
+      ))}
     </div>
   );
 }

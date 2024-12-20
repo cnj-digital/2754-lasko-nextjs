@@ -105,12 +105,8 @@ export default function HeroSliderMobile({ slides }: HeroSliderProps) {
                       alt="beer"
                       className="w-full h-auto z-10 relative max-h-[600px] object-contain "
                     />
-                    <div
-                      className="font-medium text-white max-w-xl"
-                      dangerouslySetInnerHTML={{ __html: beer.description }}
-                    ></div>
                     {beer.specs && beer.specs.length > 0 && (
-                      <div className=" border border-white rounded-2xl mt-8  max-w-xl">
+                      <div className=" border border-white rounded-2xl mb-8  max-w-xl">
                         <table className=" text-white">
                           <tbody className="divide-y divide-white">
                             {beer.specs.map((spec, i) => (
@@ -136,6 +132,11 @@ export default function HeroSliderMobile({ slides }: HeroSliderProps) {
                         </table>
                       </div>
                     )}
+                    <div
+                      className="font-medium text-white max-w-xl"
+                      dangerouslySetInnerHTML={{ __html: beer.description }}
+                    ></div>
+
                     {beer.cta && (
                       <Link
                         href={beer.cta.link}

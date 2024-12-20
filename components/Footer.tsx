@@ -108,6 +108,7 @@ function CNJLink() {
   return (
     <Link
       href="https://www.cnj.si/"
+      target="_blank"
       className="mr-auto lg:mr-0 mt-6 lg:mt-0 ml-auto"
     >
       <svg

@@ -3,15 +3,15 @@ export const languages = ["si", "en"];
 export const socials = [
   {
     title: "Facebook",
-    url: "https://www.facebook.com/",
+    url: "https://www.facebook.com/pivovarna.lasko",
   },
   {
     title: "Instagram",
-    url: "https://www.instagram.com/",
+    url: "http://instagram.com/pivovarnalasko",
   },
   {
     title: "Youtube",
-    url: "https://www.youtube.com/",
+    url: "http://www.youtube.com/user/laskopivovarna",
   },
 ];
 
@@ -39,6 +39,7 @@ export const strings = {
       herotext: "Slavimo tretje stoletje,",
       herotext2: " Laško praznuje 200!",
       herotextMobile: "Laško jih ima 200! <br /> Praznujmo skupaj",
+      heroLink: "/si/novice/lasko-200-slavimo-tretje-stoletje",
       newsLoadMore: "Naloži naslednjih 7",
     },
     footer: {
@@ -49,12 +50,22 @@ export const strings = {
       copy: " Ups! Naleteli ste na dno soda. Vrnite se tja, kjer teče pivo!",
       cta: "Naše pivo",
     },
+    ageVerification: {
+      title: "Ste polnoletni?",
+      yes: "Da",
+      no: "Ne",
+    },
+    share: {
+      title: "Povej Naprej",
+      copy: "Kopiraj povezavo",
+    },
   },
   en: {
     landing: {
       herotext: "Celebrating the third century,",
       herotext2: " Laško celebrates 200!",
-      herotextMobile: "Laško has 200! <br /> Let's celebrate together",
+      herotextMobile: "Laško is 200! <br /> Let's celebrate together",
+      heroLink: "/en/blog/lasko-200-celebrating-our-third-century",
       newsLoadMore: "Show next 7",
     },
     footer: {
@@ -64,6 +75,15 @@ export const strings = {
     notfound: {
       copy: " Ups! You've hit the bottom of the barrel. Return to where the beer flows!",
       cta: "Our beer",
+    },
+    ageVerification: {
+      title: "Are you over 18 years old?",
+      yes: "Yes",
+      no: "No",
+    },
+    share: {
+      title: "Share",
+      copy: "Copy link",
     },
   },
 };

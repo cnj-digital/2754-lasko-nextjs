@@ -78,7 +78,7 @@ export default function HeroLanding({
       </div>
       <motion.div className=" relative z-0" style={{ height: height }}>
         <Link
-          href={"/"}
+          href={strings[lang].landing.heroLink}
           className="w-full  absolute bottom-0 bg-cover bg-center pb-4 pt-12 rounded-b-3xl flex justify-center items-center  overflow-hidden"
           style={{ backgroundImage: 'url("/bg-200.svg")' }}
         >

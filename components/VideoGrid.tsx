@@ -114,7 +114,7 @@ export default function VideoGrid({ title, videos }: VideoGridProps) {
         {videos.map((video, i) => (
           <div key={i} className=" relative w-4/5 lg:w-full flex-shrink-0">
             <div
-              className="aspect-square lg:aspect-[1.78]  bg-gray-200 rounded-3xl overflow-hidden relative group cursor-pointer"
+              className="aspect-[1.78] lg:aspect-[1.78]  bg-gray-200 rounded-3xl overflow-hidden relative group cursor-pointer"
               onClick={() => setSelectedVideo(video)}
             >
               {renderThumbnail(video, i)}

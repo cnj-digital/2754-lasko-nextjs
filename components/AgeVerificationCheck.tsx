@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { motion, AnimatePresence } from "motion/react";
+import { usePathname } from "next/navigation";
+import { strings } from "@/data/general";
 
 export default function AgeVerificationCheck({
   children,
@@ -10,6 +12,10 @@ export default function AgeVerificationCheck({
   children: React.ReactNode;
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+  const currentLang = pathname?.split("/")[1];
+  const lang =
+    currentLang === "en" || currentLang === "si" ? currentLang : "si";
 
   useEffect(() => {
     const verifiedTimestamp = localStorage.getItem("age-verified");
@@ -79,8 +85,8 @@ export default function AgeVerificationCheck({
                     alt="logo"
                     className="w-32 lg:w-40 mx-auto object-contain"
                   />
-                  <DialogTitle className=" text-[36px] leading-snug lg:text-[52px] mt-10 lg:mt-20 font-black font-neutraface text-white mb-8">
-                    STE POLNOLETNI?
+                  <DialogTitle className=" text-[36px] uppercase leading-snug lg:text-[52px] mt-10 lg:mt-20 font-black font-neutraface text-white mb-8">
+                    {strings[lang].ageVerification.title}
                   </DialogTitle>
 
                   <div className="flex justify-center gap-4 lg:gap-6">
@@ -88,13 +94,13 @@ export default function AgeVerificationCheck({
                       onClick={handleDeny}
                       className="inline-block px-6  lg:px-8 py-4  lg:py-6 text-2xl lg:text-[40px]  font-bold text-white bg-black bg-opacity-20 hover:bg-opacity-50    rounded-2xl transition"
                     >
-                      NE
+                      {strings[lang].ageVerification.no}
                     </button>
                     <button
                       onClick={handleVerify}
                       className="inline-block px-6  lg:px-8 py-4  lg:py-6 text-white text-2xl lg:text-[40px]  font-bold  bg-black bg-opacity-20 hover:bg-opacity-50   rounded-2xl transition-colors"
                     >
-                      DA
+                      {strings[lang].ageVerification.yes}
                     </button>
                   </div>
                 </DialogPanel>

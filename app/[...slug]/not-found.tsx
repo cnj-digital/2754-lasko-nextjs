@@ -18,7 +18,7 @@ export default function NotFound() {
       <ButtonSolid
         url="/"
         title={strings[lang].notfound.cta}
-        className="mt-6 lg:mt-10 mx-auto inline-flex "
+        className="mt-6 lg:mt-10 mx-auto block w-max "
       />
     </Container>
   );

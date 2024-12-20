@@ -9,6 +9,7 @@ import MenuIcon from "./Icons/Menu";
 import MobileMenu from "./Menu/MobileMenu";
 import ArrowDiagonalIcon from "./Icons/ArrowDiagonal";
 import { external_links } from "@/data/general";
+import { usePathname } from "next/navigation";
 
 type MenuProps = {
   nav: {
@@ -20,6 +21,10 @@ type MenuProps = {
 const Menu = ({ nav }: MenuProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const currentLang = pathname?.split("/")[1];
+  const lang =
+    currentLang === "en" || currentLang === "si" ? currentLang : "si";
 
   const socialsTitle = "Sledite nam";
   const socials = [
@@ -55,7 +60,7 @@ const Menu = ({ nav }: MenuProps) => {
       <Container className="w-full">
         <nav className="grid grid-cols-3 lg:flex justify-center lg:justify-start items-center py-2.5 w-full ">
           <Link
-            href="/"
+            href={`/${lang}`}
             className=" mx-auto lg:mx-0 w-24 xl:w-[140px] order-2 lg:order-1 self-center relative"
           >
             <img
@@ -73,6 +78,7 @@ const Menu = ({ nav }: MenuProps) => {
               <Link
                 key={i}
                 href={item.url}
+                target={isExternalLink(item.url) ? "_blank" : "_self"}
                 className={cx(
                   "text-white  text-[21px] font-semibold px-4 py-2 flex items-center space-x-2.5 hover:bg-black hover:bg-opacity-30 rounded-xl transition-all duration-300",
                   isExternalLink(item.url) &&
@@ -99,6 +105,7 @@ const Menu = ({ nav }: MenuProps) => {
 
         <MobileMenu
           isOpen={isMenuOpen}
+          lang={lang}
           onClose={() => setIsMenuOpen(false)}
           items={nav}
           externalLinks={external_links}
