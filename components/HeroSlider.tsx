@@ -6,7 +6,7 @@ import { useInView } from "motion/react";
 import Link from "next/link";
 import DocumentIcon from "./Icons/Document";
 import { generateAnchorLink } from "@/helpers/general";
-import Chevron from "./Icons/Chevron";
+
 import ArrowIcon from "./Icons/Arrow";
 
 type Specs = {
