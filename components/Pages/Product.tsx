@@ -3,7 +3,6 @@ import HeroSlider from "@/components/HeroSlider";
 import HeroSliderMobile from "@/components/HeroSliderMobile";
 
 export default function Product({ product_items, promos_items }: any) {
-  console.log(product_items);
   return (
     <div>
       <div className="hidden lg:block">
