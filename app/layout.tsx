@@ -3,7 +3,7 @@ import "./globals.css";
 import { Raleway } from "next/font/google";
 import localFont from "next/font/local";
 import AgeVerificationCheck from "@/components/AgeVerificationCheck";
-import Head from "next/head";
+import PlausibleProvider from "next-plausible";
 
 const neutrafaceDisplay = localFont({
   src: "./fonts/Neutraface_Display-Titling.woff2",
@@ -29,15 +29,15 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Head>
-        <script
-          defer
-          data-domain="lasko.eu"
-          src="https://plausible.cnj.digital/js/script.js"
-        ></script>
-      </Head>
+      <head>
+        <PlausibleProvider
+          domain="lasko.eu"
+          selfHosted={true}
+          customDomain="https://plausible.cnj.digital"
+        />
+      </head>
       <body
-        className={` ${raleway.variable} ${neutrafaceDisplay.variable} antialiased bg-white min-h-screen `}
+        className={` ${raleway.variable} ${neutrafaceDisplay.variable} antialiased bg-white min-h-screen`}
         style={{
           backgroundImage: 'url("/bg.jpg")',
           backgroundSize: "1920px 912px",
