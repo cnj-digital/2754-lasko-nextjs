@@ -49,7 +49,7 @@ export default function Footer({ nav }: FooterProps) {
       />
       <div className="relative max-w-8xl w-full mx-auto py-20 lg:pb-32 lg:pt-40 bg-bottom rounded-t-3xl lg:h-[560px]">
         <div
-          className="absolute inset-0 h-full bg-bottom w-full hidden md:block"
+          className="absolute inset-0 h-full bg-bottom w-full hidden md:block rounded-t-3xl"
           style={{
             backgroundImage: 'url("/footer.jpg")',
             backgroundSize: "auto 100% ",

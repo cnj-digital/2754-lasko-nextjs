@@ -34,7 +34,7 @@ export default function CardNews({
       <div className="flex items-center pl-8 pr-4 pb-8 pt-6 justify-between">
         <h3
           id={generateAnchorLink(title)}
-          className="mt-1 text-2xl text-black font-bold line-clamp-2"
+          className="mt-1 text-2xl text-black font-bold line-clamp-2 md:group-hover:text-green-800"
         >
           {title}
         </h3>

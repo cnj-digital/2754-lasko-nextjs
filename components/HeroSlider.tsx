@@ -39,7 +39,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
 
   return (
     <div className="relative w-full " style={{}}>
-      <Container className="sticky lg:pl-[10%] xl:pl-[10%]   h-0 top-[90vh] z-30">
+      <Container className="sticky lg:pl-[10%] xl:pl-[7%]   h-0 top-[90vh] z-30">
         <Link
           href={`#${[slides[activeIndex + 1]?.title]}`}
           className={cx(
@@ -87,14 +87,16 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
             ))}
           </div>
 
-          <div className="relative  max-w-lg flex items-center w-full">
+          <div className="relative  max-w-md xl:max-w-xl flex items-center w-full">
             {slides.map((beer, i) => (
               <div
                 key={i}
                 className={cx(
                   "absolute transition-all duration-500 ",
                   i === activeIndex ? "opacity-100" : " opacity-0",
-                  i === 3 ? "text-black" : "text-white"
+                  i === 3
+                    ? "text-black max-w-sm xl:max-w-xl right-0"
+                    : "text-white"
                 )}
               >
                 <h2
@@ -152,7 +154,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
           </div>
         </Container>
       </div>
-      <Container className=" relative lg:pl-[10%] xl:pl-[10%] z-10 pointer-events-none -mt-[90vh]">
+      <Container className=" relative lg:pl-[10%] xl:pl-[7%] z-10 pointer-events-none -mt-[90vh]">
         {slides.map((beer, i) => (
           <BeerContainer
             key={i}

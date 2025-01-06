@@ -18,7 +18,7 @@ type ImageSliderProps = {
 
 export default function ImageSlider({ title, images }: ImageSliderProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, startIndex: 1 });
 
   const onSelect = useCallback((emblaApi: EmblaCarouselType) => {
     setCurrentSlide(emblaApi.selectedScrollSnap());
@@ -36,18 +36,20 @@ export default function ImageSlider({ title, images }: ImageSliderProps) {
   }, [emblaApi, onSelect]);
 
   return (
-    <div className="max-w-8xl mx-auto overflow-hidden w-full">
+    <div className="relative max-w-8xl mx-auto overflow-hidden w-full">
+      <div className="absolute left-0 top-0 h-full bg-gradient-to-r from-white to-transparent w-20 z-10" />
+      <div className="absolute right-0 top-0 h-full bg-gradient-to-l from-white to-transparent w-20 z-10" />
       <Container>
         <h2
           id={generateAnchorLink(title)}
-          className="text-[32px] lg:text-[52px]  font-black text-green-800 font-neutraface"
+          className="text-[32px] lg:text-[52px] leading-tight  font-black text-green-800 font-neutraface"
         >
           {title}
         </h2>
       </Container>
       <div
         ref={emblaRef}
-        className="embla w-full mt-20"
+        className="embla w-full mt-14"
         style={{ overflow: "visible" }}
       >
         <div className="embla__container flex items-center w-full">
@@ -86,12 +88,12 @@ export default function ImageSlider({ title, images }: ImageSliderProps) {
         </div>
       </div>
 
-      <Container className="mt-16 flex flex-wrap gap-4 lg:flex-nowrap justify-center items-start">
+      <Container className="mt-10 flex flex-wrap gap-4 lg:flex-nowrap justify-center items-start">
         <motion.p
           key={currentSlide}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="font-medium text-gray-600 max-w-md ml-auto lg:pl-28"
+          className="font-semibold lg:text-lg text-gray-600 max-w-md ml-auto lg:pl-28"
         >
           {images[currentSlide].description}
         </motion.p>

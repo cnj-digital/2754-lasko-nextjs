@@ -39,7 +39,7 @@ export default function HeroLanding({
 
   return (
     <section className="relative w-full overflow-hidden max-w-8xl  ">
-      <div className="relative z-10 rounded-b-3xl bg-black  aspect-[0.56] lg:aspect-[1.74] w-full overflow-hidden ">
+      <div className="relative z-10 rounded-b-3xl bg-black  aspect-[0.56] lg:aspect-[1.74] w-full max-h-screen overflow-hidden ">
         {isVideo ? (
           <video
             autoPlay
