@@ -49,7 +49,7 @@ export default function HeroSliderMobile({ slides }: HeroSliderProps) {
         ))}
 
         <Container className="relative pt-72 w-full">
-          <div className="absolute top-36 w-full z-20 flex gap-4 items-start p-4 overflow-auto -mx-6 px-6 md:justify-center">
+          <div className="absolute top-36 w-full z-20 flex gap-2 items-start p-4 overflow-auto -mx-6 px-6 md:justify-center">
             {slides.map((beer, i) => (
               <button
                 key={i}
@@ -74,8 +74,13 @@ export default function HeroSliderMobile({ slides }: HeroSliderProps) {
               <h2
                 key={i}
                 className={cx(
-                  "absolute top-0  px-4 w-full text-center mix-blend-overlay text-[#F2F2F2] text-[60px] font-neutraface font-black leading-[1.2]",
-                  activeIndex === i ? "opacity-100" : "opacity-0"
+                  "absolute top-0  px-4 w-full text-center  text-[#F2F2F2] text-[60px] font-neutraface font-black leading-[1.2]",
+                  activeIndex === i ? "opacity-100" : "opacity-0",
+                  i === 3
+                    ? "text-black mix-blend-normal"
+                    : i === 2
+                    ? "mix-blend-normal"
+                    : "mix-blend-overlay"
                 )}
               >
                 {beer.title}

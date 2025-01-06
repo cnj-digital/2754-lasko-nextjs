@@ -67,7 +67,7 @@ export default function MobileMenu({
                       />
                     </div>
                     <span className="mr-auto text-white">{link.title}</span>
-                    <ArrowDiagonalIcon className="size-8" />
+                    <ArrowDiagonalIcon className="size-8 text-white" />
                   </Link>
                 ))}
             </div>
