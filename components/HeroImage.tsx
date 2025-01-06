@@ -39,7 +39,7 @@ export default function HeroImage({
             )}
 
             {buttons && (
-              <div className="flex lg:w-full -mx-6 px-6 lg:mx-0 lg:px-0 overflow-auto items-center gap-4 mb-16 mt-10">
+              <div className="flex lg:w-full -mx-6 px-6 lg:mx-0 lg:px-0 overflow-auto no-scrollbar items-center gap-4 mb-16 mt-10">
                 {buttons.map((button, i) => (
                   <ButtonSolid
                     size="small"
@@ -55,7 +55,7 @@ export default function HeroImage({
           </div>
 
           {image && (
-            <div className="w-full md:w-1/2 mt-8 md:mt-0">
+            <div className="-mx-6 md:mx-0 md:w-1/2 mt-8 md:mt-0">
               <img src={image} className="w-full object-cover " />
             </div>
           )}

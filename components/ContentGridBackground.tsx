@@ -38,7 +38,7 @@ export default function ContentGridBackground({
             <div key={i} className="w-full">
               <h3
                 id={generateAnchorLink(section.title)}
-                className="text-[21px] lg:text-[32px] leading-[1.4] font-black text-white"
+                className="text-[26px] lg:text-[32px] leading-[1.4] font-black text-white"
               >
                 {section.title}
               </h3>

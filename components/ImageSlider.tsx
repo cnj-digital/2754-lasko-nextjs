@@ -37,8 +37,8 @@ export default function ImageSlider({ title, images }: ImageSliderProps) {
 
   return (
     <div className="relative max-w-8xl mx-auto overflow-hidden w-full">
-      <div className="absolute left-0 top-0 h-full bg-gradient-to-r from-white to-transparent w-20 z-10" />
-      <div className="absolute right-0 top-0 h-full bg-gradient-to-l from-white to-transparent w-20 z-10" />
+      <div className="absolute hidden xl:block left-0 top-0 h-full bg-gradient-to-r from-white to-transparent w-20 z-10" />
+      <div className="absolute hidden xl:block right-0 top-0 h-full bg-gradient-to-l from-white to-transparent w-20 z-10" />
       <Container>
         <h2
           id={generateAnchorLink(title)}

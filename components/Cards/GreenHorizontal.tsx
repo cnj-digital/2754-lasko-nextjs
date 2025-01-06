@@ -25,7 +25,7 @@ export default function CardGreenHorizontal({
       <img
         src={image}
         alt="card"
-        className="object-contain w-1/2 lg:w-2/6 absolute left-0 lg:left-20 mix-blend-luminosity group-hover:scale-110 transition-transform"
+        className="object-contain w-1/2 lg:w-2/6 absolute left-0 lg:left-20 mix-blend-luminosity group-hover:scale-125 transition-transform"
       />
       <span className="text-2xl text-white font-black font-neutraface lg:mr-8">
         {title}

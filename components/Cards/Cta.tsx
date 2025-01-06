@@ -1,7 +1,11 @@
+"use client";
 import Link from "next/link";
 import Chevron from "../Icons/Chevron";
 import cx from "classnames";
 import { generateAnchorLink } from "@/helpers/general";
+import { useRef } from "react";
+import { useInView } from "motion/react";
+import ArrowIcon from "../Icons/Arrow";
 
 type CardCtaProps = {
   title: string;
@@ -24,8 +28,11 @@ export default function CardCta({
   isHovered,
   setIsHovered,
 }: CardCtaProps) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { amount: 0.8, once: true });
   return (
     <Link
+      ref={ref}
       href={url}
       className={cx(
         "relative block bg-white rounded-3xl overflow-hidden lg:overflow-x-hidden  shadow-card w-full flex-shrink transition-all group h-[460px] sm:h-[400px]",
@@ -70,15 +77,24 @@ export default function CardCta({
         </button>
       </div>
 
-      <div className="lg:overflow-x-hidden lg:overflow-y-visible rounded-3xl w-full max-w-full h-full lg:absolute inset-0">
+      <div className="lg:overflow-x-hidden lg:overflow-y-visible rounded-3xl -ml-[5%] lg:ml-0 w-full max-w-full h-full lg:absolute inset-0">
         <img
           src={image}
           alt={title}
           className={cx(
-            "relative sm:absolute object-contain object-bottom sm:left-1/2 md:left-[calc(100%-380px)]  xl:left-[calc(100%-400px)] rounded-3xl sm:bottom-0 sm:transition origin-bottom-right md:h-full",
-            isHovered ? "lg:scale-105 " : "lg:scale-75 "
+            "relative sm:absolute object-contain object-bottom sm:left-1/2 md:left-[calc(100%-380px)]  xl:left-[calc(100%-400px)] duration rounded-3xl sm:bottom-0 transition origin-top  md:origin-bottom-right md:h-full",
+            isHovered ? "lg:scale-105 " : "lg:scale-75 ",
+            isInView ? "scale-125 duration-300" : ""
           )}
         />
+      </div>
+      <div
+        className={cx(
+          "absolute right-4 bottom-4 bg-green-500 p-2 transition duration-300 rounded-2xl",
+          isInView ? "opacity-100" : "opacity-0"
+        )}
+      >
+        <ArrowIcon className="text-white size-8 -rotate-90" />
       </div>
     </Link>
   );

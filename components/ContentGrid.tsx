@@ -32,7 +32,7 @@ export default function ContentGrid({
         >
           {sectionTitle}
         </h3>
-        <div className=" lg:grid grid-cols-2 mt-10 gap-6 lg:gap-10 -mx-6 lg:mx-0 px-6 lg:px-0 overflow-auto flex snap-mandatory snap-x scroll-p-8">
+        <div className=" lg:grid grid-cols-2 mt-10 gap-6 lg:gap-10 -mx-6 lg:mx-0 px-6 lg:px-0 overflow-auto no-scrollbar flex snap-mandatory snap-x scroll-p-8">
           {items.map((item, i) => (
             <div
               key={i}

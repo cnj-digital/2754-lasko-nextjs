@@ -176,7 +176,7 @@ export default function InfoSlider({ title, copy, slides }: InfoSliderProps) {
       >
         {title}
       </h2>
-      <p className="text-[21px] mt-6 lg:mt-10 text-black lg:text-[32px] leading-[1.4] font-bold">
+      <p className=" mt-6 lg:mt-10 text-black lg:text-[32px] lg:leading-[1.4] font-bold">
         {copy}
       </p>
       <div className="relative lg:p-10 mt-6 lg:mt-10 w-full bg-green-700 rounded-3xl flex items-center justify-center overflow-hidden ">

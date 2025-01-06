@@ -34,10 +34,10 @@ export default function ExternalLinks({
         </h2>
       )}
       {copy && (
-        <p className=" text-black mt-3 mb-10  font-semibold text-xl">{copy}</p>
+        <p className=" text-black mt-3  font-semibold text-xl">{copy}</p>
       )}
       {pageLinks && pageLinks.length > 0 && (
-        <div className="grid lg:grid-cols-2 gap-6 lg:gap-10 mb-10 ">
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-10 ">
           {pageLinks.map((link, i) => (
             <CardGreenHorizontal
               key={i}
@@ -48,7 +48,7 @@ export default function ExternalLinks({
           ))}
         </div>
       )}
-      <div className="grid lg:grid-cols-3 gap-8">
+      <div className="lg:grid flex lg:grid-cols-3 gap-8 overflow-auto no-scrollbar -mx-6 px-6 py-10">
         {links.map((link, i) => (
           <CardMedium key={i} image={link.image} url={link.url} />
         ))}
