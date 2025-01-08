@@ -56,7 +56,7 @@ export default function Footer({ nav }: FooterProps) {
           }}
         />
         <div
-          className="absolute inset-0 h-full bg-bottom w-full block md:hidden"
+          className="absolute inset-0 h-full bg-bottom w-full block md:hidden rounded-t-3xl"
           style={{
             backgroundImage: 'url("/footer-mobile.jpg")',
             backgroundSize: "auto 100% ",

@@ -5,6 +5,7 @@ import cx from "classnames";
 import { generateAnchorLink } from "@/helpers/general";
 import { useInView } from "motion/react";
 import { useRef } from "react";
+import useScreenSize from "@/hooks/useScreenSize";
 
 type CardNewsProps = {
   title: string;
@@ -21,6 +22,7 @@ export default function CardNews({
 }: CardNewsProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { amount: 0.8 });
+  const { isMobile } = useScreenSize();
 
   return (
     <Link
@@ -37,7 +39,7 @@ export default function CardNews({
           src={image}
           className={cx(
             " md:group-hover:scale-105 grayscale md:group-hover:grayscale-0 transition-all w-full h-full object-cover object-center",
-            isInView ? "scale-105 grayscale-0" : "scale-100"
+            isInView && isMobile ? "scale-105 grayscale-0" : "scale-100"
           )}
         />
       </div>
@@ -46,7 +48,7 @@ export default function CardNews({
           id={generateAnchorLink(title)}
           className={cx(
             "mt-1 text-2xl text-black font-bold line-clamp-2 md:group-hover:text-green-800",
-            isInView ? "text-green-800" : "text-black"
+            isInView && isMobile ? "text-green-800" : "text-black"
           )}
         >
           {title}
@@ -54,7 +56,7 @@ export default function CardNews({
         <Chevron
           className={cx(
             " text-black size-10 flex-shrink-0 md:group-hover:text-green-800 ",
-            isInView ? "text-green-800" : "text-black"
+            isInView && isMobile ? "text-green-800" : "text-black"
           )}
         />
       </div>

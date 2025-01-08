@@ -6,6 +6,7 @@ import { generateAnchorLink } from "@/helpers/general";
 import { useRef } from "react";
 import { useInView } from "motion/react";
 import ArrowIcon from "../Icons/Arrow";
+import useScreenSize from "@/hooks/useScreenSize";
 
 type CardCtaProps = {
   title: string;
@@ -30,6 +31,7 @@ export default function CardCta({
 }: CardCtaProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { amount: 0.8, once: true });
+  const { isMobile } = useScreenSize();
   return (
     <Link
       ref={ref}
@@ -82,16 +84,16 @@ export default function CardCta({
           src={image}
           alt={title}
           className={cx(
-            "relative sm:absolute object-contain object-bottom sm:left-1/2 md:left-[calc(100%-380px)]  xl:left-[calc(100%-400px)] duration rounded-3xl sm:bottom-0 transition origin-top  md:origin-bottom-right md:h-full",
-            isHovered ? "lg:scale-105 " : "lg:scale-75 ",
-            isInView ? "scale-125 duration-300" : ""
+            "relative sm:absolute object-contain object-bottom sm:left-1/2 md:left-[calc(100%-380px)]  xl:left-[calc(100%-400px)] rounded-3xl sm:bottom-0 transition origin-top  md:origin-bottom-right md:h-full",
+            isHovered ? "lg:scale-105 " : "lg:scale-75",
+            isInView && isMobile ? "scale-125 duration-300" : ""
           )}
         />
       </div>
       <div
         className={cx(
-          "absolute right-4 bottom-4 bg-green-500 p-2 transition duration-300 rounded-2xl",
-          isInView ? "opacity-100" : "opacity-0"
+          "absolute right-4 bottom-4 bg-green-500 p-2 lg:hidden transition duration-300 rounded-2xl",
+          isInView && isMobile ? "opacity-100" : "opacity-0"
         )}
       >
         <ArrowIcon className="text-white size-8 -rotate-90" />

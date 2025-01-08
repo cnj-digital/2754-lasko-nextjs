@@ -1,4 +1,5 @@
 import Content, { ContentProps } from "./Content";
+import Form from "./Form";
 import Quote from "./Quote";
 import Share from "./Share";
 import VideoPlayer from "./Video";
@@ -17,6 +18,7 @@ export default function BuilderComponent({
     share: Share,
     quote: Quote,
     video: VideoPlayer,
+    form: Form,
   };
   const Component = components[type] ? components[type] : NotFound;
 

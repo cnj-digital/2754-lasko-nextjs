@@ -1,17 +1,17 @@
 import Container from "../Container";
 import cx from "classnames";
 
-type ArticleHeroProps = {
+type BuilderHeroProps = {
   title: string;
   date?: string;
   backgroundUrl: string;
 };
 
-export default function ArticleHero({
+export default function BuilderHero({
   title,
   date,
   backgroundUrl,
-}: ArticleHeroProps) {
+}: BuilderHeroProps) {
   return (
     <section
       className="relative w-full overflow-hidden max-w-8xl  mx-auto rounded-b-3xl"

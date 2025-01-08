@@ -47,6 +47,63 @@ export const builderQuery = gql`
           ... on Set_BuilderItems_Share {
             type
           }
+          ... on Set_BuilderItems_Form {
+            type
+            form {
+              ... on Entry_Form_Form {
+                content
+                title
+                items {
+                  ... on Set_Items_TextInput {
+                    label
+                    type
+                    variant_input {
+                      value
+                    }
+                    required
+                  }
+                  ... on Set_Items_TextArea {
+                    required
+                    label
+                    type
+                  }
+                  ... on Set_Items_Checkbox {
+                    label
+                    required
+                    type
+                    title
+                  }
+                  ... on Set_Items_SingleChoice {
+                    label
+                    variant {
+                      value
+                    }
+                    required
+                    type
+                    options
+                  }
+                  ... on Set_Items_MultipleChoice {
+                    options
+                    label
+                    required
+                    type
+                  }
+                  ... on Set_Items_File {
+                    content
+                    label
+                    type
+                  }
+                }
+                submit_button_label
+                disclaimer
+                required_error
+                success {
+                  title
+                  content
+                }
+              }
+            }
+          }
         }
       }
     }

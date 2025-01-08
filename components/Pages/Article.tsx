@@ -1,5 +1,5 @@
-import BuilderComponent from "@/components/Article/Builder";
-import ArticleHero from "@/components/Article/Hero";
+import BuilderComponent from "@/components/Builder/Builder";
+import ArticleHero from "@/components/Builder/Hero";
 import Container from "@/components/Container";
 
 function formatDate(date: string) {
