@@ -1,3 +1,4 @@
+"use client";
 import { isExternalLink } from "@/helpers/general";
 import Link from "next/link";
 import cx from "classnames";
