@@ -21,7 +21,7 @@ export default function MultipleChoice({
         {options.map((option, i) => (
           <div key={i} className="flex items-center gap-2">
             <input
-              name={generateAnchorLink(label)}
+              name={`${generateAnchorLink(label)}[]`}
               id={generateAnchorLink(option)}
               type="checkbox"
               required={required}

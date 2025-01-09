@@ -60,15 +60,14 @@ export default function HistoryTimeline({ timeline }: HistoryTimelineProps) {
 
     document.addEventListener("mousemove", (e) => {
       const rect = containerRef.current?.getBoundingClientRect();
+
+      let isInside = false;
       if (rect) {
-        const isInside =
+        isInside =
           e.clientX >= rect.left &&
           e.clientX <= rect.right &&
           e.clientY >= rect.top &&
           e.clientY <= rect.bottom;
-        if (isInside !== Boolean(customCutsorVisible.get())) {
-          customCutsorVisible.set(isInside ? 1 : 0);
-        }
       }
       if (
         e.target instanceof HTMLElement &&
@@ -76,8 +75,10 @@ export default function HistoryTimeline({ timeline }: HistoryTimelineProps) {
           e.target instanceof HTMLButtonElement)
       ) {
         if (customCutsorVisible.get() !== 0) customCutsorVisible.set(0);
-      } else if (customCutsorVisible.get() !== 1) {
+      } else if (isInside && customCutsorVisible.get() !== 1) {
         customCutsorVisible.set(1);
+      } else if (!isInside && customCutsorVisible.get() !== 0) {
+        customCutsorVisible.set(0);
       }
 
       if (customCutsorVisible.get() === 1) {
@@ -116,7 +117,7 @@ export default function HistoryTimeline({ timeline }: HistoryTimelineProps) {
       onClick={HandleClickOnContainer}
     >
       <div className="w-full max-w-8xl mx-auto">
-        <Container className="">
+        <Container className=" flex flex-col">
           <div ref={emblaRef} className="embla" style={{ overflow: "visible" }}>
             <div className="embla__container">
               <div
@@ -226,7 +227,7 @@ export default function HistoryTimeline({ timeline }: HistoryTimelineProps) {
             }
           />
           <div
-            className="  w-full justify-end top-64 z-10 flex gap-4 ml-auto show-cursor"
+            className="   z-10 flex gap-4 ml-auto show-cursor"
             onClick={(e) => e.stopPropagation()}
           >
             <button

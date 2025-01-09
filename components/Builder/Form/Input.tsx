@@ -9,9 +9,6 @@ type InputProps = {
 };
 
 export default function Input({ label, required, variant_input }: InputProps) {
-  console.log(label, required, variant_input, "input");
-
-  console.log(generateAnchorLink(label));
   return (
     <div className="flex flex-col">
       <label

@@ -7,17 +7,17 @@ type CheckboxProps = {
   title: string;
 };
 
-export default function Checkbox({ label, required }: CheckboxProps) {
+export default function Checkbox({ label, required, title }: CheckboxProps) {
   return (
     <div className="flex items-center gap-2">
       <input
-        name={generateAnchorLink(label)}
-        id={generateAnchorLink(label)}
+        name={generateAnchorLink(title)}
+        id={generateAnchorLink(title)}
         type="checkbox"
         required={required}
         className=" rounded-sm"
       />
-      <label htmlFor={generateAnchorLink(label)}>
+      <label htmlFor={generateAnchorLink(title)}>
         <div
           dangerouslySetInnerHTML={{ __html: label }}
           className="text-white text-sm leading-[1.4]"

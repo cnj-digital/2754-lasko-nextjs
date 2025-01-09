@@ -43,6 +43,7 @@ export default function SingleChoice({
       ) : (
         <select
           required={required}
+          name={generateAnchorLink(label)}
           className="rounded-xl px-4 py-3 mt-1 text-black border border-transparent"
         >
           {options.map((option, i) => (

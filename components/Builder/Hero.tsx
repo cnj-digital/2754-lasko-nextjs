@@ -31,7 +31,9 @@ export default function BuilderHero({
           />
         )}
 
-        <div className="absolute inset-0 bg-black/30" />
+        {backgroundUrl && (
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent" />
+        )}
 
         <Container
           className={cx(
