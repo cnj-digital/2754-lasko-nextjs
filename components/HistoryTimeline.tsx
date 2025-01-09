@@ -347,7 +347,8 @@ function ItemModal({
           item ? "opacity-100" : "opacity-0"
         )}
         onClick={(e) => {
-          onClose(), e.stopPropagation();
+          onClose();
+          e.stopPropagation();
         }}
       />
       <div
