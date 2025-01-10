@@ -18,7 +18,7 @@ type ImageSliderProps = {
 
 export default function ImageSlider({ title, images }: ImageSliderProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, startIndex: 1 });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, startIndex: 2 });
 
   const onSelect = useCallback((emblaApi: EmblaCarouselType) => {
     setCurrentSlide(emblaApi.selectedScrollSnap());
