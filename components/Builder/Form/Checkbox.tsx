@@ -9,13 +9,13 @@ type CheckboxProps = {
 
 export default function Checkbox({ label, required, title }: CheckboxProps) {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 bg-black/30 lg:bg-transparent rounded-xl p-4 lg:p-0">
       <input
         name={generateAnchorLink(title)}
         id={generateAnchorLink(title)}
         type="checkbox"
         required={required}
-        className=" rounded-sm"
+        className="rounded  checked:bg-green-500 checked:hover:bg-green-500 checked:border-transparent"
       />
       <label htmlFor={generateAnchorLink(title)}>
         <div

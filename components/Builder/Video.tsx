@@ -7,8 +7,9 @@ import CloseIcon from "../Icons/Close";
 import { Dialog, DialogPanel } from "@headlessui/react";
 
 interface VideoPlayerProps {
-  videoUrl: string;
   thumbnail?: string;
+  youtube?: string;
+  mp4?: string;
 }
 
 const getYoutubeEmbedUrl = (url: string) => {
@@ -20,10 +21,15 @@ const getYoutubeEmbedUrl = (url: string) => {
     : url;
 };
 
-export default function VideoPlayer({ videoUrl, thumbnail }: VideoPlayerProps) {
+export default function VideoPlayer({
+  mp4,
+  youtube,
+  thumbnail,
+}: VideoPlayerProps) {
   const [isOpen, setIsOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  const videoUrl = (mp4 || youtube) ?? "";
   const isYouTube =
     videoUrl.includes("youtube.com") || videoUrl.includes("youtu.be");
 
@@ -86,7 +92,7 @@ export default function VideoPlayer({ videoUrl, thumbnail }: VideoPlayerProps) {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full my-20">
       <div
         className="aspect-video bg-gray-200 rounded-3xl overflow-hidden relative group cursor-pointer"
         onClick={() => setIsOpen(true)}

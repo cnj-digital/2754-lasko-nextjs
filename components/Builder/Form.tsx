@@ -50,16 +50,40 @@ export default function Form({ form }: any) {
 
     try {
       // Add your form submission logic here
-      const formData = new FormData(e.currentTarget as HTMLFormElement);
 
-      console.log("form Data", Object.fromEntries(formData));
-      // await fetch("https://cms.lasko.eu/api/form-results", {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(Object.fromEntries(formData)),
-      // });
+      const formHtml = e.currentTarget as HTMLFormElement;
+      const formData = new FormData(formHtml);
+
+      // Create an object to store the processed form data
+      const processedData: Record<string, string | string[]> = {};
+
+      // Iterate through all form entries
+      for (const [key, value] of formData.entries()) {
+        // Check if the key ends with []
+        if (key.endsWith("[]")) {
+          const baseKey = key.slice(0, -2); // Remove [] from the key
+          if (!processedData[baseKey]) {
+            // Get all values and convert them to strings
+            processedData[baseKey] = formData
+              .getAll(key)
+              .map((value) => value.toString());
+          }
+        } else {
+          processedData[key] = value as string;
+        }
+      }
+
+      console.log("Form data with multiple selections:", processedData);
+      await fetch("https://cms.lasko.eu/api/form-results", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: form.id,
+          results: Object.fromEntries(formData),
+        }),
+      });
 
       setFormState("success");
     } catch (err) {
@@ -70,11 +94,13 @@ export default function Form({ form }: any) {
     }
   };
 
-  //   console.log(form, "content");
+  console.log(form.id, "content");
+
+  console.log("errror message");
 
   return (
     <div
-      className="max-w-8xl my-10 px-6 py-10 lg:pb-20 w-full mx-auto flex flex-col items-center rounded-4xl "
+      className="max-w-8xl my-10 py-10 lg:pb-20 w-full mx-auto flex flex-col items-center rounded-4xl "
       style={{ backgroundImage: "url('/bg-green.jpg')" }}
     >
       <Container className="w-full">
@@ -82,19 +108,34 @@ export default function Form({ form }: any) {
           <h2 className=" text-2xl lg:text-[32px] leading-[1.4] lg:leading-[1.4] text-white font-neutraface text-center ">
             {form.title}
           </h2>
-          <div className="mt-6 py-6 px-8 bg-black/30 backdrop-blur-sm rounded-3xl space-y-3 max-w-lg mx-auto">
+          <div className="mt-6 py-6 lg:px-8 lg:bg-black/30 lg:backdrop-blur-sm rounded-3xl space-y-3 max-w-lg mx-auto">
             {form.items.map((item: any, i: number) => (
-              <DynamicFormComponent key={i} {...item} />
+              <DynamicFormComponent
+                key={i}
+                {...item}
+                errorMessage={form.required_error}
+              />
             ))}
             <div
               dangerouslySetInnerHTML={{ __html: form.disclaimer }}
-              className="text-xs lg:text-sm mt-4"
+              className="text-xs lg:text-sm mt-4 bg-black/30 lg:bg-transparent rounded-xl p-4 lg:p-0"
             ></div>
+            <div
+              className={cx(
+                "text-red-500 text-xs lg:text-sm bg-black/30 lg:bg-transparent rounded-xl p-4 lg:p-0 ",
+                errorMessage ? "block" : "hidden"
+              )}
+            >
+              {errorMessage}
+            </div>
           </div>
           <ButtonSolid
             title={form.submit_button_label}
             size="small"
-            className="mt-6 mx-auto"
+            className={cx(
+              "mt-6 mx-auto w-full lg:w-auto text-center justify-center",
+              formState === "loading" ? "opacity-50 cursor-not-allowed" : ""
+            )}
             type="submit"
           />
         </form>
@@ -140,7 +181,7 @@ function NotificationToast({
       static
       unmount={false}
       open={false}
-      onClose={() => onClose && onClose()}
+      onClose={() => (onClose ? onClose() : "")}
       className=" pointer-events-none"
     >
       <div

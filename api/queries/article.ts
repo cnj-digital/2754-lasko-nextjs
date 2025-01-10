@@ -46,6 +46,13 @@ export const articleQuery = gql`
             type
             quote_content_field
           }
+          ... on Set_BuilderItems_Video {
+            mp4 {
+              permalink
+            }
+            youtube
+            type
+          }
         }
         featured_image {
           permalink

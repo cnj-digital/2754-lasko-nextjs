@@ -6,14 +6,20 @@ type InputProps = {
   variant_input: {
     value: "text" | "email" | "tel" | "number";
   };
+  errorMessage?: string;
 };
 
-export default function Input({ label, required, variant_input }: InputProps) {
+export default function Input({
+  label,
+  required,
+  variant_input,
+  errorMessage,
+}: InputProps) {
   return (
     <div className="flex flex-col">
       <label
         htmlFor={generateAnchorLink(label)}
-        className="text-sm font-medium px-4"
+        className="text-sm font-medium px-4 "
       >
         {label}
       </label>
@@ -22,8 +28,11 @@ export default function Input({ label, required, variant_input }: InputProps) {
         name={generateAnchorLink(label)}
         type={variant_input.value}
         required={required}
-        className=" rounded-xl px-4 py-3 mt-1 text-black border border-transparent"
+        className="peer rounded-xl px-4 py-3 mt-1 text-black border border-transparent invalid:border-[#FF6161]"
       />
+      <span className="mt-1 leading-snug  invisible text-sm font-medium text-[#FF6161] peer-invalid:visible">
+        {errorMessage}
+      </span>
     </div>
   );
 }

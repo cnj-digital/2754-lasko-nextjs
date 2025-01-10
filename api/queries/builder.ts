@@ -47,11 +47,19 @@ export const builderQuery = gql`
           ... on Set_BuilderItems_Share {
             type
           }
+          ... on Set_BuilderItems_Video {
+            mp4 {
+              permalink
+            }
+            youtube
+            type
+          }
           ... on Set_BuilderItems_Form {
             type
             form {
               ... on Entry_Form_Form {
                 content
+                id
                 title
                 items {
                   ... on Set_Items_TextInput {
