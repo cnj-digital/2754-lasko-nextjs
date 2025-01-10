@@ -30,10 +30,10 @@ export default function MultipleChoice({
   }, [checkedCount, required, label]);
 
   return (
-    <div className="bg-black/30 lg:bg-transparent rounded-xl p-4 lg:p-0">
+    <div className="bg-black/30 lg:bg-transparent rounded-xl p-4 lg:p-0 lg:pb-4">
       <div
         dangerouslySetInnerHTML={{ __html: label }}
-        className="text-white text-sm leading-[1.4]"
+        className="text-white px-0 lg:px-4 text-sm leading-[1.4]"
       />
       <div className="flex flex-col mt-2 gap-2">
         {options.map((option, i) => (

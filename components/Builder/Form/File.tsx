@@ -23,37 +23,39 @@ export default function FileInput({
   };
 
   return (
-    <button
-      onClick={handleClick}
-      type="button"
-      className="w-full p-4 bg-white/20 rounded-xl  transition-colors cursor-pointer flex items-center gap-2 group"
-    >
-      <FileIcon className="size-8 text-white" />
+    <div className="pb-5">
+      <button
+        onClick={handleClick}
+        type="button"
+        className="w-full p-4 bg-white/20 rounded-xl  transition-colors cursor-pointer flex items-center gap-2 group"
+      >
+        <FileIcon className="size-8 text-white" />
 
-      <div className="text-left">
-        <div className="text-white font-medium group-hover:underline">
-          {label}
+        <div className="text-left">
+          <div className="text-white font-medium group-hover:underline">
+            {label}
+          </div>
+          <div
+            className="text-white/70 text-sm mt-1"
+            dangerouslySetInnerHTML={{ __html: content }}
+          />
         </div>
-        <div
-          className="text-white/70 text-sm mt-1"
-          dangerouslySetInnerHTML={{ __html: content }}
-        />
-      </div>
 
-      <input
-        ref={inputRef}
-        type="file"
-        accept={accept}
-        required={required}
-        className="hidden"
-        onChange={(e) => {
-          const file = e.target.files?.[0];
-          if (file && file.size > maxSize) {
-            alert(`File size must be less than ${maxSize / (1024 * 1024)}MB`);
-            e.target.value = "";
-          }
-        }}
-      />
-    </button>
+        <input
+          ref={inputRef}
+          type="file"
+          accept={accept}
+          required={required}
+          className="hidden"
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file && file.size > maxSize) {
+              alert(`File size must be less than ${maxSize / (1024 * 1024)}MB`);
+              e.target.value = "";
+            }
+          }}
+        />
+      </button>
+    </div>
   );
 }

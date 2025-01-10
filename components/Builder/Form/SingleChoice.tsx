@@ -16,10 +16,10 @@ export default function SingleChoice({
   variant,
 }: SingleChoiceProps) {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col pb-5">
       <div
         dangerouslySetInnerHTML={{ __html: label }}
-        className="text-white text-sm leading-[1.4]"
+        className="text-white text-sm px-4 leading-[1.4]"
       />
       {variant.value === "radio" ? (
         <div className="flex items-center gap-2">
