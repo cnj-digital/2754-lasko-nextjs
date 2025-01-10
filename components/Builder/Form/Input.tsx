@@ -28,9 +28,10 @@ export default function Input({
         name={generateAnchorLink(label)}
         type={variant_input.value}
         required={required}
-        className="peer rounded-xl px-4 py-3 mt-1 text-black border border-transparent invalid:border-[#FF6161]"
+        placeholder=" "
+        className="peer rounded-xl px-4 py-3 mt-1 text-black border border-transparent invalid:[&:not(:placeholder-shown):not(:focus)]:border-[#FF6161]"
       />
-      <span className="mt-1 leading-snug  invisible text-sm font-medium text-[#FF6161] peer-invalid:visible">
+      <span className="mt-1 leading-snug invisible text-sm font-medium text-[#FF6161] peer-[&:not(:placeholder-shown):not(:focus):invalid]:visible">
         {errorMessage}
       </span>
     </div>
