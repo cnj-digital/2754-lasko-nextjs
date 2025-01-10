@@ -19,7 +19,7 @@ export default function Input({
     <div className="flex flex-col">
       <label
         htmlFor={generateAnchorLink(label)}
-        className="text-sm font-medium px-4 "
+        className="text-sm font-medium text-white px-4 "
       >
         {label}
       </label>

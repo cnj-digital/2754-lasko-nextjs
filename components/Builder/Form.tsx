@@ -115,7 +115,7 @@ export default function Form({ form }: any) {
             ))}
             <div
               dangerouslySetInnerHTML={{ __html: form.disclaimer }}
-              className="text-xs lg:text-sm mt-4 bg-black/30 lg:bg-transparent rounded-xl p-4 lg:p-0"
+              className="text-xs lg:text-sm mt-4 text-white bg-black/30 lg:bg-transparent rounded-xl p-4 lg:p-0"
             ></div>
             <div
               className={cx(

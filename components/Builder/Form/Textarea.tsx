@@ -15,7 +15,7 @@ export default function TextArea({
     <div className="flex flex-col">
       <label
         htmlFor={generateAnchorLink(label)}
-        className="text-sm font-medium px-4"
+        className="text-sm text-white font-medium px-4"
       >
         {label}
       </label>
