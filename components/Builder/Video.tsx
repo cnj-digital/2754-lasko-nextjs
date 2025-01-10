@@ -48,7 +48,7 @@ export default function VideoPlayer({
       const videoId = getYoutubeEmbedUrl(videoUrl).split("/").pop();
       return (
         <img
-          src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+          src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
           alt="Video thumbnail"
           className="w-full h-full object-cover"
         />
