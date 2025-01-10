@@ -28,7 +28,7 @@ const FormComponents = {
   single_choice: SingleChoice,
   multiple_choice: MultipleChoice,
   file: FileInput,
-} as const;
+};
 
 const DynamicFormComponent = ({
   type,
@@ -73,7 +73,6 @@ export default function Form({ form }: any) {
         }
       }
 
-      console.log("Form data with multiple selections:", processedData);
       await fetch("https://cms.lasko.eu/api/form-results", {
         method: "POST",
         headers: {
@@ -94,9 +93,7 @@ export default function Form({ form }: any) {
     }
   };
 
-  console.log(form.id, "content");
-
-  console.log("errror message");
+  if (!form) return null;
 
   return (
     <div
@@ -165,12 +162,12 @@ function NotificationToast({
   message?: string;
   title?: string;
   duration?: number;
-  onClose?: () => void;
+  onClose: () => void;
   isOpen?: boolean;
 }) {
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (isOpen) onClose && onClose();
+      if (isOpen) onClose();
     }, duration);
 
     return () => clearTimeout(timer);
@@ -181,7 +178,7 @@ function NotificationToast({
       static
       unmount={false}
       open={false}
-      onClose={() => (onClose ? onClose() : "")}
+      onClose={() => onClose()}
       className=" pointer-events-none"
     >
       <div
