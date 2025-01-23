@@ -80,7 +80,11 @@ export default function ImageSlider({ title, images }: ImageSliderProps) {
                 )}
               >
                 <div className="relative aspect-[2/1]">
-                  <img src={image.url} className="w-full" />
+                  <img
+                    src={image.url}
+                    className="w-full"
+                    alt={image.description}
+                  />
                 </div>
               </div>
             </div>
@@ -103,12 +107,14 @@ export default function ImageSlider({ title, images }: ImageSliderProps) {
             onClick={() => emblaApi?.scrollPrev()}
           >
             <Chevron className="size-8 rotate-180 text-white" />
+            <span className="sr-only">slider button</span>
           </button>
           <button
             className=" bg-black p-2 bg-opacity-20 rounded-2xl backdrop-blur-sm"
             onClick={() => emblaApi?.scrollNext()}
           >
             <Chevron className="size-8 text-white" />
+            <span className="sr-only">slider button</span>
           </button>
         </div>
       </Container>

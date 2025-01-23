@@ -184,7 +184,7 @@ export default function InfoSlider({ title, copy, slides }: InfoSliderProps) {
           <img
             src="/production.png"
             alt="line"
-            className="h-full object-contain  lg:max-h-[400px]"
+            className="lg:h-full object-contain  lg:max-h-[400px]"
           />
           {positions.map((position, i) => {
             if (position.variants) {

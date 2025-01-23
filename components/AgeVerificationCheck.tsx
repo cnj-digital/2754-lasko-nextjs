@@ -52,7 +52,7 @@ export default function AgeVerificationCheck({
             as={motion.div}
             open={isOpen}
             onClose={() => {}}
-            className="relative z-50"
+            className="relative z-[1000]"
           >
             <motion.div
               initial={{ opacity: 0 }}

@@ -110,7 +110,7 @@ export default function VideoGrid({ title, videos }: VideoGridProps) {
         </h2>
       )}
 
-      <div className="flex overflow-auto md:grid  md:grid-cols-2 lg:grid-cols-3 gap-6 relative mt-10 -mx-6 px-6 lg:px-0 lg:mx-0">
+      <div className="flex overflow-auto no-scrollbar md:grid  md:grid-cols-2 lg:grid-cols-3 gap-6 relative mt-10 -mx-6 px-6 lg:px-0 lg:mx-0">
         {videos.map((video, i) => (
           <div key={i} className=" relative w-4/5 lg:w-full flex-shrink-0">
             <div

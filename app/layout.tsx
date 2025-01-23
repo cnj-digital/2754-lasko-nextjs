@@ -4,6 +4,11 @@ import { Raleway } from "next/font/google";
 import localFont from "next/font/local";
 import AgeVerificationCheck from "@/components/AgeVerificationCheck";
 import PlausibleProvider from "next-plausible";
+import { CookieProvider } from "@/components/Cookies/CookieContext";
+import CookieNotice from "@/components/Cookies/CookieNotice";
+import Scripts from "@/components/Scripts";
+import { TranslationProvider } from "@/components/TranslationContext";
+import { fetchTranslations } from "@/api/fetch";
 
 const neutrafaceDisplay = localFont({
   src: "./fonts/Neutraface_Display-Titling.woff2",
@@ -27,6 +32,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const translationsEn = await fetchTranslations("en");
+  const translationsSi = await fetchTranslations("si");
+
   return (
     <html lang="en">
       <head>
@@ -43,7 +51,17 @@ export default async function RootLayout({
           backgroundSize: "1920px 912px",
         }}
       >
-        <AgeVerificationCheck>{children}</AgeVerificationCheck>
+        <TranslationProvider
+          initialTranslations={{ en: translationsEn, si: translationsSi }}
+        >
+          <AgeVerificationCheck>
+            <CookieProvider>
+              <Scripts />
+              <CookieNotice />
+              {children}
+            </CookieProvider>
+          </AgeVerificationCheck>
+        </TranslationProvider>
       </body>
     </html>
   );

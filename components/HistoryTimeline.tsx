@@ -237,6 +237,7 @@ export default function HistoryTimeline({ timeline }: HistoryTimelineProps) {
                 e.stopPropagation();
               }}
             >
+              <span className="sr-only">timeline button</span>
               <Chevron className="size-8 rotate-180 text-white pointer-events-none" />
             </button>
             <button
@@ -246,10 +247,11 @@ export default function HistoryTimeline({ timeline }: HistoryTimelineProps) {
                 e.stopPropagation();
               }}
             >
+              <span className="sr-only">timeline button</span>
               <Chevron className="size-8 text-white pointer-events-none" />
             </button>
           </div>
-          <motion.button
+          <motion.div
             className="fixed -top-5 hidden lg:block transition-opacity duration-200 -left-5 pointer-events-none  z-50 bg-black p-2 bg-opacity-20 rounded-2xl backdrop-blur-sm"
             style={{
               x: mousex,
@@ -259,7 +261,7 @@ export default function HistoryTimeline({ timeline }: HistoryTimelineProps) {
             }}
           >
             <Chevron key={mousex.get()} className={cx("size-8 text-white")} />
-          </motion.button>
+          </motion.div>
         </Container>
       </div>
     </div>
@@ -372,6 +374,7 @@ function ItemModal({
           className=" absolute top-4 right-4 lg:top-6 lg:right-6 p-2.5 rounded-2xl lg:bg-black lg:bg-opacity-20"
         >
           <CloseIcon className=" size-8" />
+          <span className="sr-only">close button</span>
         </button>
 
         <h2 className=" font-neutraface font-bold text-[40px] leading-tight pr-16 pointer-events-none">

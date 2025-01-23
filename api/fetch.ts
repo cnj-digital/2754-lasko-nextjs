@@ -14,6 +14,7 @@ import { archiveQuery } from "./queries/archive";
 import { builderQuery } from "./queries/builder";
 import { footerQuery, navigationQuery } from "./queries/navigation";
 import { seoQuery } from "./queries/seo";
+import { translationsQuery } from "./queries/globals";
 
 const apiUrl = process.env.API_URL ?? "";
 
@@ -69,4 +70,9 @@ export async function fetchRoutes(site: string) {
 export async function fetchSeo(uri: string, site: string) {
   const res: any = await request(apiUrl, seoQuery, { uri, site });
   return res.entry;
+}
+
+export async function fetchTranslations(site: string) {
+  const res: any = await request(apiUrl, translationsQuery, { site });
+  return res.globalSet;
 }

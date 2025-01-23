@@ -36,6 +36,7 @@ export default function CardNews({
     >
       <div className="group  transition-all w-full h-[260px] overflow-hidden">
         <img
+          alt={title}
           src={image}
           className={cx(
             " md:group-hover:scale-105 grayscale md:group-hover:grayscale-0 transition-all w-full h-full object-cover object-center",

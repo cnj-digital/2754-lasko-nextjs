@@ -1,25 +1,16 @@
-"use client";
-import ButtonSolid from "@/components/Buttons/Solid";
-import Container from "@/components/Container";
-import { strings } from "@/data/general";
-import { usePathname } from "next/navigation";
+import { fetchFooter, fetchNavigation } from "@/api/fetch";
+import Page404 from "@/components/Page404";
 
-export default function NotFound() {
-  const pathname = usePathname();
-  const currentLang = pathname?.split("/")[1];
-  const lang =
-    currentLang === "en" || currentLang === "si" ? currentLang : "si";
+export default async function NotFound() {
+  const navigationSi = await fetchNavigation("si");
+  const footerSi = await fetchFooter("si");
+  const navigationEn = await fetchNavigation("en");
+  const footerEn = await fetchFooter("en");
+
   return (
-    <Container className="py-20">
-      <img src="/404.png" alt="404" className=" mt-20 max-h-[400px] mx-auto" />
-      <p className="text-black text-center mx-auto max-w-xl text-2xl font-bold leading-[1.4] lg:text-[32px]">
-        {strings[lang].notfound.copy}
-      </p>
-      <ButtonSolid
-        url="/"
-        title={strings[lang].notfound.cta}
-        className="mt-6 lg:mt-10 mx-auto block w-max "
-      />
-    </Container>
+    <Page404
+      navigation={{ si: navigationSi, en: navigationEn }}
+      footer={{ si: footerSi, en: footerEn }}
+    />
   );
 }

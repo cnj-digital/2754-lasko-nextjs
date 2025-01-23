@@ -83,7 +83,7 @@ export default function HeroLanding({
           style={{ backgroundImage: 'url("/bg-200.svg")' }}
         >
           <div className="bg-gradient-to-b from-transparent rounded-b-3xl from-[32.27%] to-black/30 to-[85.96%] absolute inset-0 h-full w-full" />
-          <p className="relative hidden w-1/3 lg:block text-balance text-[32px] leading-tight font-bold text-white">
+          <p className="relative hidden w-1/3 lg:block text-right text-balance text-[32px] leading-tight font-bold text-white">
             {strings[lang].landing.herotext}
           </p>
           <img

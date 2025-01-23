@@ -41,8 +41,21 @@ h4 {
   strong {
     @apply font-black;
   }
-  p + p {
+  p + p,
+  ul + p,
+  p + ul,
+  ul + ul,
+  ol + ul,
+  ul + ol,
+  ol + ol,
+  ol + p,
+  p + ol,
+  p + h3 {
     margin-top: 1.5rem;
+  }
+
+  h3 + p {
+    margin-top: 0.5rem;
   }
 
   h2 {
@@ -55,6 +68,21 @@ h4 {
 
   ul {
     @apply list-disc pl-5;
+  }
+
+  table {
+    @apply font-semibold w-full;
+  }
+
+  * + table {
+    margin-top: 1.5rem;
+  }
+  td {
+    @apply px-5 py-3;
+  }
+
+  th {
+    @apply border-b border-black text-left px-5;
   }
 }
 

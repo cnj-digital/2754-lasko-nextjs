@@ -36,6 +36,7 @@ export default function Socials({
       <div className="flex gap-3 mt-3">
         {socials.map((social, index) => (
           <Link key={index} href={social.url} target="_blank">
+            <span className="sr-only">{social.title}</span>
             {getSocialIcon(social.title)}
           </Link>
         ))}

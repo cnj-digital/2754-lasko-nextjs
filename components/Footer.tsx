@@ -6,7 +6,7 @@ import Socials from "./Socials";
 import Container from "./Container";
 import ArrowDiagonalIcon from "./Icons/ArrowDiagonal";
 import { usePathname } from "next/navigation";
-import { strings } from "@/data/general";
+import { socials, strings } from "@/data/general";
 
 type FooterProps = {
   nav: {
@@ -26,24 +26,11 @@ export default function Footer({ nav }: FooterProps) {
   const currentLang = pathname?.split("/")[1];
   const lang =
     currentLang === "en" || currentLang === "si" ? currentLang : "si";
-  const socials = [
-    {
-      title: "Facebook",
-      url: "https://www.facebook.com/",
-    },
-    {
-      title: "Instagram",
-      url: "https://www.instagram.com/",
-    },
-    {
-      title: "Youtube",
-      url: "https://www.youtube.com/",
-    },
-  ];
 
   return (
     <footer className="relative pt-36 lg:pt-40">
       <img
+        alt="Footer logo"
         src="/logo.png"
         className="absolute h-[205px] top-0 left-0 right-0 mx-auto z-10"
       />
@@ -96,7 +83,7 @@ export default function Footer({ nav }: FooterProps) {
             </div>
             <div className="mt-10 lg:mt-20 grid lg:grid-cols-3 items-end">
               <p className="text-xs text-center text-white lg:text-left text-balance  lg:max-w-48">
-                {strings[lang].footer.copyright}
+                © {new Date().getFullYear()} {strings[lang].footer.copyright}
               </p>
               <Socials
                 socialsTitle={strings[lang].footer.followUs}
@@ -119,6 +106,7 @@ function CNJLink() {
       target="_blank"
       className="mr-auto lg:mr-0 mt-6 lg:mt-0 ml-auto"
     >
+      <span className="sr-only">CNJ digital</span>
       <svg
         width="107"
         height="25"
