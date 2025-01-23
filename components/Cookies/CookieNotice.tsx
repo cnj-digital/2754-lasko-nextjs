@@ -133,7 +133,7 @@ export default function CookieNotice({ className }: { className?: string }) {
             {translations.title}
           </div>
           <div
-            className="text-base [&>a]:underline text-[#666] [&>a]:font-medium "
+            className="text-base [&_a]:text-green-500 [&_a]:underline text-[#666] [&_a]:font-medium "
             dangerouslySetInnerHTML={{ __html: translations.description }}
           />
         </div>
