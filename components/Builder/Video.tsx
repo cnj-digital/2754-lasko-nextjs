@@ -109,9 +109,9 @@ export default function VideoPlayer({
       </div>
 
       <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
-        <div className="fixed inset-0 bg-black/80" aria-hidden="true" />
+        <div className="fixed inset-0 bg-black/80 z-[80]" aria-hidden="true" />
 
-        <div className="fixed inset-0 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <DialogPanel className="w-full max-w-4xl">
             <div className="relative">
               <button
