@@ -4,12 +4,16 @@ import { useEffect, useState } from "react";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { motion, AnimatePresence } from "motion/react";
 import { usePathname } from "next/navigation";
-import { strings } from "@/data/general";
 
 export default function AgeVerificationCheck({
   children,
+  ageVerification,
 }: {
   children: React.ReactNode;
+  ageVerification: {
+    si: any;
+    en: any;
+  };
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
@@ -86,7 +90,7 @@ export default function AgeVerificationCheck({
                     className="w-32 lg:w-40 mx-auto object-contain"
                   />
                   <DialogTitle className=" text-[36px] uppercase leading-snug lg:text-[52px] mt-10 lg:mt-20 font-black font-neutraface text-white mb-8">
-                    {strings[lang].ageVerification.title}
+                    {ageVerification[lang].age_title}
                   </DialogTitle>
 
                   <div className="flex justify-center gap-4 lg:gap-6">
@@ -94,13 +98,13 @@ export default function AgeVerificationCheck({
                       onClick={handleDeny}
                       className="inline-block px-6  lg:px-8 py-4  lg:py-6 text-2xl lg:text-[40px]  font-bold text-white bg-black bg-opacity-20 hover:bg-opacity-50    rounded-2xl transition"
                     >
-                      {strings[lang].ageVerification.no}
+                      {ageVerification[lang].decline}
                     </button>
                     <button
                       onClick={handleVerify}
                       className="inline-block px-6  lg:px-8 py-4  lg:py-6 text-white text-2xl lg:text-[40px]  font-bold  bg-black bg-opacity-20 hover:bg-opacity-50   rounded-2xl transition-colors"
                     >
-                      {strings[lang].ageVerification.yes}
+                      {ageVerification[lang].confirm}
                     </button>
                   </div>
                 </DialogPanel>

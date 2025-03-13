@@ -25,5 +25,11 @@ export const footerQuery = gql`
         }
       }
     }
+    globalSet(handle: "footer", site: $site) {
+      ... on GlobalSet_Footer {
+        follow_us
+        copyright
+      }
+    }
   }
 `;

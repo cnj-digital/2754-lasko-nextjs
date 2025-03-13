@@ -28,6 +28,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const data = await fetchSeo(uri, lang);
 
+  if (!data) return {};
+
   return {
     title: data.seotamic_meta.title ?? "Pivovarna Laško",
     description: data.seotamic_meta.description ?? "",
@@ -97,6 +99,9 @@ export default async function Page({ params }: Props) {
 
   const blueprint = await getPageData(lang, uri);
   let articles = [];
+
+  if (!blueprint) return null;
+  console.log(blueprint);
 
   if (blueprint === "archive" || blueprint === "page") {
     const articlesRes = await fetchArticles(lang);

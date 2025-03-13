@@ -19,9 +19,10 @@ type FooterProps = {
       }
     ];
   }[];
+  globals: any;
 };
 
-export default function Footer({ nav }: FooterProps) {
+export default function Footer({ nav, globals }: FooterProps) {
   const pathname = usePathname();
   const currentLang = pathname?.split("/")[1];
   const lang =
@@ -83,10 +84,10 @@ export default function Footer({ nav }: FooterProps) {
             </div>
             <div className="mt-10 lg:mt-20 grid lg:grid-cols-3 items-end">
               <p className="text-xs text-center text-white lg:text-left text-balance  lg:max-w-48">
-                © {new Date().getFullYear()} {strings[lang].footer.copyright}
+                © {new Date().getFullYear()} {globals.copyright}
               </p>
               <Socials
-                socialsTitle={strings[lang].footer.followUs}
+                socialsTitle={globals.follow_us}
                 socials={socials}
                 className="hidden lg:flex"
               />

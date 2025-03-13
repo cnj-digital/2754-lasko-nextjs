@@ -43,5 +43,14 @@ export const homepageQuery = gql`
         }
       }
     }
+    globalSet(handle: "landing", site: $site) {
+      ... on GlobalSet_Landing {
+        banner_text_left_desktop
+        banner_text_right_desktop
+        banner_text_mobile
+        banner_link
+        news_load_more
+      }
+    }
   }
 `;

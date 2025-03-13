@@ -1,7 +1,13 @@
 import { gql } from "graphql-request";
 
 export const articleQuery = gql`
-  query ArticleQuery($uri: String) {
+  query ArticleQuery($uri: String, $site: String) {
+    globalSet(handle: "share_section", site: $site) {
+      ... on GlobalSet_ShareSection {
+        share_text: text
+        share_title: share_title
+      }
+    }
     entry(collection: "article", uri: $uri) {
       title
       ... on Entry_Article_Article {

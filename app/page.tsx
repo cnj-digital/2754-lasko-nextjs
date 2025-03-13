@@ -122,7 +122,7 @@ export default async function Page() {
         <main>
           <Component {...data} articles={articles} />
         </main>
-        <Footer nav={footer} />
+        <Footer {...footer} />
       </>
     );
   else return <div>Not found</div>;

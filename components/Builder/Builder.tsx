@@ -7,11 +7,13 @@ import VideoPlayer from "./Video";
 type BuilderComponentProps = {
   type: string;
   data: ContentProps;
+  globals: any;
 };
 
 export default function BuilderComponent({
   type,
   data,
+  globals,
 }: BuilderComponentProps) {
   const components: { [key: string]: React.ComponentType<any> } = {
     content_set: Content,
@@ -22,7 +24,7 @@ export default function BuilderComponent({
   };
   const Component = components[type] ? components[type] : NotFound;
 
-  return <Component {...data} />;
+  return <Component {...data} {...globals} />;
 }
 
 function NotFound() {

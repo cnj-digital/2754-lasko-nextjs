@@ -3,15 +3,16 @@ import ButtonSolid from "@/components/Buttons/Solid";
 import Container from "@/components/Container";
 import Footer from "@/components/Footer";
 import Menu from "@/components/Menu";
-import { strings } from "@/data/general";
 import { usePathname } from "next/navigation";
 
 export default function Page404({
   navigation,
   footer,
+  content,
 }: {
   navigation: any;
   footer: any;
+  content: any;
 }) {
   const pathname = usePathname();
   const currentLang = pathname?.split("/")[1];
@@ -28,15 +29,15 @@ export default function Page404({
           className=" mt-20 max-h-[400px] mx-auto"
         />
         <p className="text-black text-center mx-auto max-w-xl text-2xl font-bold leading-[1.4] lg:text-[32px]">
-          {strings[lang].notfound.copy}
+          {content[lang].title_text}
         </p>
         <ButtonSolid
-          url="/"
-          title={strings[lang].notfound.cta}
+          url={content[lang].cta.link}
+          title={content[lang].cta.title}
           className="mt-6 lg:mt-10 mx-auto block w-max "
         />
       </Container>
-      <Footer nav={footer[lang]} />
+      <Footer {...footer[lang]} />
     </main>
   );
 }

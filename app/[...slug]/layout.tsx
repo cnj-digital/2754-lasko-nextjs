@@ -26,7 +26,7 @@ export default async function Layout({
       >
         <Menu nav={navigation.map((item: any) => item.page)} />
         <main>{children}</main>
-        <Footer nav={footer} />
+        <Footer {...footer} />
       </div>
     </>
   );

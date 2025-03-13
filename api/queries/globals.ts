@@ -14,7 +14,6 @@ export const translationsQuery = gql`
         accept_all
         essential_description
         essential_title
-        landing_load_more
         marketing_description
         marketing_title
         show_settings

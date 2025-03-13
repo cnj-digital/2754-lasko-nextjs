@@ -8,7 +8,7 @@ import { CookieProvider } from "@/components/Cookies/CookieContext";
 import CookieNotice from "@/components/Cookies/CookieNotice";
 import Scripts from "@/components/Scripts";
 import { TranslationProvider } from "@/components/TranslationContext";
-import { fetchTranslations } from "@/api/fetch";
+import { fetchAgeVerification, fetchTranslations } from "@/api/fetch";
 
 const neutrafaceDisplay = localFont({
   src: "./fonts/Neutraface_Display-Titling.woff2",
@@ -34,6 +34,8 @@ export default async function RootLayout({
 }>) {
   const translationsEn = await fetchTranslations("en");
   const translationsSi = await fetchTranslations("si");
+  const ageVerificationEn = await fetchAgeVerification("en");
+  const ageVerificationSi = await fetchAgeVerification("si");
 
   return (
     <html lang="en">
@@ -54,7 +56,9 @@ export default async function RootLayout({
         <TranslationProvider
           initialTranslations={{ en: translationsEn, si: translationsSi }}
         >
-          <AgeVerificationCheck>
+          <AgeVerificationCheck
+            ageVerification={{ en: ageVerificationEn, si: ageVerificationSi }}
+          >
             <CookieProvider>
               <Scripts />
               <CookieNotice />
