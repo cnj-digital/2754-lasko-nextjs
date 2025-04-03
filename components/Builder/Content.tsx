@@ -31,9 +31,17 @@ export default function Content({
   content_field,
 }: ContentProps) {
   return (
-    <div className={cx("grid py-20 gap-10", asset ? "lg:grid-cols-2" : "")}>
+    <div
+      className={cx(
+        "grid py-20 gap-10 w-full overflow-hidden",
+        asset ? "lg:grid-cols-2" : ""
+      )}
+    >
       <div
-        className={cx("lg:px-6", variant?.value === "left" ? "order-2" : "")}
+        className={cx(
+          "lg:px-6 w-full overflow-hidden",
+          variant?.value === "left" ? "order-2" : ""
+        )}
       >
         {title && (
           <h2
@@ -43,14 +51,14 @@ export default function Content({
             {title}
           </h2>
         )}
-        <div className="mt-4">
+        <div className="mt-4 w-full">
           {content_field.map((item, i) => {
             if (item.type === "text") {
               return (
                 <div
                   key={i}
                   dangerouslySetInnerHTML={{ __html: item.text }}
-                  className="content"
+                  className="content w-full"
                 />
               );
             } else if (item.type === "cta") {

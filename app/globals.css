@@ -35,7 +35,7 @@ h4 {
 .content {
   @apply text-black;
   p {
-    @apply text-lg font-semibold leading-[1.4];
+    @apply text-lg font-semibold leading-[1.4] break-words;
   }
 
   strong {
