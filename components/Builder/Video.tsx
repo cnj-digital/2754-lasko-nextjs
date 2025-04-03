@@ -92,7 +92,7 @@ export default function VideoPlayer({
   };
 
   return (
-    <div className="w-full my-20">
+    <div className="w-full my-10">
       <div
         className="aspect-video bg-gray-200 rounded-3xl overflow-hidden relative group cursor-pointer"
         onClick={() => setIsOpen(true)}

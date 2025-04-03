@@ -25,7 +25,7 @@ export default async function Article({
         backgroundUrl={featured_image?.permalink}
         date={formatDate(date)}
       />
-      <Container className=" mx-auto">
+      <Container className=" mx-auto mt-10">
         {builder_items.map((content: any, i: number) => (
           <BuilderComponent
             key={i}

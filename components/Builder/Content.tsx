@@ -18,10 +18,12 @@ type Text = {
 };
 
 type Cta = {
-  link: string;
-  asset?: { permalink: string };
-  title: string;
-  type: "cta";
+  cta: {
+    link: string;
+    asset?: { permalink: string };
+    title: string;
+  };
+  type: "cta_set";
 };
 
 export default function Content({
@@ -30,16 +32,17 @@ export default function Content({
   variant,
   content_field,
 }: ContentProps) {
+  console.log(content_field);
   return (
     <div
       className={cx(
-        "grid py-20 gap-10 w-full overflow-hidden",
+        "grid py-10 gap-10 w-full overflow-hidden",
         asset ? "lg:grid-cols-2" : ""
       )}
     >
       <div
         className={cx(
-          "lg:px-6 w-full overflow-hidden",
+          "lg:px-6 w-full",
           variant?.value === "left" ? "order-2" : ""
         )}
       >
@@ -61,25 +64,25 @@ export default function Content({
                   className="content w-full"
                 />
               );
-            } else if (item.type === "cta") {
+            } else if (item.type === "cta_set") {
               return (
                 <Link
                   key={i}
-                  href={item.link}
-                  target={isExternalLink(item.link) ? "_blank" : "_self"}
-                  className="inline-flex py-3 px-4 gap-4 shadow-small-card"
+                  href={item.cta.link}
+                  target={isExternalLink(item.cta.link) ? "_blank" : "_self"}
+                  className="inline-flex py-3 px-4 gap-4 shadow-small-card my-8 bg-white rounded-2xl"
                 >
-                  {item.asset && (
+                  {item.cta.asset && (
                     <img
-                      src={item.asset.permalink}
+                      src={item.cta.asset.permalink}
                       alt="content"
                       className="size-10 object-contain rounded-lg overflow-clip"
                     />
                   )}
                   <span className="text-xl font-semibold leading-[1.4] text-black">
-                    {item.title}
+                    {item.cta.title}
                   </span>
-                  {isExternalLink(item.link) && (
+                  {isExternalLink(item.cta.link) && (
                     <ArrowDiagonalIcon className="size-6 text-black" />
                   )}
                 </Link>
