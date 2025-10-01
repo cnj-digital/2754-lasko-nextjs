@@ -279,7 +279,8 @@ export default function CortinaForm({ title }: CortinaFormProps) {
   console.log(formData);
   return (
     <section
-      className="max-w-8xl px-6 pt-8 pb-10 w-full mx-auto rounded-4xl "
+      id="cortina-form"
+      className="max-w-8xl px-6 pt-8 pb-10 w-full mx-auto rounded-4xl"
       style={{
         backgroundImage: "url('/bg-green.jpg')",
         backgroundSize: "100% auto",
