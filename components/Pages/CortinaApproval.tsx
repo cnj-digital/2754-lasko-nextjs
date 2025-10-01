@@ -21,30 +21,16 @@ export default function CortinaApproval({
   useEffect(() => {
     const approveSubmission = async () => {
       try {
-        // Try Next.js API route first, fallback to direct backend call
-        const apiUrl = `/api/cortina/approve?submission=${submission}&signature=${signature}&expires=${expires}`;
-        const backendBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://lasko-cortina.cnj.digital';
-        const backendUrl = `${backendBaseUrl}/api/form-cortina/${submission}/approve?signature=${signature}&expires=${expires}`;
+        // Call Laravel backend directly (API routes don't work with static export)
+        const backendBaseUrl = process.env.NEXT_PUBLIC_FORM_CORTINA_API || 'https://lasko-cortina.cnj.digital';
+        const backendUrl = `${backendBaseUrl}/${submission}/approve?signature=${signature}&expires=${expires}`;
         
-        let response;
-        try {
-          // Try Next.js API route first
-          response = await fetch(apiUrl, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-        } catch (apiError) {
-          console.log('API route failed, trying direct backend call:', apiError);
-          // Fallback to direct backend call
-          response = await fetch(backendUrl, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-        }
+        const response = await fetch(backendUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
         const data = await response.json();
 
