@@ -17,7 +17,6 @@ export default function CortinaApproval({
     "loading"
   );
   const [message, setMessage] = useState<string>("");
-  const [isApproved, setIsApproved] = useState<boolean>(false);
 
   useEffect(() => {
     const approveSubmission = async () => {
@@ -36,13 +35,12 @@ export default function CortinaApproval({
 
         if (response.ok) {
           setStatus("success");
-          setIsApproved(true);
           setMessage(data.message || "Prijava je bila uspešno potrjena!");
         } else {
           setStatus("error");
           setMessage(data.error || "Napaka pri potrjevanju prijave.");
         }
-      } catch (error) {
+      } catch {
         setStatus("error");
         setMessage("Napaka pri povezavi s strežnikom.");
       }
