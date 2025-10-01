@@ -3,6 +3,7 @@ import Form from "./Form";
 import Quote from "./Quote";
 import Share from "./Share";
 import VideoPlayer from "./Video";
+import CortinaForm from "./CortinaForm";
 
 type BuilderComponentProps = {
   type: string;
@@ -21,6 +22,7 @@ export default function BuilderComponent({
     quote: Quote,
     video: VideoPlayer,
     form: Form,
+    cortina_form: CortinaForm,
   };
   const Component = components[type] ? components[type] : NotFound;
 

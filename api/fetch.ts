@@ -12,11 +12,22 @@ import { historyQuery } from "./queries/history";
 import { supportQuery } from "./queries/support";
 import { archiveQuery } from "./queries/archive";
 import { builderQuery } from "./queries/builder";
+import { cortinaQuery } from "./queries/cortina";
 import { footerQuery, navigationQuery } from "./queries/navigation";
 import { seoQuery } from "./queries/seo";
 import { translationsQuery } from "./queries/globals";
 import { page404Query } from "./queries/404page";
 import { ageVerificationQuery } from "./queries/ageVerification";
+
+// Dev-only TLS bypass for local Herd/mkcert certificates (opt-in).
+// Enable with ALLOW_INSECURE_LOCAL="true" or SKIP_TLS_VERIFY="true" in your env.
+const allowInsecureTls =
+  process.env.SKIP_TLS_VERIFY === "true" ||
+  (process.env.NODE_ENV !== "production" && process.env.ALLOW_INSECURE_LOCAL === "true");
+
+if (allowInsecureTls) {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+}
 
 const apiUrl = process.env.API_URL ?? "";
 
@@ -58,6 +69,7 @@ export async function fetchPage(uri: string, site: string, blueprint: "page") {
     support: supportQuery,
     archive: archiveQuery,
     builder: builderQuery,
+    cortina: cortinaQuery,
     article: articleQuery,
   };
 

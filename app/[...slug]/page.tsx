@@ -13,6 +13,7 @@ import History from "@/components/Pages/History";
 import Home from "@/components/Pages/Home";
 import Product from "@/components/Pages/Product";
 import Support from "@/components/Pages/Support";
+import Cortina from "@/components/Pages/Cortina";
 import { languages } from "@/data/general";
 
 type Props = {
@@ -118,6 +119,7 @@ export default async function Page({ params }: Props) {
     support: Support,
     article: Article,
     builder: BuilderPage,
+    cortina: Cortina,
   };
 
   const Component = blueprints[blueprint as "page"];

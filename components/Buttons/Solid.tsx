@@ -11,6 +11,7 @@ type ButtonProps = {
   onClick?: () => void;
   size?: "small" | "large";
   type?: "button" | "submit";
+  disableGradient?: boolean;
 };
 
 export default function ButtonSolid({
@@ -21,6 +22,7 @@ export default function ButtonSolid({
   onClick,
   className,
   type,
+  disableGradient = false,
 }: ButtonProps) {
   const Tag = url ? Link : "button";
   return (
@@ -34,10 +36,14 @@ export default function ButtonSolid({
       target={url && isExternalLink(url) ? "_blank" : ""}
       onClick={() => (onClick ? onClick() : null)}
       type={type}
-      style={{
-        background:
-          " linear-gradient(90deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.20) 99.91%), #449935",
-      }}
+      style={
+        disableGradient
+          ? undefined
+          : {
+              background:
+                " linear-gradient(90deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.20) 99.91%), #449935",
+            }
+      }
     >
       {title}
       {icon}

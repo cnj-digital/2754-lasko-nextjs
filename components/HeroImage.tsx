@@ -11,6 +11,7 @@ interface HeroImageProps {
     url: string;
   }[];
   image?: string;
+  type?: string;
 }
 
 export default function HeroImage({
@@ -18,6 +19,7 @@ export default function HeroImage({
   copy,
   buttons,
   image,
+  type,
 }: HeroImageProps) {
   return (
     <div
@@ -54,10 +56,22 @@ export default function HeroImage({
             )}
           </div>
 
-          {image && (
-            <div className="-mx-6 md:mx-0 md:w-1/2 mt-8 md:mt-0">
-              <img src={image} className="w-full object-cover " alt={title} />
+          {type === "cortina" ? (
+            <div className="md:w-1/2 mt-8 md:mt-0 absolute bottom-0 right-0">
+              <img src={image} className="w-full object-cover mix-blend-multiply" alt={title} />
             </div>
+          ) : (
+            <>
+              {image && (
+                <div className="-mx-6 md:mx-0 md:w-1/2 mt-8 md:mt-0">
+                  <img
+                    src={image}
+                    className="w-full object-cover mix-blend-multiply"
+                    alt={title}
+                  />
+                </div>
+              )}
+            </>
           )}
         </div>
       </Container>
