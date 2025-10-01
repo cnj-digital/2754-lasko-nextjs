@@ -7,11 +7,15 @@ import StepIndicator from "./CortinaForm/StepIndicator";
 import BackButton from "./CortinaForm/BackButton";
 import StepHeader from "./CortinaForm/StepHeader";
 import SelectedInfoBox from "./CortinaForm/SelectedInfoBox";
+import cx from "classnames";
 
 type CortinaFormProps = {
   title?: string | null;
   // Add additional fields as backend exposes them (e.g., items, variant, asset)
 };
+
+const FORM_CORTINA_API: string =
+  process.env.NEXT_PUBLIC_FORM_CORTINA_API ?? "";
 
 const content = {
   form: {
@@ -28,6 +32,7 @@ const content = {
     checkbox2Label:
       "Strinjam se z obdelavo podatkov za namene pošiljanja e-novic.",
     ctaLabel: "Oddaj prijavo",
+    ctaLabelLoading: "Pošiljanje...",
     errorMessageName: "Prosimo, vnesite ime",
     errorMessageLastName: "Prosimo, vnesite priimek",
     errorMessageEmail: "Prosimo, vnesite veljaven e-poštni naslov",
@@ -190,6 +195,8 @@ export default function CortinaForm({ title }: CortinaFormProps) {
   const [checkbox1, setCheckbox1] = useState<boolean>(false);
   const [checkbox2, setCheckbox2] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
+  const [formState, setFormState] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const formData = {
     day: selectedDay,
     hour: selectedHour,
@@ -200,7 +207,23 @@ export default function CortinaForm({ title }: CortinaFormProps) {
     termsAccepted: checkbox1,
     newsletter: checkbox2,
   };
-  const handleFormSubmit = () => {
+
+  function toAppointmentDate(day: string | null, hour: string | null): string | null {
+    if (!day || !hour) return null;
+    // day format: d.m.YYYY or dd.m.YYYY, hour format: H:MM or HH:MM
+    const parts = day.split(".").filter(Boolean);
+    if (parts.length < 3) return null;
+    const d = parseInt(parts[0], 10);
+    const m = parseInt(parts[1], 10);
+    const y = parseInt(parts[2], 10);
+    const [hStr, minStr] = hour.split(":");
+    const h = parseInt(hStr, 10);
+    const min = parseInt(minStr ?? "0", 10);
+    const pad = (n: number) => (n < 10 ? `0${n}` : `${n}`);
+    // Return MySQL-friendly datetime string
+    return `${y}-${pad(m)}-${pad(d)} ${pad(h)}:${pad(min)}:00`;
+  }
+  const handleFormSubmit = async () => {
     setShowErrors(true);
 
     // Basic validation
@@ -214,11 +237,44 @@ export default function CortinaForm({ title }: CortinaFormProps) {
       return;
     }
 
-    // Show success message
-    setSuccess(true);
+    if (!FORM_CORTINA_API) {
+      setFormState("error");
+      setErrorMessage("Missing NEXT_PUBLIC_FORM_CORTINA_API endpoint.");
+      return;
+    }
 
-    console.log(formData);
-    // Here you can submit the form data
+    setFormState("loading");
+
+    try {
+      const payload = {
+        name: firstName,
+        surname: lastName,
+        email,
+        phone: phone || undefined,
+        terms: checkbox1,
+        newsletter: checkbox2,
+        appointment_date: toAppointmentDate(selectedDay, selectedHour),
+      };
+
+      const res = await fetch(FORM_CORTINA_API, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(text || "Error on server");
+      }
+      setFormState("success");
+      setSuccess(true);
+    } catch (err) {
+      setFormState("error");
+      setErrorMessage(
+        err instanceof Error ? err.message : "Error on sending form"
+      );
+    }
   };
   console.log(formData);
   return (
@@ -442,12 +498,20 @@ export default function CortinaForm({ title }: CortinaFormProps) {
                     />
                   </div>
                 </div>
+                {errorMessage && (
+                  <div className="text-[#FF6161] text-sm text-center bg-[rgba(0,0,0,0.33)] rounded-xl p-4 mt-3">
+                    {errorMessage}
+                  </div>
+                )}
                 <ButtonSolid
                   size="small"
-                  title={content.form.ctaLabel}
+                  title={formState === "loading" ? content.form.ctaLabelLoading : content.form.ctaLabel}
                   type="button"
                   disableGradient={true}
-                  className={`w-full justify-center mt-3 !bg-[#F4F4F4] !text-black`}
+                  className={cx(
+                    "w-full justify-center mt-3 !bg-[#F4F4F4] !text-black",
+                    formState === "loading" ? "opacity-50 pointer-events-none" : ""
+                  )}
                   onClick={handleFormSubmit}
                 />
               </div>
