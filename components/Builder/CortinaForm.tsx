@@ -269,7 +269,7 @@ export default function CortinaForm({ title }: CortinaFormProps) {
       }
       setFormState("success");
       setSuccess(true);
-    } catch (err) {
+    } catch {
       setFormState("error");
       setErrorMessage("Ta termin je že zaseden. Maksimalno 3 prijave na termin.");
     }
