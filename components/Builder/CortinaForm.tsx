@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import ButtonSolid from "../Buttons/Solid";
 import Input from "./Form/Input";
 import Checkbox from "./Form/Checkbox";
@@ -201,6 +201,19 @@ export default function CortinaForm({ title }: CortinaFormProps) {
   const [success, setSuccess] = useState<boolean>(false);
   const [formState, setFormState] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [maxStepHeight, setMaxStepHeight] = useState<number>(0);
+
+  useEffect(() => {
+    const measure = () => {
+      if (!contentRef.current) return;
+      const currentHeight = contentRef.current.scrollHeight;
+      setMaxStepHeight((prev) => (currentHeight > prev ? currentHeight : prev));
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [step, selectedDay, selectedHour, hourPage, showErrors, formState]);
   const formData = {
     day: selectedDay,
     hour: selectedHour,
@@ -295,7 +308,11 @@ export default function CortinaForm({ title }: CortinaFormProps) {
           </h2>
         )}
         {!success ? (
-          <div className="w-full p-2 md:bg-[rgba(0,0,0,0.33)] rounded-xl md:px-8 md:py-6">
+          <div
+            ref={contentRef}
+            className="w-full p-2 md:bg-[rgba(0,0,0,0.33)] rounded-xl md:px-8 md:py-6"
+            style={{ minHeight: maxStepHeight ? `${maxStepHeight}px` : undefined }}
+          >
             <div className="relative w-full p-2 bg-[rgba(0,0,0,0.33)] md:bg-transparent rounded-xl flex items-center justify-center gap-2 h-10 mb-5">
               {(step === 2 || step === 3) && (
                 <BackButton
