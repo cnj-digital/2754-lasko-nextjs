@@ -17,6 +17,10 @@ type CortinaFormProps = {
 const FORM_CORTINA_API: string =
   `${process.env.NEXT_PUBLIC_FORM_CORTINA_API ?? "https://2754-lasko-statamic.test/api"}/form-cortina`;
 
+// Debug: Log the environment variable value
+console.log('NEXT_PUBLIC_FORM_CORTINA_API:', process.env.NEXT_PUBLIC_FORM_CORTINA_API);
+console.log('FORM_CORTINA_API:', FORM_CORTINA_API);
+
 const content = {
   form: {
     title: "Izberi dan",

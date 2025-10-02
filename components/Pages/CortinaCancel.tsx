@@ -24,6 +24,10 @@ export default function CortinaCancel({
         const backendBaseUrl = process.env.NEXT_PUBLIC_FORM_CORTINA_API || 'https://2754-lasko-statamic.test/api';
         const backendUrl = `${backendBaseUrl}/form-cortina/${uuid}/cancel?signature=${signature}`;
         
+        // Debug: Log the environment variable value
+        console.log('CortinaCancel - NEXT_PUBLIC_FORM_CORTINA_API:', process.env.NEXT_PUBLIC_FORM_CORTINA_API);
+        console.log('CortinaCancel - backendUrl:', backendUrl);
+        
         const response = await fetch(backendUrl, {
           method: "POST",
           headers: {
