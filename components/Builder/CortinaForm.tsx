@@ -15,7 +15,7 @@ type CortinaFormProps = {
 };
 
 const FORM_CORTINA_API: string =
-  process.env.NEXT_PUBLIC_FORM_CORTINA_API ?? "";
+  `${process.env.NEXT_PUBLIC_FORM_CORTINA_API ?? "https://2754-lasko-statamic.test/api"}/form-cortina`;
 
 const content = {
   form: {
@@ -271,9 +271,7 @@ export default function CortinaForm({ title }: CortinaFormProps) {
       setSuccess(true);
     } catch (err) {
       setFormState("error");
-      setErrorMessage(
-        err instanceof Error ? err.message : "Error on sending form"
-      );
+      setErrorMessage("Ta termin je že zaseden. Maksimalno 3 prijave na termin.");
     }
   };
   console.log(formData);

@@ -3,15 +3,13 @@ import { useState, useEffect } from "react";
 import ButtonSolid from "../Buttons/Solid";
 
 type CortinaApprovalProps = {
-  submission: string;
+  uuid: string; // UUID format (e.g., "550e8400-e29b-41d4-a716-446655440000")
   signature: string;
-  expires: string;
 };
 
 export default function CortinaApproval({
-  submission,
+  uuid,
   signature,
-  expires,
 }: CortinaApprovalProps) {
   const [status, setStatus] = useState<"loading" | "success" | "error">(
     "loading"
@@ -22,8 +20,8 @@ export default function CortinaApproval({
     const approveSubmission = async () => {
       try {
         // Call Laravel backend directly (API routes don't work with static export)
-        const backendBaseUrl = process.env.NEXT_PUBLIC_FORM_CORTINA_API || 'https://lasko-cortina.cnj.digital';
-        const backendUrl = `${backendBaseUrl}/${submission}/approve?signature=${signature}&expires=${expires}`;
+        const backendBaseUrl = process.env.NEXT_PUBLIC_FORM_CORTINA_API || 'https://2754-lasko-statamic.test/api';
+        const backendUrl = `${backendBaseUrl}/form-cortina/${uuid}/approve?signature=${signature}`;
         
         const response = await fetch(backendUrl, {
           method: "POST",
@@ -48,7 +46,7 @@ export default function CortinaApproval({
     };
 
     approveSubmission();
-  }, [submission, signature, expires]);
+  }, [uuid, signature]);
 
   return (
     <div>
