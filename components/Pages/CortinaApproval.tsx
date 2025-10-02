@@ -15,6 +15,7 @@ export default function CortinaApproval({
     "loading"
   );
   const [message, setMessage] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
 
   useEffect(() => {
     const approveSubmission = async () => {
@@ -34,14 +35,24 @@ export default function CortinaApproval({
 
         if (response.ok) {
           setStatus("success");
-          setMessage(data.message || "Prijava je bila uspešno potrjena!");
+          // The backend returns the same message whether it was just approved or already approved
+          // We can check if the status is 'approved' to determine if it was already approved
+          if (data.status === 'approved') {
+            setMessage(data.message || "Prijava je potrjena.");
+            setTitle(data.title || "Prijava potrjena!");
+          } else {
+            setMessage(data.message || "Prijava je bila uspešno potrjena!");
+            setTitle(data.title || "Prijava potrjena!");
+          }
         } else {
           setStatus("error");
           setMessage(data.error || "Napaka pri potrjevanju prijave.");
+          setTitle(data.title || "Napaka pri potrjevanju prijave.");
         }
       } catch {
         setStatus("error");
         setMessage("Napaka pri povezavi s strežnikom.");
+        setTitle("Napaka pri povezavi s strežnikom.");
       }
     };
 
@@ -83,7 +94,7 @@ export default function CortinaApproval({
               </svg>
             </div>
             <h1 className="text-2xl font-bold text-gray-800 mb-4">
-              Prijava potrjena!
+              {title}
             </h1>
             <p className="text-gray-600 mb-6">{message}</p>
             <ButtonSolid
