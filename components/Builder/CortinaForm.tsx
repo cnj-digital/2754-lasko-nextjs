@@ -286,12 +286,19 @@ export default function CortinaForm({ title }: CortinaFormProps) {
       }
       setFormState("success");
       setSuccess(true);
+      
+      // Scroll to cortina-form section (100px from top)
+      const formSection = document.getElementById('cortina-form');
+      if (formSection) {
+        const sectionTop = formSection.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({ top: sectionTop - 100, behavior: 'smooth' });
+      }
     } catch {
       setFormState("error");
       setErrorMessage("Ta termin je že zaseden. Maksimalno 3 prijave na termin.");
     }
   };
-  console.log(formData);
+
   return (
     <section
       id="cortina-form"
@@ -542,14 +549,14 @@ export default function CortinaForm({ title }: CortinaFormProps) {
             <div className="text-white text-center font-neutraface text-[22px] font-normal leading-[24px] uppercase mb-5">
               {content.form.thankyouTitle}
             </div>
-            <div className="text-white text-center font-raleway text-lg font-semibold leading-[24px] mb-16">
+            <div className="text-white text-center font-raleway text-lg font-semibold leading-[24px] mb-5">
               {content.form.thankyouDescription}
             </div>
             <SelectedInfoBox
               label={content.form.selectedTermin}
               selectedDay={selectedDay}
               selectedHour={selectedHour}
-              className="mb-16"
+              className="mb-5"
             />
              <div className="text-center text-white/60 font-raleway text-[18px] font-semibold leading-[24px] mb-5">{content.form.thankyouDescriptionTwo}</div>
              <div className="text-center text-white/60 font-raleway text-[18px] font-semibold leading-[24px]">{content.form.thankyouDescriptionThree}</div>
