@@ -44,7 +44,7 @@ const content = {
     errorMessageCheckbox1: "Prosimo, strinjajte se s pravili dogodka",
     errorMessageCheckbox2:
       "Prosimo, strinjajte se z obdelavo podatkov za namene pošiljanja e-novic.",
-    thankyouTitle: "Prijava je oddana i zaključena",
+    thankyouTitle: "Prijava je oddana in zaključena",
     thankyouDescription:
       "Odlično, veselimo se, da se kmalu srečamo in skupaj naelektrimo!",
     thankyouDescriptionTwo:
