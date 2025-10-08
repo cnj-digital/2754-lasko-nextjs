@@ -42,10 +42,10 @@ function CortinaCancelPageContent() {
             Povezava za preklic prijave je neveljavna ali je potekla.
           </p>
           <Link
-            href="/"
+            href="/si/cortina"
             className="inline-block bg-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors"
           >
-            Nazaj na domačo stran
+            Nazaj na stran aktivacije
           </Link>
         </div>
       </div>

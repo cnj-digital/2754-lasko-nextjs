@@ -103,10 +103,10 @@ export default function CortinaApproval({
             <p className="text-gray-600 mb-6">{message}</p>
             <ButtonSolid
               size="small"
-              title="Nazaj na domačo stran"
+              title="Nazaj na stran aktivacije"
               type="button"
               className="w-full justify-center"
-              onClick={() => (window.location.href = "/")}
+              onClick={() => (window.location.href = "/si/cortina")}
             />
           </>
         )}
@@ -134,10 +134,10 @@ export default function CortinaApproval({
             <p className="text-gray-600 mb-6">{message}</p>
             <ButtonSolid
               size="small"
-              title="Nazaj na domačo stran"
+              title="Nazaj na stran aktivacije"
               type="button"
               className="w-full justify-center"
-              onClick={() => (window.location.href = "/")}
+              onClick={() => (window.location.href = "/si/cortina")}
             />
           </>
         )}
