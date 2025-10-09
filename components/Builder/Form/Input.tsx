@@ -45,7 +45,7 @@ export default function Input({
         onChange={onChange}
         className={`peer rounded-xl px-4 py-3 mt-1 text-black border ${className} ${
           shouldShowError ? "border-[#FF6161]" : "border-transparent"
-        } invalid:[&:not(:placeholder-shown):not(:focus)]:border-[#FF6161]`}
+        } invalid:[&:not(:placeholder-shown):not(:focus)]:border-[#FF6161] focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent autofill:!bg-white autofill:!shadow-[inset_0_0_0px_1000px_rgb(255,255,255)] autofill:!text-black`}
       />
       <span className={`mt-1 leading-snug text-sm font-medium text-[#FF6161] ${shouldShowError ? "visible" : "invisible"} peer-[&:not(:placeholder-shown):not(:focus):invalid]:visible`}>
         {errorMessage}
