@@ -363,9 +363,18 @@ export default function CortinaForm({ title }: CortinaFormProps) {
               {(step === 2 || step === 3) && (
                 <BackButton
                   onClick={() => {
+                    if (step === 2) {
+                      // Going back from step 2 to step 1: unselect day and hour
+                      setSelectedDay(null);
+                      setSelectedHour(null);
+                      setHourPage(0);
+                      setUnavailableHours([]);
+                    } else if (step === 3) {
+                      // Going back from step 3 to step 2: unselect hour only
+                      setSelectedHour(null);
+                      setShowErrors(false);
+                    }
                     setStep(step - 1);
-                    if (step === 2) setHourPage(0);
-                    if (step === 3) setShowErrors(false);
                   }}
                 />
               )}
