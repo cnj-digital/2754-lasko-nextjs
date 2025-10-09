@@ -210,16 +210,6 @@ export default function CortinaForm({ title }: CortinaFormProps) {
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
   }, [step, selectedDay, selectedHour, hourPage, showErrors, formState]);
-  const formData = {
-    day: selectedDay,
-    hour: selectedHour,
-    firstName: firstName,
-    lastName: lastName,
-    email: email,
-    phone: phone,
-    termsAccepted: checkbox1,
-    newsletter: checkbox2,
-  };
 
   function toAppointmentDate(day: string | null, hour: string | null): string | null {
     if (!day || !hour) return null;
