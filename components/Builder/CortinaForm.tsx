@@ -84,38 +84,34 @@ const content = {
         title: "Petek 16.1.",
         date: "16.1.2026",
       },
-      {
-        title: "Sobota 17.1.",
-        date: "17.1.2026",
-      },
     ],
     hours: [
       {
-        title: "1:00",
+        title: "1:00 - 2:00",
         hour: "1:00",
       },
       {
-        title: "2:00",
+        title: "2:00 - 3:00",
         hour: "2:00",
       },
       {
-        title: "3:00",
+        title: "3:00 - 4:00",
         hour: "3:00",
       },
       {
-        title: "4:00",
+        title: "4:00 - 5:00",
         hour: "4:00",
       },
       {
-        title: "5:00",
+        title: "5:00 - 6:00",
         hour: "5:00",
       },
       {
-        title: "6:00",
+        title: "6:00 - 7:00",
         hour: "6:00",
       },
       {
-        title: "7:00",
+        title: "7:00 - 8:00",
         hour: "7:00",
       },
       {
@@ -123,63 +119,63 @@ const content = {
         hour: "8:00",
       },
       {
-        title: "9:00",
+        title: "9:00 - 10:00",
         hour: "9:00",
       },
       {
-        title: "10:00",
+        title: "10:00 - 11:00",
         hour: "10:00",
       },
       {
-        title: "11:00",
+        title: "11:00 - 12:00",
         hour: "11:00",
       },
       {
-        title: "12:00",
+        title: "12:00 - 13:00",
         hour: "12:00",
       },
       {
-        title: "13:00",
+        title: "13:00 - 14:00",
         hour: "13:00",
       },
       {
-        title: "14:00",
+        title: "14:00 - 15:00",
         hour: "14:00",
       },
       {
-        title: "15:00",
+        title: "15:00 - 16:00",
         hour: "15:00",
       },
       {
-        title: "16:00",
+        title: "16:00 - 17:00",
         hour: "16:00",
       },
       {
-        title: "17:00",
+        title: "17:00 - 18:00",
         hour: "17:00",
       },
       {
-        title: "18:00",
+        title: "18:00 - 19:00",
         hour: "18:00",
       },
       {
-        title: "19:00",
+        title: "19:00 - 20:00",
         hour: "19:00",
       },
       {
-        title: "20:00",
+        title: "20:00 - 21:00",
         hour: "20:00",
       },
       {
-        title: "21:00",
+        title: "21:00 - 22:00",
         hour: "21:00",
       },
       {
-        title: "22:00",
+        title: "22:00 - 23:00",
         hour: "22:00",
       },
       {
-        title: "23:00",
+        title: "23:00 - 00:00",
         hour: "23:00",
       },
     ],
@@ -398,9 +394,27 @@ export default function CortinaForm({ title }: CortinaFormProps) {
                       </svg>
                     </button>
                   </div>
-                  {content.form.hours
-                    .slice(hourPage * 6, hourPage * 6 + 6)
-                    .map((hour, i) => {
+                  {(() => {
+                    // Filter hours based on selected date
+                    let filteredHours = content.form.hours;
+                    
+                    if (selectedDay === "10.1.2026") {
+                      // Start from 9:00 for 10.1.2026
+                      filteredHours = content.form.hours.filter(h => {
+                        const hourNum = parseInt(h.hour.split(":")[0]);
+                        return hourNum >= 9;
+                      });
+                    } else if (selectedDay === "16.1.2026") {
+                      // End at 15:00 for 16.1.2026
+                      filteredHours = content.form.hours.filter(h => {
+                        const hourNum = parseInt(h.hour.split(":")[0]);
+                        return hourNum <= 14;
+                      });
+                    }
+                    
+                    return filteredHours
+                      .slice(hourPage * 6, hourPage * 6 + 6)
+                      .map((hour, i) => {
                       const isSelected = selectedHour === hour.hour;
                       return (
                         <ButtonSolid
@@ -420,10 +434,25 @@ export default function CortinaForm({ title }: CortinaFormProps) {
                           }}
                         />
                       );
-                    })}
+                    });
+                  })()}
                   <div
                     className={`w-full flex justify-center transition-opacity ${
-                      (hourPage + 1) * 6 < content.form.hours.length
+                      (() => {
+                        let filteredHours = content.form.hours;
+                        if (selectedDay === "10.1.2026") {
+                          filteredHours = content.form.hours.filter(h => {
+                            const hourNum = parseInt(h.hour.split(":")[0]);
+                            return hourNum >= 9;
+                          });
+                        } else if (selectedDay === "16.1.2026") {
+                          filteredHours = content.form.hours.filter(h => {
+                            const hourNum = parseInt(h.hour.split(":")[0]);
+                            return hourNum <= 15;
+                          });
+                        }
+                        return (hourPage + 1) * 6 < filteredHours.length;
+                      })()
                         ? "opacity-100"
                         : "opacity-0 pointer-events-none"
                     }`}

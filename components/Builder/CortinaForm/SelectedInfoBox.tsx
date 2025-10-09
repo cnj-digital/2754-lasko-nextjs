@@ -28,7 +28,11 @@ export default function SelectedInfoBox({
             });
             return `${dayName.charAt(0).toUpperCase() + dayName.slice(1)}, ${selectedDay}`;
           })()}
-        {selectedHour && ` ob ${selectedHour}`}
+        {selectedHour && (() => {
+          const hour = parseInt(selectedHour.split(":")[0]);
+          const nextHour = (hour + 1) % 24;
+          return ` od ${selectedHour} do ${nextHour}:00`;
+        })()}
       </div>
     </div>
   );
