@@ -199,6 +199,7 @@ export default function CortinaForm({ title }: CortinaFormProps) {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const contentRef = useRef<HTMLDivElement>(null);
   const [maxStepHeight, setMaxStepHeight] = useState<number>(0);
+  const [unavailableHours, setUnavailableHours] = useState<string[]>([]);
 
   useEffect(() => {
     const measure = () => {
@@ -211,7 +212,59 @@ export default function CortinaForm({ title }: CortinaFormProps) {
     return () => window.removeEventListener("resize", measure);
   }, [step, selectedDay, selectedHour, hourPage, showErrors, formState]);
 
-  function toAppointmentDate(day: string | null, hour: string | null): string | null {
+  // Fetch unavailable hours when a day is selected and moving to step 2
+  useEffect(() => {
+    const fetchUnavailableHours = async () => {
+      if (!selectedDay || step !== 2) return;
+
+      try {
+        // Convert date from "10.1.2026" to "2026-01-10" format
+        const [day, month, year] = selectedDay.split(".");
+        const formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+
+        console.log('Checking availability for date:', selectedDay, '→', formattedDate);
+
+        const backendBaseUrl = process.env.NEXT_PUBLIC_FORM_CORTINA_API || 'https://2754-lasko-statamic.test/api';
+        const url = `${backendBaseUrl}/form-cortina/available-hours`;
+        console.log('Fetching availability from:', url);
+        
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            date: formattedDate, // e.g., "2026-01-10"
+          }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Availability response:', data);
+          console.log('Fully booked hours:', data.fully_booked_hours);
+          
+          // Normalize hours: backend returns "09:00", frontend uses "9:00"
+          // Convert "09:00" to "9:00", "10:00" stays "10:00"
+          const normalizedHours = (data.fully_booked_hours || []).map((h: string) => {
+            const hourNum = parseInt(h.split(':')[0]);
+            return `${hourNum}:00`;
+          });
+          
+          console.log('Normalized unavailable hours:', normalizedHours);
+          setUnavailableHours(normalizedHours);
+        } else {
+          console.error('Availability check failed:', response.status, await response.text());
+        }
+      } catch (error) {
+        console.error('Error fetching availability:', error);
+        setUnavailableHours([]);
+      }
+    };
+
+    fetchUnavailableHours();
+  }, [selectedDay, step]);
+
+  function toAppointmentDate(day: string | null, hour: string | null): string | null { 
     if (!day || !hour) return null;
     // day format: d.m.YYYY or dd.m.YYYY, hour format: H:MM or HH:MM
     const parts = day.split(".").filter(Boolean);
@@ -406,21 +459,26 @@ export default function CortinaForm({ title }: CortinaFormProps) {
                       .slice(hourPage * 6, hourPage * 6 + 6)
                       .map((hour, i) => {
                       const isSelected = selectedHour === hour.hour;
+                      const isUnavailable = unavailableHours.includes(hour.hour);
                       return (
                         <ButtonSolid
                           size="small"
-                          title={hour.title}
+                          title={isUnavailable ? `${hour.title}` : hour.title}
                           key={i}
                           type="button"
                           className={`w-full justify-center ${
                             isSelected
                               ? "!shadow-none !bg-[rgba(68,153,53,0.33)] md:!bg-[rgba(68,153,53,0.25)] !text-[rgba(0,0,0,0.33)] md:!text-[rgba(0,0,0,0.25)] pointer-events-none"
+                              : isUnavailable
+                              ? "!shadow-none !bg-[rgba(68,153,53,0.33)] md:!bg-[rgba(68,153,53,0.25)] !text-[rgba(0,0,0,0.33)] md:!text-[rgba(0,0,0,0.25)] pointer-events-none"
                               : ""
                           }`}
-                          disableGradient={isSelected}
+                          disableGradient={isSelected || isUnavailable}
                           onClick={() => {
-                            setSelectedHour(hour.hour);
-                            setStep(step + 1);
+                            if (!isUnavailable) {
+                              setSelectedHour(hour.hour);
+                              setStep(step + 1);
+                            }
                           }}
                         />
                       );
