@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import CardNews from "@/components/Cards/News";
+import CardLogo from "@/components/Cards/Logo";
+import CardMedia from "@/components/Cards/Media";
 
 type MediaItem = {
   id: string;
@@ -8,9 +10,15 @@ type MediaItem = {
   slug: string;
   permalink: string | null;
   content: string | null;
+  type?: {
+    value?: string;
+  };
   featured_image?: Array<{
     permalink: string;
   }>;
+  file?: {
+    permalink: string;
+  };
   kategorija: {
     id: string;
     title: string;
@@ -51,6 +59,9 @@ export default function MedijskeVsebine({
   console.log('MedijskeVsebine - items:', medijskeVsebineItems);
   console.log('MedijskeVsebine - categories:', medijskeVsebineKategorije);
   console.log('MedijskeVsebine - first item structure:', medijskeVsebineItems?.[0]);
+  console.log('MedijskeVsebine - first item type:', medijskeVsebineItems?.[0]?.type);
+  console.log('MedijskeVsebine - first item type.value:', medijskeVsebineItems?.[0]?.type?.value);
+  console.log('MedijskeVsebine - first item file:', medijskeVsebineItems?.[0]?.file);
 
   const handleCategoryClick = (categorySlug: string | null) => {
     setSelectedCategory(categorySlug);
@@ -61,8 +72,10 @@ export default function MedijskeVsebine({
     ? medijskeVsebineItems.filter(item => item.kategorija?.slug === selectedCategory)
     : medijskeVsebineItems;
 
+
+
   return (
-    <section className="max-w-8xl w-full mx-auto">
+    <section id="medijskeVsebine" className="max-w-8xl w-full mx-auto">
       {title && (
         <h2 className="text-green-800 font-black text-[32px] md:text-[48px] leading-tight font-neutraface mb-10">
           {title}
@@ -95,14 +108,47 @@ export default function MedijskeVsebine({
       <div className="w-full">
         {filteredItems.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">  
-            {filteredItems.map((item) => (
-              <CardNews
-                key={item.id}
-                title={item.title}
-                image={item.featured_image?.[0]?.permalink || "/placeholders/news.png"}
-                url={`/si/medijske-vsebine/${item.slug}`}
-              />
-            ))}
+            {filteredItems.map((item) => {
+              const imageUrl = item.featured_image?.[0]?.permalink || 
+                              item.file?.permalink || 
+                              "/placeholders/news.png";
+              const itemUrl = `/si/medijske-vsebine/${item.slug}`;
+              const fileUrl = item.file?.permalink || "";
+              
+              // Render different card types based on the type field
+              const itemType = item.type?.value;
+              console.log('file:', item.file); 
+              console.log('fileUrl:', fileUrl);
+              
+              if (itemType === "logo") {
+                return (
+                  <CardLogo
+                    key={item.id}
+                    title={item.title}
+                    image={imageUrl}
+                    url={fileUrl}
+                  />
+                );
+              } else if (itemType === "media") {
+                return (
+                  <CardMedia
+                    key={item.id}
+                    title={item.title}
+                    image={imageUrl}
+                    url={fileUrl}
+                  />
+                );
+              } else {
+                return (
+                  <CardNews
+                    key={item.id}
+                    title={item.title}
+                    image={imageUrl}
+                    url={itemUrl}
+                  />
+                );
+              }
+            })}
           </div>
         ) : (
           <p className="text-center text-gray-600 py-12">

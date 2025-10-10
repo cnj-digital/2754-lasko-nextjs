@@ -4,7 +4,7 @@ import Link from "next/link";
 import cx from "classnames";
 
 type ButtonProps = {
-  title: string;
+  title: string | React.ReactNode;
   url?: string;
   icon?: React.ReactNode;
   className?: string;

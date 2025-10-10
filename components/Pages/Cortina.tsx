@@ -9,7 +9,7 @@ export default function CortinaPage({
   medijskeVsebineItems,
   medijskeVsebineKategorije,
 }: any) {
-  console.log(cortina_hero.cortinabg_image ? cortina_hero.cortinabg_image[0].permalink : null);
+  console.log(cortina_hero.cortinabg_image ? cortina_hero.cortinabg_image[0].permalink : null); 
   
   // Add media data to globals
   const enhancedGlobals = {

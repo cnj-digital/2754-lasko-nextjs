@@ -13,7 +13,14 @@ export const mediaItemQuery = gql`
       ... on Entry_MedijskeVsebine_MedijskeVsebine {
         title
         content
+        type {
+          value
+          label
+        }
         featured_image {
+          permalink
+        }
+        file {
           permalink
         }
         kategorija {
@@ -39,6 +46,16 @@ export const mediaItemsQuery = gql`
         ... on Entry_MedijskeVsebine_MedijskeVsebine {
           title
           content
+          type {
+            value
+            label
+          }
+          featured_image {
+            permalink
+          }
+          file {
+            permalink
+          }
           kategorija {
             id
             title
@@ -84,6 +101,16 @@ export const mediaItemsByCategoryQuery = gql`
         ... on Entry_MedijskeVsebine_MedijskeVsebine {
           title
           content
+          type {
+            value
+            label
+          }
+          featured_image {
+            permalink
+          }
+          file {
+            permalink
+          }
           kategorija {
             id
             title
@@ -108,6 +135,8 @@ export function mapMediaItem(entry: any) {
     date: entry.date,
     content: entry.content,
     featured_image: entry.featured_image,
+    file: entry.file,
+    type: entry.type,
     category: entry.kategorija ? {
       id: entry.kategorija.id,
       title: entry.kategorija.title,

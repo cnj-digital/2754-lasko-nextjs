@@ -16,7 +16,14 @@ export const cortinaQuery = gql`
         permalink
         ... on Entry_MedijskeVsebine_MedijskeVsebine {
           content
+          type {
+            value
+            label
+          }
           featured_image {
+            permalink
+          }
+          file {
             permalink
           }
           kategorija {
