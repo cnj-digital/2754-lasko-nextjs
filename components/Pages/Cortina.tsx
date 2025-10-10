@@ -9,8 +9,6 @@ export default function CortinaPage({
   medijskeVsebineItems,
   medijskeVsebineKategorije,
 }: any) {
-  console.log(cortina_hero.cortinabg_image ? cortina_hero.cortinabg_image[0].permalink : null); 
-  
   // Add media data to globals
   const enhancedGlobals = {
     ...globals,
@@ -20,16 +18,18 @@ export default function CortinaPage({
   
   return (
     <div className="">
-      <HeroImage
-        type="cortina"
-        title={cortina_hero.cortina_title}
-        copy={cortina_hero.cortina_content}
-        buttons={cortina_hero.cortina_ctas.map((cta: any) => ({
-          title: cta.cta.title,
-          url: cta.cta.link,
-        }))}
-        image={cortina_hero.cortinabg_image ? cortina_hero.cortinabg_image[0].permalink : ""}
-      />
+      {cortina_hero && (
+        <HeroImage
+          type="cortina"
+          title={cortina_hero.cortina_title}
+          copy={cortina_hero.cortina_content}
+          buttons={cortina_hero.cortina_ctas?.map((cta: any) => ({
+            title: cta.cta.title,
+            url: cta.cta.link,
+          })) || []}
+          image={cortina_hero.cortinabg_image?.[0]?.permalink || ""}
+        />
+      )}
       <Container className=" mx-auto py-16 md:py-20">
         {builder_items?.map((content: any, i: number) => (
           <BuilderComponent

@@ -12,7 +12,7 @@ export default function BuilderPage({
     <div className="">
       <ArticleHero title={title} backgroundUrl={featured_image?.permalink} />
       <Container className=" mx-auto">
-        {builder_items.map((content: any, i: number) => (
+        {builder_items?.map((content: any, i: number) => (
           <BuilderComponent
             key={i}
             type={content.type}
