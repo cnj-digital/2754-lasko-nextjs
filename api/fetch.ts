@@ -6,7 +6,7 @@ import {
   mapArticles,
 } from "./queries/article";
 import { homepageQuery } from "./queries/homepage";
-import { pageQuery, routesQuery } from "./queries/routes";
+import { pageQuery, routesQuery } from "./queries/routes"; 
 import { productQuery } from "./queries/product";
 import { historyQuery } from "./queries/history";
 import { supportQuery } from "./queries/support";

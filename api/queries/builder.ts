@@ -127,6 +127,20 @@ export const builderQuery = gql`
           title
           type
         }
+        ... on Set_BuilderItems_Logos {
+          id
+          items {
+            ... on Set_BuilderItems_Items_Item {
+              id
+              image {
+                permalink
+              }
+              url
+            }
+          }
+          title
+          type
+        }
       }
     }
   }

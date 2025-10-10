@@ -12,7 +12,7 @@ export default async function Layout({
 
   return (
     <>
-      <Menu nav={navigation.map((item: any) => item.page)} />
+      <Menu nav={navigation.map((item: any) => item.page)} />  
       <main>{children}</main>
       <Footer {...footer} />
     </>

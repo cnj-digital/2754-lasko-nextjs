@@ -4,7 +4,8 @@ import Quote from "./Quote";
 import Share from "./Share";
 import VideoPlayer from "./Video";
 import CortinaForm from "./CortinaForm";
-import MedijskeVsebine from "./MedijskeVsebine"; 
+import MedijskeVsebine from "./MedijskeVsebine";
+import Logos from "./Logos"; 
 
 type BuilderComponentProps = {
   type: string;
@@ -25,6 +26,7 @@ export default function BuilderComponent({
     form: Form,
     cortina_form: CortinaForm,
     medijske_vsebine: MedijskeVsebine,
+    logos: Logos,
   };
   
   // Debug: log component type to see what's being passed
