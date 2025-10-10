@@ -41,8 +41,18 @@ if (allowInsecureTls) {
 const apiUrl = process.env.API_URL ?? "";
 
 export async function fetchSingleArticle(slug: string) {
-  const res: any = await request(apiUrl, articleQuery, { slug });
-  return mapArticle(res.entry);
+  try {
+    const res: any = await request(apiUrl, articleQuery, { slug });
+    return mapArticle(res.entry);
+  } catch (error: any) {
+    // Handle GraphQL errors gracefully
+    console.error('Error fetching article:', slug, error.message);
+    if (error.response?.data?.entry) {
+      // Even if there are GraphQL errors, try to use the partial data
+      return mapArticle(error.response.data.entry);
+    }
+    throw error;
+  }
 }
 
 export async function fetchArticles(site?: string) {
