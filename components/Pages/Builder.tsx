@@ -8,11 +8,13 @@ export default function BuilderPage({
   builder_items,
   globals,
   videosItems,
+  eventsItems,
 }: any) {
-  // Add videos data to globals
+  // Add videos and events data to globals
   const enhancedGlobals = {
     ...globals,
     videosItems,
+    eventsItems,
   };
 
   return (

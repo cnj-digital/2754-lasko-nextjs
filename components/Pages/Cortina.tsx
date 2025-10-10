@@ -9,13 +9,15 @@ export default function CortinaPage({
   medijskeVsebineItems,
   medijskeVsebineKategorije,
   videosItems,
+  eventsItems,
 }: any) {
-  // Add media and videos data to globals
+  // Add media, videos, and events data to globals
   const enhancedGlobals = {
     ...globals,
     medijskeVsebineItems: medijskeVsebineItems?.data || [],
     medijskeVsebineKategorije: medijskeVsebineKategorije?.data || [],
     videosItems,
+    eventsItems,
   };
   
   return (

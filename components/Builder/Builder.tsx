@@ -7,7 +7,8 @@ import CortinaForm from "./CortinaForm";
 import MedijskeVsebine from "./MedijskeVsebine";
 import Logos from "./Logos";
 import Videos from "./Videos";
-import News from "./News"; 
+import News from "./News";
+import Events from "./Events"; 
 
 type BuilderComponentProps = {
   type: string;
@@ -31,6 +32,7 @@ export default function BuilderComponent({
     logos: Logos,
     videos: Videos,
     news: News,
+    events: Events,
   };
   
   // Debug: log component type to see what's being passed

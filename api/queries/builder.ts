@@ -24,6 +24,20 @@ export const builderQuery = gql`
       }
     }
   }
+  eventsItems: entries(collection: "events", site: $site) {
+    data {
+      id
+      title
+      url
+      permalink
+      ... on Entry_Events_Event {
+        title
+        featured_image {
+          permalink
+        }
+      }
+    }
+  }
   entry(uri: $uri, site: $site) {
     blueprint
     title
@@ -179,6 +193,10 @@ export const builderQuery = gql`
             }
           }
         }
+         ... on Set_BuilderItems_Events {
+           title
+           type
+         }
       }
     }
   }

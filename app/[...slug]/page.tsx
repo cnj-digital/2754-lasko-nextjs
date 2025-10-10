@@ -16,6 +16,7 @@ import Product from "@/components/Pages/Product";
 import Support from "@/components/Pages/Support";
 import Cortina from "@/components/Pages/Cortina";
 import MediaItem from "@/components/Pages/MediaItem";
+import Event from "@/components/Pages/Event";
 import { languages } from "@/data/general";
 
 type Props = {
@@ -75,12 +76,12 @@ export async function generateStaticParams() {
     const articlesRes = await fetchArticles();
     const articles = languages.flatMap(() =>
       articlesRes.map((article: any) => ({
-        slug: article.url.replace(/^\//, "").split("/"), // Include 'articles' in the path
+        slug: article.url.replace(/^\//, "").split("/"), // Include 'articles' in the path 
       }))
     );
 
     // Fetch and transform media items
-    const { fetchMediaItems } = await import("@/api/fetch");
+    const { fetchMediaItems, fetchEvents } = await import("@/api/fetch");
     const mediaItemsRes = await fetchMediaItems("si");
     const mediaItems = languages.flatMap(() =>
       mediaItemsRes.map((item: any) => ({
@@ -88,7 +89,13 @@ export async function generateStaticParams() {
       }))
     );
 
-    const allRoutesAndArticles = [...flattenedRoutes, ...articles, ...mediaItems];
+    // Fetch and transform events
+    const eventsRes = await fetchEvents("si");
+    const events = eventsRes.map((event: any) => ({
+      slug: event.url.replace(/^\//, "").split("/"),
+    }));
+
+    const allRoutesAndArticles = [...flattenedRoutes, ...articles, ...mediaItems, ...events];
 
     return allRoutesAndArticles;
   } catch (error) {
@@ -157,6 +164,7 @@ export default async function Page({ params }: Props) {
     builder: BuilderPage,
     cortina: Cortina,
     medijske_vsebine: MediaItem,
+    event: Event,
   };
 
   const Component = blueprints[blueprint as "page"];

@@ -24,6 +24,20 @@ export const cortinaQuery = gql`
         }
       }
     }
+    eventsItems: entries(collection: "events", site: $site) {
+      data {
+        id
+        title
+        url
+        permalink
+        ... on Entry_Events_Event {
+          title
+          featured_image {
+            permalink
+          }
+        }
+      }
+    }
     medijskeVsebineItems: entries(collection: "medijske_vsebine", site: $site) {
       data {
         id
@@ -175,7 +189,11 @@ export const cortinaQuery = gql`
               }
             }
           }
-        }
+         }
+           ... on Set_BuilderItems_Events {
+           title
+           type
+          }
         }
       }
     }

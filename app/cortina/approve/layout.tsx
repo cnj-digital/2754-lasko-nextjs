@@ -1,8 +1,8 @@
 import { fetchFooter, fetchNavigation } from "@/api/fetch";
 import Menu from "@/components/Menu";
-import Footer from "@/components/Footer";
+import Footer from "@/components/Footer"; 
 
-export default async function Layout({
+export default async function Layout({ 
   children,
 }: {
   children: React.ReactNode;

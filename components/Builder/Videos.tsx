@@ -67,7 +67,7 @@ export default function Videos({ title, videosItems }: VideosProps) {
   };
 
   return (
-    <section className="max-w-8xl w-full mx-auto my-20 md:my-40">
+    <section id="videos" className="max-w-8xl w-full mx-auto my-20 md:my-20">
       {title && (
         <h2 className="text-green-800 font-black text-[32px] md:text-[48px] leading-tight font-neutraface mb-10">
           {title}

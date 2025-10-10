@@ -24,7 +24,7 @@ export default function News({ title, items = [] }: NewsProps) {
   if (!items || items.length === 0) return null;
 
   return (
-    <section className="max-w-8xl w-full mx-auto my-20">
+    <section id="news" className="max-w-8xl w-full mx-auto my-20">
       {title && (
         <h2 className="text-green-800 font-black text-[32px] md:text-[48px] leading-tight font-neutraface mb-10">
           {title}

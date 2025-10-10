@@ -1,4 +1,4 @@
-import request from "graphql-request";
+import request, { gql } from "graphql-request";
 import {
   articleQuery,
   articlesQuery,
@@ -6,13 +6,14 @@ import {
   mapArticles,
 } from "./queries/article";
 import { homepageQuery } from "./queries/homepage";
-import { pageQuery, routesQuery } from "./queries/routes"; 
+import { pageQuery, routesQuery } from "./queries/routes";
 import { productQuery } from "./queries/product";
 import { historyQuery } from "./queries/history";
 import { supportQuery } from "./queries/support";
 import { archiveQuery } from "./queries/archive";
 import { builderQuery } from "./queries/builder";
 import { cortinaQuery } from "./queries/cortina";
+import { eventQuery } from "./queries/event";
 import { footerQuery, navigationQuery } from "./queries/navigation";
 import { seoQuery } from "./queries/seo";
 import { translationsQuery } from "./queries/globals";
@@ -91,6 +92,7 @@ export async function fetchPage(uri: string, site: string, blueprint: "page") {
     cortina: cortinaQuery,
     article: articleQuery,
     medijske_vsebine: mediaItemQuery,
+    event: eventQuery,
   };
 
   const res: any = await request(apiUrl, query[blueprint], {
@@ -104,6 +106,7 @@ export async function fetchPage(uri: string, site: string, blueprint: "page") {
   if (res.medijskeVsebineItems) data = { ...data, medijskeVsebineItems: res.medijskeVsebineItems };
   if (res.medijskeVsebineKategorije) data = { ...data, medijskeVsebineKategorije: res.medijskeVsebineKategorije };
   if (res.videosItems) data = { ...data, videosItems: res.videosItems };
+  if (res.eventsItems) data = { ...data, eventsItems: res.eventsItems };
 
   return data;
 }
@@ -151,4 +154,19 @@ export async function fetchMediaCategories(site: string) {
 export async function fetchMediaItemsByCategory(categorySlug: string, site: string) {
   const res: any = await request(apiUrl, mediaItemsByCategoryQuery, { categorySlug, site });
   return mapMediaItems(res.entries.data);
+}
+
+export async function fetchEvents(site: string) {
+  const eventsQuery = gql`
+    query eventsQuery($site: String) {
+      entries(collection: "events", site: $site) {
+        data {
+          slug
+          url
+        }
+      }
+    }
+  `;
+  const res: any = await request(apiUrl, eventsQuery, { site });
+  return res.entries.data;
 }
