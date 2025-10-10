@@ -17,7 +17,6 @@ export default async function MediaItem({
   content,
   category,
   kategorija,
-  globals,
 }: any) {
   const itemCategory = category || kategorija;
   
