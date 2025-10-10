@@ -4,7 +4,6 @@ import { generateAnchorLink } from "@/helpers/general";
 import { useInView } from "motion/react";
 import { useRef } from "react";
 import useScreenSize from "@/hooks/useScreenSize";
-import PlayIcon from "../Icons/Play";
 
 type CardVideoProps = {
   title: string;
