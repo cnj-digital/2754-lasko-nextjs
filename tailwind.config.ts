@@ -34,6 +34,7 @@ export default {
       fontFamily: {
         raleway: ["var(--font-raleway)", "sans-serif"],
         neutraface: ["var(--font-Neutraface-Display)", "sans-serif"],
+        neutrafaceLight: ["var(--font-Neutraface-Light)", "sans-serif"],
       },
     },
   },

@@ -31,7 +31,7 @@ export default function Logos({ title, items = [] }: LogosProps) {
             <img
               src={item.image?.permalink}
               alt=""
-              className="max-w-full max-h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+              className="max-w-full max-h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300" 
             />
           );
 

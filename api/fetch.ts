@@ -100,9 +100,10 @@ export async function fetchPage(uri: string, site: string, blueprint: "page") {
   let data = res.entry;
   if (res.globalSet) data = { ...data, globals: res.globalSet };
   
-  // Include media collections data for cortina pages
+  // Include media collections data for cortina and builder pages
   if (res.medijskeVsebineItems) data = { ...data, medijskeVsebineItems: res.medijskeVsebineItems };
   if (res.medijskeVsebineKategorije) data = { ...data, medijskeVsebineKategorije: res.medijskeVsebineKategorije };
+  if (res.videosItems) data = { ...data, videosItems: res.videosItems };
 
   return data;
 }

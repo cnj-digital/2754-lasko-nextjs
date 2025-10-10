@@ -7,7 +7,14 @@ export default function BuilderPage({
   featured_image,
   builder_items,
   globals,
+  videosItems,
 }: any) {
+  // Add videos data to globals
+  const enhancedGlobals = {
+    ...globals,
+    videosItems,
+  };
+
   return (
     <div className="">
       <ArticleHero title={title} backgroundUrl={featured_image?.permalink} />
@@ -17,7 +24,7 @@ export default function BuilderPage({
             key={i}
             type={content.type}
             data={content}
-            globals={globals}
+            globals={enhancedGlobals}
           />
         ))}
       </Container>

@@ -12,6 +12,7 @@ type CardNewsProps = {
   image: string;
   url: string;
   className?: string;
+  category?: string;
 };
 
 export default function CardNews({
@@ -19,6 +20,7 @@ export default function CardNews({
   image,
   className,
   url,
+  category,
 }: CardNewsProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { amount: 0.8 });
@@ -44,7 +46,12 @@ export default function CardNews({
           )}
         />
       </div>
-      <div className="flex items-center pl-8 pr-4 pb-8 pt-6 justify-between">
+      {category && (
+        <div className="pl-8 pr-4 pt-6 text-black font-neutrafaceLight font-bold text-base leading-[140%] tracking-[0.48px] uppercase">
+          {category}
+        </div>
+      )}
+      <div className={cx("flex items-center pl-8 pr-4 pb-8 justify-between", !category && "pt-6")}>
         <h3
           id={generateAnchorLink(title)}
           className={cx(

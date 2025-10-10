@@ -8,6 +8,22 @@ export const builderQuery = gql`
       share_title: share_title
     }
   }
+  videosItems: entries(collection: "videos", site: $site) {
+    data {
+      id
+      title
+      ... on Entry_Videos_Video {
+        title
+        image_placeholder {
+          permalink
+        }
+        video {
+          permalink
+        }
+        youtube_video_embed_url
+      }
+    }
+  }
   entry(uri: $uri, site: $site) {
     blueprint
     title
@@ -140,6 +156,28 @@ export const builderQuery = gql`
           }
           title
           type
+        }
+        ... on Set_BuilderItems_Videos {
+          id
+          title
+          type
+        }
+        ... on Set_BuilderItems_News {
+          type
+          title
+          items {
+            title
+            url
+            permalink
+            ... on Entry_Article_Article {
+              featured_image {
+                permalink
+              }
+              card_image {
+                permalink
+              }
+            }
+          }
         }
       }
     }
