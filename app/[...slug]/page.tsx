@@ -5,6 +5,7 @@ import {
   fetchPageBlueprint,
   fetchRoutes,
   fetchSeo,
+  fetchMediaItem,
 } from "@/api/fetch";
 import Archive from "@/components/Pages/Archive";
 import Article from "@/components/Pages/Article";
@@ -14,6 +15,7 @@ import Home from "@/components/Pages/Home";
 import Product from "@/components/Pages/Product";
 import Support from "@/components/Pages/Support";
 import Cortina from "@/components/Pages/Cortina";
+import MediaItem from "@/components/Pages/MediaItem";
 import { languages } from "@/data/general";
 
 type Props = {
@@ -77,7 +79,16 @@ export async function generateStaticParams() {
       }))
     );
 
-    const allRoutesAndArticles = [...flattenedRoutes, ...articles];
+    // Fetch and transform media items
+    const { fetchMediaItems } = await import("@/api/fetch");
+    const mediaItemsRes = await fetchMediaItems("si");
+    const mediaItems = languages.flatMap(() =>
+      mediaItemsRes.map((item: any) => ({
+        slug: ["si", "medijske-vsebine", item.slug],
+      }))
+    );
+
+    const allRoutesAndArticles = [...flattenedRoutes, ...articles, ...mediaItems];
 
     return allRoutesAndArticles;
   } catch (error) {
@@ -98,18 +109,43 @@ export default async function Page({ params }: Props) {
   const lang = slug[0];
   const uri = slug.slice(1).length ? `/${slug.slice(1).join("/")}` : "/";
 
-  const blueprint = await getPageData(lang, uri);
+  console.log('Page requested - slug:', slug, 'lang:', lang, 'uri:', uri);
+
+  // Check if this is a media item route
+  const isMediaItem = slug.length === 3 && slug[1] === 'medijske-vsebine';
+  
+  let blueprint;
+  if (isMediaItem) {
+    console.log('Detected media item route, using slug:', slug[2]);
+    blueprint = 'medijske_vsebine';
+  } else {
+    blueprint = await getPageData(lang, uri);
+  }
+  
   let articles = [];
 
-  if (!blueprint) return null;
-  console.log(blueprint);
+  console.log('Blueprint fetched:', blueprint);
+  
+  if (!blueprint) {
+    console.log('No blueprint found, returning null');
+    return null;
+  }
+  console.log('Blueprint for URI:', uri, '→', blueprint);
 
   if (blueprint === "archive" || blueprint === "page") {
     const articlesRes = await fetchArticles(lang);
     articles = articlesRes;
   }
 
-  const data = await fetchPage(uri, lang, blueprint);
+  // For media items, use slug instead of URI
+  let data;
+  if (isMediaItem) {
+    const mediaSlug = slug[2];
+    console.log('Fetching media item by slug:', mediaSlug);
+    data = await fetchMediaItem(mediaSlug, lang);
+  } else {
+    data = await fetchPage(uri, lang, blueprint);
+  }
 
   const blueprints = {
     page: Home,
@@ -120,9 +156,13 @@ export default async function Page({ params }: Props) {
     article: Article,
     builder: BuilderPage,
     cortina: Cortina,
+    medijske_vsebine: MediaItem,
   };
 
   const Component = blueprints[blueprint as "page"];
+
+  console.log('Component found:', !!Component, 'for blueprint:', blueprint);
+  console.log('Data being passed:', data);
 
   if (Component)
     return (
@@ -130,7 +170,7 @@ export default async function Page({ params }: Props) {
         <Component {...data} articles={articles} />
       </>
     );
-  else return <div>Not found</div>;
+  else return <div>Not found - Blueprint: {blueprint}</div>;
 }
 
 export const dynamicParams = false;

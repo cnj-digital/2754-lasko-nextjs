@@ -8,6 +8,34 @@ export const cortinaQuery = gql`
         share_title: share_title
       }
     }
+    medijskeVsebineItems: entries(collection: "medijske_vsebine", site: $site) {
+      data {
+        id
+        title
+        slug
+        permalink
+        ... on Entry_MedijskeVsebine_MedijskeVsebine {
+          content
+          featured_image {
+            permalink
+          }
+          kategorija {
+            id
+            title
+            slug
+            permalink
+          }
+        }
+      }
+    }
+    medijskeVsebineKategorije: entries(collection: "medijske_vsebine_kategorije", site: $site) {
+      data {
+        id
+        title
+        slug
+        permalink
+      }
+    }
     entry(uri: $uri, site: $site) {
       title
       ... on Entry_Pages_Cortina {
@@ -82,6 +110,10 @@ export const cortinaQuery = gql`
           }
           ... on Set_BuilderItems_CortinaForm {
             id
+            title
+            type
+          }
+          ... on Set_BuilderItems_MedijskeVsebine {
             title
             type
           }

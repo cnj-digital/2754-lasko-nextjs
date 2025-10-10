@@ -18,6 +18,15 @@ import { seoQuery } from "./queries/seo";
 import { translationsQuery } from "./queries/globals";
 import { page404Query } from "./queries/404page";
 import { ageVerificationQuery } from "./queries/ageVerification";
+import {
+  mediaItemQuery,
+  mediaItemsQuery,
+  mediaCategoriesQuery,
+  mediaItemsByCategoryQuery,
+  mapMediaItem,
+  mapMediaItems,
+  mapMediaCategories,
+} from "./queries/media";
 
 // Dev-only TLS bypass for local Herd/mkcert certificates (opt-in).
 // Enable with ALLOW_INSECURE_LOCAL="true" or SKIP_TLS_VERIFY="true" in your env.
@@ -71,6 +80,7 @@ export async function fetchPage(uri: string, site: string, blueprint: "page") {
     builder: builderQuery,
     cortina: cortinaQuery,
     article: articleQuery,
+    medijske_vsebine: mediaItemQuery,
   };
 
   const res: any = await request(apiUrl, query[blueprint], {
@@ -79,6 +89,10 @@ export async function fetchPage(uri: string, site: string, blueprint: "page") {
   });
   let data = res.entry;
   if (res.globalSet) data = { ...data, globals: res.globalSet };
+  
+  // Include media collections data for cortina pages
+  if (res.medijskeVsebineItems) data = { ...data, medijskeVsebineItems: res.medijskeVsebineItems };
+  if (res.medijskeVsebineKategorije) data = { ...data, medijskeVsebineKategorije: res.medijskeVsebineKategorije };
 
   return data;
 }
@@ -106,4 +120,24 @@ export async function fetch404Page(site: string) {
 export async function fetchAgeVerification(site: string) {
   const res: any = await request(apiUrl, ageVerificationQuery, { site });
   return res.globalSet;
+}
+
+export async function fetchMediaItem(slug: string, site: string) {
+  const res: any = await request(apiUrl, mediaItemQuery, { slug, site });
+  return mapMediaItem(res.entry);
+}
+
+export async function fetchMediaItems(site: string) {
+  const res: any = await request(apiUrl, mediaItemsQuery, { site });
+  return mapMediaItems(res.entries.data);
+}
+
+export async function fetchMediaCategories(site: string) {
+  const res: any = await request(apiUrl, mediaCategoriesQuery, { site });
+  return mapMediaCategories(res.entries.data);
+}
+
+export async function fetchMediaItemsByCategory(categorySlug: string, site: string) {
+  const res: any = await request(apiUrl, mediaItemsByCategoryQuery, { categorySlug, site });
+  return mapMediaItems(res.entries.data);
 }

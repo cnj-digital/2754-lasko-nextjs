@@ -4,6 +4,7 @@ import Quote from "./Quote";
 import Share from "./Share";
 import VideoPlayer from "./Video";
 import CortinaForm from "./CortinaForm";
+import MedijskeVsebine from "./MedijskeVsebine"; 
 
 type BuilderComponentProps = {
   type: string;
@@ -11,7 +12,7 @@ type BuilderComponentProps = {
   globals: any;
 };
 
-export default function BuilderComponent({
+export default function BuilderComponent({ 
   type,
   data,
   globals,
@@ -23,7 +24,12 @@ export default function BuilderComponent({
     video: VideoPlayer,
     form: Form,
     cortina_form: CortinaForm,
+    medijske_vsebine: MedijskeVsebine,
   };
+  
+  // Debug: log component type to see what's being passed
+  console.log('Builder component type:', type, 'Data:', data);
+  
   const Component = components[type] ? components[type] : NotFound;
 
   return <Component {...data} {...globals} />;

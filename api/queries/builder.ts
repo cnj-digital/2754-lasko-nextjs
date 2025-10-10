@@ -123,6 +123,10 @@ export const builderQuery = gql`
           title
           type
         }
+        ... on Set_BuilderItems_MedijskeVsebine {
+          title
+          type
+        }
       }
     }
   }

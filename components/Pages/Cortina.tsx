@@ -6,8 +6,18 @@ export default function CortinaPage({
   cortina_hero,
   builder_items,
   globals,
+  medijskeVsebineItems,
+  medijskeVsebineKategorije,
 }: any) {
   console.log(cortina_hero.cortinabg_image ? cortina_hero.cortinabg_image[0].permalink : null);
+  
+  // Add media data to globals
+  const enhancedGlobals = {
+    ...globals,
+    medijskeVsebineItems: medijskeVsebineItems?.data || [],
+    medijskeVsebineKategorije: medijskeVsebineKategorije?.data || [],
+  };
+  
   return (
     <div className="">
       <HeroImage
@@ -26,7 +36,7 @@ export default function CortinaPage({
             key={i}
             type={content.type}
             data={content}
-            globals={globals}
+            globals={enhancedGlobals}
           />
         ))}
       </Container>
