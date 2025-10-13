@@ -194,6 +194,19 @@ export const cortinaQuery = gql`
            title
            type
           }
+           ... on Set_BuilderItems_WallOfFame {
+          title
+          type
+          item {
+            ... on Set_BuilderItems_Item_Item {
+              id
+              image {
+                permalink
+              }
+              title
+            }
+          }
+         }
         }
       }
     }

@@ -50,6 +50,7 @@ export default function Logos({ title, items = [] }: LogosProps) {
           } else {
             return (
               <div
+                id="logos"
                 key={item.id}
                 className="flex items-center justify-center p-4 bg-white rounded-2xl shadow-card h-[160px] md:h-[200px]"
               >

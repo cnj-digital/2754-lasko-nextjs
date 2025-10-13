@@ -106,7 +106,7 @@ export default function CortinaApproval({
               title="Nazaj na stran aktivacije"
               type="button"
               className="w-full justify-center"
-              onClick={() => (window.location.href = "/si/cortina")}
+              onClick={() => (window.location.href = "/si/cortina")} 
             />
           </>
         )}

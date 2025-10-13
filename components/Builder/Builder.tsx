@@ -4,11 +4,12 @@ import Quote from "./Quote";
 import Share from "./Share";
 import VideoPlayer from "./Video";
 import CortinaForm from "./CortinaForm";
-import MedijskeVsebine from "./MedijskeVsebine";
+import MedijskeVsebine from "./MedijskeVsebine"; 
 import Logos from "./Logos";
 import Videos from "./Videos";
 import News from "./News";
-import Events from "./Events"; 
+import Events from "./Events";
+import WallOfFame from "./WallOfFame"; 
 
 type BuilderComponentProps = {
   type: string;
@@ -33,6 +34,7 @@ export default function BuilderComponent({
     videos: Videos,
     news: News,
     events: Events,
+    wall_of_fame: WallOfFame,
   };
   
   // Debug: log component type to see what's being passed

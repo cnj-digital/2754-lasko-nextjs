@@ -1,7 +1,7 @@
 "use client";
 import ArticleHero from "@/components/Builder/Hero";
 import Container from "@/components/Container";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation"; 
 import ButtonSolid from "@/components/Buttons/Solid";
 
 export default function Event({
