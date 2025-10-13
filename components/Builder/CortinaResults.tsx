@@ -27,17 +27,52 @@ export default function CortinaResults({
   energy_collected = 0,
   program = [],
 }: CortinaResultsProps) {
-  const [fillHeight, setFillHeight] = useState(0);
-  const [openAccordion, setOpenAccordion] = useState<number | null>(null);
-  
-  // Calculate fill height based on percentage (barrel is 444.49px tall, starts at y=18)
-  useEffect(() => {
+  // Calculate initial fill height
+  const calculateFillHeight = (percentage: number) => {
     const barrelHeight = 444.49;
     const barrelTop = 18;
-    const percentage = Math.min(energy_collected, 100); // Cap at 100%
-    const fillAmount = (percentage / 100) * barrelHeight;
-    const yPosition = barrelTop + (barrelHeight - fillAmount);
-    setFillHeight(yPosition);
+    const cappedPercentage = Math.min(percentage, 100);
+    const fillAmount = (cappedPercentage / 100) * barrelHeight;
+    return barrelTop + (barrelHeight - fillAmount);
+  };
+  
+  const [fillHeight, setFillHeight] = useState(() => calculateFillHeight(energy_collected));
+  const [openAccordion, setOpenAccordion] = useState<number | null>(null);
+  const [waveOffset, setWaveOffset] = useState(0);
+  
+  // Update fill height when energy_collected changes
+  useEffect(() => {
+    setFillHeight(calculateFillHeight(energy_collected));
+  }, [energy_collected]);
+
+  // Animate water wave effect when not full
+  useEffect(() => {
+    if (energy_collected >= 100) {
+      setWaveOffset(0);
+      return;
+    }
+
+    let animationFrame: number;
+    let startTime: number;
+
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      
+      // Create smooth up/down wave: oscillates between -10 and +10 (20px range)
+      const wave = Math.sin(elapsed / 400) * 10;
+      setWaveOffset(wave);
+      
+      animationFrame = requestAnimationFrame(animate);
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+    };
   }, [energy_collected]);
 
   return (
@@ -92,9 +127,9 @@ export default function CortinaResults({
                 <g mask="url(#mask1_10766_1776)">
                   <rect
                     x="16"
-                    y={fillHeight}
+                    y={fillHeight + waveOffset}
                     width="405.36"
-                    height={444.49 - (fillHeight - 18)}
+                    height={444.49 - (fillHeight - 18) - waveOffset}
                     fill="black"
                   />
                 </g>
