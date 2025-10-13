@@ -194,7 +194,23 @@ export const cortinaQuery = gql`
            title
            type
           }
-           ... on Set_BuilderItems_WallOfFame {
+          ... on Set_BuilderItems_CortinaResults {
+          type
+          energy_collected
+          title
+          description
+          title_two
+          description_two
+          title_three
+          description_three
+          program {
+            ... on Set_BuilderItems_Program_Item {
+              description
+              title
+            }
+          }
+          }
+          ... on Set_BuilderItems_WallOfFame {
           title
           type
           item {
