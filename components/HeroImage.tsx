@@ -28,20 +28,20 @@ export default function HeroImage({
     >
       <Container className="pt-40 lg:pt-44">
         <div className="flex flex-col md:flex-row items-center justify-between">
-          <div className="w-full md:w-1/2 text-white z-10 lg:pb-16">
-            <h1 className="text-[40px] md:text-[52px] leading-tight  font-neutraface  font-bold mb-6">
+          <div className="w-full md:max-w-8/12 text-white z-10 lg:pb-16">
+            <h1 className="text-[40px] md:text-[52px] leading-tight  font-neutraface  font-bold mb-6 md:w-1/2">
               {title}
             </h1>
 
             {copy && (
               <div
                 dangerouslySetInnerHTML={{ __html: copy }}
-                className="font-semibold"
+                className="font-semibold md:w-1/2"
               ></div>
             )}
 
             {buttons && (
-              <div className="flex lg:w-full -mx-6 px-6 lg:mx-0 lg:px-0 overflow-auto no-scrollbar items-center gap-4 mb-16 mt-10">
+              <div className="flex flex-wrap md:flex-nowrap lg:w-full -mx-6 px-6 lg:mx-0 lg:px-0 overflow-auto no-scrollbar items-center gap-4 mb-16 mt-10">
                 {buttons.map((button, i) => (
                   <ButtonSolid
                     size="small"
@@ -57,7 +57,7 @@ export default function HeroImage({
           </div>
 
           {type === "cortina" ? (
-            <div className="md:w-1/2 mt-8 md:mt-0 absolute bottom-0 right-0">
+            <div className="md:w-6/12 mt-8 md:mt-0 absolute bottom-0 right-0">
               <img src={image} className="w-full object-cover mix-blend-multiply" alt={title} />
             </div>
           ) : (
