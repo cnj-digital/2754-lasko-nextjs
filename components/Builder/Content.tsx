@@ -36,25 +36,48 @@ export default function Content({
   return (
     <div
       className={cx(
-        "grid py-10 gap-10 w-full overflow-hidden",
+        "flex flex-col py-10 gap-10 w-full overflow-hidden lg:grid",
         asset ? "lg:grid-cols-2" : ""
       )}
     >
+      {/* Title - always first on mobile */}
+      {title && (
+        <h2
+          id={generateAnchorLink(title)}
+          className="text-green-800 font-black text-[40px] leading-tight font-neutraface lg:hidden"
+        >
+          {title}
+        </h2>
+      )}
+
+      {/* Image - second on mobile, positioned via order on desktop */}
+      {asset && (
+        <img
+          src={asset.permalink}
+          alt="content"
+          className={cx(
+            "rounded-2xl",
+            variant?.value === "left" ? "lg:order-1" : "lg:order-2"
+          )}
+        />
+      )}
+
+      {/* Text container - includes title on desktop, content always */}
       <div
         className={cx(
           "lg:px-6 w-full",
-          variant?.value === "left" ? "order-2" : ""
+          variant?.value === "left" ? "lg:order-2" : "lg:order-1"
         )}
       >
         {title && (
           <h2
             id={generateAnchorLink(title)}
-            className="text-green-800 font-black text-[40px] leading-tight font-neutraface"
+            className="text-green-800 font-black text-[40px] leading-tight font-neutraface hidden lg:block"
           >
             {title}
           </h2>
         )}
-        <div className="mt-4 w-full">
+        <div className="lg:mt-4 w-full">
           {content_field.map((item, i) => {
             if (item.type === "text") {
               return (
@@ -91,16 +114,6 @@ export default function Content({
           })}
         </div>
       </div>
-      {asset && (
-        <img
-          src={asset.permalink}
-          alt="content"
-          className={cx(
-            " rounded-2xl",
-            variant?.value === "left" ? "order-1" : ""
-          )}
-        />
-      )}
     </div>
   );
 }

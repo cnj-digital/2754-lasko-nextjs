@@ -207,6 +207,7 @@ export const cortinaQuery = gql`
             ... on Set_BuilderItems_Program_Item {
               description
               title
+              title_mobile
             }
           }
           }

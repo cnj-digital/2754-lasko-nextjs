@@ -210,6 +210,7 @@ export const builderQuery = gql`
             ... on Set_BuilderItems_Program_Item {
               description
               title
+              title_mobile
             }
           }
           }
