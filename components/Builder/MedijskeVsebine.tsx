@@ -84,7 +84,7 @@ export default function MedijskeVsebine({
 
       {/* Categories Filter */}
       {medijskeVsebineKategorije.length > 0 && (
-        <div className="-mx-6 px-6 lg:mx-0 lg:px-0 flex md:flex-wrap gap-4 mb-10 overflow-x-auto py-4 no-scrollbar md:scrollbar-thin md:scrollbar-thumb-gray-400 md:scrollbar-track-gray-200 [&>*]:flex-shrink-0">
+        <div className="-mx-6 px-6 lg:mx-0 lg:px-0 flex md:flex-wrap gap-4 mb-6 overflow-x-auto py-4 no-scrollbar md:scrollbar-thin md:scrollbar-thumb-gray-400 md:scrollbar-track-gray-200 [&>*]:flex-shrink-0">
           {sortedCategories.map((category) => (
             <button
               key={category.id}
