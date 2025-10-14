@@ -77,14 +77,14 @@ export default function MedijskeVsebine({
   return (
     <section id="medijskeVsebine" className="max-w-8xl w-full mx-auto my-20">
       {title && (
-        <h2 className="text-green-800 font-black text-[32px] md:text-[48px] leading-tight font-neutraface mb-10">
+        <h2 className="text-green-800 font-black text-[32px] md:text-[48px] leading-tight font-neutraface mb-6">
           {title}
         </h2>
       )}
 
       {/* Categories Filter */}
       {medijskeVsebineKategorije.length > 0 && (
-        <div className="-mx-6 px-6 lg:mx-0 lg:px-0 flex md:flex-wrap gap-4 mb-10 overflow-x-auto pb-2 no-scrollbar md:scrollbar-thin md:scrollbar-thumb-gray-400 md:scrollbar-track-gray-200">
+        <div className="-mx-6 px-6 lg:mx-0 lg:px-0 flex md:flex-wrap gap-4 mb-10 overflow-x-auto py-4 no-scrollbar md:scrollbar-thin md:scrollbar-thumb-gray-400 md:scrollbar-track-gray-200 [&>*]:flex-shrink-0">
           {sortedCategories.map((category) => (
             <button
               key={category.id}
