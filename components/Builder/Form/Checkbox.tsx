@@ -17,7 +17,7 @@ export default function Checkbox({ label, required, title, checked, onChange, cl
   const shouldShowError = showError && required && !checked;
   
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col relative">
       <div className={`flex items-center gap-2 bg-black/30 lg:bg-transparent rounded-xl p-4 lg:p-0 ${className}`}>
         <input
           name={generateAnchorLink(title)}
@@ -36,7 +36,7 @@ export default function Checkbox({ label, required, title, checked, onChange, cl
         </label>
       </div>
       {shouldShowError && errorMessage && (
-        <span className="mt-1 leading-snug text-sm font-medium text-[#FF6161]">
+        <span className="absolute -bottom-[1.1rem] left-[1.6rem] leading-snug text-sm font-medium text-[#FF6161]">
           {errorMessage}
         </span>
       )}

@@ -14,12 +14,17 @@ type CortinaFormProps = {
   // Add additional fields as backend exposes them (e.g., items, variant, asset)
 };
 
-const FORM_CORTINA_API: string =
-  `${process.env.NEXT_PUBLIC_FORM_CORTINA_API ?? "https://2754-lasko-statamic.test/api"}/form-cortina`;
+const FORM_CORTINA_API: string = `${
+  process.env.NEXT_PUBLIC_FORM_CORTINA_API ??
+  "https://2754-lasko-statamic.test/api"
+}/form-cortina`;
 
 // Debug: Log the environment variable value
-console.log('NEXT_PUBLIC_FORM_CORTINA_API:', process.env.NEXT_PUBLIC_FORM_CORTINA_API);
-console.log('FORM_CORTINA_API:', FORM_CORTINA_API);
+console.log(
+  "NEXT_PUBLIC_FORM_CORTINA_API:",
+  process.env.NEXT_PUBLIC_FORM_CORTINA_API
+);
+console.log("FORM_CORTINA_API:", FORM_CORTINA_API);
 
 const content = {
   form: {
@@ -37,11 +42,11 @@ const content = {
       "Strinjam se z obdelavo podatkov za namene pošiljanja e-novic.",
     ctaLabel: "Oddaj prijavo",
     ctaLabelLoading: "Pošiljanje...",
-    errorMessageName: "Prosimo, vnesite ime",
-    errorMessageLastName: "Prosimo, vnesite priimek",
-    errorMessageEmail: "Prosimo, vnesite veljaven e-poštni naslov",
-    errorMessagePhone: "Prosimo, vnesite telefonsko številko",
-    errorMessageCheckbox1: "Prosimo, strinjajte se s pravili dogodka",
+    errorMessageName: "Vnesite ime",
+    errorMessageLastName: "Vnesite priimek",
+    errorMessageEmail: "Vnesite e-poštni naslov",
+    errorMessagePhone: "Vnesite telefonsko številko",
+    errorMessageCheckbox1: "Strinjajte se s pravili dogodka",
     errorMessageCheckbox2:
       "Prosimo, strinjajte se z obdelavo podatkov za namene pošiljanja e-novic.",
     thankyouTitle: "Prijava je oddana in zaključena",
@@ -195,17 +200,19 @@ export default function CortinaForm({ title }: CortinaFormProps) {
   const [checkbox1, setCheckbox1] = useState<boolean>(false);
   const [checkbox2, setCheckbox2] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
-  const [formState, setFormState] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [formState, setFormState] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const contentRef = useRef<HTMLDivElement>(null);
-  const [maxStepHeight, setMaxStepHeight] = useState<number>(0);
+  //const [maxStepHeight, setMaxStepHeight] = useState<number>(0);
   const [unavailableHours, setUnavailableHours] = useState<string[]>([]);
 
   useEffect(() => {
     const measure = () => {
       if (!contentRef.current) return;
-      const currentHeight = contentRef.current.scrollHeight;
-      setMaxStepHeight((prev) => (currentHeight > prev ? currentHeight : prev));
+      //const currentHeight = contentRef.current.scrollHeight;
+      //setMaxStepHeight((prev) => (currentHeight > prev ? currentHeight : prev));
     };
     measure();
     window.addEventListener("resize", measure);
@@ -220,18 +227,28 @@ export default function CortinaForm({ title }: CortinaFormProps) {
       try {
         // Convert date from "10.1.2026" to "2026-01-10" format
         const [day, month, year] = selectedDay.split(".");
-        const formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+        const formattedDate = `${year}-${month.padStart(2, "0")}-${day.padStart(
+          2,
+          "0"
+        )}`;
 
-        console.log('Checking availability for date:', selectedDay, '→', formattedDate);
+        console.log(
+          "Checking availability for date:",
+          selectedDay,
+          "→",
+          formattedDate
+        );
 
-        const backendBaseUrl = process.env.NEXT_PUBLIC_FORM_CORTINA_API || 'https://2754-lasko-statamic.test/api';
+        const backendBaseUrl =
+          process.env.NEXT_PUBLIC_FORM_CORTINA_API ||
+          "https://2754-lasko-statamic.test/api";
         const url = `${backendBaseUrl}/form-cortina/available-hours`;
-        console.log('Fetching availability from:', url);
-        
+        console.log("Fetching availability from:", url);
+
         const response = await fetch(url, {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             date: formattedDate, // e.g., "2026-01-10"
@@ -240,23 +257,29 @@ export default function CortinaForm({ title }: CortinaFormProps) {
 
         if (response.ok) {
           const data = await response.json();
-          console.log('Availability response:', data);
-          console.log('Fully booked hours:', data.fully_booked_hours);
-          
+          console.log("Availability response:", data);
+          console.log("Fully booked hours:", data.fully_booked_hours);
+
           // Normalize hours: backend returns "09:00", frontend uses "9:00"
           // Convert "09:00" to "9:00", "10:00" stays "10:00"
-          const normalizedHours = (data.fully_booked_hours || []).map((h: string) => {
-            const hourNum = parseInt(h.split(':')[0]);
-            return `${hourNum}:00`;
-          });
-          
-          console.log('Normalized unavailable hours:', normalizedHours);
+          const normalizedHours = (data.fully_booked_hours || []).map(
+            (h: string) => {
+              const hourNum = parseInt(h.split(":")[0]);
+              return `${hourNum}:00`;
+            }
+          );
+
+          console.log("Normalized unavailable hours:", normalizedHours);
           setUnavailableHours(normalizedHours);
         } else {
-          console.error('Availability check failed:', response.status, await response.text());
+          console.error(
+            "Availability check failed:",
+            response.status,
+            await response.text()
+          );
         }
       } catch (error) {
-        console.error('Error fetching availability:', error);
+        console.error("Error fetching availability:", error);
         setUnavailableHours([]);
       }
     };
@@ -264,7 +287,10 @@ export default function CortinaForm({ title }: CortinaFormProps) {
     fetchUnavailableHours();
   }, [selectedDay, step]);
 
-  function toAppointmentDate(day: string | null, hour: string | null): string | null { 
+  function toAppointmentDate(
+    day: string | null,
+    hour: string | null
+  ): string | null {
     if (!day || !hour) return null;
     // day format: d.m.YYYY or dd.m.YYYY, hour format: H:MM or HH:MM
     const parts = day.split(".").filter(Boolean);
@@ -325,16 +351,19 @@ export default function CortinaForm({ title }: CortinaFormProps) {
       }
       setFormState("success");
       setSuccess(true);
-      
+
       // Scroll to cortina-form section (100px from top)
-      const formSection = document.getElementById('cortina-form');
+      const formSection = document.getElementById("cortina-form");
       if (formSection) {
-        const sectionTop = formSection.getBoundingClientRect().top + window.pageYOffset;
-        window.scrollTo({ top: sectionTop - 100, behavior: 'smooth' });
+        const sectionTop =
+          formSection.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({ top: sectionTop - 100, behavior: "smooth" });
       }
     } catch {
       setFormState("error");
-      setErrorMessage("Ta termin je že zaseden. Maksimalno 3 prijave na termin.");
+      setErrorMessage(
+        "Ta termin je že zaseden. Maksimalno 3 prijave na termin."
+      );
     }
   };
 
@@ -356,8 +385,8 @@ export default function CortinaForm({ title }: CortinaFormProps) {
         {!success ? (
           <div
             ref={contentRef}
-            className="w-full p-2 md:bg-[rgba(0,0,0,0.33)] rounded-xl md:px-8 md:py-6"
-            style={{ minHeight: maxStepHeight ? `${maxStepHeight}px` : undefined }}
+            className="w-full md:bg-[rgba(0,0,0,0.33)] rounded-xl md:px-8 md:py-6 h-[820px] lg:h-[870px]"
+            //style={{ minHeight: maxStepHeight ? `${maxStepHeight}px` : undefined }}
           >
             <div className="relative w-full p-2 bg-[rgba(0,0,0,0.33)] md:bg-transparent rounded-xl flex items-center justify-center gap-2 h-10 mb-5">
               {(step === 2 || step === 3) && (
@@ -449,61 +478,63 @@ export default function CortinaForm({ title }: CortinaFormProps) {
                   {(() => {
                     // Filter hours based on selected date
                     let filteredHours = content.form.hours;
-                    
+
                     if (selectedDay === "10.1.2026") {
                       // Start from 9:00 for 10.1.2026
-                      filteredHours = content.form.hours.filter(h => {
+                      filteredHours = content.form.hours.filter((h) => {
                         const hourNum = parseInt(h.hour.split(":")[0]);
                         return hourNum >= 9;
                       });
                     } else if (selectedDay === "16.1.2026") {
                       // End at 15:00 for 16.1.2026
-                      filteredHours = content.form.hours.filter(h => {
+                      filteredHours = content.form.hours.filter((h) => {
                         const hourNum = parseInt(h.hour.split(":")[0]);
                         return hourNum <= 14;
                       });
                     }
-                    
+
                     return filteredHours
                       .slice(hourPage * 6, hourPage * 6 + 6)
                       .map((hour, i) => {
-                      const isSelected = selectedHour === hour.hour;
-                      const isUnavailable = unavailableHours.includes(hour.hour);
-                      return (
-                        <ButtonSolid
-                          size="small"
-                          title={isUnavailable ? `${hour.title}` : hour.title}
-                          key={i}
-                          type="button"
-                          className={`w-full justify-center ${
-                            isSelected
-                              ? "!shadow-none !bg-[rgba(68,153,53,0.33)] md:!bg-[rgba(68,153,53,0.25)] !text-[rgba(0,0,0,0.33)] md:!text-[rgba(0,0,0,0.25)] pointer-events-none"
-                              : isUnavailable
-                              ? "!shadow-none !bg-[rgba(68,153,53,0.33)] md:!bg-[rgba(68,153,53,0.25)] !text-[rgba(0,0,0,0.33)] md:!text-[rgba(0,0,0,0.25)] pointer-events-none"
-                              : ""
-                          }`}
-                          disableGradient={isSelected || isUnavailable}
-                          onClick={() => {
-                            if (!isUnavailable) {
-                              setSelectedHour(hour.hour);
-                              setStep(step + 1);
-                            }
-                          }}
-                        />
-                      );
-                    });
+                        const isSelected = selectedHour === hour.hour;
+                        const isUnavailable = unavailableHours.includes(
+                          hour.hour
+                        );
+                        return (
+                          <ButtonSolid
+                            size="small"
+                            title={isUnavailable ? `${hour.title}` : hour.title}
+                            key={i}
+                            type="button"
+                            className={`w-full justify-center ${
+                              isSelected
+                                ? "!shadow-none !bg-[rgba(68,153,53,0.33)] md:!bg-[rgba(68,153,53,0.25)] !text-[rgba(0,0,0,0.33)] md:!text-[rgba(0,0,0,0.25)] pointer-events-none"
+                                : isUnavailable
+                                ? "!shadow-none !bg-[rgba(68,153,53,0.33)] md:!bg-[rgba(68,153,53,0.25)] !text-[rgba(0,0,0,0.33)] md:!text-[rgba(0,0,0,0.25)] pointer-events-none"
+                                : ""
+                            }`}
+                            disableGradient={isSelected || isUnavailable}
+                            onClick={() => {
+                              if (!isUnavailable) {
+                                setSelectedHour(hour.hour);
+                                setStep(step + 1);
+                              }
+                            }}
+                          />
+                        );
+                      });
                   })()}
                   <div
-                    className={`w-full flex justify-center transition-opacity ${
+                    className={`w-full flex justify-center transition-opacity mt-4 ${
                       (() => {
                         let filteredHours = content.form.hours;
                         if (selectedDay === "10.1.2026") {
-                          filteredHours = content.form.hours.filter(h => {
+                          filteredHours = content.form.hours.filter((h) => {
                             const hourNum = parseInt(h.hour.split(":")[0]);
                             return hourNum >= 9;
                           });
                         } else if (selectedDay === "16.1.2026") {
-                          filteredHours = content.form.hours.filter(h => {
+                          filteredHours = content.form.hours.filter((h) => {
                             const hourNum = parseInt(h.hour.split(":")[0]);
                             return hourNum <= 15;
                           });
@@ -545,7 +576,7 @@ export default function CortinaForm({ title }: CortinaFormProps) {
                 />
                 <div className="w-full flex flex-col">
                   <Input
-                    className="h-14"
+                    className="h-14 mb-2 lg:mb-3"
                     label={content.form.firstName}
                     required={true}
                     variant_input={{ value: "text" }}
@@ -555,7 +586,7 @@ export default function CortinaForm({ title }: CortinaFormProps) {
                     showError={showErrors}
                   />
                   <Input
-                    className="h-14"
+                    className="h-14 mb-2 lg:mb-3"
                     label={content.form.lastName}
                     required={true}
                     variant_input={{ value: "text" }}
@@ -565,7 +596,7 @@ export default function CortinaForm({ title }: CortinaFormProps) {
                     showError={showErrors}
                   />
                   <Input
-                    className="h-14"
+                    className="h-14 mb-2 lg:mb-3"
                     label={content.form.email}
                     required={true}
                     variant_input={{ value: "email" }}
@@ -575,7 +606,7 @@ export default function CortinaForm({ title }: CortinaFormProps) {
                     showError={showErrors}
                   />
                   <Input
-                    className="h-14"
+                    className="h-14 mb-6"
                     label={content.form.phone}
                     required={true}
                     variant_input={{ value: "tel" }}
@@ -618,12 +649,18 @@ export default function CortinaForm({ title }: CortinaFormProps) {
                 )}
                 <ButtonSolid
                   size="small"
-                  title={formState === "loading" ? content.form.ctaLabelLoading : content.form.ctaLabel}
+                  title={
+                    formState === "loading"
+                      ? content.form.ctaLabelLoading
+                      : content.form.ctaLabel
+                  }
                   type="button"
                   disableGradient={true}
                   className={cx(
                     "w-full justify-center mt-3 !bg-[#F4F4F4] !text-black",
-                    formState === "loading" ? "opacity-50 pointer-events-none" : ""
+                    formState === "loading"
+                      ? "opacity-50 pointer-events-none"
+                      : ""
                   )}
                   onClick={handleFormSubmit}
                 />
@@ -631,21 +668,27 @@ export default function CortinaForm({ title }: CortinaFormProps) {
             )}
           </div>
         ) : (
-          <div className="w-full p-2 md:bg-[rgba(0,0,0,0.33)] rounded-xl md:px-8 md:py-6">
-            <div className="text-white text-center font-neutraface text-[22px] font-normal leading-[24px] uppercase mb-5">
-              {content.form.thankyouTitle}
+          <div className="w-full p-2 md:bg-[rgba(0,0,0,0.33)] rounded-xl md:px-8 md:py-6 flex items-center justify-center h-[800px] lg:h-[870px]">
+            <div>
+              <div className="text-white text-center font-neutraface text-[22px] font-normal leading-[24px] uppercase mb-5">
+                {content.form.thankyouTitle}
+              </div>
+              <div className="text-white text-center font-raleway text-lg font-semibold leading-[24px]">
+                {content.form.thankyouDescription}
+              </div>
+              <SelectedInfoBox
+                label={content.form.selectedTermin}
+                selectedDay={selectedDay}
+                selectedHour={selectedHour}
+                className="my-16"
+              />
+              <div className="text-center text-white/60 font-raleway text-[18px] font-semibold leading-[24px] mb-5">
+                {content.form.thankyouDescriptionTwo}
+              </div>
+              <div className="text-center text-white/60 font-raleway text-[18px] font-semibold leading-[24px]">
+                {content.form.thankyouDescriptionThree}
+              </div>
             </div>
-            <div className="text-white text-center font-raleway text-lg font-semibold leading-[24px] mb-5">
-              {content.form.thankyouDescription}
-            </div>
-            <SelectedInfoBox
-              label={content.form.selectedTermin}
-              selectedDay={selectedDay}
-              selectedHour={selectedHour}
-              className="mb-5"
-            />
-             <div className="text-center text-white/60 font-raleway text-[18px] font-semibold leading-[24px] mb-5">{content.form.thankyouDescriptionTwo}</div>
-             <div className="text-center text-white/60 font-raleway text-[18px] font-semibold leading-[24px]">{content.form.thankyouDescriptionThree}</div>
           </div>
         )}
       </div>
