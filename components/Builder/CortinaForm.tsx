@@ -385,7 +385,7 @@ export default function CortinaForm({ title }: CortinaFormProps) {
         {!success ? (
           <div
             ref={contentRef}
-            className="w-full md:bg-[rgba(0,0,0,0.33)] rounded-xl md:px-8 md:py-6 h-[820px] lg:h-[870px]"
+            className="w-full md:bg-[rgba(0,0,0,0.33)] rounded-xl md:px-8 md:py-6 h-[820px] lg:h-[810px]"
             //style={{ minHeight: maxStepHeight ? `${maxStepHeight}px` : undefined }}
           >
             <div className="relative w-full p-2 bg-[rgba(0,0,0,0.33)] md:bg-transparent rounded-xl flex items-center justify-center gap-2 h-10 mb-5">
@@ -525,7 +525,7 @@ export default function CortinaForm({ title }: CortinaFormProps) {
                       });
                   })()}
                   <div
-                    className={`w-full flex justify-center transition-opacity mt-4 ${
+                    className={`w-full flex justify-center transition-opacity mt-2 ${
                       (() => {
                         let filteredHours = content.form.hours;
                         if (selectedDay === "10.1.2026") {
@@ -575,26 +575,32 @@ export default function CortinaForm({ title }: CortinaFormProps) {
                   selectedHour={selectedHour}
                 />
                 <div className="w-full flex flex-col">
-                  <Input
-                    className="h-14 mb-2 lg:mb-3"
-                    label={content.form.firstName}
-                    required={true}
-                    variant_input={{ value: "text" }}
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    errorMessage={content.form.errorMessageName}
-                    showError={showErrors}
-                  />
-                  <Input
-                    className="h-14 mb-2 lg:mb-3"
-                    label={content.form.lastName}
-                    required={true}
-                    variant_input={{ value: "text" }}
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    errorMessage={content.form.errorMessageLastName}
-                    showError={showErrors}
-                  />
+                  <div className="w-full flex flex-col lg:flex-row lg:gap-4">
+                    <div className="w-full lg:w-[calc(50%-8px)]">
+                      <Input
+                        className="h-14 mb-2 lg:mb-3"
+                        label={content.form.firstName}
+                        required={true}
+                        variant_input={{ value: "text" }}
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        errorMessage={content.form.errorMessageName}
+                        showError={showErrors}
+                      />
+                    </div>
+                    <div className="w-full lg:w-[calc(50%-8px)]">
+                      <Input
+                        className="h-14 mb-2 lg:mb-3"
+                        label={content.form.lastName}
+                        required={true}
+                        variant_input={{ value: "text" }}
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        errorMessage={content.form.errorMessageLastName}
+                        showError={showErrors}
+                      />
+                    </div>
+                  </div>
                   <Input
                     className="h-14 mb-2 lg:mb-3"
                     label={content.form.email}

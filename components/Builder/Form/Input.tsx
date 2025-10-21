@@ -11,6 +11,7 @@ type InputProps = {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   showError?: boolean;
   className?: string;
+  classNameContainer?: string;
 };
 
 export default function Input({
@@ -22,13 +23,14 @@ export default function Input({
   onChange,
   showError = false,
   className,
+  classNameContainer,
 }: InputProps) {
   const isInvalid = required && (!value || value.trim() === "");
   const isEmailInvalid = variant_input.value === "email" && value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
   const shouldShowError = showError && (isInvalid || isEmailInvalid);
 
   return (
-    <div className="flex flex-col">
+    <div className={`flex flex-col ${classNameContainer}`}>
       <label
         htmlFor={generateAnchorLink(label)}
         className="text-sm font-medium text-white px-4 "
