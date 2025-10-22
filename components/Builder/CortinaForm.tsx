@@ -94,94 +94,117 @@ const content = {
       {
         title: "1:00 - 2:00",
         hour: "1:00",
+        availablePlaces: 3,
       },
       {
         title: "2:00 - 3:00",
         hour: "2:00",
+        availablePlaces: 2,
       },
       {
         title: "3:00 - 4:00",
         hour: "3:00",
+        availablePlaces: 1,
       },
       {
         title: "4:00 - 5:00",
         hour: "4:00",
+        availablePlaces: 3,
       },
       {
         title: "5:00 - 6:00",
         hour: "5:00",
+        availablePlaces: 2,
       },
       {
         title: "6:00 - 7:00",
         hour: "6:00",
+        availablePlaces: 1,
       },
       {
         title: "7:00 - 8:00",
         hour: "7:00",
+        availablePlaces: 3,
       },
       {
         title: "8:00",
         hour: "8:00",
+        availablePlaces: 2,
       },
       {
         title: "9:00 - 10:00",
         hour: "9:00",
+        availablePlaces: 1,
       },
       {
         title: "10:00 - 11:00",
         hour: "10:00",
+        availablePlaces: 3,
       },
       {
         title: "11:00 - 12:00",
         hour: "11:00",
+        availablePlaces: 2,
       },
       {
         title: "12:00 - 13:00",
         hour: "12:00",
+        availablePlaces: 1,
       },
       {
         title: "13:00 - 14:00",
         hour: "13:00",
+        availablePlaces: 3,
       },
       {
         title: "14:00 - 15:00",
         hour: "14:00",
+        availablePlaces: 2,
       },
       {
         title: "15:00 - 16:00",
         hour: "15:00",
+        availablePlaces: 1,
       },
       {
         title: "16:00 - 17:00",
         hour: "16:00",
+        availablePlaces: 3,
       },
       {
         title: "17:00 - 18:00",
         hour: "17:00",
+        availablePlaces: 2,
       },
       {
         title: "18:00 - 19:00",
         hour: "18:00",
+        availablePlaces: 1,
       },
       {
         title: "19:00 - 20:00",
         hour: "19:00",
+        availablePlaces: 3,
       },
       {
         title: "20:00 - 21:00",
         hour: "20:00",
+        availablePlaces: 2,
       },
       {
         title: "21:00 - 22:00",
         hour: "21:00",
+        availablePlaces: 1,
       },
       {
         title: "22:00 - 23:00",
         hour: "22:00",
+        availablePlaces: 3,
       },
       {
         title: "23:00 - 00:00",
         hour: "23:00",
+        availablePlaces: 2,
       },
     ],
   },
@@ -503,7 +526,20 @@ export default function CortinaForm({ title }: CortinaFormProps) {
                         return (
                           <ButtonSolid
                             size="small"
-                            title={isUnavailable ? `${hour.title}` : hour.title}
+                            title={(() => {
+                              const getPlacesText = (count: number) => {
+                                if (count === 1) return "1 mesto";
+                                if (count === 2) return "2 mesti";
+                                if (count === 3) return "3 mesta";
+                                return `${count} mest`;
+                              };
+                              
+                              if (isUnavailable) {
+                                return `${hour.title} (Zasedeno)`;
+                              } else {
+                                return `${hour.title} (${getPlacesText(hour.availablePlaces)})`;
+                              }
+                            })()}
                             key={i}
                             type="button"
                             className={`w-full justify-center ${
