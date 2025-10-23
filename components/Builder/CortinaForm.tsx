@@ -19,13 +19,6 @@ const FORM_CORTINA_API: string = `${
   "https://2754-lasko-statamic.test/api"
 }/form-cortina`;
 
-// Debug: Log the environment variable value
-console.log(
-  "NEXT_PUBLIC_FORM_CORTINA_API:",
-  process.env.NEXT_PUBLIC_FORM_CORTINA_API
-);
-console.log("FORM_CORTINA_API:", FORM_CORTINA_API);
-
 const content = {
   form: {
     title: "Izberi dan",
@@ -94,117 +87,94 @@ const content = {
       {
         title: "1:00 - 2:00",
         hour: "1:00",
-        availablePlaces: 3,
       },
       {
         title: "2:00 - 3:00",
         hour: "2:00",
-        availablePlaces: 2,
       },
       {
         title: "3:00 - 4:00",
         hour: "3:00",
-        availablePlaces: 1,
       },
       {
         title: "4:00 - 5:00",
         hour: "4:00",
-        availablePlaces: 3,
       },
       {
         title: "5:00 - 6:00",
         hour: "5:00",
-        availablePlaces: 2,
       },
       {
         title: "6:00 - 7:00",
         hour: "6:00",
-        availablePlaces: 1,
       },
       {
         title: "7:00 - 8:00",
         hour: "7:00",
-        availablePlaces: 3,
       },
       {
-        title: "8:00",
+        title: "8:00 - 9:00",
         hour: "8:00",
-        availablePlaces: 2,
       },
       {
         title: "9:00 - 10:00",
         hour: "9:00",
-        availablePlaces: 1,
       },
       {
         title: "10:00 - 11:00",
         hour: "10:00",
-        availablePlaces: 3,
       },
       {
         title: "11:00 - 12:00",
         hour: "11:00",
-        availablePlaces: 2,
       },
       {
         title: "12:00 - 13:00",
         hour: "12:00",
-        availablePlaces: 1,
       },
       {
         title: "13:00 - 14:00",
         hour: "13:00",
-        availablePlaces: 3,
       },
       {
         title: "14:00 - 15:00",
         hour: "14:00",
-        availablePlaces: 2,
       },
       {
         title: "15:00 - 16:00",
         hour: "15:00",
-        availablePlaces: 1,
       },
       {
         title: "16:00 - 17:00",
         hour: "16:00",
-        availablePlaces: 3,
       },
       {
         title: "17:00 - 18:00",
         hour: "17:00",
-        availablePlaces: 2,
       },
       {
         title: "18:00 - 19:00",
         hour: "18:00",
-        availablePlaces: 1,
       },
       {
         title: "19:00 - 20:00",
         hour: "19:00",
-        availablePlaces: 3,
       },
       {
         title: "20:00 - 21:00",
         hour: "20:00",
-        availablePlaces: 2,
       },
       {
         title: "21:00 - 22:00",
         hour: "21:00",
-        availablePlaces: 1,
       },
       {
         title: "22:00 - 23:00",
         hour: "22:00",
-        availablePlaces: 3,
       },
       {
         title: "23:00 - 00:00",
         hour: "23:00",
-        availablePlaces: 2,
       },
     ],
   },
@@ -228,45 +198,37 @@ export default function CortinaForm({ title }: CortinaFormProps) {
   >("idle");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const contentRef = useRef<HTMLDivElement>(null);
-  //const [maxStepHeight, setMaxStepHeight] = useState<number>(0);
   const [unavailableHours, setUnavailableHours] = useState<string[]>([]);
+  const [availablePlacesByHour, setAvailablePlacesByHour] = useState<Record<string, number>>({});
+
+  // Helper function to convert date from "15.1.2026" to "2026-01-15"
+  const formatDateForBackend = (dateStr: string): string => {
+    const [day, month, year] = dateStr.split(".");
+    return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+  };
 
   useEffect(() => {
     const measure = () => {
       if (!contentRef.current) return;
-      //const currentHeight = contentRef.current.scrollHeight;
-      //setMaxStepHeight((prev) => (currentHeight > prev ? currentHeight : prev));
     };
     measure();
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
   }, [step, selectedDay, selectedHour, hourPage, showErrors, formState]);
 
-  // Fetch unavailable hours when a day is selected and moving to step 2
+  // Fetch unavailable hours when a day is selected
   useEffect(() => {
     const fetchUnavailableHours = async () => {
-      if (!selectedDay || step !== 2) return;
+      if (!selectedDay) return;
 
       try {
         // Convert date from "10.1.2026" to "2026-01-10" format
-        const [day, month, year] = selectedDay.split(".");
-        const formattedDate = `${year}-${month.padStart(2, "0")}-${day.padStart(
-          2,
-          "0"
-        )}`;
-
-        console.log(
-          "Checking availability for date:",
-          selectedDay,
-          "→",
-          formattedDate
-        );
+        const formattedDate = formatDateForBackend(selectedDay);
 
         const backendBaseUrl =
           process.env.NEXT_PUBLIC_FORM_CORTINA_API ||
           "https://2754-lasko-statamic.test/api";
         const url = `${backendBaseUrl}/form-cortina/available-hours`;
-        console.log("Fetching availability from:", url);
 
         const response = await fetch(url, {
           method: "POST",
@@ -280,20 +242,32 @@ export default function CortinaForm({ title }: CortinaFormProps) {
 
         if (response.ok) {
           const data = await response.json();
-          console.log("Availability response:", data);
-          console.log("Fully booked hours:", data.fully_booked_hours);
 
-          // Normalize hours: backend returns "09:00", frontend uses "9:00"
-          // Convert "09:00" to "9:00", "10:00" stays "10:00"
+          // Normalize hours: backend returns "2026-01-10 10:00", frontend uses "10:00"
           const normalizedHours = (data.fully_booked_hours || []).map(
             (h: string) => {
-              const hourNum = parseInt(h.split(":")[0]);
-              return `${hourNum}:00`;
+              // Extract time part from "2026-01-10 10:00" -> "10:00"
+              const timePart = h.split(" ")[1];
+              return timePart || h;
             }
           );
 
-          console.log("Normalized unavailable hours:", normalizedHours);
           setUnavailableHours(normalizedHours);
+
+          // Process entries_by_hour data from backend
+          if (data.entries_by_hour) {
+            const placesMap: Record<string, number> = {};
+            const MAX_CAPACITY = 3;
+            Object.entries(data.entries_by_hour).forEach(([datetime, count]) => {
+              const availablePlaces = Math.max(0, MAX_CAPACITY - (count as number));
+              placesMap[datetime] = availablePlaces;
+            });
+            // Also set fully booked hours to 0
+            (data.fully_booked_hours || []).forEach((h: string) => {
+              placesMap[h] = 0;
+            });
+            setAvailablePlacesByHour(placesMap);
+          }
         } else {
           console.error(
             "Availability check failed:",
@@ -303,12 +277,11 @@ export default function CortinaForm({ title }: CortinaFormProps) {
         }
       } catch (error) {
         console.error("Error fetching availability:", error);
-        setUnavailableHours([]);
       }
     };
 
     fetchUnavailableHours();
-  }, [selectedDay, step]);
+  }, [selectedDay]);
 
   function toAppointmentDate(
     day: string | null,
@@ -523,6 +496,14 @@ export default function CortinaForm({ title }: CortinaFormProps) {
                         const isUnavailable = unavailableHours.includes(
                           hour.hour
                         );
+                        
+                        // Get available places from backend data using correct date formatting
+                        const formattedDate = selectedDay ? formatDateForBackend(selectedDay) : "";
+                        // Format hour with leading zero: "4:00" -> "04:00"
+                        const hourFormatted = hour.hour.split(":")[0].padStart(2, "0") + ":" + hour.hour.split(":")[1];
+                        const datetimeKey = `${formattedDate} ${hourFormatted}`;
+                        const availablePlaces = availablePlacesByHour[datetimeKey] ?? 3;
+                        
                         return (
                           <ButtonSolid
                             size="small"
@@ -534,10 +515,10 @@ export default function CortinaForm({ title }: CortinaFormProps) {
                                 return `${count} mest`;
                               };
                               
-                              if (isUnavailable) {
+                              if (isUnavailable || availablePlaces === 0) {
                                 return `${hour.title} (Zasedeno)`;
                               } else {
-                                return `${hour.title} (${getPlacesText(hour.availablePlaces)})`;
+                                return `${hour.title} (${getPlacesText(availablePlaces)})`;
                               }
                             })()}
                             key={i}
@@ -545,13 +526,13 @@ export default function CortinaForm({ title }: CortinaFormProps) {
                             className={`w-full justify-center ${
                               isSelected
                                 ? "!shadow-none !bg-[rgba(68,153,53,0.33)] md:!bg-[rgba(68,153,53,0.25)] !text-[rgba(0,0,0,0.33)] md:!text-[rgba(0,0,0,0.25)] pointer-events-none"
-                                : isUnavailable
+                                : (isUnavailable || availablePlaces === 0)
                                 ? "!shadow-none !bg-[rgba(68,153,53,0.33)] md:!bg-[rgba(68,153,53,0.25)] !text-[rgba(0,0,0,0.33)] md:!text-[rgba(0,0,0,0.25)] pointer-events-none"
                                 : ""
                             }`}
-                            disableGradient={isSelected || isUnavailable}
+                            disableGradient={isSelected || isUnavailable || availablePlaces === 0}
                             onClick={() => {
-                              if (!isUnavailable) {
+                              if (!isUnavailable && availablePlaces > 0) {
                                 setSelectedHour(hour.hour);
                                 setStep(step + 1);
                               }
