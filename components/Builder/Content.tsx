@@ -119,7 +119,7 @@ export default function Content({
               );
             }
           })}
-          {cta && (
+          {cta && cta.title && (
             <div className="my-8 w-fit">
               <ButtonSolid
                 title={cta.title}
