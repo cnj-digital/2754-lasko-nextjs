@@ -2,6 +2,7 @@ import { generateAnchorLink, isExternalLink } from "@/helpers/general";
 import cx from "classnames";
 import Link from "next/link";
 import ArrowDiagonalIcon from "../Icons/ArrowDiagonal";
+import ButtonSolid from "../Buttons/Solid";
 
 export type ContentProps = {
   title: string | null;
@@ -10,6 +11,11 @@ export type ContentProps = {
   };
   asset: { permalink: string } | null;
   content_field: (Cta | Text)[];
+  cta?: {
+    link: string;
+    title: string;
+    asset?: { permalink: string };
+  };
 };
 
 type Text = {
@@ -31,6 +37,7 @@ export default function Content({
   asset,
   variant,
   content_field,
+  cta,
 }: ContentProps) {
   console.log(content_field);
   return (
@@ -99,7 +106,7 @@ export default function Content({
                     <img
                       src={item.cta.asset.permalink}
                       alt="content"
-                      className="size-10 object-contain rounded-lg overflow-clip"
+                      className="size-10 object-contain rounded-lg overflow-clip" 
                     />
                   )}
                   <span className="text-xl font-semibold leading-[1.4] text-black">
@@ -112,6 +119,25 @@ export default function Content({
               );
             }
           })}
+          {cta && (
+            <div className="my-8 w-fit">
+              <ButtonSolid
+                title={cta.title}
+                url={cta.link}
+                icon={
+                  cta.asset ? (
+                    <img
+                      src={cta.asset.permalink}
+                      alt="content"
+                      className="size-6 object-contain rounded-lg overflow-clip"
+                    />
+                  ) : isExternalLink(cta.link) ? (
+                    <ArrowDiagonalIcon className="size-6" />
+                  ) : undefined
+                }
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

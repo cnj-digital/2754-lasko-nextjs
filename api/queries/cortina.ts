@@ -107,6 +107,13 @@ export const cortinaQuery = gql`
               ... on BardText { text type }
             }
             variant { value }
+            cta {
+            title
+            link
+            asset {
+              permalink
+            }
+          }
           }
           ... on Set_BuilderItems_Quote { type quote_content_field }
           ... on Set_BuilderItems_Carousel { assets { permalink } type }

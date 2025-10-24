@@ -69,6 +69,13 @@ export const builderQuery = gql`
           variant {
             value
           }
+            cta {
+            title
+            link
+            asset {
+              permalink
+            }
+          }
         }
         ... on Set_BuilderItems_Quote {
           type
