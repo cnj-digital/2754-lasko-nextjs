@@ -22,7 +22,7 @@ const FORM_CORTINA_API: string = `${
 const content = {
   form: {
     title: "Izberi dan",
-    description: "Tek bo potekal 8 dni: med 10. in 17.1.2026.",
+    description: "Tek bo potekal od sobote, 10. 1., do petka, 16. 1. 2026.",
     titleTwo: "Izberi uro",
     descriptionTwo: "Teklo se bo brez postanka, 24 ur na dan.",
     titleThree: "Posreduj podatke",
@@ -55,31 +55,31 @@ const content = {
     phone: "Telefon",
     days: [
       {
-        title: "Sobota 10.1.",
+        title: "Sobota, 10.1.",
         date: "10.1.2026",
       },
       {
-        title: "Nedelja 11.1.",
+        title: "Nedelja, 11.1.",
         date: "11.1.2026",
       },
       {
-        title: "Ponedeljek 12.1.",
+        title: "Ponedeljek, 12.1.",
         date: "12.1.2026",
       },
       {
-        title: "Torek 13.1.",
+        title: "Torek, 13.1.",
         date: "13.1.2026",
       },
       {
-        title: "Sreda 14.1.",
+        title: "Sreda, 14.1.",
         date: "14.1.2026",
       },
       {
-        title: "Četrtek 15.1.",
+        title: "Četrtek, 15.1.",
         date: "15.1.2026",
       },
       {
-        title: "Petek 16.1.",
+        title: "Petek, 16.1.",
         date: "16.1.2026",
       },
     ],
