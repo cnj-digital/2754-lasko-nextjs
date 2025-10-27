@@ -38,6 +38,13 @@ export const articleQuery = gql`
                 type
               }
             }
+            cta {
+              title
+              link
+              asset {
+                permalink
+              }
+            }
           }
           ... on Set_BuilderItems_Carousel {
             type
