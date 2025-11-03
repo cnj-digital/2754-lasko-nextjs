@@ -76,6 +76,14 @@ export const builderQuery = gql`
               permalink
             }
           }
+          cta_second {
+            asset {
+              permalink
+            }
+            title
+            link
+          }
+            id
         }
         ... on Set_BuilderItems_Quote {
           type

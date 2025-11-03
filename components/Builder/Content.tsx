@@ -16,6 +16,12 @@ export type ContentProps = {
     title: string;
     asset?: { permalink: string };
   };
+  cta_second?: {
+    link: string;
+    title: string;
+    asset?: { permalink: string };
+  };
+  id?: string;
 };
 
 type Text = {
@@ -38,14 +44,17 @@ export default function Content({
   variant,
   content_field,
   cta,
+  cta_second,
+  id,
 }: ContentProps) {
   console.log(content_field);
   return (
     <div
       className={cx(
         "flex flex-col py-10 gap-10 w-full overflow-hidden lg:grid",
-        asset ? "lg:grid-cols-2" : ""
+        asset ? "lg:grid-cols-2" : "",
       )}
+      id={id ? `${id}` : ""}
     >
       {/* Title - always first on mobile */}
       {title && (
@@ -119,8 +128,9 @@ export default function Content({
               );
             }
           })}
-          {cta && cta.title && (
-            <div className="my-8 w-fit">
+          <div className="md:flex gap-4">
+          {cta && cta.title && cta.link && (
+            <div className="my-8 w-fit"> 
               <ButtonSolid
                 title={cta.title}
                 url={cta.link}
@@ -129,7 +139,7 @@ export default function Content({
                     <img
                       src={cta.asset.permalink}
                       alt="content"
-                      className="size-6 object-contain rounded-lg overflow-clip"
+                      className="size-6 object-contain rounded-lg overflow-clip" 
                     />
                   ) : isExternalLink(cta.link) ? (
                     <ArrowDiagonalIcon className="size-6" />
@@ -138,6 +148,26 @@ export default function Content({
               />
             </div>
           )}
+          {cta_second && cta_second.title && cta_second.link && (
+            <div className="my-8 w-fit">
+              <ButtonSolid
+                title={cta_second.title}
+                url={cta_second.link}
+                icon={
+                  cta_second.asset ? (
+                    <img
+                      src={cta_second.asset.permalink}
+                      alt="content"
+                      className="size-6 object-contain rounded-lg overflow-clip"
+                    />
+                  ) : isExternalLink(cta_second.link) ? (
+                    <ArrowDiagonalIcon className="size-6" />
+                  ) : undefined
+                }
+              />
+            </div>
+          )}
+          </div>
         </div>
       </div>
     </div>

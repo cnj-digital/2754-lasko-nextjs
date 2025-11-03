@@ -114,6 +114,14 @@ export const cortinaQuery = gql`
               permalink
             }
           }
+            cta_second {
+            asset {
+              permalink
+            }
+            title
+            link
+          }
+          id
           }
           ... on Set_BuilderItems_Quote { type quote_content_field }
           ... on Set_BuilderItems_Carousel { assets { permalink } type }
