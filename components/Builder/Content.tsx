@@ -151,6 +151,7 @@ export default function Content({
           {cta_second && cta_second.title && cta_second.link && (
             <div className="my-8 w-fit">
               <ButtonSolid
+                variant="secondary"
                 title={cta_second.title}
                 url={cta_second.link}
                 icon={

@@ -24,6 +24,7 @@ html {
   scroll-behavior: smooth;
   scroll-snap-type: y proximity;
   font-smooth: antialiased;
+  scroll-padding-top: 50px;
 }
 
 .category-button-hover:hover {
@@ -100,4 +101,9 @@ h4 {
 .no-scrollbar {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+@media (width >= 64rem) {
+  html {
+    scroll-padding-top: 100px;
+  }
 }

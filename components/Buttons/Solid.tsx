@@ -12,6 +12,7 @@ type ButtonProps = {
   size?: "small" | "large";
   type?: "button" | "submit";
   disableGradient?: boolean;
+  variant?: "primary" | "secondary";
 };
 
 export default function ButtonSolid({
@@ -23,14 +24,16 @@ export default function ButtonSolid({
   className,
   type,
   disableGradient = false,
+  variant = "primary",
 }: ButtonProps) {
   const Tag = url ? Link : "button";
   return (
     <Tag
       className={cx(
-        "px-6 py-4 rounded-xl font-semibold text-white group transition-all duration-300 flex items-center gap-2 shadow-button",
+        "px-6 py-4 rounded-xl font-semibold group transition-all duration-300 flex items-center gap-2 shadow-button",
         className,
-        size === "small" ? "text-lg" : "text-2xl"
+        size === "small" ? "text-lg" : "text-2xl",
+        variant === "secondary" ? " text-green-800" : "text-white",
       )}
       href={url ?? ""}
       target={url && isExternalLink(url) ? "_blank" : ""}
@@ -40,7 +43,7 @@ export default function ButtonSolid({
         disableGradient
           ? undefined
           : {
-              background:
+              background: variant === "secondary" ? "transparent" :
                 " linear-gradient(90deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.20) 99.91%), #449935",
             }
       }
