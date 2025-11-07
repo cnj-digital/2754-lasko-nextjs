@@ -177,6 +177,39 @@ const content = {
         hour: "23:00",
       },
     ],
+    //User dates and hours
+    user_dates_and_hours: [
+      {
+        date: "10.1.2026",
+        hours: [
+          {
+            hour: "11:00",
+          },
+        ],
+      }
+    ],
+    //Partner dates and hours
+    partner_dates_and_hours: [
+      {
+        date: "10.1.2026",
+        hours: [
+          {
+            hour: "12:00",
+          },
+        ],
+      }
+    ],
+    //Radio dates and hours
+    radio_dates_and_hours: [
+      {
+        date: "10.1.2026",
+        hours: [
+          {
+            hour: "13:00",
+          },
+        ],
+      }
+    ],
   },
 };
 
@@ -197,7 +230,7 @@ export default function CortinaForm({ title }: CortinaFormProps) {
     "idle" | "loading" | "success" | "error"
   >("idle");
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const contentRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null); 
   const [unavailableHours, setUnavailableHours] = useState<string[]>([]);
   const [availablePlacesByHour, setAvailablePlacesByHour] = useState<Record<string, number>>({});
 

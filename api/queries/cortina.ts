@@ -164,6 +164,10 @@ export const cortinaQuery = gql`
             id
             title
             type
+            form_type {
+            value
+            label
+            }
           }
           ... on Set_BuilderItems_MedijskeVsebine {
             title
@@ -255,6 +259,8 @@ export const cortinaQuery = gql`
             }
           }
         }
+        protect_page
+        password
       }
     }
   }

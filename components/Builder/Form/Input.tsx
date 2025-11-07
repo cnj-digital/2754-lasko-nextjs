@@ -4,7 +4,7 @@ type InputProps = {
   label: string;
   required: boolean;
   variant_input: {
-    value: "text" | "email" | "tel" | "number";
+    value: "text" | "email" | "tel" | "number" | "password";
   };
   errorMessage?: string;
   value?: string;

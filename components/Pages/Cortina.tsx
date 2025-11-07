@@ -1,7 +1,11 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import BuilderComponent from "@/components/Builder/Builder";
 import Container from "@/components/Container";
 import HeroImage from "../HeroImage";
 import HeroLanding from "../HeroLanding";
+import PasswordPromptDialog from "@/PasswordPromptDialog";
 
 export default function CortinaPage({
   cortina_hero,
@@ -13,7 +17,35 @@ export default function CortinaPage({
   medijskeVsebineKategorije,
   videosItems,
   eventsItems,
+  protect_page,
+  password,
 }: any) {
+  const [pageProtected, setPageProtected] = useState(false);
+
+  useEffect(() => {
+    if (protect_page === true) {
+      setPageProtected(true);
+      if (password) {
+        localStorage.setItem("pagePassword", password);
+      }
+    } else {
+      localStorage.removeItem("pagePassword");
+      setPageProtected(false);
+    }
+  }, [protect_page, password]);
+
+  if (pageProtected) {
+    return (
+      <PasswordPromptDialog
+        loggedIn={(loggedIn: boolean) => {
+          if (loggedIn) {
+            setPageProtected(false);
+          }
+        }}
+      />
+    );
+  }
+
   // Add media, videos, and events data to globals
   const enhancedGlobals = {
     ...globals,
@@ -22,7 +54,6 @@ export default function CortinaPage({
     videosItems,
     eventsItems,
   };
-  
   return (
     <div className="">
       {cortina_hero && !display_hero_v2 && (
@@ -34,7 +65,7 @@ export default function CortinaPage({
             title: cta.cta.title,
             url: cta.cta.link,
           })) || []}
-          image={cortina_hero.cortinabg_image?.[0]?.permalink || ""}
+          image={cortina_hero.cortinabg_image?.[0]?.permalink || ""} 
         />
       )}
       {display_hero_v2 && (
