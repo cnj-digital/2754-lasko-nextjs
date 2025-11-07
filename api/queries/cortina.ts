@@ -240,6 +240,21 @@ export const cortinaQuery = gql`
           }
          }
         }
+        display_hero_v2
+        hero_v2 {
+          herov2_title
+          herov2_description
+          herov2_background {
+            permalink
+          }
+          cta {
+            link
+            title
+            asset {
+              permalink
+            }
+          }
+        }
       }
     }
   }

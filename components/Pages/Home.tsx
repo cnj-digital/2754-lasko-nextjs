@@ -16,6 +16,7 @@ export default async function Home({
       <HeroLanding
         backgroundUrl={hero.background.permalink}
         title={hero.title}
+        description={hero.description}
         cta={hero.cta}
         isVideo={hero.background.is_video}
         banner={{

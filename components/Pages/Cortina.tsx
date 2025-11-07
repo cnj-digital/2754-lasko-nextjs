@@ -1,9 +1,12 @@
 import BuilderComponent from "@/components/Builder/Builder";
 import Container from "@/components/Container";
 import HeroImage from "../HeroImage";
+import HeroLanding from "../HeroLanding";
 
 export default function CortinaPage({
   cortina_hero,
+  display_hero_v2,
+  hero_v2,
   builder_items,
   globals,
   medijskeVsebineItems,
@@ -22,7 +25,7 @@ export default function CortinaPage({
   
   return (
     <div className="">
-      {cortina_hero && (
+      {cortina_hero && !display_hero_v2 && (
         <HeroImage
           type="cortina"
           title={cortina_hero.cortina_title}
@@ -32,6 +35,14 @@ export default function CortinaPage({
             url: cta.cta.link,
           })) || []}
           image={cortina_hero.cortinabg_image?.[0]?.permalink || ""}
+        />
+      )}
+      {display_hero_v2 && (
+        <HeroLanding
+          title={hero_v2.herov2_title}
+          description={hero_v2.herov2_description}
+          backgroundUrl={hero_v2.herov2_background.permalink}
+          cta={hero_v2.cta}
         />
       )}
       <Container className=" mx-auto py-16 md:py-20">
