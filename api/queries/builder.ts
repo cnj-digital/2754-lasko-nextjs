@@ -167,7 +167,10 @@ export const builderQuery = gql`
           id
           title
           type
-          form_type
+          form_type {
+            value
+            label
+          }
         }
         ... on Set_BuilderItems_MedijskeVsebine {
           title
