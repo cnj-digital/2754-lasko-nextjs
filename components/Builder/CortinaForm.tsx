@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import ButtonSolid from "../Buttons/Solid";
 import Input from "./Form/Input";
 import Checkbox from "./Form/Checkbox";
@@ -11,6 +11,10 @@ import cx from "classnames";
 
 type CortinaFormProps = {
   title?: string | null;
+  form_type?: {
+    value: string;
+    label: string;
+  };
   // Add additional fields as backend exposes them (e.g., items, variant, asset)
 };
 
@@ -18,6 +22,190 @@ const FORM_CORTINA_API: string = `${
   process.env.NEXT_PUBLIC_FORM_CORTINA_API ??
   "https://2754-lasko-statamic.test/api"
 }/form-cortina`;
+
+const FORM_DAYS = [
+  {
+    title: "Sobota, 10.1.",
+    date: "10.1.2026",
+  },
+  {
+    title: "Nedelja, 11.1.",
+    date: "11.1.2026",
+  },
+  {
+    title: "Ponedeljek, 12.1.",
+    date: "12.1.2026",
+  },
+  {
+    title: "Torek, 13.1.",
+    date: "13.1.2026",
+  },
+  {
+    title: "Sreda, 14.1.",
+    date: "14.1.2026",
+  },
+  {
+    title: "Četrtek, 15.1.",
+    date: "15.1.2026",
+  },
+  {
+    title: "Petek, 16.1.",
+    date: "16.1.2026",
+  },
+];
+
+const FORM_HOURS = [
+  {
+    title: "1:00 - 2:00",
+    hour: "1:00",
+  },
+  {
+    title: "2:00 - 3:00",
+    hour: "2:00",
+  },
+  {
+    title: "3:00 - 4:00",
+    hour: "3:00",
+  },
+  {
+    title: "4:00 - 5:00",
+    hour: "4:00",
+  },
+  {
+    title: "5:00 - 6:00",
+    hour: "5:00",
+  },
+  {
+    title: "6:00 - 7:00",
+    hour: "6:00",
+  },
+  {
+    title: "7:00 - 8:00",
+    hour: "7:00",
+  },
+  {
+    title: "8:00 - 9:00",
+    hour: "8:00",
+  },
+  {
+    title: "9:00 - 10:00",
+    hour: "9:00",
+  },
+  {
+    title: "10:00 - 11:00",
+    hour: "10:00",
+  },
+  {
+    title: "11:00 - 12:00",
+    hour: "11:00",
+  },
+  {
+    title: "12:00 - 13:00",
+    hour: "12:00",
+  },
+  {
+    title: "13:00 - 14:00",
+    hour: "13:00",
+  },
+  {
+    title: "14:00 - 15:00",
+    hour: "14:00",
+  },
+  {
+    title: "15:00 - 16:00",
+    hour: "15:00",
+  },
+  {
+    title: "16:00 - 17:00",
+    hour: "16:00",
+  },
+  {
+    title: "17:00 - 18:00",
+    hour: "17:00",
+  },
+  {
+    title: "18:00 - 19:00",
+    hour: "18:00",
+  },
+  {
+    title: "19:00 - 20:00",
+    hour: "19:00",
+  },
+  {
+    title: "20:00 - 21:00",
+    hour: "20:00",
+  },
+  {
+    title: "21:00 - 22:00",
+    hour: "21:00",
+  },
+  {
+    title: "22:00 - 23:00",
+    hour: "22:00",
+  },
+  {
+    title: "23:00 - 00:00",
+    hour: "23:00",
+  },
+];
+
+const PARTNER_SLOTS = [
+  {
+    date: "10.1.2026",
+    hours: [
+      {
+        hour: "12:00",
+      },
+      {
+        hour: "13:00",
+      },
+      {
+        hour: "14:00",
+      },
+    ],
+  },
+];
+
+const RADIO_SLOTS = [
+  {
+    date: "10.1.2026",
+    hours: [
+      {
+        hour: "15:00",
+      },
+    ],
+  },
+  {
+    date: "11.1.2026",
+    hours: [
+      {
+        hour: "10:00",
+      },
+    ],
+  },
+];
+
+const RESERVED_HOURS_BY_DATE = [...PARTNER_SLOTS, ...RADIO_SLOTS].reduce(
+  (acc, slot) => {
+    const existing = acc.get(slot.date) ?? new Set<string>();
+    slot.hours.forEach(({ hour }) => existing.add(hour));
+    acc.set(slot.date, existing);
+    return acc;
+  },
+  new Map<string, Set<string>>()
+);
+
+const USER_SLOT_TEMPLATE = FORM_DAYS.map(({ date }) => {
+  const excludedHours = RESERVED_HOURS_BY_DATE.get(date);
+  const hours = excludedHours
+    ? FORM_HOURS.filter(({ hour }) => !excludedHours.has(hour))
+    : FORM_HOURS;
+
+  return {
+    date,
+    hours: hours.map(({ hour }) => ({ hour })),
+  };
+});
 
 const content = {
   form: {
@@ -53,167 +241,24 @@ const content = {
     lastName: "Priimek",
     email: "E-pošta",
     phone: "Telefon",
-    days: [
-      {
-        title: "Sobota, 10.1.",
-        date: "10.1.2026",
-      },
-      {
-        title: "Nedelja, 11.1.",
-        date: "11.1.2026",
-      },
-      {
-        title: "Ponedeljek, 12.1.",
-        date: "12.1.2026",
-      },
-      {
-        title: "Torek, 13.1.",
-        date: "13.1.2026",
-      },
-      {
-        title: "Sreda, 14.1.",
-        date: "14.1.2026",
-      },
-      {
-        title: "Četrtek, 15.1.",
-        date: "15.1.2026",
-      },
-      {
-        title: "Petek, 16.1.",
-        date: "16.1.2026",
-      },
-    ],
-    hours: [
-      {
-        title: "1:00 - 2:00",
-        hour: "1:00",
-      },
-      {
-        title: "2:00 - 3:00",
-        hour: "2:00",
-      },
-      {
-        title: "3:00 - 4:00",
-        hour: "3:00",
-      },
-      {
-        title: "4:00 - 5:00",
-        hour: "4:00",
-      },
-      {
-        title: "5:00 - 6:00",
-        hour: "5:00",
-      },
-      {
-        title: "6:00 - 7:00",
-        hour: "6:00",
-      },
-      {
-        title: "7:00 - 8:00",
-        hour: "7:00",
-      },
-      {
-        title: "8:00 - 9:00",
-        hour: "8:00",
-      },
-      {
-        title: "9:00 - 10:00",
-        hour: "9:00",
-      },
-      {
-        title: "10:00 - 11:00",
-        hour: "10:00",
-      },
-      {
-        title: "11:00 - 12:00",
-        hour: "11:00",
-      },
-      {
-        title: "12:00 - 13:00",
-        hour: "12:00",
-      },
-      {
-        title: "13:00 - 14:00",
-        hour: "13:00",
-      },
-      {
-        title: "14:00 - 15:00",
-        hour: "14:00",
-      },
-      {
-        title: "15:00 - 16:00",
-        hour: "15:00",
-      },
-      {
-        title: "16:00 - 17:00",
-        hour: "16:00",
-      },
-      {
-        title: "17:00 - 18:00",
-        hour: "17:00",
-      },
-      {
-        title: "18:00 - 19:00",
-        hour: "18:00",
-      },
-      {
-        title: "19:00 - 20:00",
-        hour: "19:00",
-      },
-      {
-        title: "20:00 - 21:00",
-        hour: "20:00",
-      },
-      {
-        title: "21:00 - 22:00",
-        hour: "21:00",
-      },
-      {
-        title: "22:00 - 23:00",
-        hour: "22:00",
-      },
-      {
-        title: "23:00 - 00:00",
-        hour: "23:00",
-      },
-    ],
+    days: FORM_DAYS,
+    hours: FORM_HOURS,
     //User dates and hours
-    user_dates_and_hours: [
-      {
-        date: "10.1.2026",
-        hours: [
-          {
-            hour: "11:00",
-          },
-        ],
-      }
-    ],
+    users: USER_SLOT_TEMPLATE,
     //Partner dates and hours
-    partner_dates_and_hours: [
-      {
-        date: "10.1.2026",
-        hours: [
-          {
-            hour: "12:00",
-          },
-        ],
-      }
-    ],
+    partners: PARTNER_SLOTS,
     //Radio dates and hours
-    radio_dates_and_hours: [
-      {
-        date: "10.1.2026",
-        hours: [
-          {
-            hour: "13:00",
-          },
-        ],
-      }
-    ],
+    radio: RADIO_SLOTS,
   },
 };
 
-export default function CortinaForm({ title }: CortinaFormProps) {
+const FORM_SLOT_LOOKUP = {
+  users: content.form.users,
+  partners: content.form.partners,
+  radio: content.form.radio,
+} as const;
+
+export default function CortinaForm({ title, form_type }: CortinaFormProps) {
   const [selectedDay, setSelectedDay] = useState<string | null>(null);
   const [selectedHour, setSelectedHour] = useState<string | null>(null);
   const [step, setStep] = useState<number>(1);
@@ -234,6 +279,65 @@ export default function CortinaForm({ title }: CortinaFormProps) {
   const [unavailableHours, setUnavailableHours] = useState<string[]>([]);
   const [availablePlacesByHour, setAvailablePlacesByHour] = useState<Record<string, number>>({});
 
+  const normalizedFormType = (form_type?.value || "all").toLowerCase();
+
+  const restrictedSlots = useMemo<Map<string, Set<string>> | null>(() => {
+    if (
+      normalizedFormType !== "users" &&
+      normalizedFormType !== "partners" &&
+      normalizedFormType !== "radio"
+    ) {
+      return null;
+    }
+
+    const dataset = FORM_SLOT_LOOKUP[
+      normalizedFormType as keyof typeof FORM_SLOT_LOOKUP
+    ];
+
+    const map = new Map<string, Set<string>>();
+    dataset.forEach(({ date, hours }) => {
+      map.set(
+        date,
+        new Set((hours ?? []).map((hourItem) => hourItem.hour))
+      );
+    });
+
+    return map;
+  }, [normalizedFormType]);
+
+  const hasAllowedDays = !restrictedSlots || restrictedSlots.size > 0;
+
+  const hoursForSelectedDay = useMemo(() => {
+    if (!selectedDay) {
+      return [] as typeof content.form.hours;
+    }
+
+    let filtered = [...content.form.hours];
+
+    if (selectedDay === "10.1.2026") {
+      filtered = filtered.filter((h) => {
+        const hourNum = parseInt(h.hour.split(":")[0]);
+        return hourNum >= 9;
+      });
+    } else if (selectedDay === "16.1.2026") {
+      filtered = filtered.filter((h) => {
+        const hourNum = parseInt(h.hour.split(":")[0]);
+        return hourNum <= 14;
+      });
+    }
+
+  if (restrictedSlots && normalizedFormType !== "users") {
+      const allowed = restrictedSlots.get(selectedDay);
+      if (!allowed) {
+        return [] as typeof content.form.hours;
+      }
+
+      filtered = filtered.filter((h) => allowed.has(h.hour));
+    }
+
+  return filtered;
+}, [selectedDay, restrictedSlots, normalizedFormType]);
+
   // Helper function to convert date from "15.1.2026" to "2026-01-15"
   const formatDateForBackend = (dateStr: string): string => {
     const [day, month, year] = dateStr.split(".");
@@ -248,6 +352,20 @@ export default function CortinaForm({ title }: CortinaFormProps) {
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
   }, [step, selectedDay, selectedHour, hourPage, showErrors, formState]);
+
+  useEffect(() => {
+    if (selectedDay && restrictedSlots && !restrictedSlots.has(selectedDay)) {
+      setSelectedDay(null);
+      setSelectedHour(null);
+      setHourPage(0);
+      setStep(1);
+    }
+  }, [restrictedSlots, selectedDay]);
+
+  useEffect(() => {
+    setHourPage(0);
+    setSelectedHour(null);
+  }, [selectedDay]);
 
   // Fetch unavailable hours when a day is selected
   useEffect(() => {
@@ -446,23 +564,38 @@ export default function CortinaForm({ title }: CortinaFormProps) {
                   descriptionMargin="mb-12"
                 />
                 <div className="w-full flex flex-col gap-5">
+                  {!hasAllowedDays && (
+                    <p className="text-sm text-white/80 text-center">
+                      Trenutno ni razpoložljivih dni za ta obrazec.
+                    </p>
+                  )}
                   {content.form.days.map((day, i) => {
                     const isSelected = selectedDay === day.date;
+                    const isAllowed =
+                      !restrictedSlots || restrictedSlots.has(day.date);
+
                     return (
                       <ButtonSolid
                         size="small"
                         title={day.title}
                         key={i}
                         type="button"
-                        disableGradient={isSelected}
+                        disableGradient={isSelected || !isAllowed}
                         className={`w-full justify-center ${
                           isSelected
                             ? "!shadow-none !bg-[rgba(68,153,53,0.33)] md:!bg-[rgba(68,153,53,0.25)] !text-[rgba(0,0,0,0.33)] md:!text-[rgba(0,0,0,0.25)] pointer-events-none"
+                            : !isAllowed
+                            ? "!shadow-none !bg-[rgba(68,153,53,0.2)] md:!bg-[rgba(68,153,53,0.15)] !text-[rgba(0,0,0,0.33)] md:!text-[rgba(0,0,0,0.25)] pointer-events-none opacity-60"
                             : ""
                         }`}
                         onClick={() => {
+                          if (!isAllowed) {
+                            return;
+                          }
                           setSelectedDay(day.date);
-                          setStep(step + 1);
+                          setSelectedHour(null);
+                          setHourPage(0);
+                          setStep((prev) => prev + 1);
                         }}
                       />
                     );
@@ -505,30 +638,37 @@ export default function CortinaForm({ title }: CortinaFormProps) {
                     </button>
                   </div>
                   {(() => {
-                    // Filter hours based on selected date
-                    let filteredHours = content.form.hours;
-
-                    if (selectedDay === "10.1.2026") {
-                      // Start from 9:00 for 10.1.2026
-                      filteredHours = content.form.hours.filter((h) => {
-                        const hourNum = parseInt(h.hour.split(":")[0]);
-                        return hourNum >= 9;
-                      });
-                    } else if (selectedDay === "16.1.2026") {
-                      // End at 15:00 for 16.1.2026
-                      filteredHours = content.form.hours.filter((h) => {
-                        const hourNum = parseInt(h.hour.split(":")[0]);
-                        return hourNum <= 14;
-                      });
+                    if (!selectedDay) {
+                      return null;
                     }
 
-                    return filteredHours
-                      .slice(hourPage * 6, hourPage * 6 + 6)
-                      .map((hour, i) => {
+                    const paginatedHours = hoursForSelectedDay.slice(
+                      hourPage * 6,
+                      hourPage * 6 + 6
+                    );
+
+                    if (!paginatedHours.length) {
+                      return (
+                        <p
+                          key="no-hours"
+                          className="text-sm text-white/80 text-center"
+                        >
+                          Trenutno ni razpoložljivih terminov za izbrani dan.
+                        </p>
+                      );
+                    }
+
+                    const reservedHoursForDay =
+                      RESERVED_HOURS_BY_DATE.get(selectedDay) ?? new Set<string>();
+
+                    return paginatedHours.map((hour, i) => {
                         const isSelected = selectedHour === hour.hour;
                         const isUnavailable = unavailableHours.includes(
                           hour.hour
                         );
+                      const isReserved =
+                        normalizedFormType === "users" &&
+                        reservedHoursForDay.has(hour.hour);
                         
                         // Get available places from backend data using correct date formatting
                         const formattedDate = selectedDay ? formatDateForBackend(selectedDay) : "";
@@ -548,7 +688,11 @@ export default function CortinaForm({ title }: CortinaFormProps) {
                                 return `${count} mest`;
                               };
                               
-                              if (isUnavailable || availablePlaces === 0) {
+                            if (isReserved) {
+                              return `${hour.title} (Rezervirano)`;
+                            }
+
+                            if (isUnavailable || availablePlaces === 0) {
                                 return `${hour.title} (Zasedeno)`;
                               } else {
                                 return `${hour.title} (${getPlacesText(availablePlaces)})`;
@@ -559,13 +703,19 @@ export default function CortinaForm({ title }: CortinaFormProps) {
                             className={`w-full justify-center ${
                               isSelected
                                 ? "!shadow-none !bg-[rgba(68,153,53,0.33)] md:!bg-[rgba(68,153,53,0.25)] !text-[rgba(0,0,0,0.33)] md:!text-[rgba(0,0,0,0.25)] pointer-events-none"
-                                : (isUnavailable || availablePlaces === 0)
-                                ? "!shadow-none !bg-[rgba(68,153,53,0.33)] md:!bg-[rgba(68,153,53,0.25)] !text-[rgba(0,0,0,0.33)] md:!text-[rgba(0,0,0,0.25)] pointer-events-none"
+                                : isReserved || isUnavailable || availablePlaces === 0
+                                ? "!shadow-none !bg-[rgba(68,153,53,0.2)] md:!bg-[rgba(68,153,53,0.15)] !text-[rgba(0,0,0,0.33)] md:!text-[rgba(0,0,0,0.25)] pointer-events-none opacity-60"
                                 : ""
                             }`}
-                            disableGradient={isSelected || isUnavailable || availablePlaces === 0}
+                            disableGradient={
+                              isSelected || isReserved || isUnavailable || availablePlaces === 0
+                            }
                             onClick={() => {
-                              if (!isUnavailable && availablePlaces > 0) {
+                              if (
+                                !isReserved &&
+                                !isUnavailable &&
+                                availablePlaces > 0
+                              ) {
                                 setSelectedHour(hour.hour);
                                 setStep(step + 1);
                               }
@@ -577,19 +727,11 @@ export default function CortinaForm({ title }: CortinaFormProps) {
                   <div
                     className={`w-full flex justify-center transition-opacity mt-2 ${
                       (() => {
-                        let filteredHours = content.form.hours;
-                        if (selectedDay === "10.1.2026") {
-                          filteredHours = content.form.hours.filter((h) => {
-                            const hourNum = parseInt(h.hour.split(":")[0]);
-                            return hourNum >= 9;
-                          });
-                        } else if (selectedDay === "16.1.2026") {
-                          filteredHours = content.form.hours.filter((h) => {
-                            const hourNum = parseInt(h.hour.split(":")[0]);
-                            return hourNum <= 15;
-                          });
+                        if (!selectedDay) {
+                          return false;
                         }
-                        return (hourPage + 1) * 6 < filteredHours.length;
+
+                        return (hourPage + 1) * 6 < hoursForSelectedDay.length;
                       })()
                         ? "opacity-100"
                         : "opacity-0 pointer-events-none"
