@@ -35,7 +35,7 @@ export default function HeroLanding({
   const height = useTransform(scrollY, [0, 500], [0, 162]);
 
   return (
-    <section className="relative w-full overflow-hidden max-w-8xl  ">
+    <section className="relative w-full overflow-hidden max-w-8xl  mx-auto">
       <div className="relative z-10 rounded-b-3xl bg-black  aspect-[0.56] lg:aspect-[1.74] w-full max-h-screen overflow-hidden ">
         {isVideo ? (
           <video

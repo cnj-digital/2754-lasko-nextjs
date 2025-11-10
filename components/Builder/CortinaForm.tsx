@@ -195,17 +195,19 @@ const RESERVED_HOURS_BY_DATE = [...PARTNER_SLOTS, ...RADIO_SLOTS].reduce(
   new Map<string, Set<string>>()
 );
 
-const USER_SLOT_TEMPLATE = FORM_DAYS.map(({ date }) => {
-  const excludedHours = RESERVED_HOURS_BY_DATE.get(date);
-  const hours = excludedHours
-    ? FORM_HOURS.filter(({ hour }) => !excludedHours.has(hour))
-    : FORM_HOURS;
+const ensureReservedHour = (date: string, hour: string) => {
+  const existing = RESERVED_HOURS_BY_DATE.get(date) ?? new Set<string>();
+  existing.add(hour);
+  RESERVED_HOURS_BY_DATE.set(date, existing);
+};
 
-  return {
-    date,
-    hours: hours.map(({ hour }) => ({ hour })),
-  };
-});
+ensureReservedHour("10.1.2026", "9:00");
+ensureReservedHour("16.1.2026", "15:00");
+
+const USER_SLOT_TEMPLATE = FORM_DAYS.map(({ date }) => ({
+  date,
+  hours: FORM_HOURS.map(({ hour }) => ({ hour })),
+}));
 
 const content = {
   form: {
@@ -326,17 +328,13 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
       });
     }
 
-  if (restrictedSlots && normalizedFormType !== "users") {
-      const allowed = restrictedSlots.get(selectedDay);
-      if (!allowed) {
-        return [] as typeof content.form.hours;
-      }
+    return filtered;
+  }, [selectedDay]);
 
-      filtered = filtered.filter((h) => allowed.has(h.hour));
-    }
-
-  return filtered;
-}, [selectedDay, restrictedSlots, normalizedFormType]);
+  const allowedHoursForSelectedDay = useMemo(() => {
+    if (!selectedDay || !restrictedSlots) return null;
+    return restrictedSlots.get(selectedDay) ?? null;
+  }, [selectedDay, restrictedSlots]);
 
   // Helper function to convert date from "15.1.2026" to "2026-01-15"
   const formatDateForBackend = (dateStr: string): string => {
@@ -660,69 +658,75 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
 
                     const reservedHoursForDay =
                       RESERVED_HOURS_BY_DATE.get(selectedDay) ?? new Set<string>();
+                    const isTypeWithLimitedSlots =
+                      normalizedFormType === "partners" ||
+                      normalizedFormType === "radio";
 
                     return paginatedHours.map((hour, i) => {
-                        const isSelected = selectedHour === hour.hour;
-                        const isUnavailable = unavailableHours.includes(
-                          hour.hour
-                        );
+                      const isSelected = selectedHour === hour.hour;
+                      const isUnavailable = unavailableHours.includes(hour.hour);
                       const isReserved =
                         normalizedFormType === "users" &&
                         reservedHoursForDay.has(hour.hour);
-                        
-                        // Get available places from backend data using correct date formatting
-                        const formattedDate = selectedDay ? formatDateForBackend(selectedDay) : "";
-                        // Format hour with leading zero: "4:00" -> "04:00"
-                        const hourFormatted = hour.hour.split(":")[0].padStart(2, "0") + ":" + hour.hour.split(":")[1];
-                        const datetimeKey = `${formattedDate} ${hourFormatted}`;
-                        const availablePlaces = availablePlacesByHour[datetimeKey] ?? 3;
-                        
-                        return (
-                          <ButtonSolid
-                            size="small"
-                            title={(() => {
-                              const getPlacesText = (count: number) => {
-                                if (count === 1) return "1 mesto";
-                                if (count === 2) return "2 mesti";
-                                if (count === 3) return "3 mesta";
-                                return `${count} mest`;
-                              };
-                              
+                      const isAllowedForType =
+                        allowedHoursForSelectedDay?.has(hour.hour) ?? true;
+                      const isTypeDisabled =
+                        isTypeWithLimitedSlots && !isAllowedForType;
+
+                      // Get available places from backend data using correct date formatting
+                      const formattedDate = selectedDay ? formatDateForBackend(selectedDay) : "";
+                      // Format hour with leading zero: "4:00" -> "04:00"
+                      const hourFormatted = hour.hour.split(":")[0].padStart(2, "0") + ":" + hour.hour.split(":")[1];
+                      const datetimeKey = `${formattedDate} ${hourFormatted}`;
+                      const availablePlaces = availablePlacesByHour[datetimeKey] ?? 3;
+                      const isCapacityFull = isUnavailable || availablePlaces === 0;
+                      const isDisabled =
+                        isReserved || isCapacityFull || isTypeDisabled;
+
+                      return (
+                        <ButtonSolid
+                          size="small"
+                          title={(() => {
+                            const getPlacesText = (count: number) => {
+                              if (count === 1) return "1 mesto";
+                              if (count === 2) return "2 mesti";
+                              if (count === 3) return "3 mesta";
+                              return `${count} mest`;
+                            };
+
                             if (isReserved) {
                               return `${hour.title} (Rezervirano)`;
                             }
 
-                            if (isUnavailable || availablePlaces === 0) {
-                                return `${hour.title} (Zasedeno)`;
-                              } else {
-                                return `${hour.title} (${getPlacesText(availablePlaces)})`;
-                              }
-                            })()}
-                            key={i}
-                            type="button"
-                            className={`w-full justify-center ${
-                              isSelected
-                                ? "!shadow-none !bg-[rgba(68,153,53,0.33)] md:!bg-[rgba(68,153,53,0.25)] !text-[rgba(0,0,0,0.33)] md:!text-[rgba(0,0,0,0.25)] pointer-events-none"
-                                : isReserved || isUnavailable || availablePlaces === 0
-                                ? "!shadow-none !bg-[rgba(68,153,53,0.2)] md:!bg-[rgba(68,153,53,0.15)] !text-[rgba(0,0,0,0.33)] md:!text-[rgba(0,0,0,0.25)] pointer-events-none opacity-60"
-                                : ""
-                            }`}
-                            disableGradient={
-                              isSelected || isReserved || isUnavailable || availablePlaces === 0
+                            if (isTypeDisabled) {
+                              return `${hour.title} (Ni na voljo)`;
                             }
-                            onClick={() => {
-                              if (
-                                !isReserved &&
-                                !isUnavailable &&
-                                availablePlaces > 0
-                              ) {
-                                setSelectedHour(hour.hour);
-                                setStep(step + 1);
-                              }
-                            }}
-                          />
-                        );
-                      });
+
+                            if (isCapacityFull) {
+                              return `${hour.title} (Zasedeno)`;
+                            }
+
+                            return `${hour.title} (${getPlacesText(availablePlaces)})`;
+                          })()}
+                          key={i}
+                          type="button"
+                          className={`w-full justify-center ${
+                            isSelected
+                              ? "!shadow-none !bg-[rgba(68,153,53,0.33)] md:!bg-[rgba(68,153,53,0.25)] !text-[rgba(0,0,0,0.33)] md:!text-[rgba(0,0,0,0.25)] pointer-events-none"
+                              : isDisabled
+                              ? "!shadow-none !bg-[rgba(68,153,53,0.2)] md:!bg-[rgba(68,153,53,0.15)] !text-[rgba(0,0,0,0.33)] md:!text-[rgba(0,0,0,0.25)] pointer-events-none opacity-60"
+                              : ""
+                          }`}
+                          disableGradient={isSelected || isDisabled}
+                          onClick={() => {
+                            if (!isDisabled) {
+                              setSelectedHour(hour.hour);
+                              setStep(step + 1);
+                            }
+                          }}
+                        />
+                      );
+                    });
                   })()}
                   <div
                     className={`w-full flex justify-center transition-opacity mt-2 ${
