@@ -74,6 +74,7 @@ export default function CortinaPage({
           description={hero_v2.herov2_description}
           backgroundUrl={hero_v2.herov2_background.permalink}
           cta={hero_v2.cta}
+          cta_second={hero_v2.cta_second}
         />
       )}
       <Container className=" mx-auto py-16 md:py-20">

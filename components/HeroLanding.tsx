@@ -13,6 +13,13 @@ type HeroProps = {
     title: string;
     link: string;
   };
+  cta_second?: {
+    title: string;
+    link: string;
+    assets_field: {
+      permalink: string;
+    };
+  };
   backgroundUrl: string;
   isVideo?: boolean;
   banner?: {
@@ -27,6 +34,7 @@ export default function HeroLanding({
   title,
   description,
   cta,
+  cta_second,
   backgroundUrl,
   isVideo = false,
   banner,
@@ -64,6 +72,7 @@ export default function HeroLanding({
           {description && (
             <div dangerouslySetInnerHTML={{ __html: description }} className="text-white text-xl lg:text-2xl font-medium max-w-3xl text-balance mb-4 lg:mb-10 "/> 
           )}
+          <div className="lg:flex lg:items-center lg:gap-4">
           {cta && (
             <ButtonSolid
               title={cta.title}
@@ -73,6 +82,17 @@ export default function HeroLanding({
               }
             />
           )}
+          {cta_second && (
+            <ButtonSolid
+             className="mt-6 lg:mt-0"
+              title={cta_second.title}
+              url={cta_second.link}
+              icon={
+                <Chevron className="text-white group-hover:translate-x-2 transition-transform size-6 " />
+              }
+            />
+          )}
+          </div>
         </Container>
       </div>
       {banner && (

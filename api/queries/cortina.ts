@@ -258,6 +258,10 @@ export const cortinaQuery = gql`
               permalink
             }
           }
+            cta_second {
+            link
+            title
+          }
         }
         protect_page
         password
