@@ -8,9 +8,17 @@ import { motion, useScroll, useTransform } from "motion/react";
 
 type HeroProps = {
   title: string;
+  description: string;
   cta?: {
     title: string;
     link: string;
+  };
+  cta_second?: {
+    title: string;
+    link: string;
+    assets_field: {
+      permalink: string;
+    };
   };
   backgroundUrl: string;
   isVideo?: boolean;
@@ -24,7 +32,9 @@ type HeroProps = {
 
 export default function HeroLanding({
   title,
+  description,
   cta,
+  cta_second,
   backgroundUrl,
   isVideo = false,
   banner,
@@ -33,7 +43,7 @@ export default function HeroLanding({
   const height = useTransform(scrollY, [0, 500], [0, 162]);
 
   return (
-    <section className="relative w-full overflow-hidden max-w-8xl  ">
+    <section className="relative w-full overflow-hidden max-w-8xl  mx-auto">
       <div className="relative z-10 rounded-b-3xl bg-black  aspect-[0.56] lg:aspect-[1.74] w-full max-h-screen overflow-hidden ">
         {isVideo ? (
           <video
@@ -56,10 +66,13 @@ export default function HeroLanding({
         <div className="absolute inset-0 bg-black/30" />
 
         <Container className="relative h-full w-full flex flex-col justify-end pb-16 px-8 lg:pb-32 items-start">
-          <h1 className="text-[40px] leading-tight md:text-6xl font-bold text-white max-w-3xl font-neutraface mb-4 lg:mb-10 text-balance">
+          <h1 className="text-[40px] leading-tight md:text-6xl font-bold text-white max-w-3xl font-neutraface mb-4 lg:mb-10 text-balance"> 
             {title}
           </h1>
-
+          {description && (
+            <div dangerouslySetInnerHTML={{ __html: description }} className="text-white text-xl lg:text-2xl font-medium max-w-3xl text-balance mb-4 lg:mb-10 "/> 
+          )}
+          <div className="lg:flex lg:items-center lg:gap-4">
           {cta && (
             <ButtonSolid
               title={cta.title}
@@ -69,6 +82,17 @@ export default function HeroLanding({
               }
             />
           )}
+          {cta_second && (
+            <ButtonSolid
+             className="mt-6 lg:mt-0"
+              title={cta_second.title}
+              url={cta_second.link}
+              icon={
+                <Chevron className="text-white group-hover:translate-x-2 transition-transform size-6 " />
+              }
+            />
+          )}
+          </div>
         </Container>
       </div>
       {banner && (

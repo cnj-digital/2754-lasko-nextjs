@@ -2,6 +2,7 @@ import { generateAnchorLink, isExternalLink } from "@/helpers/general";
 import cx from "classnames";
 import Link from "next/link";
 import ArrowDiagonalIcon from "../Icons/ArrowDiagonal";
+import ButtonSolid from "../Buttons/Solid";
 
 export type ContentProps = {
   title: string | null;
@@ -10,6 +11,17 @@ export type ContentProps = {
   };
   asset: { permalink: string } | null;
   content_field: (Cta | Text)[];
+  cta?: {
+    link: string;
+    title: string;
+    asset?: { permalink: string };
+  };
+  cta_second?: {
+    link: string;
+    title: string;
+    asset?: { permalink: string };
+  };
+  id?: string;
 };
 
 type Text = {
@@ -31,30 +43,57 @@ export default function Content({
   asset,
   variant,
   content_field,
+  cta,
+  cta_second,
+  id,
 }: ContentProps) {
   console.log(content_field);
   return (
     <div
       className={cx(
-        "grid py-10 gap-10 w-full overflow-hidden",
-        asset ? "lg:grid-cols-2" : ""
+        "flex flex-col py-10 gap-10 w-full overflow-hidden lg:grid",
+        asset ? "lg:grid-cols-2" : "",
       )}
+      id={id ? `${id}` : ""}
     >
+      {/* Title - always first on mobile */}
+      {title && (
+        <h2
+          id={generateAnchorLink(title)}
+          className="text-green-800 font-black text-[40px] leading-tight font-neutraface lg:hidden"
+        >
+          {title}
+        </h2>
+      )}
+
+      {/* Image - second on mobile, positioned via order on desktop */}
+      {asset && (
+        <img
+          src={asset.permalink}
+          alt="content"
+          className={cx(
+            "rounded-2xl",
+            variant?.value === "left" ? "lg:order-1" : "lg:order-2"
+          )}
+        />
+      )}
+
+      {/* Text container - includes title on desktop, content always */}
       <div
         className={cx(
           "lg:px-6 w-full",
-          variant?.value === "left" ? "order-2" : ""
+          variant?.value === "left" ? "lg:order-2" : "lg:order-1"
         )}
       >
         {title && (
           <h2
             id={generateAnchorLink(title)}
-            className="text-green-800 font-black text-[40px] leading-tight font-neutraface"
+            className="text-green-800 font-black text-[40px] leading-tight font-neutraface hidden lg:block"
           >
             {title}
           </h2>
         )}
-        <div className="mt-4 w-full">
+        <div className="lg:mt-4 w-full">
           {content_field.map((item, i) => {
             if (item.type === "text") {
               return (
@@ -76,7 +115,7 @@ export default function Content({
                     <img
                       src={item.cta.asset.permalink}
                       alt="content"
-                      className="size-10 object-contain rounded-lg overflow-clip"
+                      className="size-10 object-contain rounded-lg overflow-clip" 
                     />
                   )}
                   <span className="text-xl font-semibold leading-[1.4] text-black">
@@ -89,18 +128,49 @@ export default function Content({
               );
             }
           })}
+          <div className="md:flex gap-4">
+          {cta && cta.title && cta.link && (
+            <div className="my-8 w-fit"> 
+              <ButtonSolid
+                title={cta.title}
+                url={cta.link}
+                icon={
+                  cta.asset ? (
+                    <img
+                      src={cta.asset.permalink}
+                      alt="content"
+                      className="size-6 object-contain rounded-lg overflow-clip" 
+                    />
+                  ) : isExternalLink(cta.link) ? (
+                    <ArrowDiagonalIcon className="size-6" />
+                  ) : undefined
+                }
+              />
+            </div>
+          )}
+          {cta_second && cta_second.title && cta_second.link && (
+            <div className="my-8 w-fit">
+              <ButtonSolid
+                variant="secondary"
+                title={cta_second.title}
+                url={cta_second.link}
+                icon={
+                  cta_second.asset ? (
+                    <img
+                      src={cta_second.asset.permalink}
+                      alt="content"
+                      className="size-6 object-contain rounded-lg overflow-clip"
+                    />
+                  ) : isExternalLink(cta_second.link) ? (
+                    <ArrowDiagonalIcon className="size-6" />
+                  ) : undefined
+                }
+              />
+            </div>
+          )}
+          </div>
         </div>
       </div>
-      {asset && (
-        <img
-          src={asset.permalink}
-          alt="content"
-          className={cx(
-            " rounded-2xl",
-            variant?.value === "left" ? "order-1" : ""
-          )}
-        />
-      )}
     </div>
   );
 }

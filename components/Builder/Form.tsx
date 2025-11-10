@@ -106,7 +106,7 @@ export default function Form({ form }: any) {
             {form.title}
           </h2>
           <div className="mt-6 py-6 lg:px-8 lg:bg-black/30 lg:backdrop-blur-sm rounded-3xl space-y-3 max-w-lg mx-auto">
-            {form.items.map((item: any, i: number) => (
+            {form.items?.map((item: any, i: number) => (
               <DynamicFormComponent
                 key={i}
                 {...item}

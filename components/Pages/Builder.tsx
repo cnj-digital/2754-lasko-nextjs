@@ -7,17 +7,26 @@ export default function BuilderPage({
   featured_image,
   builder_items,
   globals,
+  videosItems,
+  eventsItems,
 }: any) {
+  // Add videos and events data to globals
+  const enhancedGlobals = {
+    ...globals,
+    videosItems,
+    eventsItems,
+  };
+
   return (
     <div className="">
       <ArticleHero title={title} backgroundUrl={featured_image?.permalink} />
       <Container className=" mx-auto">
-        {builder_items.map((content: any, i: number) => (
+        {builder_items?.map((content: any, i: number) => (
           <BuilderComponent
             key={i}
             type={content.type}
             data={content}
-            globals={globals}
+            globals={enhancedGlobals}
           />
         ))}
       </Container>

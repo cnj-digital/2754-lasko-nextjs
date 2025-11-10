@@ -7,6 +7,7 @@ export const homepageQuery = gql`
       ... on Entry_Pages_Page {
         hero {
           title
+          description
           cta {
             title
             link

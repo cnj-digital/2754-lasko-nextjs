@@ -38,6 +38,13 @@ export const articleQuery = gql`
                 type
               }
             }
+            cta {
+              title
+              link
+              asset {
+                permalink
+              }
+            }
           }
           ... on Set_BuilderItems_Carousel {
             type
@@ -98,7 +105,7 @@ export function mapArticle(data: any) {
     title: data.title,
     image: data.featured_image?.permalink,
     date: data.date,
-    items: data.builder_items,
+    items: data.builder_items || [], // Handle null builder_items
   };
 }
 
