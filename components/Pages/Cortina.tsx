@@ -20,7 +20,9 @@ export default function CortinaPage({
   protect_page,
   password,
 }: any) {
-  const [pageProtected, setPageProtected] = useState(false);
+  const [pageProtected, setPageProtected] = useState(
+    () => protect_page === true
+  );
 
   useEffect(() => {
     if (protect_page === true) {
