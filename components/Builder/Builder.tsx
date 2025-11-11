@@ -40,7 +40,7 @@ export default function BuilderComponent({
   };
   
   // Debug: log component type to see what's being passed
-  console.log('Builder component type:', type, 'Data:', data);
+ // console.log('Builder component type:', type, 'Data:', data);
   
   const Component = components[type] ? components[type] : NotFound;
 

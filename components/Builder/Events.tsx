@@ -21,10 +21,6 @@ type EventsProps = {
 export default function Events({ title, eventsItems }: EventsProps) {
   const events = eventsItems?.data || [];
   
-  console.log('Events component - title:', title);
-  console.log('Events component - eventsItems:', eventsItems);
-  console.log('Events component - events array:', events);
-  
   if (events.length === 0) return null;
 
   return (

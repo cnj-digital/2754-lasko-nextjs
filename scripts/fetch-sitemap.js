@@ -37,7 +37,7 @@ async function writeSitemap(content) {
 
     // Write the sitemap file
     await fs.writeFile(OUTPUT_PATH, content, "utf-8");
-    console.log("Successfully wrote sitemap to", OUTPUT_PATH);
+   // console.log("Successfully wrote sitemap to", OUTPUT_PATH);
   } catch (error) {
     throw new Error(`Failed to write sitemap: ${error.message}`);
   }
@@ -45,7 +45,7 @@ async function writeSitemap(content) {
 
 async function main() {
   try {
-    console.log("Fetching sitemap from", SITEMAP_URL);
+    //console.log("Fetching sitemap from", SITEMAP_URL);
     const sitemap = await fetchSitemap();
     await writeSitemap(sitemap);
   } catch (error) {

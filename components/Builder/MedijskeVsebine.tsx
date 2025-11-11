@@ -53,15 +53,6 @@ export default function MedijskeVsebine({
   const [selectedCategory, setSelectedCategory] = useState<string | null>(
     sortedCategories.length > 0 ? sortedCategories[0].slug : null
   );
-  
-  // Debug: Check what data is being received
-  console.log('MedijskeVsebine - title:', title);
-  console.log('MedijskeVsebine - items:', medijskeVsebineItems);
-  console.log('MedijskeVsebine - categories:', medijskeVsebineKategorije);
-  console.log('MedijskeVsebine - first item structure:', medijskeVsebineItems?.[0]);
-  console.log('MedijskeVsebine - first item type:', medijskeVsebineItems?.[0]?.type);
-  console.log('MedijskeVsebine - first item type.value:', medijskeVsebineItems?.[0]?.type?.value);
-  console.log('MedijskeVsebine - first item file:', medijskeVsebineItems?.[0]?.file);
 
   const handleCategoryClick = (categorySlug: string | null) => {
     setSelectedCategory(categorySlug);
@@ -117,8 +108,6 @@ export default function MedijskeVsebine({
               
               // Render different card types based on the type field
               const itemType = item.type?.value;
-              console.log('file:', item.file); 
-              console.log('fileUrl:', fileUrl);
               
               if (itemType === "logo") {
                 return (

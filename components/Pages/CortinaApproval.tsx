@@ -23,10 +23,7 @@ export default function CortinaApproval({
         // Call Laravel backend directly (API routes don't work with static export)
         const backendBaseUrl = process.env.NEXT_PUBLIC_FORM_CORTINA_API || 'https://2754-lasko-statamic.test/api';
         const backendUrl = `${backendBaseUrl}/form-cortina/${uuid}/approve?signature=${signature}`;
-        
-        // Debug: Log the environment variable value
-        console.log('CortinaApproval - NEXT_PUBLIC_FORM_CORTINA_API:', process.env.NEXT_PUBLIC_FORM_CORTINA_API);
-        console.log('CortinaApproval - backendUrl:', backendUrl);
+
         
         const response = await fetch(backendUrl, {
           method: "POST",

@@ -21,14 +21,9 @@ export default function MediaItem({
 }: any) {
   const router = useRouter();
   
-  console.log('MediaItem - featured_image:', featured_image);
-  console.log('MediaItem - is array?', Array.isArray(featured_image));
-  
   const backgroundImage = Array.isArray(featured_image) && featured_image.length > 0
     ? featured_image[0]?.permalink
     : featured_image?.permalink;
-  
-  console.log('MediaItem - backgroundImage:', backgroundImage); 
   
   return (
     <div className="">

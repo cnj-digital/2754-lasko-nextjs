@@ -19,7 +19,6 @@ type NewsProps = {
 };
 
 export default function News({ title, items = [] }: NewsProps) {
-  console.log('News component - items:', items);
   
   if (!items || items.length === 0) return null;
 

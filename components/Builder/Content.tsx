@@ -47,7 +47,6 @@ export default function Content({
   cta_second,
   id,
 }: ContentProps) {
-  console.log(content_field);
   return (
     <div
       className={cx(
