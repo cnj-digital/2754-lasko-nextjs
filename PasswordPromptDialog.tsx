@@ -53,7 +53,10 @@ const PasswordPromptDialog: React.FC<PasswordPromptDialogProps> = ({
   };
 
   return (
-    <div className="password-prompt-dialog fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 text-white bg-black/50"> 
+    <div
+      className="password-prompt-dialog fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 text-white bg-black/50"
+      style={{ backgroundImage: "url('/bg-green.jpg')" }}
+    >
       <div className="p-8 rounded-2xl bg-black/80 backdrop-blur">
         <form onSubmit={handleSubmit} className="flex flex-col gap-6 w-[min(90vw,400px)]">
           <Input
