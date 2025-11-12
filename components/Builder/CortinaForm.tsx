@@ -563,12 +563,12 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
     if (selectedDay === "10.1.2026") {
       filtered = filtered.filter((h) => {
         const hourNum = parseInt(h.hour.split(":")[0]);
-        return hourNum >= 9;
+        return hourNum >= 10;
       });
     } else if (selectedDay === "16.1.2026") {
       filtered = filtered.filter((h) => {
         const hourNum = parseInt(h.hour.split(":")[0]);
-        return hourNum <= 14;
+        return hourNum <= 15;
       });
     }
 
@@ -579,6 +579,19 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
     if (!selectedDay || !restrictedSlots) return null;
     return restrictedSlots.get(selectedDay) ?? null;
   }, [selectedDay, restrictedSlots]);
+
+  const isTypeWithLimitedSlots =
+    normalizedFormType === "partners" || normalizedFormType === "radio";
+
+  const hoursForDisplay = useMemo(() => {
+    if (!isTypeWithLimitedSlots) return hoursForSelectedDay;
+    if (!allowedHoursForSelectedDay) return [];
+    return hoursForSelectedDay.filter((hour) =>
+      allowedHoursForSelectedDay.has(hour.hour)
+    );
+  }, [hoursForSelectedDay, isTypeWithLimitedSlots, allowedHoursForSelectedDay]);
+
+  const totalVisibleHours = hoursForDisplay.length;
 
   // Helper function to convert date from "15.1.2026" to "2026-01-15"
   const formatDateForBackend = (dateStr: string): string => {
@@ -884,7 +897,7 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
                       return null;
                     }
 
-                    const paginatedHours = hoursForSelectedDay.slice(
+                    const paginatedHours = hoursForDisplay.slice(
                       hourPage * 6,
                       hourPage * 6 + 6
                     );
@@ -902,9 +915,6 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
 
                     const reservedHoursForDay =
                       RESERVED_HOURS_BY_DATE.get(selectedDay) ?? new Set<string>();
-                    const isTypeWithLimitedSlots =
-                      normalizedFormType === "partners" ||
-                      normalizedFormType === "radio";
 
                     return paginatedHours.map((hour, i) => {
                       const isSelected = selectedHour === hour.hour;
@@ -912,10 +922,6 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
                       const isReserved =
                         normalizedFormType === "users" &&
                         reservedHoursForDay.has(hour.hour);
-                      const isAllowedForType =
-                        allowedHoursForSelectedDay?.has(hour.hour) ?? true;
-                      const isTypeDisabled =
-                        isTypeWithLimitedSlots && !isAllowedForType;
 
                       // Get available places from backend data using correct date formatting
                       const formattedDate = selectedDay ? formatDateForBackend(selectedDay) : "";
@@ -924,8 +930,7 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
                       const datetimeKey = `${formattedDate} ${hourFormatted}`;
                       const availablePlaces = availablePlacesByHour[datetimeKey] ?? 3;
                       const isCapacityFull = isUnavailable || availablePlaces === 0;
-                      const isDisabled =
-                        isReserved || isCapacityFull || isTypeDisabled;
+                      const isDisabled = isReserved || isCapacityFull;
 
                       return (
                         <ButtonSolid
@@ -942,10 +947,6 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
                               return `${hour.title} (Rezervirano)`;
                             }
 
-                            if (isTypeDisabled) {
-                              return `${hour.title} (Ni na voljo)`;
-                            }
-
                             if (isCapacityFull) {
                               return `${hour.title} (Zasedeno)`;
                             }
@@ -958,7 +959,7 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
                             isSelected
                               ? "!shadow-none !bg-[rgba(68,153,53,0.33)] md:!bg-[rgba(68,153,53,0.25)] !text-[rgba(0,0,0,0.33)] md:!text-[rgba(0,0,0,0.25)] pointer-events-none"
                               : isDisabled
-                              ? "!hidden !shadow-none !bg-[rgba(68,153,53,0.2)] md:!bg-[rgba(68,153,53,0.15)] !text-[rgba(0,0,0,0.33)] md:!text-[rgba(0,0,0,0.25)] pointer-events-none opacity-60"
+                              ? "!shadow-none !bg-[rgba(68,153,53,0.2)] md:!bg-[rgba(68,153,53,0.15)] !text-[rgba(0,0,0,0.33)] md:!text-[rgba(0,0,0,0.25)] pointer-events-none opacity-60"
                               : ""
                           }`}
                           disableGradient={isSelected || isDisabled}
@@ -979,7 +980,7 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
                           return false;
                         }
 
-                        return (hourPage + 1) * 6 < hoursForSelectedDay.length;
+                        return (hourPage + 1) * 6 < totalVisibleHours;
                       })()
                         ? "opacity-100"
                         : "opacity-0 pointer-events-none"

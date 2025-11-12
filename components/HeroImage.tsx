@@ -57,9 +57,11 @@ export default function HeroImage({
           </div>
 
           {type === "cortina" ? (
+            image && (
             <div className="md:w-6/12 mt-8 md:mt-0 absolute bottom-0 right-0">
               <img src={image} className="w-full object-cover mix-blend-multiply" alt={title} />
             </div>
+            )
           ) : (
             <>
               {image && (
