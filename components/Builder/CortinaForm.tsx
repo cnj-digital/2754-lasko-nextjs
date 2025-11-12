@@ -584,12 +584,29 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
     normalizedFormType === "partners" || normalizedFormType === "radio";
 
   const hoursForDisplay = useMemo(() => {
-    if (!isTypeWithLimitedSlots) return hoursForSelectedDay;
-    if (!allowedHoursForSelectedDay) return [];
-    return hoursForSelectedDay.filter((hour) =>
-      allowedHoursForSelectedDay.has(hour.hour)
-    );
-  }, [hoursForSelectedDay, isTypeWithLimitedSlots, allowedHoursForSelectedDay]);
+    if (!selectedDay) return [] as typeof content.form.hours;
+
+    if (isTypeWithLimitedSlots) {
+      if (!allowedHoursForSelectedDay) return [];
+      return hoursForSelectedDay.filter((hour) =>
+        allowedHoursForSelectedDay.has(hour.hour)
+      );
+    }
+
+    if (normalizedFormType === "users") {
+      const reservedSet =
+        RESERVED_HOURS_BY_DATE.get(selectedDay) ?? new Set<string>();
+      return hoursForSelectedDay.filter((hour) => !reservedSet.has(hour.hour));
+    }
+
+    return hoursForSelectedDay;
+  }, [
+    selectedDay,
+    hoursForSelectedDay,
+    isTypeWithLimitedSlots,
+    allowedHoursForSelectedDay,
+    normalizedFormType,
+  ]);
 
   const totalVisibleHours = hoursForDisplay.length;
 
