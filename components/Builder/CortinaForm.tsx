@@ -568,7 +568,7 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
     } else if (selectedDay === "16.1.2026") {
       filtered = filtered.filter((h) => {
         const hourNum = parseInt(h.hour.split(":")[0]);
-        return hourNum <= 15;
+        return hourNum <= 14;
       });
     }
 
