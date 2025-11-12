@@ -509,9 +509,36 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
       return null;
     }
 
-    const dataset = FORM_SLOT_LOOKUP[
+    let dataset = FORM_SLOT_LOOKUP[
       normalizedFormType as keyof typeof FORM_SLOT_LOOKUP
     ];
+
+    if (normalizedFormType === "partners") {
+      const radioLookup = RADIO_SLOTS.reduce((acc, slot) => {
+        acc.set(
+          slot.date,
+          new Set(slot.hours.map(({ hour }) => hour))
+        );
+        return acc;
+      }, new Map<string, Set<string>>());
+
+      const userAdjusted = content.form.users.map((slot) => {
+        const radioHours = radioLookup.get(slot.date);
+        const filteredHours = radioHours
+          ? slot.hours.filter(({ hour }) => !radioHours.has(hour))
+          : slot.hours;
+
+        return {
+          date: slot.date,
+          hours: filteredHours.map(({ hour }) => ({ hour })),
+        };
+      });
+
+      dataset = [
+        ...content.form.partners,
+        ...userAdjusted,
+      ];
+    }
 
     const map = new Map<string, Set<string>>();
     dataset.forEach(({ date, hours }) => {
@@ -800,7 +827,7 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
                           isSelected
                             ? "!shadow-none !bg-[rgba(68,153,53,0.33)] md:!bg-[rgba(68,153,53,0.25)] !text-[rgba(0,0,0,0.33)] md:!text-[rgba(0,0,0,0.25)] pointer-events-none"
                             : !isAllowed
-                            ? "!shadow-none !bg-[rgba(68,153,53,0.2)] md:!bg-[rgba(68,153,53,0.15)] !text-[rgba(0,0,0,0.33)] md:!text-[rgba(0,0,0,0.25)] pointer-events-none opacity-60"
+                            ? "!hidden !shadow-none !bg-[rgba(68,153,53,0.2)] md:!bg-[rgba(68,153,53,0.15)] !text-[rgba(0,0,0,0.33)] md:!text-[rgba(0,0,0,0.25)] pointer-events-none opacity-60"
                             : ""
                         }`}
                         onClick={() => {
@@ -931,7 +958,7 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
                             isSelected
                               ? "!shadow-none !bg-[rgba(68,153,53,0.33)] md:!bg-[rgba(68,153,53,0.25)] !text-[rgba(0,0,0,0.33)] md:!text-[rgba(0,0,0,0.25)] pointer-events-none"
                               : isDisabled
-                              ? "!shadow-none !bg-[rgba(68,153,53,0.2)] md:!bg-[rgba(68,153,53,0.15)] !text-[rgba(0,0,0,0.33)] md:!text-[rgba(0,0,0,0.25)] pointer-events-none opacity-60"
+                              ? "!hidden !shadow-none !bg-[rgba(68,153,53,0.2)] md:!bg-[rgba(68,153,53,0.15)] !text-[rgba(0,0,0,0.33)] md:!text-[rgba(0,0,0,0.25)] pointer-events-none opacity-60"
                               : ""
                           }`}
                           disableGradient={isSelected || isDisabled}
