@@ -243,7 +243,26 @@ export const cortinaQuery = gql`
             }
           }
          }
+         ... on Set_BuilderItems_RelatedPages {
+          related_pages_title: title
+          type
+          pages {
+            permalink
+            title
+            slug
+            ... on Entry_Pages_Cortina {
+              id
+              featured_image {
+                permalink
+              }
+              permalink
+              slug
+              title
+              url
+            }
+          }
         }
+      }
         display_hero_v2
         hero_v2 {
           herov2_title

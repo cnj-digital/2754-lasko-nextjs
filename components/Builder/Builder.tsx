@@ -11,6 +11,7 @@ import News from "./News";
 import Events from "./Events";
 import WallOfFame from "./WallOfFame";
 import CortinaResults from "./CortinaResults";
+import RelatedPages from "./RelatedPages";
 
 type BuilderComponentProps = {
   type: string;
@@ -37,12 +38,14 @@ export default function BuilderComponent({
     events: Events,
     wall_of_fame: WallOfFame,
     cortina_results: CortinaResults,
+    related_pages: RelatedPages,
+    related_pages_two: RelatedPages,
   };
   
   // Debug: log component type to see what's being passed
  // console.log('Builder component type:', type, 'Data:', data);
   
-  const Component = components[type] ? components[type] : NotFound;
+  const Component = components[type] ? components[type] : NotFound; 
 
   return <Component {...data} {...globals} />;
 }
