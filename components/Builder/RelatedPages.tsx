@@ -47,7 +47,7 @@ export default function RelatedPages({
             title={page.title}
             image={page.featured_image?.permalink || "/placeholders/news.png"}
             url={page.permalink}
-            category="Povezano"
+            category=""
           />
         ))}
       </div>
