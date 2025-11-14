@@ -32,7 +32,7 @@ export default function ButtonSolid({
       className={cx(
         "px-6 py-4 rounded-xl font-semibold group transition-all duration-300 flex items-center gap-2 shadow-button",
         className,
-        size === "small" ? "text-lg" : "text-2xl",
+        size === "small" ? "text-lg" : "text-xl lg:text-2xl",
         variant === "secondary" ? " text-green-800" : "text-white",
       )}
       href={url ?? ""}
