@@ -43,7 +43,7 @@ function CortinaCancelPageContent() {
           </p>
           <Link
             href="/si/cortina"
-            className="inline-block bg-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors"
+            className="inline-block bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
           >
             Nazaj na stran aktivacije
           </Link>
