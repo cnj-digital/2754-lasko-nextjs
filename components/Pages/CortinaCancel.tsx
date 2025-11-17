@@ -63,7 +63,7 @@ export default function CortinaCancel({
     <div>
       <div className="min-h-[150px] bg-gradient-to-b from-green-600 to-green-800 flex items-center justify-center px-4"></div>
       <div className="flex justify-center py-20 px-5">
-        <div className="max-w-md w-full bg-white rounded-2xl shadow-2xl p-8 text-center">
+        <div className="max-w-md w-full bg-white rounded-2xl shadow-2xl p-8 text-center test123">
           {status === "loading" && (
             <>
               <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-green-600 mx-auto mb-6"></div>
