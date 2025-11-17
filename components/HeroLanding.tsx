@@ -5,6 +5,7 @@ import Chevron from "./Icons/Chevron";
 import Container from "./Container";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "motion/react";
+import cx from "classnames";
 
 type HeroProps = {
   title: string;
@@ -44,7 +45,10 @@ export default function HeroLanding({
 
   return (
     <section className="relative w-full overflow-hidden max-w-8xl  mx-auto">
-      <div className="relative z-10 rounded-b-3xl bg-black  aspect-[0.56] lg:aspect-[1.74] w-full max-h-screen overflow-hidden ">
+      <div className={cx(
+        "relative z-10 rounded-b-3xl bg-black w-full max-h-screen overflow-hidden",
+        description ? "pt-48 lg:aspect-[1.74]" : "aspect-[0.56] lg:aspect-[1.74]"
+      )}>
         {isVideo ? (
           <video
             autoPlay
