@@ -15,6 +15,7 @@ export default async function Home({
     <div className="flex flex-col items-center">
       <HeroLanding
         backgroundUrl={hero.background.permalink}
+        backgroundMobileUrl={hero.background_mobile?.permalink}
         title={hero.title}
         description={hero.description}
         cta={hero.cta}

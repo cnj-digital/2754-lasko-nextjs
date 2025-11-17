@@ -75,6 +75,7 @@ export default function CortinaPage({
           title={hero_v2.herov2_title}
           description={hero_v2.herov2_description}
           backgroundUrl={hero_v2.herov2_background.permalink}
+          backgroundMobileUrl={hero_v2.background_mobile?.permalink}
           cta={hero_v2.cta}
           cta_second={hero_v2.cta_second}
         />
