@@ -16,6 +16,9 @@ export const homepageQuery = gql`
             is_video
             permalink
           }
+          background_mobile {
+            permalink
+          }
         }
         promos_items {
           ... on Entry_Promos_Promo {

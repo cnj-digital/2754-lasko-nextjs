@@ -22,6 +22,7 @@ type HeroProps = {
     };
   };
   backgroundUrl: string;
+  backgroundMobileUrl?: string;
   isVideo?: boolean;
   banner?: {
     textleft: string;
@@ -37,6 +38,7 @@ export default function HeroLanding({
   cta,
   cta_second,
   backgroundUrl,
+  backgroundMobileUrl,
   isVideo = false,
   banner,
 }: HeroProps) {
@@ -60,11 +62,23 @@ export default function HeroLanding({
             <source src={backgroundUrl} type="video/mp4" />
           </video>
         ) : (
-          <img
-            src={backgroundUrl}
-            alt="Hero background"
-            className="absolute inset-0 w-full h-full object-cover"
-          />
+          <>
+            {backgroundMobileUrl && (
+              <img
+                src={backgroundMobileUrl}
+                alt="Hero background"
+                className="absolute inset-0 w-full h-full object-cover lg:hidden"
+              />
+            )}
+            <img
+              src={backgroundUrl}
+              alt="Hero background"
+              className={cx(
+                "absolute inset-0 w-full h-full object-cover",
+                backgroundMobileUrl && "hidden lg:block"
+              )}
+            />
+          </>
         )}
 
         <div className="absolute inset-0 bg-black/30" />

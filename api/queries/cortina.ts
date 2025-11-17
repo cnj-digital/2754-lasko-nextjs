@@ -270,6 +270,9 @@ export const cortinaQuery = gql`
           herov2_background {
             permalink
           }
+            background_mobile {
+            permalink
+          }
           cta {
             link
             title
