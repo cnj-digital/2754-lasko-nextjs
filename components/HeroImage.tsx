@@ -34,6 +34,7 @@ export default function HeroImage({
   const desktopBg = hero_main_bg || fallbackBg;
   const showSeparateBackgrounds = hero_main_bg_mobile && hero_main_bg;
   const singleBg = hero_main_bg_mobile || hero_main_bg || fallbackBg;
+  const hasCustomBg = hero_main_bg || hero_main_bg_mobile;
 
   return (
     <div
@@ -51,6 +52,9 @@ export default function HeroImage({
             style={{ backgroundImage: `url('${desktopBg}')` }}
           />
         </>
+      )}
+      {hasCustomBg && (
+        <div className="absolute inset-0 bg-black/30"></div>
       )}
       <Container className="pt-40 lg:pt-44">
         <div className="flex flex-col md:flex-row items-center justify-between">
