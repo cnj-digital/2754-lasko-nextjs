@@ -68,6 +68,9 @@ export default function CortinaPage({
             url: cta.cta.link,
           })) || []}
           image={cortina_hero.cortinabg_image?.[0]?.permalink || ""} 
+          right_bg_image_mobile={cortina_hero.right_bg_image_mobile?.[0]?.permalink || ""}
+          hero_main_bg={cortina_hero.hero_main_bg?.permalink || ""}
+          hero_main_bg_mobile={cortina_hero.hero_main_bg_mobile?.permalink || ""}
         />
       )}
       {display_hero_v2 && (
