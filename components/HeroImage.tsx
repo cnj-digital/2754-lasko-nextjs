@@ -68,7 +68,7 @@ export default function HeroImage({
                 <div className="-mx-6 md:mx-0 md:w-1/2 mt-8 md:mt-0">
                   <img
                     src={image}
-                    className="w-full object-cover mix-blend-multiply"
+                    className="w-full object-cover"
                     alt={title}
                   />
                 </div>
