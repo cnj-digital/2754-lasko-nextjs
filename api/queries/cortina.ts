@@ -88,6 +88,9 @@ export const cortinaQuery = gql`
             }
           }
           cortinabg_image { permalink }
+          right_bg_image_mobile { permalink }
+          hero_main_bg { permalink }
+          hero_main_bg_mobile { permalink }
         }
         builder_items {
           ... on Set_BuilderItems_ContentSet {
