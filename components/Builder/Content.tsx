@@ -56,8 +56,8 @@ export default function Content({
   return (
     <div
       className={cx(
-        "flex flex-col w-full overflow-hidden lg:grid",
-        asset || display_video ? (variant?.value?.toLowerCase()?.trim() === "center-asset-center-title" ? "" : "lg:grid-cols-2 py-10 gap-10") : "",
+        "flex flex-col w-full overflow-hidden py-10 lg:grid",
+        asset || display_video ? (variant?.value?.toLowerCase()?.trim() === "center-asset-center-title" ? "" : "lg:grid-cols-2 lg:gap-10") : "",
       )}
       id={id ? `${id}` : ""}
     >
