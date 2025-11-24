@@ -765,12 +765,45 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
         },
         body: JSON.stringify(payload),
       });
-      if (!res.ok) {
+      
+      // Parse response to check if submission actually succeeded
+      let responseData;
+      const contentType = res.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        responseData = await res.json();
+      } else {
         const text = await res.text();
-        throw new Error(text || "Error on server");
+        responseData = text ? JSON.parse(text) : {};
       }
+
+      // Check if response indicates success (backend should return success: true or similar)
+      // Also check for error messages in response
+      if (!res.ok || responseData.error || responseData.success === false) {
+        const errorMessage = responseData.message || responseData.error || "Ta termin je že zaseden. Maksimalno 3 prijave na termin.";
+        setFormState("error");
+        setErrorMessage(errorMessage);
+        // Refresh availability data on error
+        if (selectedDay) {
+          fetchUnavailableHours();
+        }
+        return;
+      }
+
+      // Double-check: if backend returns success field, verify it's true
+      if (responseData.success !== undefined && responseData.success !== true) {
+        const errorMessage = responseData.message || "Ta termin je že zaseden. Maksimalno 3 prijave na termin.";
+        setFormState("error");
+        setErrorMessage(errorMessage);
+        // Refresh availability data on error
+        if (selectedDay) {
+          fetchUnavailableHours();
+        }
+        return;
+      }
+
       setFormState("success");
       setSuccess(true);
+      console.log("Response", res);
 
       // Scroll to cortina-form section (100px from top)
       const formSection = document.getElementById("cortina-form");
