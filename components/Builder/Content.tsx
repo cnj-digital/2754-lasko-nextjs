@@ -67,7 +67,7 @@ export default function Content({
           id={generateAnchorLink(title)}
           className={cx(
             "text-green-800 font-black text-[40px] leading-tight font-neutraface",
-            variant?.value?.toLowerCase()?.trim() === "center-asset-center-title" ? "" : "lg:hidden"
+            variant?.value?.toLowerCase()?.trim() === "center-asset-center-title" ? "text-center" : "lg:hidden"
           )}
         >
           {title}
