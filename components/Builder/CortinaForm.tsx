@@ -442,6 +442,7 @@ const content = {
       "Strinjam se z obdelavo podatkov za namene pošiljanja e-novic.",
     ctaLabel: "Oddaj prijavo",
     ctaLabelLoading: "Pošiljanje...",
+    ctaBackForm: "Nazaj na izbiro termina",
     errorMessageName: "Vnesite ime",
     errorMessageLastName: "Vnesite priimek",
     errorMessageEmail: "Vnesite e-poštni naslov",
@@ -1149,6 +1150,16 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
                     {errorMessage}
                   </div>
                 )}
+                {formState === "error" ? (
+                  <ButtonSolid
+                    size="small"
+                    title={content.form.ctaBackForm}
+                    type="button"
+                    disableGradient={true}
+                    className="w-full justify-center mt-3 !bg-[#F4F4F4] !text-black"
+                    onClick={() => setStep(2)}
+                  />
+                ) : (
                 <ButtonSolid
                   size="small"
                   title={
@@ -1166,6 +1177,7 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
                   )}
                   onClick={handleFormSubmit}
                 />
+                )}
               </div>
             )}
           </div>
