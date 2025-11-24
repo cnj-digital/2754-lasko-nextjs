@@ -3,6 +3,7 @@ import cx from "classnames";
 import Link from "next/link";
 import ArrowDiagonalIcon from "../Icons/ArrowDiagonal";
 import ButtonSolid from "../Buttons/Solid";
+import VideoPlayer from "./Video";
 
 export type ContentProps = {
   title: string | null;
@@ -10,6 +11,8 @@ export type ContentProps = {
     value: string;
   };
   asset: { permalink: string } | null;
+  display_video: boolean;
+  youtube_video_embed_url: string;
   content_field: (Cta | Text)[];
   cta?: {
     link: string;
@@ -38,9 +41,12 @@ type Cta = {
   type: "cta_set";
 };
 
+
 export default function Content({
   title,
   asset,
+  display_video,
+  youtube_video_embed_url,
   variant,
   content_field,
   cta,
@@ -50,8 +56,8 @@ export default function Content({
   return (
     <div
       className={cx(
-        "flex flex-col py-10 gap-10 w-full overflow-hidden lg:grid",
-        asset ? "lg:grid-cols-2" : "",
+        "flex flex-col w-full overflow-hidden lg:grid",
+        asset || display_video ? (variant?.value?.toLowerCase()?.trim() === "center-asset-center-title" ? "" : "lg:grid-cols-2 py-10 gap-10") : "",
       )}
       id={id ? `${id}` : ""}
     >
@@ -59,7 +65,10 @@ export default function Content({
       {title && (
         <h2
           id={generateAnchorLink(title)}
-          className="text-green-800 font-black text-[40px] leading-tight font-neutraface lg:hidden"
+          className={cx(
+            "text-green-800 font-black text-[40px] leading-tight font-neutraface",
+            variant?.value?.toLowerCase()?.trim() === "center-asset-center-title" ? "" : "lg:hidden"
+          )}
         >
           {title}
         </h2>
@@ -72,27 +81,41 @@ export default function Content({
           alt="content"
           className={cx(
             "rounded-2xl",
-            variant?.value === "left" ? "lg:order-1" : "lg:order-2"
+            variant?.value?.toLowerCase()?.trim() === "left" ? "lg:order-1" : (variant?.value?.toLowerCase()?.trim() === "center-asset-center-title" ? "" : "lg:order-2")
           )}
         />
+      )}
+
+      {display_video && (
+        <div className={cx(variant?.value?.toLowerCase()?.trim() === "left" ? "lg:order-1" : (variant?.value?.toLowerCase()?.trim() === "center-asset-center-title" ? "" : "lg:order-2")
+        )}>
+          <VideoPlayer mp4={youtube_video_embed_url} />
+        </div>
       )}
 
       {/* Text container - includes title on desktop, content always */}
       <div
         className={cx(
           "lg:px-6 w-full",
-          variant?.value === "left" ? "lg:order-2" : "lg:order-1"
+          variant?.value?.toLowerCase()?.trim() === "left" ? "lg:order-2" : (variant?.value?.toLowerCase()?.trim() === "center-asset-center-title" ? "" : "lg:order-1")
         )}
       >
         {title && (
           <h2
             id={generateAnchorLink(title)}
-            className="text-green-800 font-black text-[40px] leading-tight font-neutraface hidden lg:block"
+            className={cx(
+            "text-green-800 font-black text-[40px] leading-tight font-neutraface",
+            variant?.value?.toLowerCase()?.trim() === "center-asset-center-title" ? "hidden" : "hidden lg:block"
+            )}
           >
             {title}
           </h2>
         )}
-        <div className="lg:mt-4 w-full">
+        <div className={cx(
+        "w-full",
+        variant?.value?.toLowerCase()?.trim() === "center-asset-center-title" ? "" : "lg:mt-4"
+        )}
+        >
           {content_field.map((item, i) => {
             if (item.type === "text") {
               return (

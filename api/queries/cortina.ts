@@ -125,6 +125,8 @@ export const cortinaQuery = gql`
             link
           }
           id
+          display_video
+          youtube_video_embed_url
           }
           ... on Set_BuilderItems_Quote { type quote_content_field }
           ... on Set_BuilderItems_Carousel { assets { permalink } type }
