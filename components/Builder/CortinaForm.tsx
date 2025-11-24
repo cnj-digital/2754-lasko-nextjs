@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import ButtonSolid from "../Buttons/Solid";
 import Input from "./Form/Input";
 import Checkbox from "./Form/Checkbox";
@@ -639,72 +639,73 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
     setSelectedHour(null);
   }, [selectedDay]);
 
+  // Fetch unavailable hours function - can be called manually or via useEffect
+  const fetchUnavailableHours = useCallback(async () => {
+    if (!selectedDay) return;
+
+    try {
+      // Convert date from "10.1.2026" to "2026-01-10" format
+      const formattedDate = formatDateForBackend(selectedDay);
+
+      const backendBaseUrl =
+        process.env.NEXT_PUBLIC_FORM_CORTINA_API ||
+        "https://2754-lasko-statamic.test/api";
+      const url = `${backendBaseUrl}/form-cortina/available-hours`;
+
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          date: formattedDate, // e.g., "2026-01-10"
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+
+        // Normalize hours: backend returns "2026-01-10 10:00", frontend uses "10:00"
+        const normalizedHours = (data.fully_booked_hours || []).map(
+          (h: string) => {
+            // Extract time part from "2026-01-10 10:00" -> "10:00"
+            const timePart = h.split(" ")[1];
+            return timePart || h;
+          }
+        );
+
+        setUnavailableHours(normalizedHours);
+
+        // Process entries_by_hour data from backend
+        if (data.entries_by_hour) {
+          const placesMap: Record<string, number> = {};
+          const MAX_CAPACITY = 3;
+          Object.entries(data.entries_by_hour).forEach(([datetime, count]) => {
+            const availablePlaces = Math.max(0, MAX_CAPACITY - (count as number));
+            placesMap[datetime] = availablePlaces;
+          });
+          // Also set fully booked hours to 0
+          (data.fully_booked_hours || []).forEach((h: string) => {
+            placesMap[h] = 0;
+          });
+          setAvailablePlacesByHour(placesMap);
+        }
+      } else {
+        console.error(
+          "Availability check failed:",
+          response.status,
+          await response.text()
+        );
+      }
+    } catch (error) {
+      console.error("Error fetching availability:", error);
+    }
+  }, [selectedDay]);
+
   // Fetch unavailable hours when a day is selected
   useEffect(() => {
-    const fetchUnavailableHours = async () => {
-      if (!selectedDay) return;
-
-      try {
-        // Convert date from "10.1.2026" to "2026-01-10" format
-        const formattedDate = formatDateForBackend(selectedDay);
-
-        const backendBaseUrl =
-          process.env.NEXT_PUBLIC_FORM_CORTINA_API ||
-          "https://2754-lasko-statamic.test/api";
-        const url = `${backendBaseUrl}/form-cortina/available-hours`;
-
-        const response = await fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            date: formattedDate, // e.g., "2026-01-10"
-          }),
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-
-          // Normalize hours: backend returns "2026-01-10 10:00", frontend uses "10:00"
-          const normalizedHours = (data.fully_booked_hours || []).map(
-            (h: string) => {
-              // Extract time part from "2026-01-10 10:00" -> "10:00"
-              const timePart = h.split(" ")[1];
-              return timePart || h;
-            }
-          );
-
-          setUnavailableHours(normalizedHours);
-
-          // Process entries_by_hour data from backend
-          if (data.entries_by_hour) {
-            const placesMap: Record<string, number> = {};
-            const MAX_CAPACITY = 3;
-            Object.entries(data.entries_by_hour).forEach(([datetime, count]) => {
-              const availablePlaces = Math.max(0, MAX_CAPACITY - (count as number));
-              placesMap[datetime] = availablePlaces;
-            });
-            // Also set fully booked hours to 0
-            (data.fully_booked_hours || []).forEach((h: string) => {
-              placesMap[h] = 0;
-            });
-            setAvailablePlacesByHour(placesMap);
-          }
-        } else {
-          console.error(
-            "Availability check failed:",
-            response.status,
-            await response.text()
-          );
-        }
-      } catch (error) {
-        console.error("Error fetching availability:", error);
-      }
-    };
-
     fetchUnavailableHours();
-  }, [selectedDay]);
+  }, [selectedDay, fetchUnavailableHours]);
 
   function toAppointmentDate(
     day: string | null,
@@ -818,9 +819,13 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
                       setHourPage(0);
                       setUnavailableHours([]);
                     } else if (step === 3) {
-                      // Going back from step 3 to step 2: unselect hour only
+                      // Going back from step 3 to step 2: unselect hour only and refresh API
                       setSelectedHour(null);
                       setShowErrors(false);
+                      // Refresh available hours from API when going back to step 2
+                      if (selectedDay) {
+                        fetchUnavailableHours();
+                      }
                     }
                     setStep(step - 1);
                   }}
