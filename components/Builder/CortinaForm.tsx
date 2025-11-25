@@ -451,7 +451,7 @@ const content = {
     errorMessagePhone: "Vnesite telefonsko številko",
     errorMessageCheckbox1: "Strinjajte se s pravili dogodka",
     errorMessageCheckbox2:
-      "Prosimo, strinjajte se z obdelavo podatkov.",
+      "Prosimo, strinjajte se z obdelavo.",
     errorMessageCheckbox3: "Prosimo, strinjajte se z obdelavo svojega e-naslova za namen obveščanja o aktivnostih blagovne znamke Laško.",
     thankyouTitle: "Prijava je oddana in zaključena",
     thankyouDescription:
@@ -844,7 +844,7 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
         {!success ? (
           <div
             ref={contentRef}
-            className="w-full md:bg-[rgba(0,0,0,0.33)] rounded-xl md:px-8 md:py-6 h-[820px] lg:h-[810px]"
+            className="w-full md:bg-[rgba(0,0,0,0.33)] rounded-xl md:px-8 md:py-6 h-[980px] lg:h-[830px]"
             //style={{ minHeight: maxStepHeight ? `${maxStepHeight}px` : undefined }}
           >
             <div className="relative w-full p-2 bg-[rgba(0,0,0,0.33)] md:bg-transparent rounded-xl flex items-center justify-center gap-2 h-10 mb-5">
