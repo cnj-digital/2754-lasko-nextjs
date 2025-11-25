@@ -453,13 +453,13 @@ const content = {
     errorMessageCheckbox2:
       "Prosimo, strinjajte se z obdelavo.",
     errorMessageCheckbox3: "Prosimo, strinjajte se z obdelavo svojega e-naslova za namen obveščanja o aktivnostih blagovne znamke Laško.",
-    thankyouTitle: "Prijava je oddana in zaključena",
+    thankyouTitle: "Samo še en korak te čaka!",
     thankyouDescription:
-      "Odlično, veselimo se, da se kmalu srečamo in skupaj naelektrimo!",
+      "Odpri svoj e-mail, kamor smo poslali sporočilo s povezavo. Klikni nanjo, da potrdiš svojo prijavo.",
     thankyouDescriptionTwo:
-      "Na tvoj email naslov smo poslali potrditev prijave.",
+      "Kmalu ti bomo poslali tudi več informacij v zvezi z dogodkom. Do takrat pa: NA ZDRAVJE!",
     thankyouDescriptionThree:
-      "Kmalu lahko pričakuješ več informacij v zvezi z dogodkom, do takrat pa: NA ZDRAVJE!",
+      "",
     firstName: "Ime",
     lastName: "Priimek",
     email: "E-pošta",
@@ -1204,18 +1204,14 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
               <div className="text-white text-center font-neutraface text-[22px] font-normal leading-[24px] uppercase mb-5">
                 {content.form.thankyouTitle}
               </div>
-              <div className="text-white text-center font-raleway text-lg font-semibold leading-[24px]">
-                {content.form.thankyouDescription}
-              </div>
+              <div className="text-white text-center font-raleway text-lg font-semibold leading-[24px]" dangerouslySetInnerHTML={{ __html: content.form.thankyouDescription }}></div>
+              <div className="text-white text-center font-raleway text-lg font-semibold leading-[24px] mt-6" dangerouslySetInnerHTML={{ __html: content.form.thankyouDescriptionTwo }}></div>
               <SelectedInfoBox
                 label={content.form.selectedTermin}
                 selectedDay={selectedDay}
                 selectedHour={selectedHour}
                 className="my-16"
               />
-              <div className="text-center text-white/60 font-raleway text-[18px] font-semibold leading-[24px] mb-5">
-                {content.form.thankyouDescriptionTwo}
-              </div>
               <div className="text-center text-white/60 font-raleway text-[18px] font-semibold leading-[24px]">
                 {content.form.thankyouDescriptionThree}
               </div>
