@@ -437,9 +437,11 @@ const content = {
     selectedDay: "Tvoj izbrani dan:",
     selectedTermin: "Tvoj izbrani termin:",
     checkbox1Label:
-      "Strinjam se s <a class='underline hover:no-underline' href='/pravila' target='_blank'>pravili dogodka</a>",
+      "Strinjam se s <a class='underline hover:no-underline' href='/si/pravila-in-pogoji-razpisa-cortina' target='_blank'>pravili in pogoji</a> udeležbe na dogodku »LAŠKO MARATON LEGEND«.",
     checkbox2Label:
-      "Strinjam se z obdelavo podatkov za namene pošiljanja e-novic.",
+      "Strinjam se z <a class='underline hover:no-underline' href='/si/izjava-o-varstvu-osebnih-podatkov' target='_blank'>obdelavo podatkov</a> za namene izvedbe in obveščanja o dogodku »LAŠKO MARATON LEGEND«",
+    checkbox3Label:
+      "Strinjam se z obdelavo svojega e-naslova za namen obveščanja o aktivnostih blagovne znamke Laško.",
     ctaLabel: "Oddaj prijavo",
     ctaLabelLoading: "Pošiljanje...",
     ctaBackForm: "Nazaj na izbiro termina",
@@ -449,7 +451,8 @@ const content = {
     errorMessagePhone: "Vnesite telefonsko številko",
     errorMessageCheckbox1: "Strinjajte se s pravili dogodka",
     errorMessageCheckbox2:
-      "Prosimo, strinjajte se z obdelavo podatkov za namene pošiljanja e-novic.",
+      "Prosimo, strinjajte se z obdelavo podatkov.",
+    errorMessageCheckbox3: "Prosimo, strinjajte se z obdelavo svojega e-naslova za namen obveščanja o aktivnostih blagovne znamke Laško.",
     thankyouTitle: "Prijava je oddana in zaključena",
     thankyouDescription:
       "Odlično, veselimo se, da se kmalu srečamo in skupaj naelektrimo!",
@@ -490,6 +493,7 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
   const [showErrors, setShowErrors] = useState<boolean>(false);
   const [checkbox1, setCheckbox1] = useState<boolean>(false);
   const [checkbox2, setCheckbox2] = useState<boolean>(false);
+  const [checkbox3, setCheckbox3] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   const [formState, setFormState] = useState<
     "idle" | "loading" | "success" | "error"
@@ -730,7 +734,7 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
     setShowErrors(true);
 
     // Basic validation
-    if (!firstName || !lastName || !email || !phone || !checkbox1) {
+    if (!firstName || !lastName || !email || !phone || !checkbox1 || !checkbox2) {
       return;
     }
 
@@ -755,7 +759,8 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
         email,
         phone: phone || undefined,
         terms: checkbox1,
-        newsletter: checkbox2,
+        obdelava: checkbox2,
+        newsletter: checkbox3,
         appointment_date: toAppointmentDate(selectedDay, selectedHour),
       };
 
@@ -1135,13 +1140,25 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
                       className="!bg-transparent !p-0"
                       classNameInput="!w-[18px] !h-[18px]"
                       label={content.form.checkbox2Label}
-                      required={false}
+                      required={true}
                       content=""
                       title="checkbox2"
                       checked={checkbox2}
                       onChange={(e) => setCheckbox2(e.target.checked)}
                       showError={showErrors}
                       errorMessage={content.form.errorMessageCheckbox2}
+                    />
+                    <Checkbox
+                      className="!bg-transparent !p-0"
+                      classNameInput="!w-[18px] !h-[18px]"
+                      label={content.form.checkbox3Label}
+                      required={false}
+                      content=""
+                      title="checkbox3"
+                      checked={checkbox3}
+                      onChange={(e) => setCheckbox3(e.target.checked)}
+                      showError={showErrors}
+                      errorMessage={content.form.errorMessageCheckbox3}
                     />
                   </div>
                 </div>
