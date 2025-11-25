@@ -81,7 +81,7 @@ export default function Content({
           alt="content"
           className={cx(
             "rounded-2xl my-10",
-            variant?.value?.toLowerCase()?.trim() === "left" ? "lg:order-1" : (variant?.value?.toLowerCase()?.trim() === "center-asset-center-title" ? "" : "lg:order-2")
+            variant?.value?.toLowerCase()?.trim() === "left" ? "lg:order-1 lg:mt-3" : (variant?.value?.toLowerCase()?.trim() === "center-asset-center-title" ? "" : "lg:order-2 lg:mt-3")
           )}
         />
       )}
