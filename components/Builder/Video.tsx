@@ -39,7 +39,7 @@ export default function VideoPlayer({
         <img
           src={thumbnail}
           alt="Video thumbnail"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover scale-125"
         />
       );
     }
@@ -50,7 +50,7 @@ export default function VideoPlayer({
         <img
           src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
           alt="Video thumbnail"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover scale-125"
         />
       );
     }
