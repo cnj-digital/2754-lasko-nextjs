@@ -871,7 +871,7 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
               "w-full md:bg-[rgba(0,0,0,0.33)] rounded-xl md:px-8 md:py-6",
               normalizedFormType === "partners" 
                 ? "h-[1120px] lg:h-[960px]" 
-                : "h-[980px] lg:h-[830px]"
+                : "h-[1040px] lg:h-[880px]"
             )}
             //style={{ minHeight: maxStepHeight ? `${maxStepHeight}px` : undefined }}
           >
