@@ -173,6 +173,7 @@ export const cortinaQuery = gql`
             value
             label
             }
+            open_all_dates
           }
           ... on Set_BuilderItems_MedijskeVsebine {
             title

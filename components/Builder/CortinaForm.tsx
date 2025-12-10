@@ -15,6 +15,7 @@ type CortinaFormProps = {
     value: string;
     label: string;
   };
+  open_all_dates?: boolean;
   // Add additional fields as backend exposes them (e.g., items, variant, asset)
 };
 
@@ -483,7 +484,7 @@ const FORM_SLOT_LOOKUP = {
   radio: content.form.radio,
 } as const;
 
-export default function CortinaForm({ title, form_type }: CortinaFormProps) {
+export default function CortinaForm({ title, form_type, open_all_dates }: CortinaFormProps) {
   const [selectedDay, setSelectedDay] = useState<string | null>(null);
   const [selectedHour, setSelectedHour] = useState<string | null>(null);
   const [step, setStep] = useState<number>(1);
@@ -513,6 +514,11 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
   const normalizedFormType = (form_type?.value || "all").toLowerCase();
 
   const restrictedSlots = useMemo<Map<string, Set<string>> | null>(() => {
+    // If form type is "users" and open_all_dates is true, show all dates
+    if (normalizedFormType === "users" && open_all_dates) {
+      return null;
+    }
+
     if (
       normalizedFormType !== "users" &&
       normalizedFormType !== "partners" &&
@@ -551,7 +557,7 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
     });
 
     return map;
-  }, [normalizedFormType]);
+  }, [normalizedFormType, open_all_dates]);
 
   const hasAllowedDays = !restrictedSlots || restrictedSlots.size > 0;
 
@@ -596,6 +602,10 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
     }
 
     if (normalizedFormType === "users") {
+      // If open_all_dates is true, show all hours without filtering reserved ones
+      if (open_all_dates) {
+        return hoursForSelectedDay;
+      }
       const reservedSet =
         RESERVED_HOURS_BY_DATE.get(selectedDay) ?? new Set<string>();
       return hoursForSelectedDay.filter((hour) => !reservedSet.has(hour.hour));
@@ -608,6 +618,7 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
     isTypeWithLimitedSlots,
     allowedHoursForSelectedDay,
     normalizedFormType,
+    open_all_dates,
   ]);
 
   const totalVisibleHours = hoursForDisplay.length;
@@ -734,13 +745,14 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
     setShowErrors(true);
 
     // Basic validation
+    // For "all" form type, checkboxes are not required
+    const isAllFormType = normalizedFormType === "all";
     if (
       !firstName ||
       !lastName ||
       !email ||
       !phone ||
-      !checkbox1 ||
-      !checkbox2
+      (!isAllFormType && (!checkbox1 || !checkbox2))
     ) {
       return;
     }
@@ -774,6 +786,7 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
         obdelava: checkbox2,
         newsletter: checkbox3,
         appointment_date: toAppointmentDate(selectedDay, selectedHour),
+        type: normalizedFormType,
       };
 
       // Add Olimpijski komite Slovenije for Partners form type
@@ -917,8 +930,15 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
                   )}
                   {content.form.days.map((day, i) => {
                     const isSelected = selectedDay === day.date;
-                    const isAllowed =
-                      !restrictedSlots || restrictedSlots.has(day.date);
+                    // If restrictedSlots is null, all dates are allowed
+                    // Otherwise, check if the date exists in restrictedSlots
+                    const isAllowed = restrictedSlots === null 
+                      ? true 
+                      : restrictedSlots.has(day.date);
+                    
+                    if (i === 0) {
+                      console.log("Date check for", day.date, "isAllowed:", isAllowed, "restrictedSlots:", restrictedSlots);
+                    }
 
                     return (
                       <ButtonSolid
@@ -1109,6 +1129,7 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
             )}
             {step === 3 && (
               <div id="stepThree">
+                <input type="hidden" name="type" value={normalizedFormType} />
                 <StepHeader
                   title={content.form.titleThree}
                   description={content.form.descriptionThree}
@@ -1232,7 +1253,7 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
                       className="!bg-transparent !p-0"
                       classNameInput="!w-[18px] !h-[18px]"
                       label={content.form.checkbox1Label}
-                      required={true}
+                      required={normalizedFormType !== "all"}
                       content=""
                       title="checkbox1"
                       checked={checkbox1}
@@ -1244,7 +1265,7 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
                       className="!bg-transparent !p-0"
                       classNameInput="!w-[18px] !h-[18px]"
                       label={content.form.checkbox2Label}
-                      required={true}
+                      required={normalizedFormType !== "all"}
                       content=""
                       title="checkbox2"
                       checked={checkbox2}
