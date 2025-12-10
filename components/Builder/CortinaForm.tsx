@@ -450,16 +450,18 @@ const content = {
     errorMessageEmail: "Vnesite e-poštni naslov",
     errorMessagePhone: "Vnesite telefonsko številko",
     errorMessageCheckbox1: "Strinjajte se s pravili dogodka",
-    errorMessageCheckbox2:
-      "Prosimo, strinjajte se z obdelavo.",
-    errorMessageCheckbox3: "Prosimo, strinjajte se z obdelavo svojega e-naslova za namen obveščanja o aktivnostih blagovne znamke Laško.",
+    errorMessageCheckbox2: "Prosimo, strinjajte se z obdelavo.",
+    errorMessageCheckbox3:
+      "Prosimo, strinjajte se z obdelavo svojega e-naslova za namen obveščanja o aktivnostih blagovne znamke Laško.",
+    olimpijskiKomiteLabel: "Olimpijski komite Slovenije",
+    errorMessageOlimpijskiKomite:
+      "Prosimo, izberite možnost.",
     thankyouTitle: "Samo še en korak te čaka!",
     thankyouDescription:
       "Odpri svoj e-mail, kamor smo poslali sporočilo s povezavo. Klikni nanjo, da potrdiš svojo prijavo.",
     thankyouDescriptionTwo:
       "Kmalu ti bomo poslali tudi več informacij v zvezi z dogodkom. Do takrat pa: NA ZDRAVJE!",
-    thankyouDescriptionThree:
-      "",
+    thankyouDescriptionThree: "",
     firstName: "Ime",
     lastName: "Priimek",
     email: "E-pošta",
@@ -494,14 +496,19 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
   const [checkbox1, setCheckbox1] = useState<boolean>(false);
   const [checkbox2, setCheckbox2] = useState<boolean>(false);
   const [checkbox3, setCheckbox3] = useState<boolean>(false);
+  const [olimpijskiKomiteSlovenije, setOlimpijskiKomiteSlovenije] = useState<
+    string | null
+  >(null);
   const [success, setSuccess] = useState<boolean>(false);
   const [formState, setFormState] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle");
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const contentRef = useRef<HTMLDivElement>(null); 
+  const contentRef = useRef<HTMLDivElement>(null);
   const [unavailableHours, setUnavailableHours] = useState<string[]>([]);
-  const [availablePlacesByHour, setAvailablePlacesByHour] = useState<Record<string, number>>({});
+  const [availablePlacesByHour, setAvailablePlacesByHour] = useState<
+    Record<string, number>
+  >({});
 
   const normalizedFormType = (form_type?.value || "all").toLowerCase();
 
@@ -514,16 +521,12 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
       return null;
     }
 
-    let dataset = FORM_SLOT_LOOKUP[
-      normalizedFormType as keyof typeof FORM_SLOT_LOOKUP
-    ];
+    let dataset =
+      FORM_SLOT_LOOKUP[normalizedFormType as keyof typeof FORM_SLOT_LOOKUP];
 
     if (normalizedFormType === "partners") {
       const radioLookup = RADIO_SLOTS.reduce((acc, slot) => {
-        acc.set(
-          slot.date,
-          new Set(slot.hours.map(({ hour }) => hour))
-        );
+        acc.set(slot.date, new Set(slot.hours.map(({ hour }) => hour)));
         return acc;
       }, new Map<string, Set<string>>());
 
@@ -539,18 +542,12 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
         };
       });
 
-      dataset = [
-        ...content.form.partners,
-        ...userAdjusted,
-      ];
+      dataset = [...content.form.partners, ...userAdjusted];
     }
 
     const map = new Map<string, Set<string>>();
     dataset.forEach(({ date, hours }) => {
-      map.set(
-        date,
-        new Set((hours ?? []).map((hourItem) => hourItem.hour))
-      );
+      map.set(date, new Set((hours ?? []).map((hourItem) => hourItem.hour)));
     });
 
     return map;
@@ -686,7 +683,10 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
           const placesMap: Record<string, number> = {};
           const MAX_CAPACITY = 3;
           Object.entries(data.entries_by_hour).forEach(([datetime, count]) => {
-            const availablePlaces = Math.max(0, MAX_CAPACITY - (count as number));
+            const availablePlaces = Math.max(
+              0,
+              MAX_CAPACITY - (count as number)
+            );
             placesMap[datetime] = availablePlaces;
           });
           // Also set fully booked hours to 0
@@ -734,7 +734,19 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
     setShowErrors(true);
 
     // Basic validation
-    if (!firstName || !lastName || !email || !phone || !checkbox1 || !checkbox2) {
+    if (
+      !firstName ||
+      !lastName ||
+      !email ||
+      !phone ||
+      !checkbox1 ||
+      !checkbox2
+    ) {
+      return;
+    }
+
+    // Validate Olimpijski komite Slovenije for Partners form type
+    if (normalizedFormType === "partners" && !olimpijskiKomiteSlovenije) {
       return;
     }
 
@@ -753,7 +765,7 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
     setFormState("loading");
 
     try {
-      const payload = {
+      const payload: any = {
         name: firstName,
         surname: lastName,
         email,
@@ -764,6 +776,12 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
         appointment_date: toAppointmentDate(selectedDay, selectedHour),
       };
 
+      // Add Olimpijski komite Slovenije for Partners form type
+      // Convert "Da" to true, "Ne" to false for boolean database field
+      if (normalizedFormType === "partners" && olimpijskiKomiteSlovenije) {
+        payload.olimpijski_komite_slovenije = olimpijskiKomiteSlovenije === "Da";
+      }
+
       const res = await fetch(FORM_CORTINA_API, {
         method: "POST",
         headers: {
@@ -771,7 +789,7 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
         },
         body: JSON.stringify(payload),
       });
-      
+
       // Parse response to check if submission actually succeeded
       let responseData;
       const contentType = res.headers.get("content-type");
@@ -785,7 +803,10 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
       // Check if response indicates success (backend should return success: true or similar)
       // Also check for error messages in response
       if (!res.ok || responseData.error || responseData.success === false) {
-        const errorMessage = responseData.message || responseData.error || "Ta termin je že zaseden. Maksimalno 3 prijave na termin.";
+        const errorMessage =
+          responseData.message ||
+          responseData.error ||
+          "Ta termin je že zaseden. Maksimalno 3 prijave na termin.";
         setFormState("error");
         setErrorMessage(errorMessage);
         // Refresh availability data on error
@@ -797,7 +818,9 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
 
       // Double-check: if backend returns success field, verify it's true
       if (responseData.success !== undefined && responseData.success !== true) {
-        const errorMessage = responseData.message || "Ta termin je že zaseden. Maksimalno 3 prijave na termin.";
+        const errorMessage =
+          responseData.message ||
+          "Ta termin je že zaseden. Maksimalno 3 prijave na termin.";
         setFormState("error");
         setErrorMessage(errorMessage);
         // Refresh availability data on error
@@ -844,7 +867,12 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
         {!success ? (
           <div
             ref={contentRef}
-            className="w-full md:bg-[rgba(0,0,0,0.33)] rounded-xl md:px-8 md:py-6 h-[980px] lg:h-[830px]"
+            className={cx(
+              "w-full md:bg-[rgba(0,0,0,0.33)] rounded-xl md:px-8 md:py-6",
+              normalizedFormType === "partners" 
+                ? "h-[1120px] lg:h-[960px]" 
+                : "h-[980px] lg:h-[830px]"
+            )}
             //style={{ minHeight: maxStepHeight ? `${maxStepHeight}px` : undefined }}
           >
             <div className="relative w-full p-2 bg-[rgba(0,0,0,0.33)] md:bg-transparent rounded-xl flex items-center justify-center gap-2 h-10 mb-5">
@@ -861,6 +889,8 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
                       // Going back from step 3 to step 2: unselect hour only and refresh API
                       setSelectedHour(null);
                       setShowErrors(false);
+                      setFormState("idle");
+                      setErrorMessage("");
                       // Refresh available hours from API when going back to step 2
                       if (selectedDay) {
                         fetchUnavailableHours();
@@ -975,22 +1005,32 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
                     }
 
                     const reservedHoursForDay =
-                      RESERVED_HOURS_BY_DATE.get(selectedDay) ?? new Set<string>();
+                      RESERVED_HOURS_BY_DATE.get(selectedDay) ??
+                      new Set<string>();
 
                     return paginatedHours.map((hour, i) => {
                       const isSelected = selectedHour === hour.hour;
-                      const isUnavailable = unavailableHours.includes(hour.hour);
+                      const isUnavailable = unavailableHours.includes(
+                        hour.hour
+                      );
                       const isReserved =
                         normalizedFormType === "users" &&
                         reservedHoursForDay.has(hour.hour);
 
                       // Get available places from backend data using correct date formatting
-                      const formattedDate = selectedDay ? formatDateForBackend(selectedDay) : "";
+                      const formattedDate = selectedDay
+                        ? formatDateForBackend(selectedDay)
+                        : "";
                       // Format hour with leading zero: "4:00" -> "04:00"
-                      const hourFormatted = hour.hour.split(":")[0].padStart(2, "0") + ":" + hour.hour.split(":")[1];
+                      const hourFormatted =
+                        hour.hour.split(":")[0].padStart(2, "0") +
+                        ":" +
+                        hour.hour.split(":")[1];
                       const datetimeKey = `${formattedDate} ${hourFormatted}`;
-                      const availablePlaces = availablePlacesByHour[datetimeKey] ?? 3;
-                      const isCapacityFull = isUnavailable || availablePlaces === 0;
+                      const availablePlaces =
+                        availablePlacesByHour[datetimeKey] ?? 3;
+                      const isCapacityFull =
+                        isUnavailable || availablePlaces === 0;
                       const isDisabled = isReserved || isCapacityFull;
 
                       return (
@@ -1012,7 +1052,9 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
                               return `${hour.title} (Zasedeno)`;
                             }
 
-                            return `${hour.title} (${getPlacesText(availablePlaces)})`;
+                            return `${hour.title} (${getPlacesText(
+                              availablePlaces
+                            )})`;
                           })()}
                           key={i}
                           type="button"
@@ -1123,7 +1165,69 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
                     errorMessage={content.form.errorMessagePhone}
                     showError={showErrors}
                   />
+
+                   {/* Olimpijski komite Slovenije radio buttons - only for Partners form type */}
+                   {normalizedFormType === "partners" && (
+                      <div className="w-full bg-[rgba(0,0,0,0.33)] rounded-xl p-4 mt-1">
+                        <div className="flex flex-col gap-2">
+                          <label className="text-white text-sm pr-4 leading-[1.4]">
+                            {content.form.olimpijskiKomiteLabel}
+                            <span className="text-[#FF6161]">*</span>
+                          </label>
+                          <div className="flex items-center gap-6 pr-4">
+                            <div className="flex items-center gap-2">
+                              <input
+                                type="radio"
+                                id="olimpijski-da"
+                                name="olimpijski_komite_slovenije"
+                                value="Da"
+                                checked={olimpijskiKomiteSlovenije === "Da"}
+                                onChange={(e) =>
+                                  setOlimpijskiKomiteSlovenije(e.target.value)
+                                }
+                                className="w-[18px] h-[18px] appearance-none border-2 border-white rounded-full checked:bg-green-600 checked:border-green-600 focus:outline-none relative checked:after:content-[''] checked:after:absolute checked:after:top-1/2 checked:after:left-1/2 checked:after:-translate-x-1/2 checked:after:-translate-y-1/2 checked:after:w-2 checked:after:h-2 checked:after:bg-white checked:after:rounded-full cursor-pointer"
+                                required
+                              />
+                              <label
+                                htmlFor="olimpijski-da"
+                                className="text-white text-sm leading-[1.4] cursor-pointer"
+                              >
+                                Da
+                              </label>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <input
+                                type="radio"
+                                id="olimpijski-ne"
+                                name="olimpijski_komite_slovenije"
+                                value="Ne"
+                                checked={olimpijskiKomiteSlovenije === "Ne"}
+                                onChange={(e) =>
+                                  setOlimpijskiKomiteSlovenije(e.target.value)
+                                }
+                                className="w-[18px] h-[18px] appearance-none border-2 border-white rounded-full checked:bg-green-600 checked:border-green-600 focus:outline-none relative checked:after:content-[''] checked:after:absolute checked:after:top-1/2 checked:after:left-1/2 checked:after:-translate-x-1/2 checked:after:-translate-y-1/2 checked:after:w-2 checked:after:h-2 checked:after:bg-white checked:after:rounded-full cursor-pointer"
+                                required
+                              />
+                              <label
+                                htmlFor="olimpijski-ne"
+                                className="text-white text-sm leading-[1.4] cursor-pointer"
+                              >
+                                Ne
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        {showErrors && !olimpijskiKomiteSlovenije && (
+                          <p className="text-[#FF6161] text-sm pr-4">
+                            {content.form.errorMessageOlimpijskiKomite}
+                          </p>
+                        )}
+                      </div>
+                    )}
+
                   <div className="w-full bg-[rgba(0,0,0,0.33)] rounded-xl p-4 mt-1 flex flex-col gap-4">
+                   
+
                     <Checkbox
                       className="!bg-transparent !p-0"
                       classNameInput="!w-[18px] !h-[18px]"
@@ -1174,26 +1278,30 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
                     type="button"
                     disableGradient={true}
                     className="w-full justify-center mt-3 !bg-[#F4F4F4] !text-black"
-                    onClick={() => setStep(2)}
+                    onClick={() => {
+                      setFormState("idle");
+                      setErrorMessage("");
+                      setStep(2);
+                    }}
                   />
                 ) : (
-                <ButtonSolid
-                  size="small"
-                  title={
-                    formState === "loading"
-                      ? content.form.ctaLabelLoading
-                      : content.form.ctaLabel
-                  }
-                  type="button"
-                  disableGradient={true}
-                  className={cx(
-                    "w-full justify-center mt-3 !bg-[#F4F4F4] !text-black",
-                    formState === "loading"
-                      ? "opacity-50 pointer-events-none"
-                      : ""
-                  )}
-                  onClick={handleFormSubmit}
-                />
+                  <ButtonSolid
+                    size="small"
+                    title={
+                      formState === "loading"
+                        ? content.form.ctaLabelLoading
+                        : content.form.ctaLabel
+                    }
+                    type="button"
+                    disableGradient={true}
+                    className={cx(
+                      "w-full justify-center mt-3 !bg-[#F4F4F4] !text-black",
+                      formState === "loading"
+                        ? "opacity-50 pointer-events-none"
+                        : ""
+                    )}
+                    onClick={handleFormSubmit}
+                  />
                 )}
               </div>
             )}
@@ -1204,8 +1312,18 @@ export default function CortinaForm({ title, form_type }: CortinaFormProps) {
               <div className="text-white text-center font-neutraface text-[22px] font-normal leading-[24px] uppercase mb-5">
                 {content.form.thankyouTitle}
               </div>
-              <div className="text-white text-center font-raleway text-lg font-semibold leading-[24px]" dangerouslySetInnerHTML={{ __html: content.form.thankyouDescription }}></div>
-              <div className="text-white text-center font-raleway text-lg font-semibold leading-[24px] mt-6" dangerouslySetInnerHTML={{ __html: content.form.thankyouDescriptionTwo }}></div>
+              <div
+                className="text-white text-center font-raleway text-lg font-semibold leading-[24px]"
+                dangerouslySetInnerHTML={{
+                  __html: content.form.thankyouDescription,
+                }}
+              ></div>
+              <div
+                className="text-white text-center font-raleway text-lg font-semibold leading-[24px] mt-6"
+                dangerouslySetInnerHTML={{
+                  __html: content.form.thankyouDescriptionTwo,
+                }}
+              ></div>
               <SelectedInfoBox
                 label={content.form.selectedTermin}
                 selectedDay={selectedDay}

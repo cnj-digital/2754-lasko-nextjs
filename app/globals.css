@@ -107,3 +107,23 @@ h4 {
     scroll-padding-top: 100px;
   }
 }
+
+/* Custom radio button styling - only checked state, no hover/focus effects */
+input[type="radio"][name="olimpijski_komite_slovenije"]:hover {
+  border-color: white !important;
+  background-color: transparent !important;
+}
+
+input[type="radio"][name="olimpijski_komite_slovenije"]:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+input[type="radio"][name="olimpijski_komite_slovenije"]:checked:hover {
+  border-color: #16a34a !important;
+  background-color: #16a34a !important;
+}
+
+input[type="radio"][name="olimpijski_komite_slovenije"]:checked:hover::after {
+  background-color: white !important;
+}
