@@ -1033,8 +1033,10 @@ export default function CortinaForm({ title, form_type, open_all_dates }: Cortin
                       const isUnavailable = unavailableHours.includes(
                         hour.hour
                       );
+                      // If open_all_dates is true, don't mark hours as reserved
                       const isReserved =
                         normalizedFormType === "users" &&
+                        !open_all_dates &&
                         reservedHoursForDay.has(hour.hour);
 
                       // Get available places from backend data using correct date formatting
