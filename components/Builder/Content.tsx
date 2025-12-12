@@ -66,7 +66,7 @@ export default function Content({
         <h2
           id={generateAnchorLink(title)}
           className={cx(
-            "text-green-800 font-black text-[40px] leading-tight font-neutraface",
+            "text-green-800 font-black text-[40px] leading-tight font-neutraface mb-6 lg:mb-0",
             variant?.value?.toLowerCase()?.trim() === "center-asset-center-title" ? "text-center" : "lg:hidden"
           )}
         >
