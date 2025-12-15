@@ -1,6 +1,5 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import Container from "../Container";
 import { motion } from "motion/react";
 import cx from "classnames";
 import Chevron from "../Icons/Chevron";
