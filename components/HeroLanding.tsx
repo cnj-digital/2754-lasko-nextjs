@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ButtonSolid from "./Buttons/Solid";
 import Chevron from "./Icons/Chevron";
 import Container from "./Container";
@@ -42,6 +42,12 @@ export default function HeroLanding({
   isVideo = false,
   banner,
 }: HeroProps) {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const { scrollY } = useScroll();
   const height = useTransform(scrollY, [0, 500], [0, 162]);
 
@@ -113,10 +119,10 @@ export default function HeroLanding({
           </div>
         </Container>
       </div>
-      {banner && (
+      {banner && isClient && (
         <motion.div className=" relative z-0" style={{ height: height }}>
           <Link
-            href={banner?.link}
+            href={banner?.link || "#"}
             className="w-full  absolute bottom-0 bg-cover bg-center pb-4 pt-12 rounded-b-3xl flex justify-center items-center  overflow-hidden lg:px-6"
             style={{ backgroundImage: 'url("/bg-200.svg")' }}
           >
@@ -136,8 +142,9 @@ export default function HeroLanding({
             {banner.textmobile && (
               <p className="relative  lg:hidden text-[21px]  leading-tight text-balance font-bold pr-8 text-white flex items-center justify-start">
                 <span
+                  suppressHydrationWarning
                   dangerouslySetInnerHTML={{
-                    __html: banner.textmobile,
+                    __html: banner.textmobile || "",
                   }}
                 />
                 <Chevron className="text-white  size-8 ml-2 flex-shrink-0" />
