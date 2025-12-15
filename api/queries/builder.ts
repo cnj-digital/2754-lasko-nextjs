@@ -168,50 +168,15 @@ export const builderQuery = gql`
               }
             }
           }
-        }
-        ... on Set_BuilderItems_CortinaForm {
-          id
-          title
-          type
-          form_type {
-            value
-            label
-          }
-          open_all_dates
-        }
-        ... on Set_BuilderItems_MedijskeVsebine {
-          title
-          type
-        }
-        ... on Set_BuilderItems_Logos {
-          id
-          items {
-            ... on Set_BuilderItems_Items_Item {
-              id
-              image {
-                permalink
-              }
-              url
-            }
-          }
-          title
-          type
-        }
-        ... on Set_BuilderItems_Videos {
-          id
-          title
-          type
-        }
-        ... on Set_BuilderItems_News {
-          type
-          title
-          items {
+          ... on Set_BuilderItems_CortinaForm {
+            id
             title
             type
             form_type {
               value
               label
             }
+            open_all_dates
           }
           ... on Set_BuilderItems_MedijskeVsebine {
             title
