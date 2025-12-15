@@ -1,15 +1,20 @@
 "use client";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import cx from "classnames";
 import { isExternalLink } from "@/helpers/general";
-import LangMenu from "./Menu/LangMenu";
 import Container from "./Container";
 import MenuIcon from "./Icons/Menu";
 import MobileMenu from "./Menu/MobileMenu";
 import ArrowDiagonalIcon from "./Icons/ArrowDiagonal";
 import { external_links } from "@/data/general";
 import { usePathname } from "next/navigation";
+
+// Load language menu only on the client to avoid hydration ID mismatches from Headless UI
+const LangMenu = dynamic(() => import("./Menu/LangMenu"), {
+  ssr: false,
+});
 
 type MenuProps = {
   nav: {

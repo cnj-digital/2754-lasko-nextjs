@@ -28,6 +28,7 @@ export default function HistoryTimeline({ timeline }: HistoryTimelineProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ dragFree: true });
 
   const [selected, setSelected] = useState<Event | undefined>(undefined);
+  const [isMounted, setIsMounted] = useState(false);
   const maxLengthEventEven = Math.max(
     ...timeline.filter((_, i) => i % 2 === 0).map((year) => year.events.length)
   );
@@ -48,6 +49,8 @@ export default function HistoryTimeline({ timeline }: HistoryTimelineProps) {
   const progressValue = useMotionValue(0);
 
   useEffect(() => {
+    setIsMounted(true);
+
     if (!emblaApi) return;
 
     const onScroll = () => {
@@ -217,15 +220,17 @@ export default function HistoryTimeline({ timeline }: HistoryTimelineProps) {
               </div>
             </div>
           </div>
-          <ItemModal
-            onClose={() => setSelected(undefined)}
-            item={selected}
-            year={
-              timeline.find((item) =>
-                selected ? item.events.includes(selected) : false
-              )?.year
-            }
-          />
+          {isMounted && (
+            <ItemModal
+              onClose={() => setSelected(undefined)}
+              item={selected}
+              year={
+                timeline.find((item) =>
+                  selected ? item.events.includes(selected) : false
+                )?.year
+              }
+            />
+          )}
           <div
             className="   z-10 flex gap-4 ml-auto show-cursor"
             onClick={(e) => e.stopPropagation()}
