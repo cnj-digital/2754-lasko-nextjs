@@ -18,6 +18,7 @@ export default async function Article({
   builder_items,
   globals,
 }: any) {
+  console.log(builder_items[3]);
   return (
     <div className="">
       <ArticleHero

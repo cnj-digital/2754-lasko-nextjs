@@ -20,7 +20,7 @@ type BuilderComponentProps = {
   globals: any;
 };
 
-export default function BuilderComponent({ 
+export default function BuilderComponent({
   type,
   data,
   globals,
@@ -32,7 +32,6 @@ export default function BuilderComponent({
     video: VideoPlayer,
     form: Form,
     cortina_form: CortinaForm,
-    carousel: Carousel,
     medijske_vsebine: MedijskeVsebine,
     logos: Logos,
     videos: Videos,
@@ -42,12 +41,13 @@ export default function BuilderComponent({
     cortina_results: CortinaResults,
     related_pages: RelatedPages,
     related_pages_two: RelatedPages,
+    carousel: Carousel,
   };
-  
+
   // Debug: log component type to see what's being passed
- //console.log('Builder component type:', type, 'Data:', data);
-  
-  const Component = components[type] ? components[type] : NotFound; 
+  // console.log('Builder component type:', type, 'Data:', data);
+
+  const Component = components[type] ? components[type] : NotFound;
 
   return <Component {...data} {...globals} />;
 }
