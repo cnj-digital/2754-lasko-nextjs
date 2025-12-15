@@ -70,14 +70,14 @@ export default function HeroLanding({
                 className="absolute inset-0 w-full h-full object-cover lg:hidden"
               />
             )}
-            <img
-              src={backgroundUrl}
-              alt="Hero background"
+          <img
+            src={backgroundUrl}
+            alt="Hero background"
               className={cx(
                 "absolute inset-0 w-full h-full object-cover",
                 backgroundMobileUrl && "hidden lg:block"
               )}
-            />
+          />
           </>
         )}
 
@@ -88,7 +88,7 @@ export default function HeroLanding({
             {title}
           </h1>
           {description && (
-            <div dangerouslySetInnerHTML={{ __html: description }} className="text-white text-xl lg:text-2xl font-medium max-w-3xl text-balance mb-4 lg:mb-10 "/> 
+            <div dangerouslySetInnerHTML={{ __html: description || "" }} className="text-white text-xl lg:text-2xl font-medium max-w-3xl text-balance mb-4 lg:mb-10 "/> 
           )}
           <div className="lg:flex lg:items-center lg:gap-4">
           {cta && (
@@ -133,14 +133,16 @@ export default function HeroLanding({
               {banner.textright}
               <Chevron className="text-white  size-10" />
             </p>
-            <p className="relative  lg:hidden text-[21px]  leading-tight text-balance font-bold pr-8 text-white flex items-center justify-start">
-              <span
-                dangerouslySetInnerHTML={{
-                  __html: banner.textmobile,
-                }}
-              ></span>
-              <Chevron className="text-white  size-8 ml-2 flex-shrink-0" />
-            </p>
+            {banner.textmobile && (
+              <p className="relative  lg:hidden text-[21px]  leading-tight text-balance font-bold pr-8 text-white flex items-center justify-start">
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: banner.textmobile,
+                  }}
+                />
+                <Chevron className="text-white  size-8 ml-2 flex-shrink-0" />
+              </p>
+            )}
           </Link>
         </motion.div>
       )}

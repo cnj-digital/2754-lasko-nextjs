@@ -505,7 +505,7 @@ export default function CortinaForm({ title, form_type, open_all_dates }: Cortin
     "idle" | "loading" | "success" | "error"
   >("idle");
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const contentRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null); 
   const [unavailableHours, setUnavailableHours] = useState<string[]>([]);
   const [availablePlacesByHour, setAvailablePlacesByHour] = useState<
     Record<string, number>
@@ -654,68 +654,68 @@ export default function CortinaForm({ title, form_type, open_all_dates }: Cortin
 
   // Fetch unavailable hours function - can be called manually or via useEffect
   const fetchUnavailableHours = useCallback(async () => {
-    if (!selectedDay) return;
+      if (!selectedDay) return;
 
-    try {
-      // Convert date from "10.1.2026" to "2026-01-10" format
-      const formattedDate = formatDateForBackend(selectedDay);
+      try {
+        // Convert date from "10.1.2026" to "2026-01-10" format
+        const formattedDate = formatDateForBackend(selectedDay);
 
-      const backendBaseUrl =
-        process.env.NEXT_PUBLIC_FORM_CORTINA_API ||
-        "https://2754-lasko-statamic.test/api";
-      const url = `${backendBaseUrl}/form-cortina/available-hours`;
+        const backendBaseUrl =
+          process.env.NEXT_PUBLIC_FORM_CORTINA_API ||
+          "https://2754-lasko-statamic.test/api";
+        const url = `${backendBaseUrl}/form-cortina/available-hours`;
 
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          date: formattedDate, // e.g., "2026-01-10"
-        }),
-      });
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            date: formattedDate, // e.g., "2026-01-10"
+          }),
+        });
 
-      if (response.ok) {
-        const data = await response.json();
+        if (response.ok) {
+          const data = await response.json();
 
-        // Normalize hours: backend returns "2026-01-10 10:00", frontend uses "10:00"
-        const normalizedHours = (data.fully_booked_hours || []).map(
-          (h: string) => {
-            // Extract time part from "2026-01-10 10:00" -> "10:00"
-            const timePart = h.split(" ")[1];
-            return timePart || h;
-          }
-        );
+          // Normalize hours: backend returns "2026-01-10 10:00", frontend uses "10:00"
+          const normalizedHours = (data.fully_booked_hours || []).map(
+            (h: string) => {
+              // Extract time part from "2026-01-10 10:00" -> "10:00"
+              const timePart = h.split(" ")[1];
+              return timePart || h;
+            }
+          );
 
-        setUnavailableHours(normalizedHours);
+          setUnavailableHours(normalizedHours);
 
-        // Process entries_by_hour data from backend
-        if (data.entries_by_hour) {
-          const placesMap: Record<string, number> = {};
-          const MAX_CAPACITY = 3;
-          Object.entries(data.entries_by_hour).forEach(([datetime, count]) => {
+          // Process entries_by_hour data from backend
+          if (data.entries_by_hour) {
+            const placesMap: Record<string, number> = {};
+            const MAX_CAPACITY = 3;
+            Object.entries(data.entries_by_hour).forEach(([datetime, count]) => {
             const availablePlaces = Math.max(
               0,
               MAX_CAPACITY - (count as number)
             );
-            placesMap[datetime] = availablePlaces;
-          });
-          // Also set fully booked hours to 0
-          (data.fully_booked_hours || []).forEach((h: string) => {
-            placesMap[h] = 0;
-          });
-          setAvailablePlacesByHour(placesMap);
+              placesMap[datetime] = availablePlaces;
+            });
+            // Also set fully booked hours to 0
+            (data.fully_booked_hours || []).forEach((h: string) => {
+              placesMap[h] = 0;
+            });
+            setAvailablePlacesByHour(placesMap);
+          }
+        } else {
+          console.error(
+            "Availability check failed:",
+            response.status,
+            await response.text()
+          );
         }
-      } else {
-        console.error(
-          "Availability check failed:",
-          response.status,
-          await response.text()
-        );
+      } catch (error) {
+        console.error("Error fetching availability:", error);
       }
-    } catch (error) {
-      console.error("Error fetching availability:", error);
-    }
   }, [selectedDay]);
 
   // Fetch unavailable hours when a day is selected
@@ -1308,23 +1308,23 @@ export default function CortinaForm({ title, form_type, open_all_dates }: Cortin
                     }}
                   />
                 ) : (
-                  <ButtonSolid
-                    size="small"
-                    title={
-                      formState === "loading"
-                        ? content.form.ctaLabelLoading
-                        : content.form.ctaLabel
-                    }
-                    type="button"
-                    disableGradient={true}
-                    className={cx(
-                      "w-full justify-center mt-3 !bg-[#F4F4F4] !text-black",
-                      formState === "loading"
-                        ? "opacity-50 pointer-events-none"
-                        : ""
-                    )}
-                    onClick={handleFormSubmit}
-                  />
+                <ButtonSolid
+                  size="small"
+                  title={
+                    formState === "loading"
+                      ? content.form.ctaLabelLoading
+                      : content.form.ctaLabel
+                  }
+                  type="button"
+                  disableGradient={true}
+                  className={cx(
+                    "w-full justify-center mt-3 !bg-[#F4F4F4] !text-black",
+                    formState === "loading"
+                      ? "opacity-50 pointer-events-none"
+                      : ""
+                  )}
+                  onClick={handleFormSubmit}
+                />
                 )}
               </div>
             )}

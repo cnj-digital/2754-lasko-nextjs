@@ -173,6 +173,7 @@ export const builderQuery = gql`
             value
             label
           }
+          open_all_dates
         }
         ... on Set_BuilderItems_MedijskeVsebine {
           title

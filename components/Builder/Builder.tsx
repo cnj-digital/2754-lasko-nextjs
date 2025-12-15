@@ -12,6 +12,7 @@ import Events from "./Events";
 import WallOfFame from "./WallOfFame";
 import CortinaResults from "./CortinaResults";
 import RelatedPages from "./RelatedPages";
+import Carousel from "./Carousel";
 
 type BuilderComponentProps = {
   type: string;
@@ -31,6 +32,7 @@ export default function BuilderComponent({
     video: VideoPlayer,
     form: Form,
     cortina_form: CortinaForm,
+    carousel: Carousel,
     medijske_vsebine: MedijskeVsebine,
     logos: Logos,
     videos: Videos,
@@ -43,7 +45,7 @@ export default function BuilderComponent({
   };
   
   // Debug: log component type to see what's being passed
- // console.log('Builder component type:', type, 'Data:', data);
+ //console.log('Builder component type:', type, 'Data:', data);
   
   const Component = components[type] ? components[type] : NotFound; 
 

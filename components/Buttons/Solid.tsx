@@ -35,7 +35,7 @@ export default function ButtonSolid({
         size === "small" ? "text-lg" : "text-xl lg:text-2xl",
         variant === "secondary" ? " text-green-800" : "text-white",
       )}
-      href={url ?? ""}
+      href={url ?? "#"}
       target={url && isExternalLink(url) ? "_blank" : ""}
       onClick={() => (onClick ? onClick() : null)}
       type={type}
