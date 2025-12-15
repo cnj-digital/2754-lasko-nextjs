@@ -5,6 +5,7 @@ import PlayIcon from "../Icons/Play";
 import ExpandIcon from "../Icons/Expand";
 import CloseIcon from "../Icons/Close";
 import { Dialog, DialogPanel } from "@headlessui/react";
+import Image from "next/image";
 
 interface VideoPlayerProps {
   thumbnail?: string;
@@ -36,7 +37,7 @@ export default function VideoPlayer({
   const renderThumbnail = () => {
     if (thumbnail) {
       return (
-        <img
+        <Image
           src={thumbnail}
           alt="Video thumbnail"
           className="w-full h-full object-cover scale-125"
@@ -47,10 +48,12 @@ export default function VideoPlayer({
     if (isYouTube) {
       const videoId = getYoutubeEmbedUrl(videoUrl).split("/").pop();
       return (
-        <img
+        <Image
           src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
           alt="Video thumbnail"
           className="w-full h-full object-cover scale-125"
+          width={1280}
+          height={720}
         />
       );
     }

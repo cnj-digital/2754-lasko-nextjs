@@ -1,6 +1,7 @@
 import { generateAnchorLink } from "@/helpers/general";
 import Container from "./Container";
 import cx from "classnames";
+import Image from "next/image";
 
 type ContentGridBackgroundProps = {
   title: string;
@@ -60,7 +61,7 @@ export default function ContentGridBackground({
                       section.type === "horizontal" ? "lg:flex-row " : ""
                     )}
                   >
-                    <img
+                    <Image
                       src={item.image}
                       alt={item.title}
                       className={cx(
@@ -69,6 +70,9 @@ export default function ContentGridBackground({
                           ? " lg:w-1/2  aspect-square"
                           : "w-full aspect-[1.3]"
                       )}
+                      width={640}
+                      height={427}
+                      style={{ height: 'auto' }}
                     />
                     <div className="text-white">
                       <h4

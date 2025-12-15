@@ -7,6 +7,7 @@ import { isExternalLink } from "@/helpers/general";
 import Socials from "../Socials";
 import { motion, AnimatePresence } from "motion/react";
 import ArrowDiagonalIcon from "../Icons/ArrowDiagonal";
+import Image from "next/image";
 
 type MobileMenuProps = {
   isOpen: boolean;
@@ -42,7 +43,7 @@ export default function MobileMenu({
             <div className="absolute inset-0 z-0 w-full h-full bg-gradient-to-b from-transparent via-transparent to-black/16" />
             <div className="flex relative items-center px-8 pt-4 gap-4">
               <Link href={`/${lang}`} className="mr-auto" onClick={onClose}>
-                <img src="/logo.png" alt="Logo" className=" h-[60px] " />
+                <Image src="/logo.png" alt="Logo" className=" h-[60px] " width={100}height={100} style={{height: 'auto'}} />
               </Link>
               <LangMenu />
               <button className="" onClick={() => onClose()}>
@@ -60,10 +61,12 @@ export default function MobileMenu({
                     onClick={onClose}
                   >
                     <div className="bg-white rounded-lg size-14 mr-1">
-                      <img
+                      <Image
                         src={link.image}
                         alt="icon"
                         className="w-full h-full object-contain px-2"
+                        width={100}
+                        height={100}
                       />
                     </div>
                     <span className="mr-auto text-white">{link.title}</span>

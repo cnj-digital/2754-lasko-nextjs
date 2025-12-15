@@ -7,6 +7,7 @@ import Container from "./Container";
 import ArrowDiagonalIcon from "./Icons/ArrowDiagonal";
 import { usePathname } from "next/navigation";
 import { socials, strings } from "@/data/general";
+import Image from "next/image";
 
 type FooterProps = {
   nav: {
@@ -30,10 +31,13 @@ export default function Footer({ nav, globals }: FooterProps) {
 
   return (
     <footer className="relative pt-36 lg:pt-40">
-      <img
+      <Image
         alt="Footer logo"
         src="/logo.png"
         className="absolute h-[205px] top-0 left-0 right-0 mx-auto z-10"
+        width={256}
+        height={324}
+        style={{ width: 'auto' }}
       />
       <div className="relative max-w-8xl w-full mx-auto py-20 lg:pb-32 lg:pt-40 bg-bottom rounded-t-3xl lg:h-[560px]">
         <div

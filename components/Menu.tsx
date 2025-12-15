@@ -10,6 +10,7 @@ import MobileMenu from "./Menu/MobileMenu";
 import ArrowDiagonalIcon from "./Icons/ArrowDiagonal";
 import { external_links } from "@/data/general";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 // Load language menu only on the client to avoid hydration ID mismatches from Headless UI
 const LangMenu = dynamic(() => import("./Menu/LangMenu"), {
@@ -68,13 +69,16 @@ const Menu = ({ nav }: MenuProps) => {
             href={`/${lang}`}
             className=" mx-auto lg:mx-0 w-24 xl:w-[140px] order-2 lg:order-1 self-center relative"
           >
-            <img
+            <Image
               src="/logo.png"
               alt="Logo"
               className={cx(
                 "transition-all duration-300 w-full object-contain object-center",
                 isScrolled ? " h-[60px] lg:h-[80px] " : "h-[120px]"
               )}
+              width={1773}
+              height={2241}
+              style={{ width: 'auto' }}
             />
           </Link>
 

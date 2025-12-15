@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { motion, AnimatePresence } from "motion/react";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 export default function AgeVerificationCheck({
   children,
@@ -84,11 +85,7 @@ export default function AgeVerificationCheck({
                   }}
                   className=" overflow-hidden rounded-lg lg:p-6 text-center mb-20 lg:mb-40 w-full"
                 >
-                  <img
-                    src="/logo.png"
-                    alt="logo"
-                    className="w-32 lg:w-40 mx-auto object-contain"
-                  />
+                  <Image src="/logo.png" alt="logo" width={128} height={85} className="w-32 lg:w-40 mx-auto object-contain" style={{ height: 'auto' }} />
                   <DialogTitle className=" text-[36px] uppercase leading-snug lg:text-[52px] mt-10 lg:mt-20 font-black font-neutraface text-white mb-8">
                     {ageVerification[lang].age_title}
                   </DialogTitle>

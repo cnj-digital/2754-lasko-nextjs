@@ -4,6 +4,7 @@ import Container from "@/components/Container";
 import Footer from "@/components/Footer";
 import Menu from "@/components/Menu";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 export default function Page404({
   navigation,
@@ -23,10 +24,12 @@ export default function Page404({
     <main>
       <Menu nav={navigation[lang].map((item: any) => item.page)} />
       <Container className="py-20">
-        <img
+        <Image
           src="/404.png"
           alt="404"
           className=" mt-20 max-h-[400px] mx-auto"
+          width={702}
+          height={400}
         />
         <p className="text-black text-center mx-auto max-w-xl text-2xl font-bold leading-[1.4] lg:text-[32px]">
           {content[lang].title_text}

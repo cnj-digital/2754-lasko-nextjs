@@ -10,6 +10,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import Chevron from "./Icons/Chevron";
 import { motion, useMotionValue, useTransform } from "motion/react";
 import useScreenSize from "@/hooks/useScreenSize";
+import Image from "next/image";
 
 type Event = {
   title: string;
@@ -221,15 +222,15 @@ export default function HistoryTimeline({ timeline }: HistoryTimelineProps) {
             </div>
           </div>
           {isMounted && (
-            <ItemModal
-              onClose={() => setSelected(undefined)}
-              item={selected}
-              year={
-                timeline.find((item) =>
-                  selected ? item.events.includes(selected) : false
-                )?.year
-              }
-            />
+          <ItemModal
+            onClose={() => setSelected(undefined)}
+            item={selected}
+            year={
+              timeline.find((item) =>
+                selected ? item.events.includes(selected) : false
+              )?.year
+            }
+          />
           )}
           <div
             className="   z-10 flex gap-4 ml-auto show-cursor"
@@ -281,30 +282,38 @@ function Background({ progress }: { progress: any }) {
     <div className="absolute inset-0   z-0 w-full h-full flex pointer-events-none select-none">
       {Array.from({ length: repeat }).map((_, i) => (
         <div key={i} className="relative w-[1700px] flex-shrink-0 ">
-          <img
+          <Image
             src={"/placeholders/barrel.png"}
             alt="barrel"
             className="absolute top-[60%] left-[10%] z-0 "
+            width={159}
+            height={203}
           />
-          <img
+          <Image
             src={"/placeholders/barrel.png"}
             alt="barrel"
             className="absolute top-[30%] rotate-45 left-[40%] z-0 "
+            width={159}
+            height={203}
           />
-          <img
+          <Image
             src={"/placeholders/beer.png"}
             alt="beer"
             className="absolute top-[60%] left-[80%] scale-90 z-0 "
+            width={179}
+            height={178}
           />
           {/* <img
             src={"/placeholders/beer.png"}
             alt="beer"
             className="absolute top-[60%] left-[80%] scale-90 z-0 "
           /> */}
-          <img
+          <Image
             src={"/placeholders/berries.png"}
             alt="berries"
             className="absolute top-[60%] left-[55%] z-0 "
+            width={335}
+            height={392}
           />
           <motion.img
             src={"/placeholders/hourglass.png"}
@@ -389,10 +398,13 @@ function ItemModal({
           {item?.title}
         </h3>
         {item?.image && (
-          <img
+          <Image
             src={item?.image}
             alt="event"
             className="w-full aspect-video object-cover rounded-2xl mt-6 pointer-events-none"
+            width={640}
+            height={427}
+            style={{ height: 'auto' }}
           />
         )}
         {item && (

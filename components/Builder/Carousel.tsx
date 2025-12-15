@@ -8,6 +8,7 @@ import CloseIcon from "../Icons/Close";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { EmblaCarouselType } from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
+import Image from "next/image";
 
 type CarouselProps = {
   assets: {
@@ -62,10 +63,12 @@ export default function Carousel({ assets }: CarouselProps) {
               >
                 <div className="relative transition-all duration-300 h-full ">
                   <div className="relative md:aspect-video w-full h-full flex items-center justify-center">
-                    <img
+                    <Image
                       src={asset.permalink}
                       className="h-full w-auto object-contain rounded-3xl"
                       alt={asset.alt || ""}
+                      width={640}
+                      height={480}
                     />
                   </div>
                 </div>
@@ -128,10 +131,12 @@ export default function Carousel({ assets }: CarouselProps) {
               </button>
 
               <div className="relative rounded-3xl overflow-hidden max-h-[85vh] flex items-center justify-center">
-                <img
+                <Image
                   src={selectedImage}
                   alt="Fullscreen view"
                   className="max-w-full max-h-[85vh] w-auto h-auto object-contain"
+                  width={640}
+                  height={480}
                 />
               </div>
             </div>

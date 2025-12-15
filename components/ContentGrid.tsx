@@ -1,5 +1,6 @@
 import { generateAnchorLink } from "@/helpers/general";
 import Container from "./Container";
+import Image from "next/image";
 
 type ContentGridProps = {
   title: string;
@@ -38,11 +39,7 @@ export default function ContentGrid({
               key={i}
               className="flex flex-col items-start lg:flex-row gap-6 lg:gap-10 w-4/5 lg:w-full flex-shrink-0 snap-start"
             >
-              <img
-                src={item.image}
-                alt={item.title}
-                className=" lg:w-1/2 aspect-square rounded-2xl object-cover"
-              />
+              <Image src={item.image} alt={item.title} width={640} height={427} className="lg:w-1/2 aspect-square rounded-2xl object-cover" style={{ height: 'auto' }} />
               <div className="text-black">
                 <h4
                   id={generateAnchorLink(item.title)}

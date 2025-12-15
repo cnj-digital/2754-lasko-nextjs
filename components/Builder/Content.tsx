@@ -4,6 +4,7 @@ import Link from "next/link";
 import ArrowDiagonalIcon from "../Icons/ArrowDiagonal";
 import ButtonSolid from "../Buttons/Solid";
 import VideoPlayer from "./Video";
+import Image from "next/image";
 
 export type ContentProps = {
   title: string | null;
@@ -76,13 +77,15 @@ export default function Content({
 
       {/* Image - second on mobile, positioned via order on desktop */}
       {asset && (
-        <img
+        <Image
           src={asset.permalink}
           alt="content"
           className={cx(
             "rounded-2xl my-10",
             variant?.value?.toLowerCase()?.trim() === "left" ? "lg:order-1 lg:mt-3" : (variant?.value?.toLowerCase()?.trim() === "center-asset-center-title" ? "" : "lg:order-2 lg:mt-3")
           )}
+          width={1920}
+          height={1280}
         />
       )}
 
@@ -134,10 +137,12 @@ export default function Content({
                   className="inline-flex py-3 px-4 gap-4 shadow-small-card my-8 bg-white rounded-2xl"
                 >
                   {item.cta.asset && (
-                    <img
+                    <Image
                       src={item.cta.asset.permalink}
                       alt="content"
                       className="size-10 object-contain rounded-lg overflow-clip" 
+                      width={40}
+                      height={40}
                     />
                   )}
                   <span className="text-xl font-semibold leading-[1.4] text-black">
@@ -158,10 +163,12 @@ export default function Content({
                 url={cta.link}
                 icon={
                   cta.asset ? (
-                    <img
+                    <Image
                       src={cta.asset.permalink}
                       alt="content"
                       className="size-6 object-contain rounded-lg overflow-clip" 
+                      width={24}
+                      height={24}
                     />
                   ) : isExternalLink(cta.link) ? (
                     <ArrowDiagonalIcon className="size-6" />
@@ -178,10 +185,12 @@ export default function Content({
                 url={cta_second.link}
                 icon={
                   cta_second.asset ? (
-                    <img
+                    <Image
                       src={cta_second.asset.permalink}
                       alt="content"
                       className="size-6 object-contain rounded-lg overflow-clip"
+                      width={24}
+                      height={24}
                     />
                   ) : isExternalLink(cta_second.link) ? (
                     <ArrowDiagonalIcon className="size-6" />

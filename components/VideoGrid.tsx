@@ -7,6 +7,7 @@ import Container from "./Container";
 import PlayIcon from "./Icons/Play";
 import ExpandIcon from "./Icons/Expand";
 import { generateAnchorLink } from "@/helpers/general";
+import Image from "next/image";
 
 type Video = {
   title: string;
@@ -41,10 +42,12 @@ export default function VideoGrid({ title, videos }: VideoGridProps) {
   const renderThumbnail = (video: Video, index: number) => {
     if (video.thumbnail) {
       return (
-        <img
+        <Image
           src={video.thumbnail}
           alt={video.title}
           className="w-full h-full object-cover"
+          width={640}
+          height={480}
         />
       );
     }
@@ -52,10 +55,12 @@ export default function VideoGrid({ title, videos }: VideoGridProps) {
     if (videoType(video.videoUrl) === "youtube") {
       const videoId = getYoutubeEmbedUrl(video.videoUrl).split("/").pop();
       return (
-        <img
+        <Image
           src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
           alt={video.title}
           className="w-full h-full object-cover"
+          width={640}
+          height={480}
         />
       );
     }

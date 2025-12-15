@@ -1,5 +1,6 @@
 import Container from "../Container";
 import cx from "classnames";
+import Image from "next/image";
 
 type BuilderHeroProps = {
   title: string;
@@ -24,10 +25,12 @@ export default function BuilderHero({
         )}
       >
         {backgroundUrl && (
-          <img
+          <Image
             src={backgroundUrl}
             alt="Hero background"
             className="absolute inset-0 w-full h-full object-cover object-top"
+            width={1920}
+            height={1080}
           />
         )}
 

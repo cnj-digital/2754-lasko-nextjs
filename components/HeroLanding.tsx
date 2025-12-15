@@ -6,6 +6,7 @@ import Container from "./Container";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "motion/react";
 import cx from "classnames";
+import Image from "next/image";
 
 type HeroProps = {
   title: string;
@@ -70,20 +71,26 @@ export default function HeroLanding({
         ) : (
           <>
             {backgroundMobileUrl && (
-              <img
+              <Image
                 src={backgroundMobileUrl}
                 alt="Hero background"
                 className="absolute inset-0 w-full h-full object-cover lg:hidden"
+                width={640}
+                height={427}
               />
             )}
-          <img
+            {backgroundUrl && (
+          <Image
             src={backgroundUrl}
             alt="Hero background"
               className={cx(
                 "absolute inset-0 w-full h-full object-cover",
                 backgroundMobileUrl && "hidden lg:block"
               )}
+              width={640}
+              height={427}
           />
+          )}
           </>
         )}
 
@@ -130,25 +137,28 @@ export default function HeroLanding({
             <p className="relative hidden w-1/3 lg:block text-right text-balance text-[32px] leading-tight font-bold text-white">
               {banner.textleft}
             </p>
-            <img
+            <Image
               src="/logo-200.png"
               alt="beer"
               className="relative object-contain h-28 lg:h-32 mx-6 lg:mx-40"
+              width={200}
+              height={200}
+              style={{ width: 'auto' }}
             />
             <p className="relative  lg:flex text-[32px] w-1/3 text-balance  leading-tight font-bold text-white hidden items-center">
               {banner.textright}
               <Chevron className="text-white  size-10" />
             </p>
             {banner.textmobile && (
-              <p className="relative  lg:hidden text-[21px]  leading-tight text-balance font-bold pr-8 text-white flex items-center justify-start">
-                <span
+            <p className="relative  lg:hidden text-[21px]  leading-tight text-balance font-bold pr-8 text-white flex items-center justify-start">
+              <span
                   suppressHydrationWarning
-                  dangerouslySetInnerHTML={{
+                dangerouslySetInnerHTML={{
                     __html: banner.textmobile || "",
-                  }}
+                }}
                 />
-                <Chevron className="text-white  size-8 ml-2 flex-shrink-0" />
-              </p>
+              <Chevron className="text-white  size-8 ml-2 flex-shrink-0" />
+            </p>
             )}
           </Link>
         </motion.div>

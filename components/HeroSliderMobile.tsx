@@ -8,6 +8,7 @@ import { Slide } from "./HeroSlider";
 import useEmblaCarousel from "embla-carousel-react";
 import { EmblaCarouselType } from "embla-carousel";
 import Chevron from "./Icons/Chevron";
+import Image from "next/image";
 
 type HeroSliderProps = {
   slides: Slide[];
@@ -61,10 +62,13 @@ export default function HeroSliderMobile({ slides }: HeroSliderProps) {
                 )}
                 onClick={() => emblaApi?.scrollTo(i)}
               >
-                <img
+                <Image
                   src={beer.image}
                   alt="beer"
                   className="h-[120%] object-contain"
+                  width={640}
+                  height={427}
+                  style={{ width: 'auto' }}
                 />
               </button>
             ))}
@@ -122,10 +126,13 @@ export default function HeroSliderMobile({ slides }: HeroSliderProps) {
                     >
                       {beer.title}
                     </h2> */}
-                    <img
+                    <Image
                       src={beer.image}
                       alt="beer"
                       className="w-full h-auto z-10 relative  max-h-[600px] object-contain "
+                      width={640}
+                      height={427}
+                      style={{ height: 'auto' }}
                     />
                     {beer.specs && beer.specs.length > 0 && (
                       <div className=" border border-inherit rounded-2xl mb-8  max-w-xl">

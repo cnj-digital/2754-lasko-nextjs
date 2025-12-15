@@ -6,6 +6,7 @@ import { useInView } from "motion/react";
 import Link from "next/link";
 import DocumentIcon from "./Icons/Document";
 import { generateAnchorLink } from "@/helpers/general";
+import Image from "next/image";
 
 import ArrowIcon from "./Icons/Arrow";
 
@@ -78,10 +79,13 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
                     : " bg-black bg-opacity-20 hover:bg-opacity-100 hover:bg-[#EDEDED]"
                 )}
               >
-                <img
+                <Image
                   src={beer.image}
                   alt="beer"
                   className="h-[120%] object-contain"
+                  width={640}
+                  height={427}
+                  style={{ width: 'auto' }}
                 />
               </Link>
             ))}
@@ -195,10 +199,13 @@ function BeerContainer({
       ref={ref}
       className="h-screen flex relative z-10 items-center snap-start snap-always"
     >
-      <img
+      <Image
         src={beer.image}
         alt="beer"
         className="h-[80%] w-[500px] object-contain object-center"
+        width={640}
+        height={427}
+        style={{ width: 'auto' }}
       />
     </div>
   );

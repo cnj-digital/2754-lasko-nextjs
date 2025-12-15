@@ -7,6 +7,7 @@ import { useRef } from "react";
 import { useInView } from "motion/react";
 import ArrowIcon from "../Icons/Arrow";
 import useScreenSize from "@/hooks/useScreenSize";
+import Image from "next/image";
 
 type CardCtaProps = {
   title: string;
@@ -80,7 +81,7 @@ export default function CardCta({
       </div>
 
       <div className="lg:overflow-x-hidden lg:overflow-y-visible rounded-3xl -ml-[5%] lg:ml-0 w-full max-w-full h-full lg:absolute inset-0">
-        <img
+        <Image
           src={image}
           alt={title}
           className={cx(
@@ -88,6 +89,8 @@ export default function CardCta({
             isHovered ? "lg:scale-105 " : "lg:scale-75",
             isInView && isMobile ? "scale-125 duration-300" : ""
           )}
+          width={640}
+          height={480}
         />
       </div>
       <div

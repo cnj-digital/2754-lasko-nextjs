@@ -4,6 +4,7 @@ import { generateAnchorLink } from "@/helpers/general";
 import { useInView } from "motion/react";
 import { useRef } from "react";
 import useScreenSize from "@/hooks/useScreenSize";
+import Image from "next/image";
 
 type CardVideoProps = {
   title: string;
@@ -33,13 +34,15 @@ export default function CardVideo({
       style={{ backgroundImage: "url('/bg.jpg')" }}
     >
       <div className="group transition-all w-full h-[260px] overflow-hidden relative">
-        <img
+        <Image
           alt={title}
           src={image}
           className={cx(
             "md:group-hover:scale-105 grayscale md:group-hover:grayscale-0 transition-all w-full h-full object-cover object-center",
             isInView && isMobile ? "scale-105 grayscale-0" : "scale-100"
           )}
+          width={640}
+          height={480}
         />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="w-16 h-16 bg-black/[0.33] rounded-xl flex items-center justify-center">

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ArrowDiagonalIcon from "../Icons/ArrowDiagonal";
+import Image from "next/image";
 
 type CardHorizontalProps = {
   url: string;
@@ -17,7 +18,7 @@ export default function CardHorizontal({
       href={url}
       className=" bg-white px-4 py-3 rounded-2xl flex gap-5 group items-center shadow-card"
     >
-      <img src={image} alt="card" className="" />
+      <Image src={image} alt="card" className="" width={56} height={56} />
       <span className="text-lg text-black leading-[1.4] font-semibold">
         {title}
       </span>

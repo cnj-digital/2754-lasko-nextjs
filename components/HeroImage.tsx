@@ -3,6 +3,7 @@ import ButtonSolid from "./Buttons/Solid";
 import Container from "./Container";
 import ArrowIcon from "./Icons/Arrow";
 import cx from "classnames";
+import Image from "next/image";
 
 interface HeroImageProps {
   title: string;
@@ -90,19 +91,25 @@ export default function HeroImage({
             image && (
             <div className="md:w-6/12 mt-8 md:mt-0 absolute bottom-0 right-0">
               {right_bg_image_mobile && (
-                <img 
+                <Image
                   src={right_bg_image_mobile} 
                   className="w-full object-cover mix-blend-multiply lg:hidden" 
                   alt={title} 
+                  width={640}
+                  height={427}
+                  style={{ height: 'auto' }}
                 />
               )}
-              <img 
+              <Image
                 src={image} 
                 className={cx(
                   "w-full object-cover mix-blend-multiply",
                   right_bg_image_mobile && "hidden lg:block"
                 )} 
                 alt={title} 
+                width={640}
+                height={427}
+                style={{ height: 'auto' }}
               />
             </div>
             )
@@ -110,10 +117,13 @@ export default function HeroImage({
             <>
               {image && (
                 <div className="-mx-6 md:mx-0 md:w-1/2 mt-8 md:mt-0">
-                  <img
+                  <Image
                     src={image}
                     className="w-full object-cover"
                     alt={title}
+                    width={640}
+                    height={427}
+                    style={{ height: 'auto' }}
                   />
                 </div>
               )}

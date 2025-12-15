@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 type WallOfFameItem = {
   id: string;
   image: {
@@ -32,10 +33,12 @@ export default function WallOfFame({ title, item = [] }: WallOfFameProps) {
             style={{ backgroundImage: "url('/bg.jpg')" }}
           >
             <div className="w-full aspect-square overflow-hidden rounded-t-3xl">
-              <img
+              <Image
                 src={entry.image?.permalink}
                 alt={entry.title}
                 className="w-full h-full object-cover"
+                width={640}
+                height={480}
               />
             </div>
             <h3 className="text-left text-2xl leading-[120%] font-bold text-black mt-6 mb-8 px-8">

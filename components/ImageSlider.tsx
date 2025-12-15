@@ -7,6 +7,7 @@ import Chevron from "./Icons/Chevron";
 import { generateAnchorLink } from "@/helpers/general";
 import { EmblaCarouselType } from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
+import Image from "next/image";
 
 type ImageSliderProps = {
   title: string;
@@ -80,10 +81,13 @@ export default function ImageSlider({ title, images }: ImageSliderProps) {
                 )}
               >
                 <div className="relative aspect-[2/1]">
-                  <img
+                  <Image
                     src={image.url}
-                    className="w-full"
+                    className="w-full lg:w-[400px]"
                     alt={image.description}
+                    width={800}
+                    height={600}
+             
                   />
                 </div>
               </div>

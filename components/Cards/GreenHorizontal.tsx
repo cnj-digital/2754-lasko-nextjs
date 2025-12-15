@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Chevron from "../Icons/Chevron";
+import Image from "next/image";
 
 type CardGreenHorizontalProps = {
   url: string;
@@ -22,10 +23,12 @@ export default function CardGreenHorizontal({
         backgroundSize: "auto 100%",
       }}
     >
-      <img
+      <Image
         src={image}
         alt="card"
         className="object-contain w-1/2 lg:w-2/6 absolute left-0 lg:left-20 mix-blend-luminosity group-hover:scale-125 transition-transform"
+        width={430}
+        height={290}
       />
       <span className="text-2xl text-white font-black font-neutraface lg:mr-8">
         {title}

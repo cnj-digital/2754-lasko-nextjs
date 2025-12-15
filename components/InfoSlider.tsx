@@ -7,6 +7,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import cx from "classnames";
 import { EmblaCarouselType } from "embla-carousel";
 import Fade from "embla-carousel-fade";
+import Image from "next/image";
 
 type InfoSliderProps = {
   title: string;
@@ -181,10 +182,13 @@ export default function InfoSlider({ title, copy, slides }: InfoSliderProps) {
       </p>
       <div className="relative lg:p-10 mt-6 lg:mt-10 w-full bg-green-700 rounded-3xl flex items-center justify-center overflow-hidden ">
         <div className="relative">
-          <img
+          <Image
             src="/production.png"
             alt="line"
             className="lg:h-full object-contain  lg:max-h-[400px]"
+            width={595}
+            height={400}
+            style={{ height: 'auto' }}
           />
           {positions.map((position, i) => {
             if (position.variants) {

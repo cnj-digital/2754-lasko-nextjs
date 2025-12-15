@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 
 type LogoItem = {
   id: string;
@@ -28,10 +29,12 @@ export default function Logos({ title, items = [] }: LogosProps) {
       <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-5">
         {items.map((item) => {
           const content = (
-            <img
+            <Image
               src={item.image?.permalink}
               alt=""
               className="max-w-full max-h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300" 
+              width={640}
+              height={640}
             />
           );
 

@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
+import Image from "next/image";
 
 type ProgramItem = {
   title: string;
@@ -136,10 +137,12 @@ export default function CortinaResults({
               <div className="pt-16 md:pt-0 z-10 absolute w-full h-full flex items-center justify-center md:w-auto md:h-auto md:bottom-[-145px] md:left-[30px] md:items-end text-[#559F3E] font-neutraface text-[28vw] md:text-[250px] font-normal leading-normal">
                 {displayedPercentage}%
               </div>
-              <img
+              <Image
                 src="/placeholders/sod.svg"
-                alt={title}
+                alt={title || ""}
                 className="w-full h-auto"
+                width={438}
+                height={480}
               />
               <svg
                 className="absolute top-0 left-0 w-full h-full"

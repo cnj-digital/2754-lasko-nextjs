@@ -5,6 +5,7 @@ import { useInView } from "motion/react";
 import { useRef } from "react";
 import useScreenSize from "@/hooks/useScreenSize";
 import Link from "next/link";
+import Image from "next/image";
 
 type CardLogoProps = {
   title: string;
@@ -34,13 +35,15 @@ export default function CardLogo({
       <div className="flex gap-4 justify-between">
         <div className="flex items-center gap-5">
           <div className="group transition-all w-[56px] h-[56px] overflow-hidden rounded-[9px]">
-            <img
+            <Image
               alt={title}
               src={image}
               className={cx(
                 " md:group-hover:scale-105 grayscale md:group-hover:grayscale-0 transition-all w-full h-full object-cover object-center rounded-[9px]",
                 isInView && isMobile ? "scale-105 grayscale-0" : "scale-100"
               )}
+              width={620}
+              height={300}
             />
           </div>
           <div className="flex items-center justify-between">

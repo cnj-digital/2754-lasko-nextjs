@@ -6,6 +6,7 @@ import { generateAnchorLink } from "@/helpers/general";
 import { useInView } from "motion/react";
 import { useRef } from "react";
 import useScreenSize from "@/hooks/useScreenSize";
+import Image from "next/image";
 
 type CardNewsProps = {
   title: string;
@@ -37,13 +38,15 @@ export default function CardNews({
       style={{ backgroundImage: "url('/bg.jpg')" }}
     >
       <div className="group  transition-all w-full h-[260px] overflow-hidden">
-        <img
+        <Image
           alt={title}
           src={image}
           className={cx(
             " md:group-hover:scale-105 grayscale md:group-hover:grayscale-0 transition-all w-full h-full object-cover object-center",
             isInView && isMobile ? "scale-105 grayscale-0" : "scale-100"
           )}
+          width={640}
+          height={480}
         />
       </div>
       {category && (
@@ -51,7 +54,12 @@ export default function CardNews({
           {category}
         </div>
       )}
-      <div className={cx("flex items-center pl-8 pr-4 pb-8 justify-between", !category && "pt-6")}>
+      <div
+        className={cx(
+          "flex items-center pl-8 pr-4 pb-8 justify-between",
+          !category && "pt-6"
+        )}
+      >
         <h3
           id={generateAnchorLink(title)}
           className={cx(
