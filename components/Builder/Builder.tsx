@@ -13,6 +13,7 @@ import WallOfFame from "./WallOfFame";
 import CortinaResults from "./CortinaResults";
 import RelatedPages from "./RelatedPages";
 import Carousel from "./Carousel";
+import ProgramAccordion from "./ProgramAccordion";
 
 type BuilderComponentProps = {
   type: string;
@@ -42,10 +43,11 @@ export default function BuilderComponent({
     related_pages: RelatedPages,
     related_pages_two: RelatedPages,
     carousel: Carousel,
+    program_accordion: ProgramAccordion,
   };
 
   // Debug: log component type to see what's being passed
-  // console.log('Builder component type:', type, 'Data:', data);
+  //console.log('Builder component type:', type, 'Data:', data);
 
   const Component = components[type] ? components[type] : NotFound;
 

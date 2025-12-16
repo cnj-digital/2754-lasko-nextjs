@@ -2,122 +2,142 @@ import { gql } from "graphql-request";
 
 export const cortinaQuery = gql`
   query cortinaQuery($uri: String, $site: String) {
-    globalSet(handle: "share_section", site: $site) {
-      ... on GlobalSet_ShareSection {
-        share_text: text
-        share_title: share_title
-      }
+  globalSet(handle: "share_section", site: $site) {
+    ... on GlobalSet_ShareSection {
+      share_text: text
+      share_title: share_title
     }
-    videosItems: entries(collection: "videos", site: $site) {
-      data {
-        id
-        title
-        ... on Entry_Videos_Video {
-          title
-          image_placeholder {
-            permalink
-          }
-          video {
-            permalink
-          }
-          youtube_video_embed_url
-        }
-      }
-    }
-    eventsItems: entries(collection: "events", site: $site) {
-      data {
-        id
-        title
-        url
-        permalink
-        ... on Entry_Events_Event {
-          title
-          featured_image {
-            permalink
-          }
-        }
-      }
-    }
-    medijskeVsebineItems: entries(collection: "medijske_vsebine", site: $site) {
-      data {
-        id
-        title
-        slug
-        permalink
-        ... on Entry_MedijskeVsebine_MedijskeVsebine {
-          content
-          type {
-            value
-            label
-          }
-          featured_image {
-            permalink
-          }
-          file {
-            permalink
-          }
-          kategorija {
-            id
-            title
-            slug
-            permalink
-          }
-        }
-      }
-    }
-    medijskeVsebineKategorije: entries(collection: "medijske_vsebine_kategorije", site: $site) {
-      data {
-        id
-        title
-        slug
-        permalink
-      }
-    }
-    entry(uri: $uri, site: $site) {
+  }
+  videosItems: entries(collection: "videos", site: $site) {
+    data {
+      id
       title
-      ... on Entry_Pages_Cortina {
-        cortina_hero {
-          cortina_title
-          cortina_content
-          cortina_ctas {
-            ... on Set_CortinaHero_CortinaCtas_Cta {
+      ... on Entry_Videos_Video {
+        title
+        image_placeholder {
+          permalink
+        }
+        video {
+          permalink
+        }
+        youtube_video_embed_url
+      }
+    }
+  }
+  eventsItems: entries(collection: "events", site: $site) {
+    data {
+      id
+      title
+      url
+      permalink
+      ... on Entry_Events_Event {
+        title
+        featured_image {
+          permalink
+        }
+      }
+    }
+  }
+  medijskeVsebineItems: entries(collection: "medijske_vsebine", site: $site) {
+    data {
+      id
+      title
+      slug
+      permalink
+      ... on Entry_MedijskeVsebine_MedijskeVsebine {
+        content
+        type {
+          value
+          label
+        }
+        featured_image {
+          permalink
+        }
+        file {
+          permalink
+        }
+        kategorija {
+          id
+          title
+          slug
+          permalink
+        }
+      }
+    }
+  }
+  medijskeVsebineKategorije: entries(
+    collection: "medijske_vsebine_kategorije"
+    site: $site
+  ) {
+    data {
+      id
+      title
+      slug
+      permalink
+    }
+  }
+  entry(uri: $uri, site: $site) {
+    title
+    ... on Entry_Pages_Cortina {
+      cortina_hero {
+        cortina_title
+        cortina_content
+        cortina_ctas {
+          ... on Set_CortinaHero_CortinaCtas_Cta {
+            cta {
+              link
+              title
+            }
+          }
+        }
+        cortinabg_image {
+          permalink
+        }
+        right_bg_image_mobile {
+          permalink
+        }
+        hero_main_bg {
+          permalink
+        }
+        hero_main_bg_mobile {
+          permalink
+        }
+      }
+      builder_items {
+        ... on Set_BuilderItems_ContentSet {
+          asset {
+            permalink
+          }
+          title
+          type
+          content_field {
+            ... on Set_BuilderItems_ContentField_CtaSet {
+              id
+              type
               cta {
+                asset {
+                  permalink
+                }
                 link
                 title
               }
             }
-          }
-          cortinabg_image { permalink }
-          right_bg_image_mobile { permalink }
-          hero_main_bg { permalink }
-          hero_main_bg_mobile { permalink }
-        }
-        builder_items {
-          ... on Set_BuilderItems_ContentSet {
-            asset { permalink }
-            title
-            type
-            content_field {
-              ... on Set_BuilderItems_ContentField_CtaSet {
-                id
-                type
-                cta {
-                  asset { permalink }
-                  link
-                  title
-                }
-              }
-              ... on BardText { text type }
+            ... on BardText {
+              text
+              type
             }
-            variant { value }
-            cta {
+          }
+          variant {
+            value
+          }
+          cta {
             title
             link
             asset {
               permalink
             }
           }
-            cta_second {
+          cta_second {
             asset {
               permalink
             }
@@ -127,59 +147,100 @@ export const cortinaQuery = gql`
           id
           display_video
           youtube_video_embed_url
+        }
+        ... on Set_BuilderItems_Quote {
+          type
+          quote_content_field
+        }
+        ... on Set_BuilderItems_Carousel {
+          assets {
+            permalink
           }
-          ... on Set_BuilderItems_Quote { type quote_content_field }
-          ... on Set_BuilderItems_Carousel { assets { permalink } type }
-          ... on Set_BuilderItems_Share { type }
-          ... on Set_BuilderItems_Video { mp4 { permalink } youtube type }
-          ... on Set_BuilderItems_Form {
-            type
-            form {
-              ... on Entry_Form_Form {
-                content
-                id
-                title
-                items {
-                  ... on Set_Items_TextInput {
-                    label
-                    type
-                    variant_input { value }
-                    required
+          type
+        }
+        ... on Set_BuilderItems_Share {
+          type
+        }
+        ... on Set_BuilderItems_Video {
+          mp4 {
+            permalink
+          }
+          youtube
+          type
+        }
+        ... on Set_BuilderItems_Form {
+          type
+          form {
+            ... on Entry_Form_Form {
+              content
+              id
+              title
+              items {
+                ... on Set_Items_TextInput {
+                  label
+                  type
+                  variant_input {
+                    value
                   }
-                  ... on Set_Items_TextArea { required label type }
-                  ... on Set_Items_Checkbox { label required type title }
-                  ... on Set_Items_SingleChoice {
-                    label
-                    variant { value }
-                    required
-                    type
-                    options
-                  }
-                  ... on Set_Items_MultipleChoice { options label required type }
-                  ... on Set_Items_File { content label type }
+                  required
                 }
-                submit_button_label
-                disclaimer
-                required_error
-                success { title content }
+                ... on Set_Items_TextArea {
+                  required
+                  label
+                  type
+                }
+                ... on Set_Items_Checkbox {
+                  label
+                  required
+                  type
+                  title
+                }
+                ... on Set_Items_SingleChoice {
+                  label
+                  variant {
+                    value
+                  }
+                  required
+                  type
+                  options
+                }
+                ... on Set_Items_MultipleChoice {
+                  options
+                  label
+                  required
+                  type
+                }
+                ... on Set_Items_File {
+                  content
+                  label
+                  type
+                }
+              }
+              submit_button_label
+              disclaimer
+              required_error
+              success {
+                title
+                content
               }
             }
           }
-          ... on Set_BuilderItems_CortinaForm {
-            id
-            title
-            type
-            form_type {
+        }
+        ... on Set_BuilderItems_CortinaForm {
+          id
+          title
+          type
+          form_type {
             value
             label
-            }
-            open_all_dates
           }
-          ... on Set_BuilderItems_MedijskeVsebine {
-            title
-            type
-          }
-            ... on Set_BuilderItems_Logos {
+          open_all_dates
+        }
+        ... on Set_BuilderItems_MedijskeVsebine {
+          title
+          type
+        }
+        ... on Set_BuilderItems_Logos {
           id
           items {
             ... on Set_BuilderItems_Items_Item {
@@ -192,12 +253,12 @@ export const cortinaQuery = gql`
           }
           title
           type
-          }
-          ... on Set_BuilderItems_Videos {
+        }
+        ... on Set_BuilderItems_Videos {
           id
           title
           type
-          }
+        }
         ... on Set_BuilderItems_News {
           type
           title
@@ -214,12 +275,12 @@ export const cortinaQuery = gql`
               }
             }
           }
-         }
-           ... on Set_BuilderItems_Events {
-           title
-           type
-          }
-          ... on Set_BuilderItems_CortinaResults {
+        }
+        ... on Set_BuilderItems_Events {
+          title
+          type
+        }
+        ... on Set_BuilderItems_CortinaResults {
           type
           energy_collected
           title
@@ -235,8 +296,8 @@ export const cortinaQuery = gql`
               title_mobile
             }
           }
-          }
-          ... on Set_BuilderItems_WallOfFame {
+        }
+        ... on Set_BuilderItems_WallOfFame {
           title
           type
           item {
@@ -248,8 +309,8 @@ export const cortinaQuery = gql`
               title
             }
           }
-         }
-         ... on Set_BuilderItems_RelatedPages {
+        }
+        ... on Set_BuilderItems_RelatedPages {
           related_pages_title: title
           type
           pages {
@@ -268,34 +329,48 @@ export const cortinaQuery = gql`
             }
           }
         }
-      }
-        display_hero_v2
-        hero_v2 {
-          herov2_title
-          herov2_description
-          herov2_background {
-            permalink
-          }
-            background_mobile {
-            permalink
-          }
-          cta {
-            link
-            title
-            asset {
-              permalink
+        ... on Set_BuilderItems_ProgramAccordion {
+          id
+          type
+          program {
+            ... on Set_BuilderItems_Program_Item {
+              id
+              description
+              title
+              title_mobile
+              type
             }
           }
-            cta_second {
-            link
-            title
+          program_title
+        }
+      }
+      display_hero_v2
+      hero_v2 {
+        herov2_title
+        herov2_description
+        herov2_background {
+          permalink
+        }
+        background_mobile {
+          permalink
+        }
+        cta {
+          link
+          title
+          asset {
+            permalink
           }
         }
-        protect_page
-        password
+        cta_second {
+          link
+          title
+        }
       }
+      protect_page
+      password
     }
   }
+}
 `;
 
 

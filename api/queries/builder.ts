@@ -252,6 +252,20 @@ export const builderQuery = gql`
               }
             }
           }
+            ... on Set_BuilderItems_ProgramAccordion {
+            id
+            type
+            program {
+              ... on Set_BuilderItems_Program_Item {
+                id
+                description
+                title
+                title_mobile
+                type
+              }
+            }
+            program_title
+          }
         }
       }
     }
