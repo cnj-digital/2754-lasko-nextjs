@@ -67,13 +67,13 @@ const Menu = ({ nav }: MenuProps) => {
         <nav className="grid grid-cols-3 lg:flex justify-center lg:justify-start items-center py-2.5 w-full ">
           <Link
             href={`/${lang}`}
-            className=" mx-auto lg:mx-0 w-24 xl:w-[140px] order-2 lg:order-1 self-center relative"
+            className="lg:mx-0 w-24 xl:w-[140px] order-2 lg:order-1 self-center relative"
           >
             <Image
               src="/logo.png"
               alt="Logo"
               className={cx(
-                "transition-all duration-300 w-full object-contain object-center",
+                "transition-all duration-300 w-full object-contain object-center mx-auto",
                 isScrolled ? " h-[60px] lg:h-[80px] " : "h-[120px]"
               )}
               width={1773}
