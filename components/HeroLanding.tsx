@@ -87,8 +87,8 @@ export default function HeroLanding({
                 "absolute inset-0 w-full h-full object-cover",
                 backgroundMobileUrl && "hidden lg:block"
               )}
-              width={640}
-              height={427}
+              width={1920}
+              height={900}
           />
           )}
           </>
