@@ -75,8 +75,8 @@ export default function HeroLanding({
                 src={backgroundMobileUrl}
                 alt="Hero background"
                 className="absolute inset-0 w-full h-full object-cover lg:hidden"
-                width={640}
-                height={427}
+                width={1920}
+                height={900}
               />
             )}
             {backgroundUrl && (
