@@ -5,7 +5,20 @@ const nextConfig: NextConfig = {
   /*output: "export",*/
   trailingSlash: true,
   images: {
-    domains: ['localhost', 'cms.lasko.eu', 'img.youtube.com'],
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cms.lasko.eu',
+      },
+      {
+        protocol: 'https',
+        hostname: 'img.youtube.com',
+      },
+    ],
   },
 };
 
