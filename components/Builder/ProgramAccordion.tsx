@@ -17,7 +17,20 @@ export default function ProgramAccordion({
   program_title,
   program = [],
 }: ProgramAccordionProps) {
-  const [openAccordion, setOpenAccordion] = useState<number | null>(null);
+  // Use Set to allow multiple accordions to be open, start with first one open
+  const [openAccordions, setOpenAccordions] = useState<Set<number>>(new Set([0]));
+
+  const toggleAccordion = (index: number) => {
+    setOpenAccordions((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(index)) {
+        newSet.delete(index);
+      } else {
+        newSet.add(index);
+      }
+      return newSet;
+    });
+  };
 
   if (!program || program.length === 0) return null;
 
@@ -32,12 +45,10 @@ export default function ProgramAccordion({
         {program.map((item, index) => (
           <div key={index} className="overflow-hidden">
             <button
-              onClick={() =>
-                setOpenAccordion(openAccordion === index ? null : index)
-              }
+              onClick={() => toggleAccordion(index)}
               className="w-full px-6 py-3 flex items-center justify-between md:justify-start text-left transition-colors"
             >
-              <h3 className="text-green-800 font-black text-[40px] md:text-[40px] leading-tight font-neutraface">
+              <h3 className="text-black font-black text-[28px] md:text-[32px] leading-tight font-neutraface">
                 <span className="hidden md:inline">{item.title}</span>
                 <span className="md:hidden">
                   {item.title_mobile || item.title}
@@ -45,7 +56,7 @@ export default function ProgramAccordion({
               </h3>
               <svg
                 className={`w-8 h-8 text-green-800 transition-transform ml-6 ${
-                  openAccordion === index ? "rotate-180" : ""
+                  openAccordions.has(index) ? "rotate-180" : ""
                 }`}
                 xmlns="http://www.w3.org/2000/svg"
                 width="32"
@@ -61,7 +72,7 @@ export default function ProgramAccordion({
             </button>
             <div
               className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                openAccordion === index
+                openAccordions.has(index)
                   ? "max-h-[1000px] opacity-100"
                   : "max-h-0 opacity-0"
               }`}
