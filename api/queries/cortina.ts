@@ -323,11 +323,18 @@ export const cortinaQuery = gql`
         ... on Set_BuilderItems_WallOfFame {
           title
           type
-          item {
-            ... on Set_BuilderItems_Item_Item {
+          boxes {
+            ... on Set_BuilderItems_Boxes_Boxes {
               id
-              image {
-                permalink
+              item {
+                ... on Set_BuilderItems_Boxes_Item_Item {
+                  id
+                  title
+                  type
+                  image {
+                    permalink
+                  }
+                }
               }
               title
             }

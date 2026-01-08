@@ -265,17 +265,24 @@ export const builderQuery = gql`
           ... on Set_BuilderItems_WallOfFame {
             title
             type
-            item {
-              ... on Set_BuilderItems_Item_Item {
+            boxes {
+              ... on Set_BuilderItems_Boxes_Boxes {
                 id
-                image {
-                  permalink
+                item {
+                  ... on Set_BuilderItems_Boxes_Item_Item {
+                    id
+                    title
+                    type
+                    image {
+                      permalink
+                    }
+                  }
                 }
                 title
               }
             }
           }
-            ... on Set_BuilderItems_ProgramAccordion {
+          ... on Set_BuilderItems_ProgramAccordion {
             id
             type
             program {
