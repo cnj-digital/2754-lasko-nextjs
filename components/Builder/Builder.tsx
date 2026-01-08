@@ -46,9 +46,6 @@ export default function BuilderComponent({
     program_accordion: ProgramAccordion,
   };
 
-  // Debug: log component type to see what's being passed
-  //console.log('Builder component type:', type, 'Data:', data);
-
   const Component = components[type] ? components[type] : NotFound;
 
   return <Component {...data} {...globals} />;

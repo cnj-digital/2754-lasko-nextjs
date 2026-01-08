@@ -239,6 +239,29 @@ export const cortinaQuery = gql`
         ... on Set_BuilderItems_MedijskeVsebine {
           title
           type
+          select_medijske_vsebine {
+            ... on Entry_MedijskeVsebine_MedijskeVsebine {
+              title
+              id
+              featured_image {
+                permalink
+              }
+              slug
+              file {
+                permalink
+              }
+              type {
+                label
+                value
+              }
+              kategorija {
+                id
+                title
+                slug
+                permalink
+              }
+            }
+          }
         }
         ... on Set_BuilderItems_Logos {
           id
