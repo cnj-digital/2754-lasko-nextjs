@@ -57,6 +57,10 @@ const FORM_DAYS = [
 
 const FORM_HOURS = [
   {
+    title: "0:00 - 1:00",
+    hour: "0:00",
+  },
+  {
     title: "1:00 - 2:00",
     hour: "1:00",
   },
