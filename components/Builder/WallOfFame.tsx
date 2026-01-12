@@ -87,7 +87,7 @@ export default function WallOfFame({ title, boxes = [] }: WallOfFameProps) {
             >
               <div className="px-6 pb-6">
                 {box.item && box.item.length > 0 && (
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8">
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
                     {box.item.map((entry) => (
                       <div
                         key={entry.id}
@@ -103,7 +103,7 @@ export default function WallOfFame({ title, boxes = [] }: WallOfFameProps) {
                             height={480}
                           />
                         </div>
-                        <h4 className="text-left text-xl md:text-2xl leading-[120%] font-bold text-black mt-4 md:mt-6 mb-6 md:mb-8 px-4 md:px-8">
+                        <h4 className="text-left text-xl md:text-lg leading-[120%] font-bold text-black mt-4 md:mt-6 mb-6 md:mb-8 px-4 md:px-8">
                           {entry.title}
                         </h4>
                       </div>
