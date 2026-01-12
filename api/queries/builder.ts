@@ -61,6 +61,13 @@ export const builderQuery = gql`
                   title
                 }
               }
+              ... on Set_BuilderItems_ContentField_Image {
+                id
+                type
+                image {
+                  permalink
+                }
+              }
               ... on BardText {
                 text
                 type

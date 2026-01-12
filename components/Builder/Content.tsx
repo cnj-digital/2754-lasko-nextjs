@@ -14,7 +14,7 @@ export type ContentProps = {
   asset: { permalink: string } | null;
   display_video: boolean;
   youtube_video_embed_url: string;
-  content_field: (Cta | Text)[];
+  content_field: (Cta | Text | ContentFieldImage)[];
   cta?: {
     link: string;
     title: string;
@@ -40,6 +40,11 @@ type Cta = {
     title: string;
   };
   type: "cta_set";
+};
+
+type ContentFieldImage = {
+  image: { permalink: string };
+  type: "image";
 };
 
 
@@ -152,6 +157,17 @@ export default function Content({
                     <ArrowDiagonalIcon className="size-6 text-black" />
                   )}
                 </Link>
+              );
+            } else if (item.type === "image") {
+              return (
+                <Image
+                  key={i}
+                  src={item.image.permalink}
+                  alt="content image"
+                  className="rounded-2xl my-8 w-full h-auto"
+                  width={1920}
+                  height={1080}
+                />
               );
             }
           })}
