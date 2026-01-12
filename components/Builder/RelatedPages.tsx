@@ -46,7 +46,7 @@ export default function RelatedPages({
             key={page.slug}
             title={page.title}
             image={page.featured_image?.permalink || "/placeholders/news.png"}
-            url={page.permalink}
+            url={`/si/${page.slug}`}
             category=""
           />
         ))}
