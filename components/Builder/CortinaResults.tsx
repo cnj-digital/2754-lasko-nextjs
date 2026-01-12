@@ -201,8 +201,7 @@ export default function CortinaResults({
             {energy_collected < 66 && (
               <>
                 {title && (
-                  <h2 className="text-green-800 font-black text-[40px] lg:text-[52px] leading-tight font-neutraface mb-6 text-center md:text-left">
-                    {title}
+                  <h2 className="text-green-800 font-black text-[40px] lg:text-[52px] leading-tight font-neutraface mb-6 text-center md:text-left" dangerouslySetInnerHTML={{ __html: title }}>
                   </h2>
                 )}
 
@@ -219,8 +218,7 @@ export default function CortinaResults({
             {energy_collected >= 66 && energy_collected < 100 && (
               <>
                 {title_two && (
-                  <h3 className="text-green-800 font-black text-[40px] lg:text-[52px] leading-tight font-neutraface mb-6 text-center md:text-left">
-                    {title_two}
+                  <h3 className="text-green-800 font-black text-[40px] lg:text-[52px] leading-tight font-neutraface mb-6 text-center md:text-left" dangerouslySetInnerHTML={{ __html: title_two }}>
                   </h3>
                 )}
 
@@ -237,8 +235,7 @@ export default function CortinaResults({
             {energy_collected >= 100 && (
               <>
                 {title_three && (
-                  <h3 className="text-green-800 font-black text-[40px] lg:text-[52px] leading-tight font-neutraface mb-6 text-center md:text-left">
-                    {title_three}
+                  <h3 className="text-green-800 font-black text-[40px] lg:text-[52px] leading-tight font-neutraface mb-6 text-center md:text-left" dangerouslySetInnerHTML={{ __html: title_three }}>
                   </h3>
                 )}
 
